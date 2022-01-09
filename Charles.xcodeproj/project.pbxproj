@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		556DEE26278B63E100CBFF5C /* CharlesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE25278B63E100CBFF5C /* CharlesApp.swift */; };
-		556DEE28278B63E100CBFF5C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE27278B63E100CBFF5C /* ContentView.swift */; };
 		556DEE2A278B63E200CBFF5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 556DEE29278B63E200CBFF5C /* Assets.xcassets */; };
 		556DEE2D278B63E200CBFF5C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 556DEE2C278B63E200CBFF5C /* Preview Assets.xcassets */; };
 		556DEE37278B63E200CBFF5C /* CharlesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE36278B63E200CBFF5C /* CharlesTests.swift */; };
@@ -23,6 +22,8 @@
 		556DEE71278B7A6100CBFF5C /* OperationFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE70278B7A6100CBFF5C /* OperationFormView.swift */; };
 		556DEE73278B7A7D00CBFF5C /* OperationFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE72278B7A7D00CBFF5C /* OperationFormViewModel.swift */; };
 		556DEE78278B7E3700CBFF5C /* View+Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE77278B7E3700CBFF5C /* View+Placeholder.swift */; };
+		55B6BC48278B8D8500B421AE /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B6BC47278B8D8500B421AE /* HomeCoordinator.swift */; };
+		55B6BC4A278B8D8F00B421AE /* OperationFormCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B6BC49278B8D8F00B421AE /* OperationFormCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +39,6 @@
 /* Begin PBXFileReference section */
 		556DEE22278B63E100CBFF5C /* Charles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Charles.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		556DEE25278B63E100CBFF5C /* CharlesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharlesApp.swift; sourceTree = "<group>"; };
-		556DEE27278B63E100CBFF5C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		556DEE29278B63E200CBFF5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		556DEE2C278B63E200CBFF5C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		556DEE32278B63E200CBFF5C /* CharlesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CharlesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,6 +54,8 @@
 		556DEE70278B7A6100CBFF5C /* OperationFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFormView.swift; sourceTree = "<group>"; };
 		556DEE72278B7A7D00CBFF5C /* OperationFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFormViewModel.swift; sourceTree = "<group>"; };
 		556DEE77278B7E3700CBFF5C /* View+Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Placeholder.swift"; sourceTree = "<group>"; };
+		55B6BC47278B8D8500B421AE /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		55B6BC49278B8D8F00B421AE /* OperationFormCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFormCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 			children = (
 				556DEE25278B63E100CBFF5C /* CharlesApp.swift */,
 				556DEE5E278B666900CBFF5C /* Common */,
+				55B6BC46278B8D7600B421AE /* Coordinators */,
 				556DEE50278B642F00CBFF5C /* Modules */,
 				556DEE4F278B642600CBFF5C /* Supporting Files */,
 				556DEE2B278B63E200CBFF5C /* Preview Content */,
@@ -132,7 +135,6 @@
 		556DEE50278B642F00CBFF5C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				556DEE27278B63E100CBFF5C /* ContentView.swift */,
 				556DEE51278B643B00CBFF5C /* Home */,
 				556DEE6E278B79DF00CBFF5C /* Operation Form */,
 			);
@@ -224,6 +226,15 @@
 				556DEE74278B7E1800CBFF5C /* InputTextField */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		55B6BC46278B8D7600B421AE /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				55B6BC47278B8D8500B421AE /* HomeCoordinator.swift */,
+				55B6BC49278B8D8F00B421AE /* OperationFormCoordinator.swift */,
+			);
+			path = Coordinators;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -329,8 +340,9 @@
 				556DEE71278B7A6100CBFF5C /* OperationFormView.swift in Sources */,
 				556DEE6D278B730200CBFF5C /* InputTextField.swift in Sources */,
 				556DEE57278B64A700CBFF5C /* HomeView.swift in Sources */,
-				556DEE28278B63E100CBFF5C /* ContentView.swift in Sources */,
+				55B6BC4A278B8D8F00B421AE /* OperationFormCoordinator.swift in Sources */,
 				556DEE78278B7E3700CBFF5C /* View+Placeholder.swift in Sources */,
+				55B6BC48278B8D8500B421AE /* HomeCoordinator.swift in Sources */,
 				556DEE73278B7A7D00CBFF5C /* OperationFormViewModel.swift in Sources */,
 				556DEE65278B666900CBFF5C /* DesignSystem.swift in Sources */,
 				556DEE26278B63E100CBFF5C /* CharlesApp.swift in Sources */,

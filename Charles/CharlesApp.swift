@@ -11,7 +11,10 @@ import SwiftUI
 struct CharlesApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationView {
+                HomeCoordinator(viewModel: .init(homeViewModel: .init()))
+            }
+            .navigationViewStyle(.stack)
         }
     }
 }

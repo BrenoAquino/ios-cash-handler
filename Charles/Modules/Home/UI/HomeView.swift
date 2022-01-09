@@ -11,29 +11,26 @@ struct HomeView: View {
     
     @ObservedObject private(set) var viewModel: ViewModel
     
-    init(viewModel: ViewModel = ViewModel()) {
+    init(viewModel: ViewModel) {
         self.viewModel = viewModel
     }
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                DSColor.background.rawValue
-                Text("Hello world from SwiftUI!").foregroundColor(.white)
-            }
-            .confirmationDialog("Operation type to add", isPresented: $viewModel.operationOptions, titleVisibility: .visible, actions: {
-                Button("Cash In", action: viewModel.addCashIn)
-                Button("Cash Out", action: viewModel.addCashOut)
-                Button("Cancel", role: .cancel, action: viewModel.addCancel)
-            })
-            .edgesIgnoringSafeArea([.top, .bottom])
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                profileBar
-                addBar
-            }
+        ZStack {
+            DSColor.background.rawValue
+            Text("Hello world from SwiftUI!").foregroundColor(.white)
         }
-        .navigationViewStyle(.stack)
+        .confirmationDialog("Operation type to add", isPresented: $viewModel.operationOptions, titleVisibility: .visible, actions: {
+            Button("Cash In", action: viewModel.addCashIn)
+            Button("Cash Out", action: viewModel.addCashOut)
+            Button("Cancel", role: .cancel, action: viewModel.addCancel)
+        })
+        .edgesIgnoringSafeArea([.top, .bottom])
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            profileBar
+            addBar
+        }
     }
     
     // MARK: Profile
@@ -74,6 +71,6 @@ struct HomeView: View {
 // MARK: - Preview
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(viewModel: .init())
     }
 }
