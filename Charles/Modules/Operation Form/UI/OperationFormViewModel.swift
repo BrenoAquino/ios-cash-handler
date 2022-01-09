@@ -9,6 +9,11 @@ import SwiftUI
 
 extension OperationFormView {
     
+    enum OperationType {
+        case cashIn
+        case cashOut
+    }
+    
     class ViewModel: ObservableObject {
         
         @Published var name: String = ""

@@ -12,7 +12,7 @@ extension HomeView {
     class ViewModel: ObservableObject {
         
         @Published var operationOptions: Bool = false
-        
+        var selectAddOperation: ((OperationFormView.OperationType) -> Void)?
         
         // MARK: Actions
         func selectAdd() {
@@ -21,17 +21,16 @@ extension HomeView {
         
         func addCashIn() {
             operationOptions = false
-            print("addCashIn")
+            selectAddOperation?(.cashIn)
         }
         
         func addCashOut() {
             operationOptions = false
-            print("addCashOut")
+            selectAddOperation?(.cashOut)
         }
         
         func addCancel() {
             operationOptions = false
-            print("addCancel")
         }
     }
 }
