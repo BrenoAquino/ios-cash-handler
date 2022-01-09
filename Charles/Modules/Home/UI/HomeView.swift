@@ -17,7 +17,7 @@ struct HomeView: View {
     
     var body: some View {
         ZStack {
-            DSColor.background.rawValue
+            DSColor.background.rawValue.edgesIgnoringSafeArea([.top, .bottom])
             Text("Hello world from SwiftUI!").foregroundColor(.white)
         }
         .confirmationDialog("Operation type to add", isPresented: $viewModel.operationOptions, titleVisibility: .visible, actions: {
@@ -25,7 +25,6 @@ struct HomeView: View {
             Button("Cash Out", action: viewModel.addCashOut)
             Button("Cancel", role: .cancel, action: viewModel.addCancel)
         })
-        .edgesIgnoringSafeArea([.top, .bottom])
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             profileBar
