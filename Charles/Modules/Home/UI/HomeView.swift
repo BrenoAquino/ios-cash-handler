@@ -40,7 +40,7 @@ struct HomeView: View {
                     Circle()
                         .fill(.secondBackground)
                         .frame(width: 40, height: 40)
-                        .shadow(color: .black, radius: 16)
+                        .shadow(style: .medium)
                     Text("BA")
                         .foregroundColor(DSColor.primaryText.rawValue)
                         .font(.headline)

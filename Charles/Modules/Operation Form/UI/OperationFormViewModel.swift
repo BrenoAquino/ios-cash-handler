@@ -16,6 +16,18 @@ extension OperationFormView {
     
     class ViewModel: ObservableObject {
         
+        let type: OperationType
+        
         @Published var name: String = ""
+        @Published var date: String = ""
+        @Published var value: String = ""
+        
+        init(type: OperationType) {
+            self.type = type
+        }
+        
+        func addOperation() {
+            
+        }
     }
 }

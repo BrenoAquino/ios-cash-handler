@@ -21,10 +21,12 @@ extension DesignSystem {
         public static let headline: DSFont = DSFont(rawValue: Font.system(size: 18, weight: .regular, design: .default))
         /// System Font - Light - Size 12
         public static let subheadline: DSFont = DSFont(rawValue: Font.system(size: 12, weight: .light, design: .default))
-        /// System Font - Light - Size 12
+        /// System Font - Semibold - Size 12
         public static let caption1: DSFont = DSFont(rawValue: Font.system(size: 14, weight: .semibold, design: .default))
         /// System Font - Light - Size 12
         public static let input: DSFont = DSFont(rawValue: Font.system(size: 14, weight: .light, design: .default))
+        /// System Font - Semibold - Size 12
+        public static let button: DSFont = DSFont(rawValue: Font.system(size: 14, weight: .semibold, design: .default))
     }
 }
 

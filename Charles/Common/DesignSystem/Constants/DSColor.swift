@@ -23,6 +23,8 @@ extension DesignSystem {
     struct DSColor {
         public var rawValue: Color
         
+        /// Clear - 0xFFFFFF - 0%
+        static let clear: DSColor = DSColor(rawValue: Color(rgba: 0xFFFFFF00))
         /// Backgorund - 0x171B1E - 100%
         static let background: DSColor = DSColor(rawValue: Color(rgba: 0x171B1EFF))
         /// Second Background - 0x272932 - 100%
@@ -31,6 +33,10 @@ extension DesignSystem {
         static let primaryText: DSColor = DSColor(rawValue: Color(rgba: 0xFFFFFFFF))
         /// Placeholder - 0x9397A0 - 100%
         static let placholder: DSColor = DSColor(rawValue: Color(rgba: 0x9397A0FF))
+        /// Black - 0x000000 - 100%
+        static let shadow: DSColor = DSColor(rawValue: Color(rgba: 0x000000FF))
+        /// Black - 0x000000 - 100%
+        static let easyShadow: DSColor = DSColor(rawValue: Color(rgba: 0x00000088))
     }
 }
 

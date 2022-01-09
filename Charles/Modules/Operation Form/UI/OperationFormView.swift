@@ -19,32 +19,60 @@ struct OperationFormView: View {
         ZStack(alignment: .top) {
             DSColor.background.rawValue.edgesIgnoringSafeArea([.top, .bottom])
             VStack(spacing: DSSpace.smallL.rawValue) {
-                InputTextField(
-                    title: "Nome da Operação",
-                    placeholder: "Nome da origem ou descrição curta",
-                    text: $viewModel.name
-                )
-                HStack(spacing: DSSpace.smallL.rawValue) {
-                    InputTextField(
-                        title: "Data",
-                        placeholder: "DD/MM/YYYY",
-                        text: $viewModel.name
-                    )
-                    InputTextField(
-                        title: "Valor",
-                        placeholder: "R$ 0.000,00",
-                        text: $viewModel.name
-                    )
-                }
+                title
+                form
+                addButton
             }
-            .padding(24)
+            .padding(DSSpace.normal.rawValue)
         }
         .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    // MARK: Header
+    private var title: some View {
+        Text("Operation")
+            .font(DSFont.largeTitle.rawValue)
+            .foregroundColor(DSColor.primaryText.rawValue)
+            .padding()
+    }
+    
+    // MARK: Form
+    private var form: some View {
+        Group {
+            DSInputTextField(
+                title: "Nome da Operação",
+                placeholder: "Nome da origem ou descrição curta",
+                text: $viewModel.name
+            )
+            HStack(spacing: DSSpace.smallL.rawValue) {
+                DSInputTextField(
+                    title: "Data",
+                    placeholder: "DD/MM/YYYY",
+                    text: $viewModel.date
+                )
+                DSInputTextField(
+                    title: "Valor",
+                    placeholder: "R$ 0.000,00",
+                    text: $viewModel.value
+                )
+            }
+        }
+    }
+    
+    // MARK: Button
+    private var addButton: some View {
+        Group {
+            DSButton(title: "Add Operation", action: viewModel.addOperation)
+                .frame(maxWidth: .infinity, minHeight: 56)
+                .background(DSColor.secondBackground.rawValue)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .shadow(style: .easy)
+        }.padding()
     }
 }
 
 struct OperationFormView_Previews: PreviewProvider {
     static var previews: some View {
-        OperationFormView(viewModel: .init())
+        OperationFormView(viewModel: .init(type: .cashIn))
     }
 }
