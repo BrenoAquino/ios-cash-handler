@@ -97,7 +97,7 @@
 			children = (
 				556DEE25278B63E100CBFF5C /* CharlesApp.swift */,
 				556DEE5E278B666900CBFF5C /* Common */,
-				556DEE50278B642F00CBFF5C /* Features */,
+				556DEE50278B642F00CBFF5C /* Modules */,
 				556DEE4F278B642600CBFF5C /* Supporting Files */,
 				556DEE2B278B63E200CBFF5C /* Preview Content */,
 			);
@@ -129,14 +129,14 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		556DEE50278B642F00CBFF5C /* Features */ = {
+		556DEE50278B642F00CBFF5C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
 				556DEE27278B63E100CBFF5C /* ContentView.swift */,
 				556DEE51278B643B00CBFF5C /* Home */,
 				556DEE6E278B79DF00CBFF5C /* Operation Form */,
 			);
-			path = Features;
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		556DEE51278B643B00CBFF5C /* Home */ = {
