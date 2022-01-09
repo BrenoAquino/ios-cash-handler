@@ -21,6 +21,11 @@ struct HomeView: View {
                 DSColor.background.rawValue
                 Text("Hello world from SwiftUI!").foregroundColor(.white)
             }
+            .confirmationDialog("Operation type to add", isPresented: $viewModel.operationOptions, titleVisibility: .visible, actions: {
+                Button("Cash In", action: viewModel.addCashIn)
+                Button("Cash Out", action: viewModel.addCashOut)
+                Button("Cancel", role: .cancel, action: viewModel.addCancel)
+            })
             .edgesIgnoringSafeArea([.top, .bottom])
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -59,11 +64,8 @@ struct HomeView: View {
     
     private var addBar: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
-            Button(action: {
-                print("add action")
-            }) {
-                ImageAsset.add
-                    .tint(Color.white)
+            Button(action: viewModel.selectAdd) {
+                ImageAsset.add.tint(Color.white)
             }
         }
     }

@@ -11,5 +11,27 @@ extension HomeView {
     
     class ViewModel: ObservableObject {
         
+        @Published var operationOptions: Bool = false
+        
+        
+        // MARK: Actions
+        func selectAdd() {
+            operationOptions = true
+        }
+        
+        func addCashIn() {
+            operationOptions = false
+            print("addCashIn")
+        }
+        
+        func addCashOut() {
+            operationOptions = false
+            print("addCashOut")
+        }
+        
+        func addCancel() {
+            operationOptions = false
+            print("addCancel")
+        }
     }
 }
