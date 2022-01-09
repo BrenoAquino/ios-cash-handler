@@ -33,13 +33,6 @@ extension DesignSystem {
 }
 
 // MARK: - Extensions
-extension Text {
-    
-    func foregroundColor(_ dsColor: DSColor) -> Self {
-        return foregroundColor(dsColor.rawValue)
-    }
-}
-
 extension Shape {
     
     func fill(_ dsColor: DSColor) -> some View {

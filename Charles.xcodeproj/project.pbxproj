@@ -14,13 +14,12 @@
 		556DEE37278B63E200CBFF5C /* CharlesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE36278B63E200CBFF5C /* CharlesTests.swift */; };
 		556DEE57278B64A700CBFF5C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE56278B64A700CBFF5C /* HomeView.swift */; };
 		556DEE59278B64AD00CBFF5C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE58278B64AD00CBFF5C /* HomeViewModel.swift */; };
-		556DEE5B278B64BD00CBFF5C /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE5A278B64BD00CBFF5C /* HomeService.swift */; };
-		556DEE5D278B64C500CBFF5C /* HomeWebRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE5C278B64C500CBFF5C /* HomeWebRepository.swift */; };
 		556DEE63278B666900CBFF5C /* DSFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE60278B666900CBFF5C /* DSFont.swift */; };
 		556DEE64278B666900CBFF5C /* DSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE61278B666900CBFF5C /* DSColor.swift */; };
 		556DEE65278B666900CBFF5C /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE62278B666900CBFF5C /* DesignSystem.swift */; };
 		556DEE68278B676500CBFF5C /* DSSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE67278B676500CBFF5C /* DSSpace.swift */; };
 		556DEE6A278B698000CBFF5C /* ImageAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE69278B698000CBFF5C /* ImageAsset.swift */; };
+		556DEE6D278B730200CBFF5C /* InputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE6C278B730200CBFF5C /* InputTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,13 +42,12 @@
 		556DEE36278B63E200CBFF5C /* CharlesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharlesTests.swift; sourceTree = "<group>"; };
 		556DEE56278B64A700CBFF5C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		556DEE58278B64AD00CBFF5C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		556DEE5A278B64BD00CBFF5C /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
-		556DEE5C278B64C500CBFF5C /* HomeWebRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWebRepository.swift; sourceTree = "<group>"; };
 		556DEE60278B666900CBFF5C /* DSFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSFont.swift; sourceTree = "<group>"; };
 		556DEE61278B666900CBFF5C /* DSColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSColor.swift; sourceTree = "<group>"; };
 		556DEE62278B666900CBFF5C /* DesignSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		556DEE67278B676500CBFF5C /* DSSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSSpace.swift; sourceTree = "<group>"; };
 		556DEE69278B698000CBFF5C /* ImageAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAsset.swift; sourceTree = "<group>"; };
+		556DEE6C278B730200CBFF5C /* InputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +128,7 @@
 			children = (
 				556DEE27278B63E100CBFF5C /* ContentView.swift */,
 				556DEE51278B643B00CBFF5C /* Home */,
+				556DEE6E278B79DF00CBFF5C /* Operation Form */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -137,10 +136,7 @@
 		556DEE51278B643B00CBFF5C /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				556DEE53278B645000CBFF5C /* Model */,
 				556DEE52278B644C00CBFF5C /* UI */,
-				556DEE55278B649900CBFF5C /* Service */,
-				556DEE54278B648300CBFF5C /* Repositories */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -154,32 +150,10 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
-		556DEE53278B645000CBFF5C /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		556DEE54278B648300CBFF5C /* Repositories */ = {
-			isa = PBXGroup;
-			children = (
-				556DEE5C278B64C500CBFF5C /* HomeWebRepository.swift */,
-			);
-			path = Repositories;
-			sourceTree = "<group>";
-		};
-		556DEE55278B649900CBFF5C /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				556DEE5A278B64BD00CBFF5C /* HomeService.swift */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
 		556DEE5E278B666900CBFF5C /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				556DEE6B278B72D500CBFF5C /* UI Components */,
 				556DEE5F278B666900CBFF5C /* DesignSystem */,
 			);
 			path = Common;
@@ -194,6 +168,21 @@
 				556DEE62278B666900CBFF5C /* DesignSystem.swift */,
 			);
 			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		556DEE6B278B72D500CBFF5C /* UI Components */ = {
+			isa = PBXGroup;
+			children = (
+				556DEE6C278B730200CBFF5C /* InputTextField.swift */,
+			);
+			path = "UI Components";
+			sourceTree = "<group>";
+		};
+		556DEE6E278B79DF00CBFF5C /* Operation Form */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Operation Form";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -296,8 +285,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				556DEE6D278B730200CBFF5C /* InputTextField.swift in Sources */,
 				556DEE57278B64A700CBFF5C /* HomeView.swift in Sources */,
-				556DEE5D278B64C500CBFF5C /* HomeWebRepository.swift in Sources */,
 				556DEE28278B63E100CBFF5C /* ContentView.swift in Sources */,
 				556DEE65278B666900CBFF5C /* DesignSystem.swift in Sources */,
 				556DEE26278B63E100CBFF5C /* CharlesApp.swift in Sources */,
@@ -306,7 +295,6 @@
 				556DEE68278B676500CBFF5C /* DSSpace.swift in Sources */,
 				556DEE6A278B698000CBFF5C /* ImageAsset.swift in Sources */,
 				556DEE64278B666900CBFF5C /* DSColor.swift in Sources */,
-				556DEE5B278B64BD00CBFF5C /* HomeService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

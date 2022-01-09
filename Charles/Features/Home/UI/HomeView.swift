@@ -46,16 +46,16 @@ struct HomeView: View {
                         .frame(width: 40, height: 40)
                         .shadow(color: .black, radius: 16)
                     Text("BA")
-                        .foregroundColor(.primaryText)
+                        .foregroundColor(DSColor.primaryText.rawValue)
                         .font(.headline)
                 }
                 Spacer(minLength: DSSpace.smallS.rawValue)
                 VStack(alignment: .leading, spacing: DSSpace.smallS.rawValue) {
                     Text("Breno Aquino")
-                        .foregroundColor(.primaryText)
+                        .foregroundColor(DSColor.primaryText.rawValue)
                         .font(.headline)
                     Text("Charles Inc.")
-                        .foregroundColor(.primaryText)
+                        .foregroundColor(DSColor.primaryText.rawValue)
                         .font(.subheadline)
                 }
             }
