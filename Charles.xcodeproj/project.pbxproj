@@ -12,19 +12,19 @@
 		556DEE2A278B63E200CBFF5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 556DEE29278B63E200CBFF5C /* Assets.xcassets */; };
 		556DEE2D278B63E200CBFF5C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 556DEE2C278B63E200CBFF5C /* Preview Assets.xcassets */; };
 		556DEE37278B63E200CBFF5C /* CharlesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE36278B63E200CBFF5C /* CharlesTests.swift */; };
-		556DEE41278B63E200CBFF5C /* CharlesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE40278B63E200CBFF5C /* CharlesUITests.swift */; };
-		556DEE43278B63E200CBFF5C /* CharlesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE42278B63E200CBFF5C /* CharlesUITestsLaunchTests.swift */; };
+		556DEE57278B64A700CBFF5C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE56278B64A700CBFF5C /* HomeView.swift */; };
+		556DEE59278B64AD00CBFF5C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE58278B64AD00CBFF5C /* HomeViewModel.swift */; };
+		556DEE5B278B64BD00CBFF5C /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE5A278B64BD00CBFF5C /* HomeService.swift */; };
+		556DEE5D278B64C500CBFF5C /* HomeWebRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE5C278B64C500CBFF5C /* HomeWebRepository.swift */; };
+		556DEE63278B666900CBFF5C /* DSFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE60278B666900CBFF5C /* DSFont.swift */; };
+		556DEE64278B666900CBFF5C /* DSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE61278B666900CBFF5C /* DSColor.swift */; };
+		556DEE65278B666900CBFF5C /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE62278B666900CBFF5C /* DesignSystem.swift */; };
+		556DEE68278B676500CBFF5C /* DSSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE67278B676500CBFF5C /* DSSpace.swift */; };
+		556DEE6A278B698000CBFF5C /* ImageAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE69278B698000CBFF5C /* ImageAsset.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		556DEE33278B63E200CBFF5C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 556DEE1A278B63E100CBFF5C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 556DEE21278B63E100CBFF5C;
-			remoteInfo = Charles;
-		};
-		556DEE3D278B63E200CBFF5C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 556DEE1A278B63E100CBFF5C /* Project object */;
 			proxyType = 1;
@@ -41,9 +41,15 @@
 		556DEE2C278B63E200CBFF5C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		556DEE32278B63E200CBFF5C /* CharlesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CharlesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		556DEE36278B63E200CBFF5C /* CharlesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharlesTests.swift; sourceTree = "<group>"; };
-		556DEE3C278B63E200CBFF5C /* CharlesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CharlesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		556DEE40278B63E200CBFF5C /* CharlesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharlesUITests.swift; sourceTree = "<group>"; };
-		556DEE42278B63E200CBFF5C /* CharlesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharlesUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		556DEE56278B64A700CBFF5C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		556DEE58278B64AD00CBFF5C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		556DEE5A278B64BD00CBFF5C /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
+		556DEE5C278B64C500CBFF5C /* HomeWebRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWebRepository.swift; sourceTree = "<group>"; };
+		556DEE60278B666900CBFF5C /* DSFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSFont.swift; sourceTree = "<group>"; };
+		556DEE61278B666900CBFF5C /* DSColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSColor.swift; sourceTree = "<group>"; };
+		556DEE62278B666900CBFF5C /* DesignSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
+		556DEE67278B676500CBFF5C /* DSSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSSpace.swift; sourceTree = "<group>"; };
+		556DEE69278B698000CBFF5C /* ImageAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAsset.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,13 +67,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		556DEE39278B63E200CBFF5C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -76,7 +75,6 @@
 			children = (
 				556DEE24278B63E100CBFF5C /* Charles */,
 				556DEE35278B63E200CBFF5C /* CharlesTests */,
-				556DEE3F278B63E200CBFF5C /* CharlesUITests */,
 				556DEE23278B63E100CBFF5C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -86,7 +84,6 @@
 			children = (
 				556DEE22278B63E100CBFF5C /* Charles.app */,
 				556DEE32278B63E200CBFF5C /* CharlesTests.xctest */,
-				556DEE3C278B63E200CBFF5C /* CharlesUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,8 +92,9 @@
 			isa = PBXGroup;
 			children = (
 				556DEE25278B63E100CBFF5C /* CharlesApp.swift */,
-				556DEE27278B63E100CBFF5C /* ContentView.swift */,
-				556DEE29278B63E200CBFF5C /* Assets.xcassets */,
+				556DEE5E278B666900CBFF5C /* Common */,
+				556DEE50278B642F00CBFF5C /* Features */,
+				556DEE4F278B642600CBFF5C /* Supporting Files */,
 				556DEE2B278B63E200CBFF5C /* Preview Content */,
 			);
 			path = Charles;
@@ -118,13 +116,84 @@
 			path = CharlesTests;
 			sourceTree = "<group>";
 		};
-		556DEE3F278B63E200CBFF5C /* CharlesUITests */ = {
+		556DEE4F278B642600CBFF5C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				556DEE40278B63E200CBFF5C /* CharlesUITests.swift */,
-				556DEE42278B63E200CBFF5C /* CharlesUITestsLaunchTests.swift */,
+				556DEE69278B698000CBFF5C /* ImageAsset.swift */,
+				556DEE29278B63E200CBFF5C /* Assets.xcassets */,
 			);
-			path = CharlesUITests;
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		556DEE50278B642F00CBFF5C /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				556DEE27278B63E100CBFF5C /* ContentView.swift */,
+				556DEE51278B643B00CBFF5C /* Home */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		556DEE51278B643B00CBFF5C /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				556DEE53278B645000CBFF5C /* Model */,
+				556DEE52278B644C00CBFF5C /* UI */,
+				556DEE55278B649900CBFF5C /* Service */,
+				556DEE54278B648300CBFF5C /* Repositories */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		556DEE52278B644C00CBFF5C /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				556DEE56278B64A700CBFF5C /* HomeView.swift */,
+				556DEE58278B64AD00CBFF5C /* HomeViewModel.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		556DEE53278B645000CBFF5C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		556DEE54278B648300CBFF5C /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				556DEE5C278B64C500CBFF5C /* HomeWebRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		556DEE55278B649900CBFF5C /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				556DEE5A278B64BD00CBFF5C /* HomeService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		556DEE5E278B666900CBFF5C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				556DEE5F278B666900CBFF5C /* DesignSystem */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		556DEE5F278B666900CBFF5C /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				556DEE67278B676500CBFF5C /* DSSpace.swift */,
+				556DEE60278B666900CBFF5C /* DSFont.swift */,
+				556DEE61278B666900CBFF5C /* DSColor.swift */,
+				556DEE62278B666900CBFF5C /* DesignSystem.swift */,
+			);
+			path = DesignSystem;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,24 +234,6 @@
 			productReference = 556DEE32278B63E200CBFF5C /* CharlesTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		556DEE3B278B63E200CBFF5C /* CharlesUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 556DEE4C278B63E200CBFF5C /* Build configuration list for PBXNativeTarget "CharlesUITests" */;
-			buildPhases = (
-				556DEE38278B63E200CBFF5C /* Sources */,
-				556DEE39278B63E200CBFF5C /* Frameworks */,
-				556DEE3A278B63E200CBFF5C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				556DEE3E278B63E200CBFF5C /* PBXTargetDependency */,
-			);
-			name = CharlesUITests;
-			productName = CharlesUITests;
-			productReference = 556DEE3C278B63E200CBFF5C /* CharlesUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -197,10 +248,6 @@
 						CreatedOnToolsVersion = 13.2.1;
 					};
 					556DEE31278B63E200CBFF5C = {
-						CreatedOnToolsVersion = 13.2.1;
-						TestTargetID = 556DEE21278B63E100CBFF5C;
-					};
-					556DEE3B278B63E200CBFF5C = {
 						CreatedOnToolsVersion = 13.2.1;
 						TestTargetID = 556DEE21278B63E100CBFF5C;
 					};
@@ -221,7 +268,6 @@
 			targets = (
 				556DEE21278B63E100CBFF5C /* Charles */,
 				556DEE31278B63E200CBFF5C /* CharlesTests */,
-				556DEE3B278B63E200CBFF5C /* CharlesUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -243,13 +289,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		556DEE3A278B63E200CBFF5C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -257,8 +296,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				556DEE57278B64A700CBFF5C /* HomeView.swift in Sources */,
+				556DEE5D278B64C500CBFF5C /* HomeWebRepository.swift in Sources */,
 				556DEE28278B63E100CBFF5C /* ContentView.swift in Sources */,
+				556DEE65278B666900CBFF5C /* DesignSystem.swift in Sources */,
 				556DEE26278B63E100CBFF5C /* CharlesApp.swift in Sources */,
+				556DEE59278B64AD00CBFF5C /* HomeViewModel.swift in Sources */,
+				556DEE63278B666900CBFF5C /* DSFont.swift in Sources */,
+				556DEE68278B676500CBFF5C /* DSSpace.swift in Sources */,
+				556DEE6A278B698000CBFF5C /* ImageAsset.swift in Sources */,
+				556DEE64278B666900CBFF5C /* DSColor.swift in Sources */,
+				556DEE5B278B64BD00CBFF5C /* HomeService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,15 +318,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		556DEE38278B63E200CBFF5C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				556DEE41278B63E200CBFF5C /* CharlesUITests.swift in Sources */,
-				556DEE43278B63E200CBFF5C /* CharlesUITestsLaunchTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -286,11 +325,6 @@
 			isa = PBXTargetDependency;
 			target = 556DEE21278B63E100CBFF5C /* Charles */;
 			targetProxy = 556DEE33278B63E200CBFF5C /* PBXContainerItemProxy */;
-		};
-		556DEE3E278B63E200CBFF5C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 556DEE21278B63E100CBFF5C /* Charles */;
-			targetProxy = 556DEE3D278B63E200CBFF5C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -509,42 +543,6 @@
 			};
 			name = Release;
 		};
-		556DEE4D278B63E200CBFF5C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = GYLCJG59BK;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = brenoaquino.CharlesUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Charles;
-			};
-			name = Debug;
-		};
-		556DEE4E278B63E200CBFF5C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = GYLCJG59BK;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = brenoaquino.CharlesUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Charles;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -571,15 +569,6 @@
 			buildConfigurations = (
 				556DEE4A278B63E200CBFF5C /* Debug */,
 				556DEE4B278B63E200CBFF5C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		556DEE4C278B63E200CBFF5C /* Build configuration list for PBXNativeTarget "CharlesUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				556DEE4D278B63E200CBFF5C /* Debug */,
-				556DEE4E278B63E200CBFF5C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
