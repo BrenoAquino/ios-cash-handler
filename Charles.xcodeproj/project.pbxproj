@@ -20,6 +20,9 @@
 		556DEE68278B676500CBFF5C /* DSSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE67278B676500CBFF5C /* DSSpace.swift */; };
 		556DEE6A278B698000CBFF5C /* ImageAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE69278B698000CBFF5C /* ImageAsset.swift */; };
 		556DEE6D278B730200CBFF5C /* InputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE6C278B730200CBFF5C /* InputTextField.swift */; };
+		556DEE71278B7A6100CBFF5C /* OperationFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE70278B7A6100CBFF5C /* OperationFormView.swift */; };
+		556DEE73278B7A7D00CBFF5C /* OperationFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE72278B7A7D00CBFF5C /* OperationFormViewModel.swift */; };
+		556DEE78278B7E3700CBFF5C /* View+Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE77278B7E3700CBFF5C /* View+Placeholder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,9 @@
 		556DEE67278B676500CBFF5C /* DSSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSSpace.swift; sourceTree = "<group>"; };
 		556DEE69278B698000CBFF5C /* ImageAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAsset.swift; sourceTree = "<group>"; };
 		556DEE6C278B730200CBFF5C /* InputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextField.swift; sourceTree = "<group>"; };
+		556DEE70278B7A6100CBFF5C /* OperationFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFormView.swift; sourceTree = "<group>"; };
+		556DEE72278B7A7D00CBFF5C /* OperationFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFormViewModel.swift; sourceTree = "<group>"; };
+		556DEE77278B7E3700CBFF5C /* View+Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Placeholder.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,7 +159,6 @@
 		556DEE5E278B666900CBFF5C /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				556DEE6B278B72D500CBFF5C /* UI Components */,
 				556DEE5F278B666900CBFF5C /* DesignSystem */,
 			);
 			path = Common;
@@ -162,27 +167,63 @@
 		556DEE5F278B666900CBFF5C /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
-				556DEE67278B676500CBFF5C /* DSSpace.swift */,
-				556DEE60278B666900CBFF5C /* DSFont.swift */,
-				556DEE61278B666900CBFF5C /* DSColor.swift */,
-				556DEE62278B666900CBFF5C /* DesignSystem.swift */,
+				556DEE7A278B871400CBFF5C /* Components */,
+				556DEE79278B870500CBFF5C /* Constants */,
 			);
 			path = DesignSystem;
-			sourceTree = "<group>";
-		};
-		556DEE6B278B72D500CBFF5C /* UI Components */ = {
-			isa = PBXGroup;
-			children = (
-				556DEE6C278B730200CBFF5C /* InputTextField.swift */,
-			);
-			path = "UI Components";
 			sourceTree = "<group>";
 		};
 		556DEE6E278B79DF00CBFF5C /* Operation Form */ = {
 			isa = PBXGroup;
 			children = (
+				556DEE6F278B7A5400CBFF5C /* UI */,
 			);
 			path = "Operation Form";
+			sourceTree = "<group>";
+		};
+		556DEE6F278B7A5400CBFF5C /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				556DEE70278B7A6100CBFF5C /* OperationFormView.swift */,
+				556DEE72278B7A7D00CBFF5C /* OperationFormViewModel.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		556DEE74278B7E1800CBFF5C /* InputTextField */ = {
+			isa = PBXGroup;
+			children = (
+				556DEE6C278B730200CBFF5C /* InputTextField.swift */,
+			);
+			path = InputTextField;
+			sourceTree = "<group>";
+		};
+		556DEE76278B7E2B00CBFF5C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				556DEE77278B7E3700CBFF5C /* View+Placeholder.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		556DEE79278B870500CBFF5C /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				556DEE67278B676500CBFF5C /* DSSpace.swift */,
+				556DEE60278B666900CBFF5C /* DSFont.swift */,
+				556DEE61278B666900CBFF5C /* DSColor.swift */,
+				556DEE62278B666900CBFF5C /* DesignSystem.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		556DEE7A278B871400CBFF5C /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				556DEE76278B7E2B00CBFF5C /* Extensions */,
+				556DEE74278B7E1800CBFF5C /* InputTextField */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,9 +326,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				556DEE71278B7A6100CBFF5C /* OperationFormView.swift in Sources */,
 				556DEE6D278B730200CBFF5C /* InputTextField.swift in Sources */,
 				556DEE57278B64A700CBFF5C /* HomeView.swift in Sources */,
 				556DEE28278B63E100CBFF5C /* ContentView.swift in Sources */,
+				556DEE78278B7E3700CBFF5C /* View+Placeholder.swift in Sources */,
+				556DEE73278B7A7D00CBFF5C /* OperationFormViewModel.swift in Sources */,
 				556DEE65278B666900CBFF5C /* DesignSystem.swift in Sources */,
 				556DEE26278B63E100CBFF5C /* CharlesApp.swift in Sources */,
 				556DEE59278B64AD00CBFF5C /* HomeViewModel.swift in Sources */,

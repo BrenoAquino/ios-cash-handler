@@ -24,11 +24,13 @@ extension DesignSystem {
         public var rawValue: Color
         
         /// Backgorund - 0x171B1E - 100%
-        public static let background: DSColor = DSColor(rawValue: Color(rgba: 0x171B1EFF))
+        static let background: DSColor = DSColor(rawValue: Color(rgba: 0x171B1EFF))
         /// Second Background - 0x272932 - 100%
-        public static let secondBackground: DSColor = DSColor(rawValue: Color(rgba: 0x272932FF))
+        static let secondBackground: DSColor = DSColor(rawValue: Color(rgba: 0x272932FF))
         /// Primary Text - 0xFFFFFF - 100%
-        public static let primaryText: DSColor = DSColor(rawValue: Color(rgba: 0xFFFFFFFF))
+        static let primaryText: DSColor = DSColor(rawValue: Color(rgba: 0xFFFFFFFF))
+        /// Placeholder - 0x9397A0 - 100%
+        static let placholder: DSColor = DSColor(rawValue: Color(rgba: 0x9397A0FF))
     }
 }
 
