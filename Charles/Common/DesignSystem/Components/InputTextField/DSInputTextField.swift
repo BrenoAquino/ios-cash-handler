@@ -18,14 +18,15 @@ struct DSInputTextField: View {
             Text(title)
                 .foregroundColor(DSColor.primaryText.rawValue)
                 .font(DSFont.caption1.rawValue)
-            TextField("Placeholder", text: $text)
+            TextField("", text: $text)
                 .foregroundColor(DSColor.primaryText.rawValue)
                 .font(DSFont.input.rawValue)
-                .placeholder(when: text.isEmpty) {
-                    Text(placeholder)
-                        .font(DSFont.input.rawValue)
-                        .foregroundColor(DSColor.placholder.rawValue)
-                }
+                .modifier(
+                    PlaceholderStyle(
+                        showPlaceholder: text.isEmpty,
+                        placeholder: placeholder
+                    )
+                )
         }
         .padding()
         .background(DSColor.secondBackground.rawValue)

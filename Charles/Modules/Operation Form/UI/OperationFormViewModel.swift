@@ -27,7 +27,7 @@ extension OperationFormView {
         }
         
         func addOperation() {
-            
+            print(name, date, value)
         }
     }
 }

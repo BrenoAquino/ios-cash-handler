@@ -56,6 +56,18 @@ struct OperationFormView: View {
                     text: $viewModel.value
                 )
             }
+            if viewModel.type == .cashOut {
+                DSInputTextField(
+                    title: "Categoria",
+                    placeholder: "Ex: Refeição",
+                    text: $viewModel.name
+                )
+                DSInputTextField(
+                    title: "Meio de transação",
+                    placeholder: "Ex: Cartão de Crédito",
+                    text: $viewModel.name
+                )
+            }
         }
     }
     
@@ -73,6 +85,6 @@ struct OperationFormView: View {
 
 struct OperationFormView_Previews: PreviewProvider {
     static var previews: some View {
-        OperationFormView(viewModel: .init(type: .cashIn))
+        OperationFormView(viewModel: .init(type: .cashOut))
     }
 }

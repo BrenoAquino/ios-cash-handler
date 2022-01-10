@@ -7,15 +7,18 @@
 
 import SwiftUI
 
-extension View {
-    func placeholder<Content: View>(
-        when shouldShow: Bool,
-        alignment: Alignment = .leading,
-        @ViewBuilder placeholder: () -> Content) -> some View {
+struct PlaceholderStyle: ViewModifier {
+    var showPlaceholder: Bool
+    var placeholder: String
 
-        ZStack(alignment: alignment) {
-            placeholder()
-            self
+    public func body(content: Content) -> some View {
+        ZStack(alignment: .leading) {
+            if showPlaceholder {
+                Text(placeholder)
+                    .font(DSFont.input.rawValue)
+                    .foregroundColor(DSColor.placholder.rawValue)
+            }
+            content
         }
     }
 }
