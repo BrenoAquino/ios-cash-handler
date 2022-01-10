@@ -9,6 +9,11 @@ import SwiftUI
 
 @main
 struct CharlesApp: App {
+    
+    init() {
+        UINavigationBar.appearance().tintColor = .white
+    }
+    
     var body: some Scene {
         WindowGroup {
             NavigationView {
