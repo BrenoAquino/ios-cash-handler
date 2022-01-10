@@ -26,8 +26,7 @@ extension DesignSystem {
 // MARK: - Extensions
 extension View {
     
-    func shadow(style: DSShadow) -> Self {
-        shadow(color: style.color, radius: style.radius)
-        return self
+    func shadow(style: DSShadow) -> some View {
+        return shadow(color: style.color, radius: style.radius)
     }
 }

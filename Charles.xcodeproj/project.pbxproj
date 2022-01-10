@@ -10,6 +10,8 @@
 		555FA915278BB56100816B36 /* NativeType+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555FA914278BB56100816B36 /* NativeType+Constants.swift */; };
 		555FA917278BB5B600816B36 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555FA916278BB5B600816B36 /* Localizable.swift */; };
 		555FA919278BB6B200816B36 /* DSHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555FA918278BB6B200816B36 /* DSHome.swift */; };
+		555FA91B278BB81F00816B36 /* DSOperationForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555FA91A278BB81F00816B36 /* DSOperationForm.swift */; };
+		555FA91D278BBA3000816B36 /* DSCornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555FA91C278BBA3000816B36 /* DSCornerRadius.swift */; };
 		556DEE26278B63E100CBFF5C /* CharlesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE25278B63E100CBFF5C /* CharlesApp.swift */; };
 		556DEE2A278B63E200CBFF5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 556DEE29278B63E200CBFF5C /* Assets.xcassets */; };
 		556DEE2D278B63E200CBFF5C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 556DEE2C278B63E200CBFF5C /* Preview Assets.xcassets */; };
@@ -45,6 +47,8 @@
 		555FA914278BB56100816B36 /* NativeType+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NativeType+Constants.swift"; sourceTree = "<group>"; };
 		555FA916278BB5B600816B36 /* Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
 		555FA918278BB6B200816B36 /* DSHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSHome.swift; sourceTree = "<group>"; };
+		555FA91A278BB81F00816B36 /* DSOperationForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSOperationForm.swift; sourceTree = "<group>"; };
+		555FA91C278BBA3000816B36 /* DSCornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSCornerRadius.swift; sourceTree = "<group>"; };
 		556DEE22278B63E100CBFF5C /* Charles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Charles.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		556DEE25278B63E100CBFF5C /* CharlesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharlesApp.swift; sourceTree = "<group>"; };
 		556DEE29278B63E200CBFF5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -200,6 +204,7 @@
 			children = (
 				556DEE70278B7A6100CBFF5C /* OperationFormView.swift */,
 				556DEE72278B7A7D00CBFF5C /* OperationFormViewModel.swift */,
+				555FA91A278BB81F00816B36 /* DSOperationForm.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -224,6 +229,7 @@
 		556DEE79278B870500CBFF5C /* Constants */ = {
 			isa = PBXGroup;
 			children = (
+				555FA91C278BBA3000816B36 /* DSCornerRadius.swift */,
 				55CA2DD5278BA5A700004892 /* DSShadow.swift */,
 				556DEE67278B676500CBFF5C /* DSSpace.swift */,
 				556DEE60278B666900CBFF5C /* DSFont.swift */,
@@ -360,6 +366,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				555FA91D278BBA3000816B36 /* DSCornerRadius.swift in Sources */,
+				555FA91B278BB81F00816B36 /* DSOperationForm.swift in Sources */,
 				556DEE71278B7A6100CBFF5C /* OperationFormView.swift in Sources */,
 				55CA2DD2278BA17F00004892 /* DSButton.swift in Sources */,
 				555FA919278BB6B200816B36 /* DSHome.swift in Sources */,

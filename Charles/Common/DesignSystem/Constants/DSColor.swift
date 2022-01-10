@@ -20,8 +20,9 @@ extension Color {
 }
 
 extension DesignSystem {
+    
     struct DSColor {
-        public var rawValue: Color
+        var rawValue: Color
         
         /// Clear - 0xFFFFFF - 0%
         static let clear: DSColor = DSColor(rawValue: Color(rgba: 0xFFFFFF00))

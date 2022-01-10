@@ -30,7 +30,7 @@ struct OperationFormView: View {
     
     // MARK: Header
     private var title: some View {
-        Text("Operation")
+        Text(Localizable.OperationForm.operationFormTitle)
             .font(DSFont.largeTitle.rawValue)
             .foregroundColor(DSColor.primaryText.rawValue)
             .padding()
@@ -40,31 +40,31 @@ struct OperationFormView: View {
     private var form: some View {
         Group {
             DSInputTextField(
-                title: "Nome da Operação",
-                placeholder: "Nome da origem ou descrição curta",
+                title: Localizable.OperationForm.operationTitle,
+                placeholder: Localizable.OperationForm.operationPlaceholder,
                 text: $viewModel.name
             )
             HStack(spacing: DSSpace.smallL.rawValue) {
                 DSInputTextField(
-                    title: "Data",
-                    placeholder: "DD/MM/YYYY",
+                    title: Localizable.OperationForm.dateTitle,
+                    placeholder: Localizable.OperationForm.datePlaceholder,
                     text: $viewModel.date
                 )
                 DSInputTextField(
-                    title: "Valor",
-                    placeholder: "R$ 0.000,00",
+                    title: Localizable.OperationForm.valueTitle,
+                    placeholder: Localizable.OperationForm.valuePlaceholder,
                     text: $viewModel.value
                 )
             }
             if viewModel.type == .cashOut {
                 DSInputTextField(
-                    title: "Categoria",
-                    placeholder: "Ex: Refeição",
+                    title: Localizable.OperationForm.categoryTitle,
+                    placeholder: Localizable.OperationForm.categoryPlaceholder,
                     text: $viewModel.category
                 )
                 DSInputTextField(
-                    title: "Meio de transação",
-                    placeholder: "Ex: Cartão de Crédito",
+                    title: Localizable.OperationForm.paymentTypeTitle,
+                    placeholder: Localizable.OperationForm.paymentPlaceholder,
                     text: $viewModel.paymentType
                 )
             }
@@ -74,10 +74,10 @@ struct OperationFormView: View {
     // MARK: Button
     private var addButton: some View {
         Group {
-            DSButton(title: "Add Operation", action: viewModel.addOperation)
-                .frame(maxWidth: .infinity, minHeight: 56)
+            DSButton(title: Localizable.OperationForm.buttonTitle, action: viewModel.addOperation)
+                .frame(maxWidth: .infinity, minHeight: DSOperationForm.buttonHeight)
                 .background(DSColor.secondBackground.rawValue)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .clipShape(RoundedRectangle(cornerRadius: DSCornerRadius.normal.rawValue))
                 .shadow(style: .easy)
         }.padding()
     }
