@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		555FA915278BB56100816B36 /* NativeType+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555FA914278BB56100816B36 /* NativeType+Constants.swift */; };
+		555FA917278BB5B600816B36 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555FA916278BB5B600816B36 /* Localizable.swift */; };
+		555FA919278BB6B200816B36 /* DSHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555FA918278BB6B200816B36 /* DSHome.swift */; };
 		556DEE26278B63E100CBFF5C /* CharlesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE25278B63E100CBFF5C /* CharlesApp.swift */; };
 		556DEE2A278B63E200CBFF5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 556DEE29278B63E200CBFF5C /* Assets.xcassets */; };
 		556DEE2D278B63E200CBFF5C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 556DEE2C278B63E200CBFF5C /* Preview Assets.xcassets */; };
@@ -39,6 +42,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		555FA914278BB56100816B36 /* NativeType+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NativeType+Constants.swift"; sourceTree = "<group>"; };
+		555FA916278BB5B600816B36 /* Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
+		555FA918278BB6B200816B36 /* DSHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSHome.swift; sourceTree = "<group>"; };
 		556DEE22278B63E100CBFF5C /* Charles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Charles.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		556DEE25278B63E100CBFF5C /* CharlesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharlesApp.swift; sourceTree = "<group>"; };
 		556DEE29278B63E200CBFF5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -130,6 +136,7 @@
 		556DEE4F278B642600CBFF5C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				555FA916278BB5B600816B36 /* Localizable.swift */,
 				556DEE69278B698000CBFF5C /* ImageAsset.swift */,
 				556DEE29278B63E200CBFF5C /* Assets.xcassets */,
 			);
@@ -158,6 +165,7 @@
 			children = (
 				556DEE56278B64A700CBFF5C /* HomeView.swift */,
 				556DEE58278B64AD00CBFF5C /* HomeViewModel.swift */,
+				555FA918278BB6B200816B36 /* DSHome.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -208,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				556DEE77278B7E3700CBFF5C /* View+Placeholder.swift */,
+				555FA914278BB56100816B36 /* NativeType+Constants.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -353,6 +362,7 @@
 			files = (
 				556DEE71278B7A6100CBFF5C /* OperationFormView.swift in Sources */,
 				55CA2DD2278BA17F00004892 /* DSButton.swift in Sources */,
+				555FA919278BB6B200816B36 /* DSHome.swift in Sources */,
 				556DEE6D278B730200CBFF5C /* DSInputTextField.swift in Sources */,
 				556DEE57278B64A700CBFF5C /* HomeView.swift in Sources */,
 				55B6BC4A278B8D8F00B421AE /* OperationFormCoordinator.swift in Sources */,
@@ -364,8 +374,10 @@
 				556DEE59278B64AD00CBFF5C /* HomeViewModel.swift in Sources */,
 				55CA2DD6278BA5A700004892 /* DSShadow.swift in Sources */,
 				556DEE63278B666900CBFF5C /* DSFont.swift in Sources */,
+				555FA915278BB56100816B36 /* NativeType+Constants.swift in Sources */,
 				556DEE68278B676500CBFF5C /* DSSpace.swift in Sources */,
 				556DEE6A278B698000CBFF5C /* ImageAsset.swift in Sources */,
+				555FA917278BB5B600816B36 /* Localizable.swift in Sources */,
 				556DEE64278B666900CBFF5C /* DSColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

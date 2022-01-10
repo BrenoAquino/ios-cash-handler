@@ -60,12 +60,12 @@ struct OperationFormView: View {
                 DSInputTextField(
                     title: "Categoria",
                     placeholder: "Ex: Refeição",
-                    text: $viewModel.name
+                    text: $viewModel.category
                 )
                 DSInputTextField(
                     title: "Meio de transação",
                     placeholder: "Ex: Cartão de Crédito",
-                    text: $viewModel.name
+                    text: $viewModel.paymentType
                 )
             }
         }

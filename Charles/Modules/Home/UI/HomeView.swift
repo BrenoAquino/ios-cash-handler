@@ -20,10 +20,13 @@ struct HomeView: View {
             DSColor.background.rawValue.edgesIgnoringSafeArea([.top, .bottom])
             Text("Hello world from SwiftUI!").foregroundColor(.white)
         }
-        .confirmationDialog("Operation type to add", isPresented: $viewModel.operationOptions, titleVisibility: .visible, actions: {
-            Button("Cash In", action: viewModel.addCashIn)
-            Button("Cash Out", action: viewModel.addCashOut)
-            Button("Cancel", role: .cancel, action: viewModel.addCancel)
+        .confirmationDialog(Localizable.Home.operationOptionsTitle,
+                            isPresented: $viewModel.operationOptions,
+                            titleVisibility: .visible,
+                            actions: {
+            Button(Localizable.Home.cashInOption, action: viewModel.addCashIn)
+            Button(Localizable.Home.cashOutOption, action: viewModel.addCashOut)
+            Button(Localizable.Common.cancel, role: .cancel, action: viewModel.addCancel)
         })
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -39,18 +42,18 @@ struct HomeView: View {
                 ZStack() {
                     Circle()
                         .fill(.secondBackground)
-                        .frame(width: 40, height: 40)
+                        .frame(width: DSHome.circleRadius, height: DSHome.circleRadius)
                         .shadow(style: .medium)
-                    Text("BA")
+                    Text(Localizable.Home.userInitials)
                         .foregroundColor(DSColor.primaryText.rawValue)
                         .font(.headline)
                 }
                 Spacer(minLength: DSSpace.smallS.rawValue)
                 VStack(alignment: .leading, spacing: DSSpace.smallS.rawValue) {
-                    Text("Breno Aquino")
+                    Text(Localizable.Home.userTitle)
                         .foregroundColor(DSColor.primaryText.rawValue)
                         .font(.headline)
-                    Text("Charles Inc.")
+                    Text(Localizable.Home.companyTitle)
                         .foregroundColor(DSColor.primaryText.rawValue)
                         .font(.subheadline)
                 }

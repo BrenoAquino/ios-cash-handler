@@ -18,9 +18,11 @@ extension OperationFormView {
         
         let type: OperationType
         
-        @Published var name: String = ""
-        @Published var date: String = ""
-        @Published var value: String = ""
+        @Published var name: String = .empty
+        @Published var date: String = .empty
+        @Published var value: String = .empty
+        @Published var category: String = .empty
+        @Published var paymentType: String = .empty
         
         init(type: OperationType) {
             self.type = type
