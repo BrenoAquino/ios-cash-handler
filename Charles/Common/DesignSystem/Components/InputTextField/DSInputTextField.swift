@@ -1,5 +1,5 @@
 //
-//  InputTextField.swift
+//  DSInputTextField.swift
 //  Charles
 //
 //  Created by Breno Aquino on 09/01/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct InputTextField: View {
+struct DSInputTextField: View {
     
     let title: String
     let placeholder: String
@@ -18,23 +18,25 @@ struct InputTextField: View {
             Text(title)
                 .foregroundColor(DSColor.primaryText.rawValue)
                 .font(DSFont.caption1.rawValue)
-            TextField("Placeholder", text: $text)
+            TextField("", text: $text)
                 .foregroundColor(DSColor.primaryText.rawValue)
                 .font(DSFont.input.rawValue)
-                .placeholder(when: text.isEmpty) {
-                    Text(placeholder)
-                        .font(DSFont.input.rawValue)
-                        .foregroundColor(DSColor.placholder.rawValue)
-                }
+                .modifier(
+                    PlaceholderStyle(
+                        showPlaceholder: text.isEmpty,
+                        placeholder: placeholder
+                    )
+                )
         }
         .padding()
         .background(DSColor.secondBackground.rawValue)
         .clipShape(RoundedRectangle(cornerRadius: 8))
+        .shadow(style: .easy)
     }
 }
 
-struct InputTextField_Previews: PreviewProvider {
+struct DSInputTextField_Previews: PreviewProvider {
     static var previews: some View {
-        InputTextField(title: "Email", placeholder: "example@mail.com", text: .constant(""))
+        DSInputTextField(title: "Email", placeholder: "example@mail.com", text: .constant(""))
     }
 }

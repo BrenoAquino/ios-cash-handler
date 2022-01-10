@@ -18,7 +18,9 @@ struct HomeCoordinator: View {
         init(homeViewModel: HomeView.ViewModel) {
             self.homeViewModel = homeViewModel
             self.homeViewModel.selectAddOperation = { [weak self] operationType in
-                self?.operationFormViewModel = .init(.init(operationFormViewModel: .init()))
+                self?.operationFormViewModel = OperationFormCoordinator.ViewModel(
+                    operationFormViewModel: .init(type: operationType)
+                )
             }
         }
     }
