@@ -12,6 +12,7 @@
 		555FA919278BB6B200816B36 /* DSHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555FA918278BB6B200816B36 /* DSHome.swift */; };
 		555FA91B278BB81F00816B36 /* DSOperationForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555FA91A278BB81F00816B36 /* DSOperationForm.swift */; };
 		555FA91D278BBA3000816B36 /* DSCornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555FA91C278BBA3000816B36 /* DSCornerRadius.swift */; };
+		555FA923278BBC4200816B36 /* UIApplication+endEditing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555FA922278BBC4200816B36 /* UIApplication+endEditing.swift */; };
 		556DEE26278B63E100CBFF5C /* CharlesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE25278B63E100CBFF5C /* CharlesApp.swift */; };
 		556DEE2A278B63E200CBFF5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 556DEE29278B63E200CBFF5C /* Assets.xcassets */; };
 		556DEE2D278B63E200CBFF5C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 556DEE2C278B63E200CBFF5C /* Preview Assets.xcassets */; };
@@ -49,6 +50,7 @@
 		555FA918278BB6B200816B36 /* DSHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSHome.swift; sourceTree = "<group>"; };
 		555FA91A278BB81F00816B36 /* DSOperationForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSOperationForm.swift; sourceTree = "<group>"; };
 		555FA91C278BBA3000816B36 /* DSCornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSCornerRadius.swift; sourceTree = "<group>"; };
+		555FA922278BBC4200816B36 /* UIApplication+endEditing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+endEditing.swift"; sourceTree = "<group>"; };
 		556DEE22278B63E100CBFF5C /* Charles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Charles.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		556DEE25278B63E100CBFF5C /* CharlesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharlesApp.swift; sourceTree = "<group>"; };
 		556DEE29278B63E200CBFF5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -90,6 +92,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		555FA921278BBC2800816B36 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				555FA922278BBC4200816B36 /* UIApplication+endEditing.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		556DEE19278B63E100CBFF5C = {
 			isa = PBXGroup;
 			children = (
@@ -177,6 +187,7 @@
 		556DEE5E278B666900CBFF5C /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				555FA921278BBC2800816B36 /* Extensions */,
 				556DEE5F278B666900CBFF5C /* DesignSystem */,
 			);
 			path = Common;
@@ -377,6 +388,7 @@
 				556DEE78278B7E3700CBFF5C /* View+Placeholder.swift in Sources */,
 				55B6BC48278B8D8500B421AE /* HomeCoordinator.swift in Sources */,
 				556DEE73278B7A7D00CBFF5C /* OperationFormViewModel.swift in Sources */,
+				555FA923278BBC4200816B36 /* UIApplication+endEditing.swift in Sources */,
 				556DEE65278B666900CBFF5C /* DesignSystem.swift in Sources */,
 				556DEE26278B63E100CBFF5C /* CharlesApp.swift in Sources */,
 				556DEE59278B64AD00CBFF5C /* HomeViewModel.swift in Sources */,

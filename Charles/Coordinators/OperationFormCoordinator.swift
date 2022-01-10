@@ -17,12 +17,14 @@ struct OperationFormCoordinator: View {
         }
     }
     
+    // MARK: Coordinator
     @ObservedObject var viewModel: ViewModel
     
     init(viewModel: ViewModel) {
         self.viewModel = viewModel
     }
     
+    // MARK: Self View
     var body: some View {
         OperationFormView(viewModel: viewModel.operationFormViewModel)
     }

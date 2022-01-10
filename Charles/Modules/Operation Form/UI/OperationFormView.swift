@@ -25,6 +25,7 @@ struct OperationFormView: View {
             }
             .padding(DSSpace.normal.rawValue)
         }
+        .onTapGesture(perform: UIApplication.shared.endEditing)
         .navigationBarTitleDisplayMode(.inline)
     }
     
