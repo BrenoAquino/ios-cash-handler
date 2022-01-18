@@ -14,13 +14,16 @@ let package = Package(
     dependencies: [],
     targets: [
         .target(
-            name: "Core",
+            name: "Common",
+            dependencies: []),
+        .target(
+            name: "DesignSystem",
             dependencies: []),
         .target(
             name: "Home",
-            dependencies: ["Core"]),
+            dependencies: ["Common", "DesignSystem"]),
         .target(
             name: "OperationForm",
-            dependencies: ["Core"]),
+            dependencies: ["Common", "DesignSystem"]),
     ]
 )

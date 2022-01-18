@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Core
 
 public extension OperationFormView {
     

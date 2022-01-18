@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Core
+import DesignSystem
 
 typealias DSHome = DesignSystem.DSHome
 

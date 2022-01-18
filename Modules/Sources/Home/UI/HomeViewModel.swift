@@ -5,15 +5,14 @@
 //  Created by Breno Aquino on 09/01/22.
 //
 
-import SwiftUI
-import Core
+import Foundation
 
 public extension HomeView {
     
     final class ViewModel: ObservableObject {
         
         @Published var operationOptions: Bool = false
-        @Published var operations: [Core.Operation] = []
+        @Published var operations: [String] = []
         
         public var selectAddOperation: ((Core.OperationType) -> Void)?
         

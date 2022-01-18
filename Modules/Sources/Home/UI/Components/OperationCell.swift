@@ -6,11 +6,10 @@
 //
 
 import SwiftUI
-import Core
 
 struct OperationCell: View {
     
-    let operation: Core.Operation
+    let name: String
     
     var body: some View {
         Text(operation.title)
@@ -19,7 +18,6 @@ struct OperationCell: View {
 
 struct OperationCell_Previews: PreviewProvider {
     static var previews: some View {
-        let operation = Core.Operation(id: "", title: "Madero")
-        OperationCell(operation: operation)
+        OperationCell(name: "Madero")
     }
 }
