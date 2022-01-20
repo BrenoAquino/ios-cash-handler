@@ -9,5 +9,10 @@ import Foundation
 
 public struct Operation {
     
+    public enum `Type` {
+        case cashIn
+        case cashOut
+    }
+    
     public init() {}
 }

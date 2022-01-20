@@ -8,12 +8,12 @@
 import Foundation
 
 public struct CharlesDataError: Error {
-    enum ErrorType {
+    public enum ErrorType {
         // MARK: Network
         case invalidURL
         case invalidResponse
         case unsuccessCode(statusCode: Int)
     }
     
-    private(set) var type: ErrorType
+    public private(set) var type: ErrorType
 }
