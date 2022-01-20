@@ -9,17 +9,17 @@ import Foundation
 import Combine
 import Domain
 
-final class OperationsRepositoryImpl {
+public final class OperationsRepositoryImpl {
     private let remoteDataSource: OperationsRemoteDataSource
     
-    init(remoteDataSource: OperationsRemoteDataSource) {
+    public init(remoteDataSource: OperationsRemoteDataSource) {
         self.remoteDataSource = remoteDataSource
     }
 }
 
 // MARK: Interface
 extension OperationsRepositoryImpl: Domain.OperationsRepository {
-    func addOperation(title: String,
+    public func addOperation(title: String,
                       date: String,
                       value: Double,
                       category: String,

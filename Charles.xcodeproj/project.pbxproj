@@ -58,6 +58,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5544CA3A279A21D500F188F5 /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Factories;
+			sourceTree = "<group>";
+		};
 		556603AB278C79EC00E24511 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +97,7 @@
 			children = (
 				556603B2278C826400E24511 /* Info.plist */,
 				556DEE25278B63E100CBFF5C /* CharlesApp.swift */,
+				5544CA3A279A21D500F188F5 /* Factories */,
 				55B6BC46278B8D7600B421AE /* Coordinators */,
 				556DEE4F278B642600CBFF5C /* Supporting Files */,
 				556DEE2B278B63E200CBFF5C /* Preview Content */,

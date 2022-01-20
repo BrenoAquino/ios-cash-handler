@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CreateOperationParams: Encodable {
+public struct CreateOperationParams: Encodable {
     let title: String
     let date: String
     let value: Double

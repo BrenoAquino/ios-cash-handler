@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import Domain
 
 public extension OperationFormView {
     
     final class ViewModel: ObservableObject {
         
-//        let type: OperationType
+        let type: Domain.OperationType
+        private let operationsUseCase: Domain.OperationsUseCase
         
         @Published var name: String = .empty
         @Published var date: String = .empty
@@ -19,14 +21,22 @@ public extension OperationFormView {
         @Published var category: String = .empty
         @Published var paymentType: String = .empty
         
-        public init(){}
-        
-//        public init(type: OperationType) {
-//            self.type = type
-//        }
-        
-        func addOperation() {
-            print(name, date, value)
+        public init(operationsUseCase: Domain.OperationsUseCase, type: OperationType) {
+            self.operationsUseCase = operationsUseCase
+            self.type = type
         }
+    }
+}
+
+extension OperationFormView.ViewModel {
+    func addOperation() {
+        operationsUseCase.addOperation(
+            title: name,
+            date: date,
+            value: Double(value) ?? .zero,
+            category: category,
+            paymentType: paymentType,
+            operationType: type
+        )
     }
 }

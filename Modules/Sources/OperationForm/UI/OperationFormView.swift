@@ -90,7 +90,7 @@ public struct OperationFormView: View {
 // MARK: - Preview
 struct OperationFormView_Previews: PreviewProvider {
     static var previews: some View {
-        OperationFormView(viewModel: .init())
+        OperationFormView(viewModel: .init(operationsUseCase: <#OperationsUseCase#>, type: <#OperationType#>))
     }
 }
 #endif

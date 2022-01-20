@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-protocol OperationsUseCase {
+public protocol OperationsUseCase {
     func addOperation(title: String,
                       date: String,
                       value: Double,
@@ -18,7 +18,7 @@ protocol OperationsUseCase {
 }
 
 // MARK: Implementation
-final class OperationsUseCaseImpl {
+public final class OperationsUseCaseImpl {
     
     private let operationsRepository: OperationsRepository
     
@@ -29,7 +29,7 @@ final class OperationsUseCaseImpl {
 
 // MARK: Interfaces
 extension OperationsUseCaseImpl {
-    func addOperation(title: String,
+    public func addOperation(title: String,
                       date: String,
                       value: Double,
                       category: String,

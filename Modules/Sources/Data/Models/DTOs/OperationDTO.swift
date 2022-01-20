@@ -8,10 +8,10 @@
 import Foundation
 import Domain
 
-struct OperationDTO: Decodable {
+public struct OperationDTO: Decodable {
 }
 
-extension OperationDTO {
+public extension OperationDTO {
     func toDomain() -> Domain.Operation {
         return Domain.Operation()
     }

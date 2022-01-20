@@ -9,18 +9,18 @@ import Foundation
 import Combine
 import Domain
 
-protocol OperationsRemoteDataSource {
+public protocol OperationsRemoteDataSource {
     func addOperation(params: CreateOperationParams) -> AnyPublisher<OperationDTO, Error>
 }
 
 // MARK: Implementation
-final class OperationsRemoteDataSourceImpl: Network {
+public final class OperationsRemoteDataSourceImpl: Network {
     typealias Endpoints = OperationsAPIs
     
     var session: URLSession
     var queue: DispatchQueue
     
-    init(session: URLSession, queue: DispatchQueue) {
+    public init(session: URLSession, queue: DispatchQueue) {
         self.session = session
         self.queue = queue
     }
@@ -28,7 +28,7 @@ final class OperationsRemoteDataSourceImpl: Network {
 
 // MARK: Requests
 extension OperationsRemoteDataSourceImpl: OperationsRemoteDataSource {
-    func addOperation(params: CreateOperationParams) -> AnyPublisher<OperationDTO, Error> {
+    public func addOperation(params: CreateOperationParams) -> AnyPublisher<OperationDTO, Error> {
         return execute(endpoint: .addOperation(params: params))
     }
 }

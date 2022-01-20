@@ -9,7 +9,7 @@ let package = Package(
     products: [
         .library(
             name: "Modules",
-            targets: ["Home", "OperationForm"]),
+            targets: ["Home", "OperationForm", "Domain", "Data"]),
     ],
     dependencies: [],
     targets: [
