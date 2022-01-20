@@ -20,13 +20,16 @@ let package = Package(
             name: "DesignSystem",
             dependencies: []),
         .target(
+            name: "Data",
+            dependencies: ["Domain"]),
+        .target(
             name: "Domain",
             dependencies: []),
         .target(
             name: "Home",
-            dependencies: ["Common", "DesignSystem"]),
+            dependencies: ["Common", "DesignSystem", "Domain"]),
         .target(
             name: "OperationForm",
-            dependencies: ["Common", "DesignSystem"]),
+            dependencies: ["Common", "DesignSystem", "Domain"]),
     ]
 )
