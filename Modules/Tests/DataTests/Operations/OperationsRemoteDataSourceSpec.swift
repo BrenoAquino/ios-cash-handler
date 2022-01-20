@@ -7,7 +7,7 @@
 
 import XCTest
 
-@testable Data
+@testable import Data
 
 class OperationsRemoteDataSourceSpec: XCTestCase {
 }

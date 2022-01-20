@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Domain
 
 enum OperationsAPIs {
     case addOperation(params: CreateOperationParams)

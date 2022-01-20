@@ -9,11 +9,6 @@ import Foundation
 import Combine
 import Domain
 
-protocol OperationsRepository {
-    func addOperation(params: CreateOperationParams) -> AnyPublisher<Domain.Operation, Error>
-}
-
-// MARK: Implementation
 final class OperationsRepositoryImpl {
     private let remoteDataSource: OperationsRemoteDataSource
     
@@ -23,8 +18,19 @@ final class OperationsRepositoryImpl {
 }
 
 // MARK: Interface
-extension OperationsRepositoryImpl: OperationsRepository {
-    func addOperation(params: CreateOperationParams) -> AnyPublisher<Domain.Operation, Error> {
+extension OperationsRepositoryImpl: Domain.OperationsRepository {
+    func addOperation(title: String,
+                      date: String,
+                      value: Double,
+                      category: String,
+                      paymentType: String,
+                      operationType: String) -> AnyPublisher<Domain.Operation, Error> {
+        let params = CreateOperationParams(title: title,
+                                           date: date,
+                                           value: value,
+                                           category: category,
+                                           paymentType: paymentType,
+                                           operationType: operationType)
         return remoteDataSource
             .addOperation(params: params)
             .map { $0.toDomain() }

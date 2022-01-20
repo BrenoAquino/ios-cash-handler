@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import Domain
 
 protocol OperationsRemoteDataSource {
     func addOperation(params: CreateOperationParams) -> AnyPublisher<OperationDTO, Error>

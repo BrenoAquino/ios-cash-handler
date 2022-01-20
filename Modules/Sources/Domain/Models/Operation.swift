@@ -7,12 +7,12 @@
 
 import Foundation
 
+public enum OperationType: String {
+    case cashIn = "cash-in"
+    case cashOut = "cash-out"
+}
+
 public struct Operation {
-    
-    public enum `Type` {
-        case cashIn
-        case cashOut
-    }
     
     public init() {}
 }
