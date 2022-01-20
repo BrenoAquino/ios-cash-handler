@@ -31,5 +31,8 @@ let package = Package(
         .target(
             name: "OperationForm",
             dependencies: ["Common", "DesignSystem", "Domain"]),
+        .testTarget(
+            name: "DataTests",
+            dependencies: ["Data"])
     ]
 )
