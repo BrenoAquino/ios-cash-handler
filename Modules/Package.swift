@@ -20,6 +20,9 @@ let package = Package(
             name: "DesignSystem",
             dependencies: []),
         .target(
+            name: "Domain",
+            dependencies: []),
+        .target(
             name: "Home",
             dependencies: ["Common", "DesignSystem"]),
         .target(

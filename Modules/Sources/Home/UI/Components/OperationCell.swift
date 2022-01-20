@@ -12,7 +12,7 @@ struct OperationCell: View {
     let name: String
     
     var body: some View {
-        Text(operation.title)
+        Text(name)
     }
 }
 

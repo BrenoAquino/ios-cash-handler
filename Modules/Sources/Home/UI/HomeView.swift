@@ -72,9 +72,10 @@ public struct HomeView: View {
     
     // MARK: Content List
     private var content: some View {
-        List(viewModel.operations) { operation in
-            OperationCell(operation: operation)
-        }
+        EmptyView()
+//        List(viewModel.operations) { operation in
+//            OperationCell(operation: operation)
+//        }
     }
 }
 

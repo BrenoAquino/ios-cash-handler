@@ -11,7 +11,7 @@ public extension OperationFormView {
     
     final class ViewModel: ObservableObject {
         
-        let type: OperationType
+//        let type: OperationType
         
         @Published var name: String = .empty
         @Published var date: String = .empty
@@ -19,9 +19,11 @@ public extension OperationFormView {
         @Published var category: String = .empty
         @Published var paymentType: String = .empty
         
-        public init(type: OperationType) {
-            self.type = type
-        }
+        public init(){}
+        
+//        public init(type: OperationType) {
+//            self.type = type
+//        }
         
         func addOperation() {
             print(name, date, value)

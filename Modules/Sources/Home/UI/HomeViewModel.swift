@@ -14,7 +14,7 @@ public extension HomeView {
         @Published var operationOptions: Bool = false
         @Published var operations: [String] = []
         
-        public var selectAddOperation: ((Core.OperationType) -> Void)?
+        public var selectAddOperation: (() -> Void)?
         
         public init() {}
         
@@ -25,12 +25,12 @@ public extension HomeView {
         
         func addCashIn() {
             operationOptions = false
-            selectAddOperation?(.cashIn)
+            selectAddOperation?()
         }
         
         func addCashOut() {
             operationOptions = false
-            selectAddOperation?(.cashOut)
+            selectAddOperation?()
         }
         
         func addCancel() {

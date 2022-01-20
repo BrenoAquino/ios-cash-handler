@@ -7,6 +7,7 @@
 
 import SwiftUI
 import DesignSystem
+import Common
 
 public struct OperationFormView: View {
     
@@ -58,18 +59,18 @@ public struct OperationFormView: View {
                     text: $viewModel.value
                 )
             }
-            if viewModel.type == .cashOut {
-                DSInputTextField(
-                    title: Localizable.OperationForm.categoryTitle,
-                    placeholder: Localizable.OperationForm.categoryPlaceholder,
-                    text: $viewModel.category
-                )
-                DSInputTextField(
-                    title: Localizable.OperationForm.paymentTypeTitle,
-                    placeholder: Localizable.OperationForm.paymentPlaceholder,
-                    text: $viewModel.paymentType
-                )
-            }
+//            if viewModel.type == .cashOut {
+//                DSInputTextField(
+//                    title: Localizable.OperationForm.categoryTitle,
+//                    placeholder: Localizable.OperationForm.categoryPlaceholder,
+//                    text: $viewModel.category
+//                )
+//                DSInputTextField(
+//                    title: Localizable.OperationForm.paymentTypeTitle,
+//                    placeholder: Localizable.OperationForm.paymentPlaceholder,
+//                    text: $viewModel.paymentType
+//                )
+//            }
         }
     }
     
@@ -85,8 +86,11 @@ public struct OperationFormView: View {
     }
 }
 
+#if DEBUG
+// MARK: - Preview
 struct OperationFormView_Previews: PreviewProvider {
     static var previews: some View {
-        OperationFormView(viewModel: .init(type: .cashOut))
+        OperationFormView(viewModel: .init())
     }
 }
+#endif
