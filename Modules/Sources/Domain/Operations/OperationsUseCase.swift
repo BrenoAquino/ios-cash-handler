@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 protocol OperationsUseCase {
     func addOperation(title: String,
@@ -13,7 +14,7 @@ protocol OperationsUseCase {
                       value: Double,
                       category: String,
                       paymentType: String,
-                      operationType: OperationType)
+                      operationType: OperationType) -> AnyPublisher<Operation, Error>
 }
 
 // MARK: Implementation
@@ -33,8 +34,8 @@ extension OperationsUseCaseImpl {
                       value: Double,
                       category: String,
                       paymentType: String,
-                      operationType: OperationType) {
-        operationsRepository.addOperation(title: title,
+                      operationType: OperationType) -> AnyPublisher<Operation, Error> {
+        return operationsRepository.addOperation(title: title,
                                           date: date,
                                           value: value,
                                           category: category,
