@@ -20,4 +20,4 @@ A divisão dos _targets_ dentro do _Modules_ segue uma divisão do Clean Archite
 
 ### App
 
-O aplicativo tem acesso a todos os _targets_ do _modules_
+O aplicativo tem acesso as _features_, _data_ e _domain_ do _modules_ para realizar o gerenciamento de fluxos e a injeção de dependência dos componentes. A injeção é feita por meio de _factories_, ou seja, é criada uma _factory_ para cada tipo de componente (e.g. _view model_, _use case_, _repositories_) que entende e gera os componente com suas devidas dependências criadas. Já os componentes reponsáveis pela gerencia dos fluxos são os _coordinators_. Para cara tela é criado um _coordinator_ que é responsável por entender para qual _coordinator_ determinada tela tem que redirecionar o fluxo.
