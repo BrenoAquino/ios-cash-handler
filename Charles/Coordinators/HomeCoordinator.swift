@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import Home
+import OperationForm
 
 struct HomeCoordinator: View {
     
@@ -18,9 +20,7 @@ struct HomeCoordinator: View {
         init(homeViewModel: HomeView.ViewModel) {
             self.homeViewModel = homeViewModel
             self.homeViewModel.selectAddOperation = { [weak self] operationType in
-                self?.operationFormViewModel = OperationFormCoordinator.ViewModel(
-                    operationFormViewModel: .init(type: operationType)
-                )
+                self?.operationFormViewModel = ViewModelFactory.coordinatorOperationForm(type: operationType)
             }
         }
     }
