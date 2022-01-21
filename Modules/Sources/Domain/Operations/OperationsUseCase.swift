@@ -22,13 +22,13 @@ public final class OperationsUseCaseImpl {
     
     private let operationsRepository: OperationsRepository
     
-    init(operationsRepository: OperationsRepository) {
+    public init(operationsRepository: OperationsRepository) {
         self.operationsRepository = operationsRepository
     }
 }
 
 // MARK: Interfaces
-extension OperationsUseCaseImpl {
+extension OperationsUseCaseImpl: OperationsUseCase {
     public func addOperation(title: String,
                       date: String,
                       value: Double,

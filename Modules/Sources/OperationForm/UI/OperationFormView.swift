@@ -8,6 +8,7 @@
 import SwiftUI
 import DesignSystem
 import Common
+import Domain
 
 public struct OperationFormView: View {
     
@@ -59,18 +60,18 @@ public struct OperationFormView: View {
                     text: $viewModel.value
                 )
             }
-//            if viewModel.type == .cashOut {
-//                DSInputTextField(
-//                    title: Localizable.OperationForm.categoryTitle,
-//                    placeholder: Localizable.OperationForm.categoryPlaceholder,
-//                    text: $viewModel.category
-//                )
-//                DSInputTextField(
-//                    title: Localizable.OperationForm.paymentTypeTitle,
-//                    placeholder: Localizable.OperationForm.paymentPlaceholder,
-//                    text: $viewModel.paymentType
-//                )
-//            }
+            if viewModel.type == .cashOut {
+                DSInputTextField(
+                    title: Localizable.OperationForm.categoryTitle,
+                    placeholder: Localizable.OperationForm.categoryPlaceholder,
+                    text: $viewModel.category
+                )
+                DSInputTextField(
+                    title: Localizable.OperationForm.paymentTypeTitle,
+                    placeholder: Localizable.OperationForm.paymentPlaceholder,
+                    text: $viewModel.paymentType
+                )
+            }
         }
     }
     
@@ -88,9 +89,26 @@ public struct OperationFormView: View {
 
 #if DEBUG
 // MARK: - Preview
+import Combine
+import Domain
+
 struct OperationFormView_Previews: PreviewProvider {
+    
+    private class UseCaseMock: OperationsUseCase {
+        func addOperation(title: String,
+                          date: String,
+                          value: Double,
+                          category: String,
+                          paymentType: String,
+                          operationType: OperationType) -> AnyPublisher<Domain.Operation, Error> {
+            return Empty().eraseToAnyPublisher()
+        }
+    }
+    
     static var previews: some View {
-        OperationFormView(viewModel: .init(operationsUseCase: <#OperationsUseCase#>, type: <#OperationType#>))
+        let useCase = UseCaseMock()
+        let viewModel = OperationFormView.ViewModel(operationsUseCase: useCase, type: .cashOut)
+        OperationFormView(viewModel: viewModel)
     }
 }
 #endif
