@@ -12,6 +12,7 @@ import Domain
 
 public struct OperationFormView: View {
     
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @ObservedObject private(set) var viewModel: ViewModel
     
     public init(viewModel: ViewModel) {
@@ -30,6 +31,11 @@ public struct OperationFormView: View {
         }
         .onTapGesture(perform: UIApplication.shared.endEditing)
         .navigationBarTitleDisplayMode(.inline)
+        .onReceive(viewModel.$state) { state in
+            if state == .finished {
+                self.presentationMode.wrappedValue.dismiss()
+            }
+        }
     }
     
     // MARK: Header

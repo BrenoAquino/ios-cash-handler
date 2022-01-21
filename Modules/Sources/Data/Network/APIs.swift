@@ -25,7 +25,7 @@ protocol APIs {
 
 extension APIs {
     func createRequest() throws -> URLRequest {
-        guard let url = URL(string: baseURL + path) else {
+        guard let url = URL(string: baseURL + "/" + path) else {
             throw CharlesDataError(type: .invalidURL)
         }
         
