@@ -30,11 +30,11 @@ public final class OperationsUseCaseImpl {
 // MARK: Interfaces
 extension OperationsUseCaseImpl: OperationsUseCase {
     public func addOperation(title: String,
-                      date: String,
-                      value: Double,
-                      category: String,
-                      paymentType: String,
-                      operationType: OperationType) -> AnyPublisher<Operation, Error> {
+                             date: String,
+                             value: Double,
+                             category: String,
+                             paymentType: String,
+                             operationType: OperationType) -> AnyPublisher<Operation, Error> {
         return operationsRepository.addOperation(title: title,
                                           date: date,
                                           value: value,

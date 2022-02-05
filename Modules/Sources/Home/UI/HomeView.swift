@@ -19,7 +19,7 @@ public struct HomeView: View {
     public var body: some View {
         ZStack {
             DSColor.background.rawValue.edgesIgnoringSafeArea([.top, .bottom])
-            Text("Hello world from SwiftUI!").foregroundColor(.white)
+            content
         }
         .confirmationDialog(Localizable.Home.operationOptionsTitle,
                             isPresented: $viewModel.operationOptions,
@@ -82,6 +82,8 @@ public struct HomeView: View {
 // MARK: - Preview
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(viewModel: .init())
+        NavigationView {
+            HomeView(viewModel: .init())
+        }
     }
 }
