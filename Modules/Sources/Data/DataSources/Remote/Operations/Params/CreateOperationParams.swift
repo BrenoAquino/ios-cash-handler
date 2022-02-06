@@ -12,6 +12,5 @@ public struct CreateOperationParams: Encodable {
     let date: String
     let value: Double
     let category: String
-    let paymentType: String
-    let operationType: String
+    let paymentMethod: String
 }

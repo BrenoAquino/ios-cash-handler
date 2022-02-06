@@ -35,11 +35,12 @@ extension OperationsUseCaseImpl: OperationsUseCase {
                              category: String,
                              paymentType: String,
                              operationType: OperationType) -> AnyPublisher<Operation, Error> {
-        return operationsRepository.addOperation(title: title,
-                                          date: date,
-                                          value: value,
-                                          category: category,
-                                          paymentType: paymentType,
-                                          operationType: operationType.rawValue)
+        return operationsRepository
+            .addOperation(title: title,
+                          date: date,
+                          value: value,
+                          category: category,
+                          paymentType: paymentType,
+                          operationType: operationType.rawValue)
     }
 }

@@ -25,12 +25,7 @@ extension OperationsRepositoryImpl: Domain.OperationsRepository {
                       category: String,
                       paymentType: String,
                       operationType: String) -> AnyPublisher<Domain.Operation, Error> {
-        let params = CreateOperationParams(title: title,
-                                           date: date,
-                                           value: value,
-                                           category: category,
-                                           paymentType: paymentType,
-                                           operationType: operationType)
+        let params = CreateOperationParams(title: title, date: date, value: value, category: category, paymentMethod: paymentType)
         return remoteDataSource
             .addOperation(params: params)
             .map { $0.toDomain() }
