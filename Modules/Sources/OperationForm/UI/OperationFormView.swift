@@ -106,7 +106,7 @@ struct OperationFormView_Previews: PreviewProvider {
                           value: Double,
                           category: String,
                           paymentType: String,
-                          operationType: OperationType) -> AnyPublisher<Domain.Operation, Error> {
+                          operationType: OperationType) -> AnyPublisher<Domain.Operation, Domain.CharlesError> {
             return Empty().eraseToAnyPublisher()
         }
     }

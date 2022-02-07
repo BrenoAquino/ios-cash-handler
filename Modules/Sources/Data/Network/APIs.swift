@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Domain
 
 enum RequestMethod: String {
     case get = "GET"
@@ -26,7 +27,7 @@ protocol APIs {
 extension APIs {
     func createRequest() throws -> URLRequest {
         guard let url = URL(string: baseURL + "/" + path) else {
-            throw CharlesDataError(type: .invalidURL)
+            throw CharlesError(type: .invalidURL)
         }
         
         var request = URLRequest(url: url)

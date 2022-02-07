@@ -21,7 +21,7 @@ let package = Package(
             dependencies: []),
         .target(
             name: "Data",
-            dependencies: ["Domain"]),
+            dependencies: ["Domain", "Common"]),
         .target(
             name: "Domain",
             dependencies: []),
@@ -33,6 +33,7 @@ let package = Package(
             dependencies: ["Common", "DesignSystem", "Domain"]),
         .testTarget(
             name: "DataTests",
-            dependencies: ["Data"])
+            dependencies: ["Data"],
+            resources: [.process("Resources/")])
     ]
 )

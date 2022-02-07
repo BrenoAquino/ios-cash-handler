@@ -10,7 +10,7 @@ import Combine
 import Domain
 
 public protocol OperationsRemoteDataSource {
-    func addOperation(params: CreateOperationParams) -> AnyPublisher<OperationDTO, Error>
+    func addOperation(params: CreateOperationParams) -> AnyPublisher<OperationDTO, CharlesError>
 }
 
 // MARK: Implementation
@@ -28,7 +28,7 @@ public final class OperationsRemoteDataSourceImpl: Network {
 
 // MARK: Requests
 extension OperationsRemoteDataSourceImpl: OperationsRemoteDataSource {
-    public func addOperation(params: CreateOperationParams) -> AnyPublisher<OperationDTO, Error> {
+    public func addOperation(params: CreateOperationParams) -> AnyPublisher<OperationDTO, CharlesError> {
         return execute(endpoint: .addOperation(params: params))
     }
 }

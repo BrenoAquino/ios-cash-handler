@@ -14,13 +14,13 @@ enum OperationsAPIs {
 
 extension OperationsAPIs: APIs {
     var baseURL: String {
-        return "https://demo8706630.mockable.io"
+        return "https://tqcbp1qk03.execute-api.us-east-1.amazonaws.com/dev"
     }
     
     var path: String {
         switch self {
         case .addOperation:
-            return "operations"
+            return "cash-management/operations"
         }
     }
     
