@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		556603D7278C82E800E24511 /* Modules in Frameworks */ = {isa = PBXBuildFile; productRef = 556603D6278C82E800E24511 /* Modules */; };
 		556DEE26278B63E100CBFF5C /* CharlesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE25278B63E100CBFF5C /* CharlesApp.swift */; };
 		556DEE2A278B63E200CBFF5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 556DEE29278B63E200CBFF5C /* Assets.xcassets */; };
 		556DEE2D278B63E200CBFF5C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 556DEE2C278B63E200CBFF5C /* Preview Assets.xcassets */; };
@@ -18,6 +17,10 @@
 		55E3DDBD279A2C17005F0AE0 /* RepositoryFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E3DDBC279A2C17005F0AE0 /* RepositoryFactory.swift */; };
 		55E3DDBF279A2C64005F0AE0 /* UseCaseFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E3DDBE279A2C64005F0AE0 /* UseCaseFactory.swift */; };
 		55E3DDC1279A2CC8005F0AE0 /* ViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E3DDC0279A2CC8005F0AE0 /* ViewModelFactory.swift */; };
+		55EA00EF27B0B447000C8CBE /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 55EA00EE27B0B447000C8CBE /* Domain */; };
+		55EA00F127B0B44E000C8CBE /* Data in Frameworks */ = {isa = PBXBuildFile; productRef = 55EA00F027B0B44E000C8CBE /* Data */; };
+		55EA00F327B0B452000C8CBE /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = 55EA00F227B0B452000C8CBE /* Common */; };
+		55EA00F527B0B455000C8CBE /* Features in Frameworks */ = {isa = PBXBuildFile; productRef = 55EA00F427B0B455000C8CBE /* Features */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,8 +34,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5506FB4627B0B29A000E9461 /* Domain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Domain; sourceTree = "<group>"; };
+		5506FB4727B0B2B2000E9461 /* Data */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Data; sourceTree = "<group>"; };
+		5506FB4827B0B2F8000E9461 /* Common */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Common; sourceTree = "<group>"; };
 		556603B2278C826400E24511 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		556603D5278C828000E24511 /* Modules */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Modules; sourceTree = "<group>"; };
 		556DEE22278B63E100CBFF5C /* Charles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Charles.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		556DEE25278B63E100CBFF5C /* CharlesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharlesApp.swift; sourceTree = "<group>"; };
 		556DEE29278B63E200CBFF5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -41,6 +46,7 @@
 		556DEE36278B63E200CBFF5C /* CharlesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharlesTests.swift; sourceTree = "<group>"; };
 		55B6BC47278B8D8500B421AE /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		55B6BC49278B8D8F00B421AE /* OperationFormCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFormCoordinator.swift; sourceTree = "<group>"; };
+		55B85B5E27B0ADB700D07656 /* Features */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Features; sourceTree = "<group>"; };
 		55E3DDBA279A2B68005F0AE0 /* RemoteDataSourceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataSourceFactory.swift; sourceTree = "<group>"; };
 		55E3DDBC279A2C17005F0AE0 /* RepositoryFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryFactory.swift; sourceTree = "<group>"; };
 		55E3DDBE279A2C64005F0AE0 /* UseCaseFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCaseFactory.swift; sourceTree = "<group>"; };
@@ -52,7 +58,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				556603D7278C82E800E24511 /* Modules in Frameworks */,
+				55EA00F127B0B44E000C8CBE /* Data in Frameworks */,
+				55EA00EF27B0B447000C8CBE /* Domain in Frameworks */,
+				55EA00F327B0B452000C8CBE /* Common in Frameworks */,
+				55EA00F527B0B455000C8CBE /* Features in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,7 +96,10 @@
 		556DEE19278B63E100CBFF5C = {
 			isa = PBXGroup;
 			children = (
-				556603D5278C828000E24511 /* Modules */,
+				5506FB4827B0B2F8000E9461 /* Common */,
+				5506FB4727B0B2B2000E9461 /* Data */,
+				5506FB4627B0B29A000E9461 /* Domain */,
+				55B85B5E27B0ADB700D07656 /* Features */,
 				556DEE24278B63E100CBFF5C /* Charles */,
 				556DEE35278B63E200CBFF5C /* CharlesTests */,
 				556DEE23278B63E100CBFF5C /* Products */,
@@ -167,7 +179,10 @@
 			);
 			name = Charles;
 			packageProductDependencies = (
-				556603D6278C82E800E24511 /* Modules */,
+				55EA00EE27B0B447000C8CBE /* Domain */,
+				55EA00F027B0B44E000C8CBE /* Data */,
+				55EA00F227B0B452000C8CBE /* Common */,
+				55EA00F427B0B455000C8CBE /* Features */,
 			);
 			productName = Charles;
 			productReference = 556DEE22278B63E100CBFF5C /* Charles.app */;
@@ -531,9 +546,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		556603D6278C82E800E24511 /* Modules */ = {
+		55EA00EE27B0B447000C8CBE /* Domain */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Modules;
+			productName = Domain;
+		};
+		55EA00F027B0B44E000C8CBE /* Data */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Data;
+		};
+		55EA00F227B0B452000C8CBE /* Common */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Common;
+		};
+		55EA00F427B0B455000C8CBE /* Features */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Features;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
