@@ -1,0 +1,11 @@
+{
+    "data": {
+        "id": "64b26263-89e5-43cc-a33f-608f0cd4e725",
+        "title": "Madero",
+        "date": "20-12-2022",
+        "category": "leisure",
+        "payment_method": "credit-card",
+        "value": 123.123
+    },
+    "requestId": "8daa3d28-8035-4d28-9efd-a2a78457ffe5"
+}

@@ -14,7 +14,7 @@ public protocol OperationsUseCase {
                       value: Double,
                       category: String,
                       paymentType: String,
-                      operationType: OperationType) -> AnyPublisher<Operation, Error>
+                      operationType: OperationType) -> AnyPublisher<Operation, CharlesError>
 }
 
 // MARK: Implementation
@@ -34,7 +34,7 @@ extension OperationsUseCaseImpl: OperationsUseCase {
                              value: Double,
                              category: String,
                              paymentType: String,
-                             operationType: OperationType) -> AnyPublisher<Operation, Error> {
+                             operationType: OperationType) -> AnyPublisher<Operation, CharlesError> {
         return operationsRepository
             .addOperation(title: title,
                           date: date,

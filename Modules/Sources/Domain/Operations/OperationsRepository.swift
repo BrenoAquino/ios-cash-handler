@@ -14,5 +14,5 @@ public protocol OperationsRepository {
                       value: Double,
                       category: String,
                       paymentType: String,
-                      operationType: String) -> AnyPublisher<Operation, Error>
+                      operationType: String) -> AnyPublisher<Operation, CharlesError>
 }

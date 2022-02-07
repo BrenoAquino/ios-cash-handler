@@ -33,3 +33,23 @@ class URLSessionMock: URLSession {
         }
     }
 }
+
+extension URLSessionMock {
+    static private func defaultResponse(statusCode: Int) -> HTTPURLResponse? {
+        let url = URL(string: "https://google.com.br")!
+        return HTTPURLResponse(url: url, statusCode: statusCode, httpVersion: nil, headerFields: nil)
+    }
+    
+    static func success(statusCode: Int = 200, file: MockFile, response: URLResponse? = nil) -> URLSessionMock {
+        let sessionMock = URLSessionMock()
+        sessionMock.data = file.data
+        sessionMock.response = response ?? defaultResponse(statusCode: statusCode)
+        return sessionMock
+    }
+    
+    static func failure(statusCode: Int, file: MockFile, error: Error) -> URLSessionMock {
+        let sessionMock = URLSessionMock()
+        sessionMock.error = error
+        return sessionMock
+    }
+}

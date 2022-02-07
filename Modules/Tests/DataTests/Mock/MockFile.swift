@@ -21,7 +21,7 @@ enum MockFile: String {
 // MARK: Load File
 extension MockFile {
     private func dataFromFile(name: String) -> Data {
-        if let file = Bundle.module.url(forResource: "add_operation_success", withExtension: "json") {
+        if let file = Bundle.module.url(forResource: name, withExtension: "json") {
             let json = try? String(contentsOf: file, encoding: .utf8)
             return json?.data(using: .utf8) ?? Data()
         }

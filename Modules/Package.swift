@@ -34,6 +34,6 @@ let package = Package(
         .testTarget(
             name: "DataTests",
             dependencies: ["Data"],
-            resources: [.copy("Resources/")])
+            resources: [.process("Resources/")])
     ]
 )
