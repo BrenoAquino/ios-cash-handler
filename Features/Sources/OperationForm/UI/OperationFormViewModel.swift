@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import Combine
+import Common
 import Domain
 import DesignSystem
-import Combine
 
 public extension OperationFormView {
     
@@ -23,7 +24,7 @@ public extension OperationFormView {
         @Published var value: String = .empty
         @Published var category: String = .empty
         @Published var paymentType: String = .empty
-        @Published var state: ViewState = .content
+        @Published private(set) var state: ViewState = .content
         
         public init(operationsUseCase: Domain.OperationsUseCase, type: OperationType) {
             self.operationsUseCase = operationsUseCase
@@ -42,14 +43,14 @@ extension OperationFormView.ViewModel {
                           category: category,
                           paymentType: paymentType,
                           operationType: type)
-            .sink(receiveCompletion: { [weak self] completion in
+            .sinkCompletion { [weak self] completion in
                 switch completion {
                 case .finished:
                     self?.state = .finished
                 case .failure:
                     self?.state = .failure
                 }
-            }, receiveValue: {_ in })
+            }
             .store(in: &cancellables)
     }
 }

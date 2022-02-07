@@ -13,4 +13,9 @@ public struct CreateOperationParams: Encodable {
     let value: Double
     let category: String
     let paymentMethod: String
+    
+    private enum CodingKeys : String, CodingKey {
+        case title, date, category, value
+        case paymentMethod = "payment_method"
+    }
 }

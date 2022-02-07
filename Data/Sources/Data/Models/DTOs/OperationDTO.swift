@@ -9,6 +9,7 @@ import Foundation
 import Domain
 
 public struct OperationDTO: Decodable {
+    public let id: String
     public let title: String
     public let date: String
     public let category: String
@@ -16,7 +17,7 @@ public struct OperationDTO: Decodable {
     public let value: Double
     
     private enum CodingKeys : String, CodingKey {
-        case title, date, category, value
+        case id, title, date, category, value
         case paymentMethod = "payment_method"
     }
 }
