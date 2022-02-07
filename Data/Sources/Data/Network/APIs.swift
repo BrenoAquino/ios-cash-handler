@@ -13,8 +13,6 @@ enum RequestMethod: String {
     case post = "POST"
     case delete = "DELETE"
     case put = "PUT"
-    case patch = "PATCH"
-    case head = "HEAD"
 }
 
 protocol APIs {
