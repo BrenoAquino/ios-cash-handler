@@ -10,6 +10,8 @@ import Combine
 import Common
 
 public protocol OperationsUseCase {
+    func categories() -> AnyPublisher<[Category], CharlesError>
+    func paymentMethods() -> AnyPublisher<[PaymentMethod], CharlesError>
     func addOperation(title: String,
                       date: Date,
                       value: String,
@@ -22,14 +24,31 @@ public protocol OperationsUseCase {
 public final class OperationsUseCaseImpl {
     
     private let operationsRepository: OperationsRepository
+    private let categoriesRepository: CategoriesRepository
+    private let paymentMethodsRepository: PaymentMethodsRepository
     
-    public init(operationsRepository: OperationsRepository) {
+    public init(operationsRepository: OperationsRepository,
+                categoriesRepository: CategoriesRepository,
+                paymentMethodsRepository: PaymentMethodsRepository) {
         self.operationsRepository = operationsRepository
+        self.categoriesRepository = categoriesRepository
+        self.paymentMethodsRepository = paymentMethodsRepository
     }
 }
 
 // MARK: Interfaces
 extension OperationsUseCaseImpl: OperationsUseCase {
+    
+    public func categories() -> AnyPublisher<[Category], CharlesError> {
+        return categoriesRepository
+            .fetchCategories()
+    }
+    
+    public func paymentMethods() -> AnyPublisher<[PaymentMethod], CharlesError> {
+        return paymentMethodsRepository
+            .fetchPaymentMethods()
+    }
+    
     public func addOperation(title: String,
                              date: Date,
                              value: String,
@@ -37,7 +56,7 @@ extension OperationsUseCaseImpl: OperationsUseCase {
                              paymentType: String,
                              operationType: OperationType) -> AnyPublisher<Operation, CharlesError> {
         guard let value = Double(value) else {
-            return Fail(error: CharlesError(type: .unkown))
+            return Fail(error: CharlesError(type: .wrongInputType))
                 .eraseToAnyPublisher()
         }
         
