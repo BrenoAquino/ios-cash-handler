@@ -11,6 +11,10 @@
 		556DEE2A278B63E200CBFF5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 556DEE29278B63E200CBFF5C /* Assets.xcassets */; };
 		556DEE2D278B63E200CBFF5C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 556DEE2C278B63E200CBFF5C /* Preview Assets.xcassets */; };
 		556DEE37278B63E200CBFF5C /* CharlesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE36278B63E200CBFF5C /* CharlesTests.swift */; };
+		558CCB4A27B2030D003329D3 /* Common in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 55EA00F227B0B452000C8CBE /* Common */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		558CCB4C27B2030F003329D3 /* Data in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 55EA00F027B0B44E000C8CBE /* Data */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		558CCB4D27B20312003329D3 /* Domain in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 55EA00EE27B0B447000C8CBE /* Domain */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		558CCB4E27B20313003329D3 /* Features in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 55EA00F427B0B455000C8CBE /* Features */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		55B6BC48278B8D8500B421AE /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B6BC47278B8D8500B421AE /* HomeCoordinator.swift */; };
 		55B6BC4A278B8D8F00B421AE /* OperationFormCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B6BC49278B8D8F00B421AE /* OperationFormCoordinator.swift */; };
 		55E3DDBB279A2B68005F0AE0 /* RemoteDataSourceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E3DDBA279A2B68005F0AE0 /* RemoteDataSourceFactory.swift */; };
@@ -32,6 +36,23 @@
 			remoteInfo = Charles;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		558CCB4B27B2030D003329D3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				558CCB4D27B20312003329D3 /* Domain in Embed Frameworks */,
+				558CCB4C27B2030F003329D3 /* Data in Embed Frameworks */,
+				558CCB4A27B2030D003329D3 /* Common in Embed Frameworks */,
+				558CCB4E27B20313003329D3 /* Features in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5506FB4627B0B29A000E9461 /* Domain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Domain; sourceTree = "<group>"; };
@@ -172,6 +193,7 @@
 				556DEE1E278B63E100CBFF5C /* Sources */,
 				556DEE1F278B63E100CBFF5C /* Frameworks */,
 				556DEE20278B63E100CBFF5C /* Resources */,
+				558CCB4B27B2030D003329D3 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

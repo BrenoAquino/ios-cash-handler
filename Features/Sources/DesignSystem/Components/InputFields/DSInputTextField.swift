@@ -48,7 +48,9 @@ public struct DSInputTextField: View {
 // MARK: - Preview
 struct DSInputTextField_Previews: PreviewProvider {
     static var previews: some View {
-        DSInputTextField(title: "Email", placeholder: "example@mail.com", text: .constant(""))
+        DSInputTextField(title: "2Egkmaijl", placeholder: "example@mail.com", text: .constant(""))
+            .previewLayout(.sizeThatFits)
+            .padding()
     }
 }
 #endif
