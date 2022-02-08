@@ -7,9 +7,9 @@
 
 import Foundation
 
-public extension DateFormatter {
+extension DateFormatter {
     
-    convenience init(pattern: String) {
+    public convenience init(pattern: String) {
         self.init()
         dateFormat = pattern
     }

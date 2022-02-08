@@ -20,20 +20,36 @@ public struct OperationFormView: View {
     }
     
     public var body: some View {
-        form
-            .navigationTitle(Localizable.OperationForm.operationFormTitle)
-            .background(
-                DSColor.background.rawValue.edgesIgnoringSafeArea(.all)
-            )
-            .toolbar {
-                hideKeyboardBar
-                doneBar
+        Group {
+            content
+        }
+        .navigationTitle(Localizable.OperationForm.operationFormTitle)
+        .background(
+            DSColor.background.rawValue.edgesIgnoringSafeArea(.all)
+        )
+        .toolbar {
+            hideKeyboardBar
+            doneBar
+        }
+        .onReceive(viewModel.$state) { state in
+            if state == .finished {
+                self.presentationMode.wrappedValue.dismiss()
             }
-            .onReceive(viewModel.$state) { state in
-                if state == .finished {
-                    self.presentationMode.wrappedValue.dismiss()
-                }
-            }
+        }
+    }
+    
+    // MARK: View State
+    private var content: AnyView {
+        switch viewModel.state {
+        case .loading:
+            return AnyView(ZStack {
+                form
+                ViewState.loadingView
+            })
+            
+        default:
+            return AnyView(form)
+        }
     }
     
     // MARK: ToolBar

@@ -52,6 +52,8 @@ extension OperationFormView.ViewModel {
     
     func addOperation() {
         state = .loading
+        validInputs = false
+        
         operationsUseCase
             .addOperation(title: name,
                           date: Date(),
