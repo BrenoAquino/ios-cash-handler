@@ -11,18 +11,13 @@ import SwiftUI
 struct CharlesApp: App {
     
     init() {
-        setupNavigationBar()
-        setupDatePicker()
+        setupTableViewAppearance()
     }
     
     // MARK: Setups
-    private func setupNavigationBar() {
-        UINavigationBar.appearance().tintColor = .white
-    }
-    
-    private func setupDatePicker() {
-        UIDatePicker.appearance().backgroundColor = UIColor.init(.white)
-        UIDatePicker.appearance().tintColor = UIColor.init(.white)
+    func setupTableViewAppearance() {
+        UITableView.appearance().backgroundColor = .clear
+        UITableViewCell.appearance().backgroundColor = .clear
     }
     
     // MARK: Scene
@@ -31,7 +26,9 @@ struct CharlesApp: App {
             NavigationView {
                 HomeCoordinator(viewModel: .init(homeViewModel: .init()))
             }
-            .navigationViewStyle(.stack)
+            .navigationViewStyle(.automatic)
+//            .navigationViewStyle(.stack)
+            .preferredColorScheme(.dark)
         }
     }
 }

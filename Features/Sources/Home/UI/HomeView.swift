@@ -29,7 +29,6 @@ public struct HomeView: View {
             Button(Localizable.Home.cashOutOption, action: viewModel.addCashOut)
             Button(Localizable.Common.cancel, role: .cancel, action: viewModel.addCancel)
         })
-        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             profileBar
             addBar

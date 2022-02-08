@@ -20,76 +20,62 @@ public struct OperationFormView: View {
     }
     
     public var body: some View {
-        ZStack(alignment: .top) {
-            DSColor.background.rawValue.edgesIgnoringSafeArea([.top, .bottom])
-            VStack(spacing: DSSpace.smallL.rawValue) {
-                title
-                form
-                addButton
+        form
+            .navigationTitle(Localizable.OperationForm.operationFormTitle)
+            .onTapGesture(perform: UIApplication.shared.endEditing)
+            .onReceive(viewModel.$state) { state in
+                if state == .finished {
+                    self.presentationMode.wrappedValue.dismiss()
+                }
             }
-            .padding(DSSpace.normal.rawValue)
-        }
-        .onTapGesture(perform: UIApplication.shared.endEditing)
-        .navigationBarTitleDisplayMode(.inline)
-        .onReceive(viewModel.$state) { state in
-            if state == .finished {
-                self.presentationMode.wrappedValue.dismiss()
+            .background(
+                DSColor.background.rawValue.edgesIgnoringSafeArea(.all)
+            )
+            .toolbar {
+                doneBar
             }
-        }
-    }
-    
-    // MARK: Header
-    private var title: some View {
-        Text(Localizable.OperationForm.operationFormTitle)
-            .font(DSFont.largeTitle.rawValue)
-            .foregroundColor(DSColor.primaryText.rawValue)
-            .padding()
     }
     
     // MARK: Form
     private var form: some View {
-        VStack(spacing: DSSpace.smallL.rawValue) {
-            DSInputTextField(
-                title: Localizable.OperationForm.operationTitle,
-                placeholder: Localizable.OperationForm.operationPlaceholder,
-                text: $viewModel.name
-            )
-            HStack(spacing: DSSpace.smallL.rawValue) {
-                DSDatePickerField(
-                    title: Localizable.OperationForm.dateTitle,
-                    date: $viewModel.date
-                )
-                DSInputTextField(
-                    title: Localizable.OperationForm.valueTitle,
-                    placeholder: Localizable.OperationForm.valuePlaceholder,
-                    keyboardType: .numberPad,
-                    text: $viewModel.value
-                )
+        Form {
+            Section(Localizable.OperationForm.operationTitle) {
+                TextField(Localizable.OperationForm.operationPlaceholder,
+                          text: $viewModel.name)
+                    .listRowBackground(DSColor.secondBackground.rawValue)
             }
-            if viewModel.type == .cashOut {
-                DSInputTextField(
-                    title: Localizable.OperationForm.categoryTitle,
-                    placeholder: Localizable.OperationForm.categoryPlaceholder,
-                    text: $viewModel.category
-                )
-                DSInputTextField(
-                    title: Localizable.OperationForm.paymentTypeTitle,
-                    placeholder: Localizable.OperationForm.paymentPlaceholder,
-                    text: $viewModel.paymentType
-                )
+            Section(Localizable.OperationForm.valueTitle) {
+                TextField(Localizable.OperationForm.valuePlaceholder,
+                          text: $viewModel.value)
+                    .keyboardType(.numberPad)
+                    .listRowBackground(DSColor.secondBackground.rawValue)
+            }
+            Section(Localizable.OperationForm.categoryTitle) {
+                TextField(Localizable.OperationForm.categoryPlaceholder,
+                          text: $viewModel.category)
+                    .listRowBackground(DSColor.secondBackground.rawValue)
+            }
+            Section(Localizable.OperationForm.paymentTypeTitle) {
+                TextField(Localizable.OperationForm.paymentPlaceholder,
+                          text: $viewModel.paymentType)
+                    .listRowBackground(DSColor.secondBackground.rawValue)
+            }
+            Section(Localizable.OperationForm.dateTitle) {
+                DatePicker("", selection: $viewModel.date, in: ...Date(), displayedComponents: .date)
+                    .datePickerStyle(GraphicalDatePickerStyle())
+                    .labelsHidden()
+                    .listRowBackground(DSColor.secondBackground.rawValue)
             }
         }
     }
     
-    // MARK: Button
-    private var addButton: some View {
-        Group {
-            DSButton(title: Localizable.OperationForm.buttonTitle, action: viewModel.addOperation)
-                .frame(maxWidth: .infinity, minHeight: DSOperationForm.buttonHeight)
-                .background(DSColor.secondBackground.rawValue)
-                .clipShape(RoundedRectangle(cornerRadius: DSCornerRadius.normal.rawValue))
-                .shadow(style: .easy)
-        }.padding()
+    // MARK: ToolBar
+    private var doneBar: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button(action: viewModel.addOperation) {
+                ImageAsset.done.tint(Color.white)
+            }
+        }
     }
 }
 
@@ -112,9 +98,14 @@ struct OperationFormView_Previews: PreviewProvider {
     }
     
     static var previews: some View {
+        UITableView.appearance().backgroundColor = .clear
         let useCase = UseCaseMock()
         let viewModel = OperationFormView.ViewModel(operationsUseCase: useCase, type: .cashOut)
-        OperationFormView(viewModel: viewModel)
+        
+        return NavigationView {
+            OperationFormView(viewModel: viewModel)
+        }
+        .preferredColorScheme(.dark)
     }
 }
 #endif
