@@ -7,11 +7,12 @@
 
 import Foundation
 import Combine
+import Common
 
 public protocol OperationsUseCase {
     func addOperation(title: String,
-                      date: String,
-                      value: Double,
+                      date: Date,
+                      value: String,
                       category: String,
                       paymentType: String,
                       operationType: OperationType) -> AnyPublisher<Operation, CharlesError>
@@ -30,14 +31,20 @@ public final class OperationsUseCaseImpl {
 // MARK: Interfaces
 extension OperationsUseCaseImpl: OperationsUseCase {
     public func addOperation(title: String,
-                             date: String,
-                             value: Double,
+                             date: Date,
+                             value: String,
                              category: String,
                              paymentType: String,
                              operationType: OperationType) -> AnyPublisher<Operation, CharlesError> {
+        guard let value = Double(value) else {
+            return Fail(error: CharlesError(type: .unkown))
+                .eraseToAnyPublisher()
+        }
+        
+        let dateFormatted = DateFormatter(pattern: "dd-MM-yyyy")
         return operationsRepository
             .addOperation(title: title,
-                          date: date,
+                          date: dateFormatted.string(from: date),
                           value: value,
                           category: category,
                           paymentType: paymentType,

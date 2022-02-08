@@ -12,12 +12,19 @@ struct CharlesApp: App {
     
     init() {
         setupTableViewAppearance()
+        setupScrollViewAppearance()
     }
     
     // MARK: Setups
     func setupTableViewAppearance() {
         UITableView.appearance().backgroundColor = .clear
         UITableViewCell.appearance().backgroundColor = .clear
+    }
+    
+    func setupScrollViewAppearance() {
+        UIScrollView.appearance().showsVerticalScrollIndicator = false
+        UIScrollView.appearance().showsHorizontalScrollIndicator = false
+        UIScrollView.appearance().keyboardDismissMode = .onDrag
     }
     
     // MARK: Scene

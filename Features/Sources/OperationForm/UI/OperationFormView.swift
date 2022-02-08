@@ -22,18 +22,36 @@ public struct OperationFormView: View {
     public var body: some View {
         form
             .navigationTitle(Localizable.OperationForm.operationFormTitle)
-            .onTapGesture(perform: UIApplication.shared.endEditing)
+            .background(
+                DSColor.background.rawValue.edgesIgnoringSafeArea(.all)
+            )
+            .toolbar {
+                hideKeyboardBar
+                doneBar
+            }
             .onReceive(viewModel.$state) { state in
                 if state == .finished {
                     self.presentationMode.wrappedValue.dismiss()
                 }
             }
-            .background(
-                DSColor.background.rawValue.edgesIgnoringSafeArea(.all)
-            )
-            .toolbar {
-                doneBar
+    }
+    
+    // MARK: ToolBar
+    private var hideKeyboardBar: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button(action: UIApplication.shared.endEditing) {
+                ImageAsset.hideKeyboard.tint(DSColor.primaryText.rawValue)
             }
+        }
+    }
+    
+    private var doneBar: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button(action: viewModel.addOperation) {
+                ImageAsset.done.tint(DSColor.primaryText.rawValue)
+            }
+            .disabled(!viewModel.validInputs)
+        }
     }
     
     // MARK: Form
@@ -61,19 +79,10 @@ public struct OperationFormView: View {
                     .listRowBackground(DSColor.secondBackground.rawValue)
             }
             Section(Localizable.OperationForm.dateTitle) {
-                DatePicker("", selection: $viewModel.date, in: ...Date(), displayedComponents: .date)
+                DatePicker(String.empty, selection: $viewModel.date, in: ...Date(), displayedComponents: .date)
                     .datePickerStyle(GraphicalDatePickerStyle())
                     .labelsHidden()
                     .listRowBackground(DSColor.secondBackground.rawValue)
-            }
-        }
-    }
-    
-    // MARK: ToolBar
-    private var doneBar: some ToolbarContent {
-        ToolbarItem(placement: .navigationBarTrailing) {
-            Button(action: viewModel.addOperation) {
-                ImageAsset.done.tint(Color.white)
             }
         }
     }
@@ -81,26 +90,15 @@ public struct OperationFormView: View {
 
 #if DEBUG
 // MARK: - Preview
-import Combine
-import Domain
-
 struct OperationFormView_Previews: PreviewProvider {
-    
-    private class UseCaseMock: OperationsUseCase {
-        func addOperation(title: String,
-                          date: String,
-                          value: Double,
-                          category: String,
-                          paymentType: String,
-                          operationType: OperationType) -> AnyPublisher<Domain.Operation, Domain.CharlesError> {
-            return Empty().eraseToAnyPublisher()
-        }
-    }
     
     static var previews: some View {
         UITableView.appearance().backgroundColor = .clear
-        let useCase = UseCaseMock()
-        let viewModel = OperationFormView.ViewModel(operationsUseCase: useCase, type: .cashOut)
+        
+        let viewModel = OperationFormView.ViewModel(
+            operationsUseCase: OperationsUseCaseMock(),
+            type: .cashOut
+        )
         
         return NavigationView {
             OperationFormView(viewModel: viewModel)
