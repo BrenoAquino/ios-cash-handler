@@ -423,6 +423,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Charles/Preview Content\"";
 				DEVELOPMENT_TEAM = GYLCJG59BK;
 				ENABLE_PREVIEWS = YES;
+				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Charles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -453,6 +454,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Charles/Preview Content\"";
 				DEVELOPMENT_TEAM = GYLCJG59BK;
 				ENABLE_PREVIEWS = YES;
+				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Charles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

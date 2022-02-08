@@ -13,7 +13,7 @@ public extension HomeView {
     final class ViewModel: ObservableObject {
         
         @Published var operationOptions: Bool = false
-        @Published var operations: [String] = []
+        @Published var operations: [String] = ["Breno", "Pinheiro", "Aquino"]
         
         public var selectAddOperation: ((Domain.OperationType) -> Void)?
         

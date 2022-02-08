@@ -11,9 +11,21 @@ import SwiftUI
 struct CharlesApp: App {
     
     init() {
+        setupNavigationBar()
+        setupDatePicker()
+    }
+    
+    // MARK: Setups
+    private func setupNavigationBar() {
         UINavigationBar.appearance().tintColor = .white
     }
     
+    private func setupDatePicker() {
+        UIDatePicker.appearance().backgroundColor = UIColor.init(.white)
+        UIDatePicker.appearance().tintColor = UIColor.init(.white)
+    }
+    
+    // MARK: Scene
     var body: some Scene {
         WindowGroup {
             NavigationView {

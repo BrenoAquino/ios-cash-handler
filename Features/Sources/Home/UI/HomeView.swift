@@ -72,13 +72,13 @@ public struct HomeView: View {
     
     // MARK: Content List
     private var content: some View {
-        EmptyView()
-//        List(viewModel.operations) { operation in
-//            OperationCell(operation: operation)
-//        }
+        List(viewModel.operations, id: \.hashValue) { operation in
+            OperationCell(name: operation)
+        }
     }
 }
 
+#if DEBUG
 // MARK: - Preview
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
@@ -87,3 +87,4 @@ struct HomeView_Previews: PreviewProvider {
         }
     }
 }
+#endif

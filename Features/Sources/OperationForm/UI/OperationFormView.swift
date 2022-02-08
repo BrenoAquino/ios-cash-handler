@@ -48,21 +48,21 @@ public struct OperationFormView: View {
     
     // MARK: Form
     private var form: some View {
-        Group {
+        VStack(spacing: DSSpace.smallL.rawValue) {
             DSInputTextField(
                 title: Localizable.OperationForm.operationTitle,
                 placeholder: Localizable.OperationForm.operationPlaceholder,
                 text: $viewModel.name
             )
             HStack(spacing: DSSpace.smallL.rawValue) {
-                DSInputTextField(
+                DSDatePickerField(
                     title: Localizable.OperationForm.dateTitle,
-                    placeholder: Localizable.OperationForm.datePlaceholder,
-                    text: $viewModel.date
+                    date: $viewModel.date
                 )
                 DSInputTextField(
                     title: Localizable.OperationForm.valueTitle,
                     placeholder: Localizable.OperationForm.valuePlaceholder,
+                    keyboardType: .numberPad,
                     text: $viewModel.value
                 )
             }

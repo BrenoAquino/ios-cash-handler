@@ -20,7 +20,7 @@ public extension OperationFormView {
         private var cancellables: Set<AnyCancellable> = .init()
         
         @Published var name: String = .empty
-        @Published var date: String = .empty
+        @Published var date: Date = .init()
         @Published var value: String = .empty
         @Published var category: String = .empty
         @Published var paymentType: String = .empty
@@ -38,7 +38,7 @@ extension OperationFormView.ViewModel {
         state = .loading
         operationsUseCase
             .addOperation(title: name,
-                          date: date,
+                          date: "",
                           value: Double(value) ?? .zero,
                           category: category,
                           paymentType: paymentType,
