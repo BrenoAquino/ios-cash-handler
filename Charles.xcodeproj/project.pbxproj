@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5559F40127B20D2B00EB57A8 /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = 5559F40027B20D2B00EB57A8 /* Common */; };
+		5559F40327B20D4000EB57A8 /* Data in Frameworks */ = {isa = PBXBuildFile; productRef = 5559F40227B20D4000EB57A8 /* Data */; };
+		5559F40527B20D4200EB57A8 /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 5559F40427B20D4200EB57A8 /* Domain */; };
+		5559F40727B20D4500EB57A8 /* Features in Frameworks */ = {isa = PBXBuildFile; productRef = 5559F40627B20D4500EB57A8 /* Features */; };
 		556DEE26278B63E100CBFF5C /* CharlesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE25278B63E100CBFF5C /* CharlesApp.swift */; };
 		556DEE2A278B63E200CBFF5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 556DEE29278B63E200CBFF5C /* Assets.xcassets */; };
 		556DEE2D278B63E200CBFF5C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 556DEE2C278B63E200CBFF5C /* Preview Assets.xcassets */; };
@@ -17,10 +21,6 @@
 		55E3DDBD279A2C17005F0AE0 /* RepositoryFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E3DDBC279A2C17005F0AE0 /* RepositoryFactory.swift */; };
 		55E3DDBF279A2C64005F0AE0 /* UseCaseFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E3DDBE279A2C64005F0AE0 /* UseCaseFactory.swift */; };
 		55E3DDC1279A2CC8005F0AE0 /* ViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E3DDC0279A2CC8005F0AE0 /* ViewModelFactory.swift */; };
-		55EA00EF27B0B447000C8CBE /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 55EA00EE27B0B447000C8CBE /* Domain */; };
-		55EA00F127B0B44E000C8CBE /* Data in Frameworks */ = {isa = PBXBuildFile; productRef = 55EA00F027B0B44E000C8CBE /* Data */; };
-		55EA00F327B0B452000C8CBE /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = 55EA00F227B0B452000C8CBE /* Common */; };
-		55EA00F527B0B455000C8CBE /* Features in Frameworks */ = {isa = PBXBuildFile; productRef = 55EA00F427B0B455000C8CBE /* Features */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +32,19 @@
 			remoteInfo = Charles;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		558CCB4B27B2030D003329D3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5506FB4627B0B29A000E9461 /* Domain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Domain; sourceTree = "<group>"; };
@@ -58,10 +71,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55EA00F127B0B44E000C8CBE /* Data in Frameworks */,
-				55EA00EF27B0B447000C8CBE /* Domain in Frameworks */,
-				55EA00F327B0B452000C8CBE /* Common in Frameworks */,
-				55EA00F527B0B455000C8CBE /* Features in Frameworks */,
+				5559F40527B20D4200EB57A8 /* Domain in Frameworks */,
+				5559F40327B20D4000EB57A8 /* Data in Frameworks */,
+				5559F40127B20D2B00EB57A8 /* Common in Frameworks */,
+				5559F40727B20D4500EB57A8 /* Features in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,6 +185,7 @@
 				556DEE1E278B63E100CBFF5C /* Sources */,
 				556DEE1F278B63E100CBFF5C /* Frameworks */,
 				556DEE20278B63E100CBFF5C /* Resources */,
+				558CCB4B27B2030D003329D3 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -179,10 +193,10 @@
 			);
 			name = Charles;
 			packageProductDependencies = (
-				55EA00EE27B0B447000C8CBE /* Domain */,
-				55EA00F027B0B44E000C8CBE /* Data */,
-				55EA00F227B0B452000C8CBE /* Common */,
-				55EA00F427B0B455000C8CBE /* Features */,
+				5559F40027B20D2B00EB57A8 /* Common */,
+				5559F40227B20D4000EB57A8 /* Data */,
+				5559F40427B20D4200EB57A8 /* Domain */,
+				5559F40627B20D4500EB57A8 /* Features */,
 			);
 			productName = Charles;
 			productReference = 556DEE22278B63E100CBFF5C /* Charles.app */;
@@ -423,6 +437,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Charles/Preview Content\"";
 				DEVELOPMENT_TEAM = GYLCJG59BK;
 				ENABLE_PREVIEWS = YES;
+				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Charles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -453,6 +468,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Charles/Preview Content\"";
 				DEVELOPMENT_TEAM = GYLCJG59BK;
 				ENABLE_PREVIEWS = YES;
+				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Charles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -546,19 +562,19 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		55EA00EE27B0B447000C8CBE /* Domain */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Domain;
-		};
-		55EA00F027B0B44E000C8CBE /* Data */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Data;
-		};
-		55EA00F227B0B452000C8CBE /* Common */ = {
+		5559F40027B20D2B00EB57A8 /* Common */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Common;
 		};
-		55EA00F427B0B455000C8CBE /* Features */ = {
+		5559F40227B20D4000EB57A8 /* Data */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Data;
+		};
+		5559F40427B20D4200EB57A8 /* Domain */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Domain;
+		};
+		5559F40627B20D4500EB57A8 /* Features */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Features;
 		};

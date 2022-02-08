@@ -10,11 +10,13 @@ let package = Package(
             name: "Domain",
             targets: ["Domain"]),
     ],
-    dependencies: [],
+    dependencies: [
+        .package(name: "Common", path: "../Common"),
+    ],
     targets: [
         .target(
             name: "Domain",
-            dependencies: []),
+            dependencies: ["Common"]),
         .testTarget(
             name: "DomainTests",
             dependencies: ["Domain"]),

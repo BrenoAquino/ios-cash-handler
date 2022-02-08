@@ -20,26 +20,44 @@ public extension OperationFormView {
         private var cancellables: Set<AnyCancellable> = .init()
         
         @Published var name: String = .empty
-        @Published var date: String = .empty
+        @Published var date: Date = .init()
         @Published var value: String = .empty
         @Published var category: String = .empty
         @Published var paymentType: String = .empty
+        @Published private(set) var validInputs: Bool = false
         @Published private(set) var state: ViewState = .content
         
         public init(operationsUseCase: Domain.OperationsUseCase, type: OperationType) {
             self.operationsUseCase = operationsUseCase
             self.type = type
+            
+            checkInputsSubscribers()
         }
     }
 }
 
 extension OperationFormView.ViewModel {
+    
+    func checkInputsSubscribers() {
+        let inputValidator: () -> Bool = { [weak self] in
+            guard let self = self else { return false }
+            return !self.name.isEmpty && !self.value.isEmpty && !self.category.isEmpty && !self.paymentType.isEmpty
+        }
+        
+        $name.sink(receiveValue: { [weak self] _ in self?.validInputs = inputValidator() }).store(in: &cancellables)
+        $value.sink(receiveValue: { [weak self] _ in self?.validInputs = inputValidator() }).store(in: &cancellables)
+        $category.sink(receiveValue: { [weak self] _ in self?.validInputs = inputValidator() }).store(in: &cancellables)
+        $paymentType.sink(receiveValue: { [weak self] _ in self?.validInputs = inputValidator() }).store(in: &cancellables)
+    }
+    
     func addOperation() {
         state = .loading
+        validInputs = false
+        
         operationsUseCase
             .addOperation(title: name,
-                          date: date,
-                          value: Double(value) ?? .zero,
+                          date: Date(),
+                          value: value,
                           category: category,
                           paymentType: paymentType,
                           operationType: type)

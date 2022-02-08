@@ -20,17 +20,17 @@ public struct OperationFormView: View {
     }
     
     public var body: some View {
-        ZStack(alignment: .top) {
-            DSColor.background.rawValue.edgesIgnoringSafeArea([.top, .bottom])
-            VStack(spacing: DSSpace.smallL.rawValue) {
-                title
-                form
-                addButton
-            }
-            .padding(DSSpace.normal.rawValue)
+        Group {
+            content
         }
-        .onTapGesture(perform: UIApplication.shared.endEditing)
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(Localizable.OperationForm.operationFormTitle)
+        .background(
+            DSColor.background.rawValue.edgesIgnoringSafeArea(.all)
+        )
+        .toolbar {
+            hideKeyboardBar
+            doneBar
+        }
         .onReceive(viewModel.$state) { state in
             if state == .finished {
                 self.presentationMode.wrappedValue.dismiss()
@@ -38,83 +38,88 @@ public struct OperationFormView: View {
         }
     }
     
-    // MARK: Header
-    private var title: some View {
-        Text(Localizable.OperationForm.operationFormTitle)
-            .font(DSFont.largeTitle.rawValue)
-            .foregroundColor(DSColor.primaryText.rawValue)
-            .padding()
+    // MARK: View State
+    private var content: AnyView {
+        switch viewModel.state {
+        case .loading:
+            return AnyView(ZStack {
+                form
+                ViewState.loadingView
+            })
+            
+        default:
+            return AnyView(form)
+        }
     }
     
-    // MARK: Form
-    private var form: some View {
-        Group {
-            DSInputTextField(
-                title: Localizable.OperationForm.operationTitle,
-                placeholder: Localizable.OperationForm.operationPlaceholder,
-                text: $viewModel.name
-            )
-            HStack(spacing: DSSpace.smallL.rawValue) {
-                DSInputTextField(
-                    title: Localizable.OperationForm.dateTitle,
-                    placeholder: Localizable.OperationForm.datePlaceholder,
-                    text: $viewModel.date
-                )
-                DSInputTextField(
-                    title: Localizable.OperationForm.valueTitle,
-                    placeholder: Localizable.OperationForm.valuePlaceholder,
-                    text: $viewModel.value
-                )
-            }
-            if viewModel.type == .cashOut {
-                DSInputTextField(
-                    title: Localizable.OperationForm.categoryTitle,
-                    placeholder: Localizable.OperationForm.categoryPlaceholder,
-                    text: $viewModel.category
-                )
-                DSInputTextField(
-                    title: Localizable.OperationForm.paymentTypeTitle,
-                    placeholder: Localizable.OperationForm.paymentPlaceholder,
-                    text: $viewModel.paymentType
-                )
+    // MARK: ToolBar
+    private var hideKeyboardBar: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button(action: UIApplication.shared.endEditing) {
+                ImageAsset.hideKeyboard.tint(DSColor.primaryText.rawValue)
             }
         }
     }
     
-    // MARK: Button
-    private var addButton: some View {
-        Group {
-            DSButton(title: Localizable.OperationForm.buttonTitle, action: viewModel.addOperation)
-                .frame(maxWidth: .infinity, minHeight: DSOperationForm.buttonHeight)
-                .background(DSColor.secondBackground.rawValue)
-                .clipShape(RoundedRectangle(cornerRadius: DSCornerRadius.normal.rawValue))
-                .shadow(style: .easy)
-        }.padding()
+    private var doneBar: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button(action: viewModel.addOperation) {
+                ImageAsset.done.tint(DSColor.primaryText.rawValue)
+            }
+            .disabled(!viewModel.validInputs)
+        }
+    }
+    
+    // MARK: Form
+    private var form: some View {
+        Form {
+            Section(Localizable.OperationForm.operationTitle) {
+                TextField(Localizable.OperationForm.operationPlaceholder,
+                          text: $viewModel.name)
+                    .listRowBackground(DSColor.secondBackground.rawValue)
+            }
+            Section(Localizable.OperationForm.valueTitle) {
+                TextField(Localizable.OperationForm.valuePlaceholder,
+                          text: $viewModel.value)
+                    .keyboardType(.numberPad)
+                    .listRowBackground(DSColor.secondBackground.rawValue)
+            }
+            Section(Localizable.OperationForm.categoryTitle) {
+                TextField(Localizable.OperationForm.categoryPlaceholder,
+                          text: $viewModel.category)
+                    .listRowBackground(DSColor.secondBackground.rawValue)
+            }
+            Section(Localizable.OperationForm.paymentTypeTitle) {
+                TextField(Localizable.OperationForm.paymentPlaceholder,
+                          text: $viewModel.paymentType)
+                    .listRowBackground(DSColor.secondBackground.rawValue)
+            }
+            Section(Localizable.OperationForm.dateTitle) {
+                DatePicker(String.empty, selection: $viewModel.date, in: ...Date(), displayedComponents: .date)
+                    .datePickerStyle(GraphicalDatePickerStyle())
+                    .labelsHidden()
+                    .listRowBackground(DSColor.secondBackground.rawValue)
+            }
+        }
     }
 }
 
 #if DEBUG
 // MARK: - Preview
-import Combine
-import Domain
-
 struct OperationFormView_Previews: PreviewProvider {
     
-    private class UseCaseMock: OperationsUseCase {
-        func addOperation(title: String,
-                          date: String,
-                          value: Double,
-                          category: String,
-                          paymentType: String,
-                          operationType: OperationType) -> AnyPublisher<Domain.Operation, Domain.CharlesError> {
-            return Empty().eraseToAnyPublisher()
-        }
-    }
-    
     static var previews: some View {
-        let useCase = UseCaseMock()
-        let viewModel = OperationFormView.ViewModel(operationsUseCase: useCase, type: .cashOut)
-        OperationFormView(viewModel: viewModel)
+        UITableView.appearance().backgroundColor = .clear
+        
+        let viewModel = OperationFormView.ViewModel(
+            operationsUseCase: OperationsUseCaseMock(),
+            type: .cashOut
+        )
+        
+        return NavigationView {
+            OperationFormView(viewModel: viewModel)
+        }
+        .preferredColorScheme(.dark)
     }
 }
 #endif

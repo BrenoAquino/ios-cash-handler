@@ -26,8 +26,11 @@ public struct DSButton: View {
     }
 }
 
+#if DEBUG
+// MARK: - Preview
 struct DSButton_Previews: PreviewProvider {
     static var previews: some View {
         DSButton(title: "Example Button") {}
     }
 }
+#endif

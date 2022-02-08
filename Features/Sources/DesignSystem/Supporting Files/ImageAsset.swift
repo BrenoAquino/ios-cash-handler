@@ -10,4 +10,6 @@ import SwiftUI
 public enum ImageAsset {
     
     public static let add: Image = Image("add")
+    public static let done: Image = Image("done")
+    public static let hideKeyboard: Image = Image("hide_keyboard")
 }
