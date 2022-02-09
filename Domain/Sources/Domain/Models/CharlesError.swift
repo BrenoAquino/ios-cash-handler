@@ -13,6 +13,9 @@ public struct CharlesError: Error {
     public enum ErrorType {
         case networkError
         case unkown
+        
+        // MARK: Create Operation
+        case wrongInputType
     }
     
     // MARK: Variables
