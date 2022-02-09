@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 public protocol PaymentMethodsRemoteDataSource {
-    func paymentMethods() -> AnyPublisher<[PaymentMethod], CharlesDataError>
+    func paymentMethods() -> AnyPublisher<[PaymentMethodDTO], CharlesDataError>
 }
 
 // MARK: Implementation
@@ -27,7 +27,7 @@ public final class PaymentMethodsRemoteDataSourceImpl: Network {
 
 // MARK: Requests
 extension PaymentMethodsRemoteDataSourceImpl: PaymentMethodsRemoteDataSource {
-    public func paymentMethods() -> AnyPublisher<[PaymentMethod], CharlesDataError> {
+    public func paymentMethods() -> AnyPublisher<[PaymentMethodDTO], CharlesDataError> {
         return execute(endpoint: .paymentMethod, keyPath: "data")
     }
 }

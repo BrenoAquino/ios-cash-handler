@@ -21,7 +21,7 @@ class PaymentMethodsRemoteDataSource: XCTestCase {
         let expectation = expectation(description: "success payment methods")
         let sessionMock = URLSessionMock.success(file: .paymentMethodsSuccess)
         let remoteDataSource = PaymentMethodsRemoteDataSourceImpl(session: sessionMock, queue: .main)
-        var paymentMethods: [PaymentMethod]?
+        var paymentMethods: [PaymentMethodDTO]?
         
         // When
         remoteDataSource
