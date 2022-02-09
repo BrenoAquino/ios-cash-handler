@@ -10,8 +10,6 @@ import Combine
 
 extension Publisher where Output == Data {
     
-    typealias PublisherTryMap = Publishers.TryMap<Self, Self.Output>
-    
     public func decode<Item, Coder>(type: Item.Type, decoder: Coder, atKeyPath keyPath: String?) -> Publishers.Decode<Publishers.TryMap<Self, Self.Output>, Item, Coder> where Item: Decodable, Coder: TopLevelDecoder, Self.Output == Coder.Input {
         return tryMap { value in
             if let keyPath = keyPath {

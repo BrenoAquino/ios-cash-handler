@@ -11,11 +11,12 @@ public struct CreateOperationParams: Encodable {
     let title: String
     let date: String
     let value: Double
-    let category: String
-    let paymentMethod: String
+    let categoryId: Int
+    let paymentMethodId: Int
     
     private enum CodingKeys : String, CodingKey {
-        case title, date, category, value
-        case paymentMethod = "payment_method"
+        case title, date, value
+        case categoryId = "category_id"
+        case paymentMethodId = "payment_method_id"
     }
 }

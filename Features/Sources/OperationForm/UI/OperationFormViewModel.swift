@@ -59,8 +59,7 @@ extension OperationFormView.ViewModel {
                           date: Date(),
                           value: value,
                           category: category,
-                          paymentType: paymentType,
-                          operationType: type)
+                          paymentType: paymentType)
             .sinkCompletion { [weak self] completion in
                 switch completion {
                 case .finished:

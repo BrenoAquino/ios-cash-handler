@@ -12,12 +12,7 @@ import Common
 public protocol OperationsUseCase {
     func categories() -> AnyPublisher<[Category], CharlesError>
     func paymentMethods() -> AnyPublisher<[PaymentMethod], CharlesError>
-    func addOperation(title: String,
-                      date: Date,
-                      value: String,
-                      category: String,
-                      paymentType: String,
-                      operationType: OperationType) -> AnyPublisher<Operation, CharlesError>
+    func addOperation(title: String, date: Date, value: String, category: String, paymentType: String) -> AnyPublisher<Operation, CharlesError>
 }
 
 // MARK: Implementation
@@ -49,24 +44,14 @@ extension OperationsUseCaseImpl: OperationsUseCase {
             .fetchPaymentMethods()
     }
     
-    public func addOperation(title: String,
-                             date: Date,
-                             value: String,
-                             category: String,
-                             paymentType: String,
-                             operationType: OperationType) -> AnyPublisher<Operation, CharlesError> {
+    public func addOperation(title: String, date: Date, value: String, category: String, paymentType: String) -> AnyPublisher<Operation, CharlesError> {
         guard let value = Double(value) else {
             return Fail(error: CharlesError(type: .wrongInputType))
                 .eraseToAnyPublisher()
         }
         
-        let dateFormatted = DateFormatter(pattern: "dd-MM-yyyy")
+        let dateString = DateFormatter(pattern: "dd-MM-yyyy").string(from: date)
         return operationsRepository
-            .addOperation(title: title,
-                          date: dateFormatted.string(from: date),
-                          value: value,
-                          category: category,
-                          paymentType: paymentType,
-                          operationType: operationType.rawValue)
+            .addOperation(title: title, date: dateString, value: value, categoryId: 0, paymentTypeId: 0)
     }
 }

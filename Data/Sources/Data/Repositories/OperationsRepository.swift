@@ -22,10 +22,9 @@ extension OperationsRepositoryImpl: Domain.OperationsRepository {
     public func addOperation(title: String,
                       date: String,
                       value: Double,
-                      category: String,
-                      paymentType: String,
-                      operationType: String) -> AnyPublisher<Domain.Operation, CharlesError> {
-        let params = CreateOperationParams(title: title, date: date, value: value, category: category, paymentMethod: paymentType)
+                      categoryId: Int,
+                      paymentTypeId: Int) -> AnyPublisher<Domain.Operation, CharlesError> {
+        let params = CreateOperationParams(title: title, date: date, value: value, categoryId: categoryId, paymentMethodId: paymentTypeId)
         return remoteDataSource
             .addOperation(params: params)
             .map { $0.toDomain() }
