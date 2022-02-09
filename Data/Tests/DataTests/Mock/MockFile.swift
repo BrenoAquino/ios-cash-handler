@@ -22,6 +22,12 @@ enum MockFile: String {
     case categoriesSuccess = "categories_success"
     case categoriesError = "categories_error"
     case categoriesEncodingError = "categories_encoding_error"
+    
+    // MARK: PaymentMethods
+    // PaymentMethods
+    case paymentMethodsSuccess = "payment_methods_success"
+    case paymentMethodsError = "payment_methods_error"
+    case paymentMethodsEncodingError = "payment_methods_encoding_error"
 }
 
 // MARK: Load File

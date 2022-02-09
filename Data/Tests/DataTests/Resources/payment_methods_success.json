@@ -1,0 +1,25 @@
+{
+    "data": [
+        {
+            "id": 3,
+            "name": "Vale Alimentação"
+        },
+        {
+            "id": 2,
+            "name": "Vale Refeição"
+        },
+        {
+            "id": 4,
+            "name": "Transferência Bancário"
+        },
+        {
+            "id": 1,
+            "name": "Cartão de Débito"
+        },
+        {
+            "id": 0,
+            "name": "Cartão de Crédito"
+        }
+    ],
+    "requestId": "4d05aa0c-9a18-4e90-941e-06a28afa87ea"
+}
