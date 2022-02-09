@@ -12,13 +12,14 @@ public struct OperationDTO: Decodable {
     public let id: String
     public let title: String
     public let date: String
-    public let category: String
-    public let paymentMethod: String
+    public let categoryId: Int
+    public let paymentMethodId: Int
     public let value: Double
     
     private enum CodingKeys : String, CodingKey {
-        case id, title, date, category, value
-        case paymentMethod = "payment_method"
+        case id, title, date, value
+        case categoryId = "category_id"
+        case paymentMethodId = "payment_method_id"
     }
 }
 

@@ -41,8 +41,8 @@ class OperationsRemoteDataSourceTests: XCTestCase {
             }, receiveValue: { operation in
                 XCTAssert(operation.title == "Madero")
                 XCTAssert(operation.date == "20-12-2022")
-                XCTAssert(operation.category == "leisure")
-                XCTAssert(operation.paymentMethod == "credit-card")
+                XCTAssert(operation.categoryId == 1)
+                XCTAssert(operation.paymentMethodId == 1)
                 XCTAssert(operation.value == 123.123)
             })
             .store(in: &cancellables)
