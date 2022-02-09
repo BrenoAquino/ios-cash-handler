@@ -1,8 +1,8 @@
 //
-//  OperationsRemoteDataSourceTests.swift
+//  CategoriesRemoteDataSourceTests.swift
 //  
 //
-//  Created by Breno Aquino on 06/02/22.
+//  Created by Breno Aquino on 08/02/22.
 //
 
 import XCTest
@@ -11,56 +11,46 @@ import Combine
 
 @testable import Data
 
-class OperationsRemoteDataSourceTests: XCTestCase {
+class CategoriesRemoteDataSourceTests: XCTestCase {
     
     var cancellables: Set<AnyCancellable> = .init()
-    var params: CreateOperationParams {
-        .init(title: .empty, date: .empty, value: .zero, categoryId: .zero, paymentMethodId: .zero)
-    }
     
     // MARK: Tests
-    func testAddOperationSuccess() {
+    func testCategoriesSuccess() {
         // Given
-        let expectation = expectation(description: "success add operation")
-        let sessionMock = URLSessionMock.success(file: .addOperstionSuccess)
-        let remoteDataSource = OperationsRemoteDataSourceImpl(session: sessionMock, queue: .main)
-        var operation: OperationDTO?
+        let expectation = expectation(description: "success categories")
+        let sessionMock = URLSessionMock.success(file: .categoriesSuccess)
+        let remoteDataSource = CategoriesRemoteDataSourceImpl(session: sessionMock, queue: .main)
+        var categories: [CategoryDTO]?
         
         // When
         remoteDataSource
-            .addOperation(params: params)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    expectation.fulfill()
-                case .failure(let error):
-                    XCTFail("Error Code: \(error.type.rawValue)")
-                }
-            }, receiveValue: { value in
-                operation = value
-            })
+            .categories()
+            .sink { completion in
+                expectation.fulfill()
+            } receiveValue: { value in
+                categories = value
+            }
             .store(in: &cancellables)
         
         // Then
         waitForExpectations(timeout: 5, handler: nil)
-        XCTAssertNotNil(operation)
-        XCTAssert(operation?.title == "Madero")
-        XCTAssert(operation?.date == "20-12-2022")
-        XCTAssert(operation?.categoryId == 1)
-        XCTAssert(operation?.paymentMethodId == 1)
-        XCTAssert(operation?.value == 123.123)
+        XCTAssertNotNil(categories)
+        XCTAssert(categories?.count == 9)
+        XCTAssert(categories?[0].id == 7)
+        XCTAssert(categories?[0].name == "Moradia")
     }
     
     func testAddOperationEcondingError() {
         // Given
-        let expectation = expectation(description: "encoding error add operation")
-        let sessionMock = URLSessionMock.success(file: .addOperstionEncodingError)
-        let remoteDataSource = OperationsRemoteDataSourceImpl(session: sessionMock, queue: .main)
+        let expectation = expectation(description: "encoding error categories")
+        let sessionMock = URLSessionMock.success(file: .categoriesEncodingError)
+        let remoteDataSource = CategoriesRemoteDataSourceImpl(session: sessionMock, queue: .main)
         var error: CharlesDataError?
         
         // When
         remoteDataSource
-            .addOperation(params: params)
+            .categories()
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:
@@ -82,14 +72,14 @@ class OperationsRemoteDataSourceTests: XCTestCase {
         // Given
         let expectation = expectation(description: "error add operation")
         let sessionMock = URLSessionMock.failure(statusCode: 500,
-                                                 file: .addOperstionEncodingError,
+                                                 file: .categoriesError,
                                                  error: CharlesDataError(type: .unkown))
-        let remoteDataSource = OperationsRemoteDataSourceImpl(session: sessionMock, queue: .main)
+        let remoteDataSource = CategoriesRemoteDataSourceImpl(session: sessionMock, queue: .main)
         var error: CharlesDataError?
         
         // When
         remoteDataSource
-            .addOperation(params: params)
+            .categories()
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:

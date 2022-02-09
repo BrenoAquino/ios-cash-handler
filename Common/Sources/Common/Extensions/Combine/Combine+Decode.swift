@@ -13,21 +13,11 @@ extension Publisher where Output == Data {
     public func decode<Item, Coder>(type: Item.Type, decoder: Coder, atKeyPath keyPath: String?) -> Publishers.Decode<Publishers.TryMap<Self, Self.Output>, Item, Coder> where Item: Decodable, Coder: TopLevelDecoder, Self.Output == Coder.Input {
         return tryMap { value in
             if let keyPath = keyPath {
-                var json = (try? JSONSerialization.jsonObject(with: value, options: []) as? [String: Any]) ?? [:]
-                let keys = keyPath.components(separatedBy: ".")
+                let json = try? JSONSerialization.jsonObject(with: value, options: []) as? NSDictionary
                 
-                for key in keys {
-                    guard let nestedJson = json[key] as? [String: Any] else {
-                        throw NSError()
-                    }
-                    json = nestedJson
+                if let result = json?.value(forKeyPath: keyPath), let nestedJson = try? JSONSerialization.data(withJSONObject: result) {
+                    return nestedJson
                 }
-                
-                guard let nestedJson = try? JSONSerialization.data(withJSONObject: json, options: []) else {
-                    throw NSError()
-                }
-                
-                return nestedJson
             }
             return value
         }

@@ -32,6 +32,20 @@ public extension OperationFormView {
             self.type = type
             
             checkInputsSubscribers()
+            
+            operationsUseCase
+                .categories()
+                .sink { completion in
+                    switch completion {
+                    case .failure(let error):
+                        print(error.type)
+                    case .finished:
+                        break
+                    }
+                } receiveValue: { categories in
+                    print(categories)
+                }
+                .store(in: &cancellables)
         }
     }
 }

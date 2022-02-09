@@ -13,4 +13,8 @@ enum RemoteDataSourceFactory {
     static func operations() -> OperationsRemoteDataSource {
         return OperationsRemoteDataSourceImpl(session: .shared, queue: .main)
     }
+    
+    static func categories() -> CategoriesRemoteDataSource {
+        return CategoriesRemoteDataSourceImpl(session: .shared, queue: .main)
+    }
 }

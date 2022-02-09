@@ -15,4 +15,6 @@ class NetworkTests: XCTestCase {
     func testUnsuccessDecoding() { XCTFail("Empty test") }
     func testRequestError() { XCTFail("Empty test") }
     func testSuccess() { XCTFail("Empty test") }
+    func testKeyPath() { XCTFail("Empty test") }
+    func testKeyPathComposed() { XCTFail("Empty test") }
 }
