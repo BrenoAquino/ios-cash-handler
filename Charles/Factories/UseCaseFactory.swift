@@ -13,6 +13,6 @@ enum UseCaseFactory {
     static func operations() -> OperationsUseCase {
         return OperationsUseCaseImpl(operationsRepository: RepositoryFactory.operations(),
                                      categoriesRepository: RepositoryFactory.categories(),
-                                     paymentMethodsRepository: PaymenteRepoMock())
+                                     paymentMethodsRepository: RepositoryFactory.paymentMethods())
     }
 }

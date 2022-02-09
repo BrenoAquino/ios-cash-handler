@@ -20,4 +20,9 @@ enum RepositoryFactory {
         let remoteDataSource = RemoteDataSourceFactory.categories()
         return CategoriesRepositoryImpl(remoteDataSource: remoteDataSource)
     }
+    
+    static func paymentMethods() -> PaymentMethodsRepository {
+        let remoteDataSource = RemoteDataSourceFactory.paymentMethods()
+        return PaymentMethodsRepositoryImpl(remoteDataSource: remoteDataSource)
+    }
 }
