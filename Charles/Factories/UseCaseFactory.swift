@@ -11,7 +11,8 @@ import Domain
 enum UseCaseFactory {
     
     static func operations() -> OperationsUseCase {
-        let repository = RepositoryFactory.operations()
-        return OperationsUseCaseImpl(operationsRepository: repository)
+        return OperationsUseCaseImpl(operationsRepository: RepositoryFactory.operations(),
+                                     categoriesRepository: RepositoryFactory.categories(),
+                                     paymentMethodsRepository: PaymenteRepoMock())
     }
 }

@@ -17,6 +17,7 @@
 		556DEE37278B63E200CBFF5C /* CharlesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE36278B63E200CBFF5C /* CharlesTests.swift */; };
 		55B6BC48278B8D8500B421AE /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B6BC47278B8D8500B421AE /* HomeCoordinator.swift */; };
 		55B6BC4A278B8D8F00B421AE /* OperationFormCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B6BC49278B8D8F00B421AE /* OperationFormCoordinator.swift */; };
+		55BEFFA527B33CB90063E1EA /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BEFFA427B33CB90063E1EA /* Mock.swift */; };
 		55E3DDBB279A2B68005F0AE0 /* RemoteDataSourceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E3DDBA279A2B68005F0AE0 /* RemoteDataSourceFactory.swift */; };
 		55E3DDBD279A2C17005F0AE0 /* RepositoryFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E3DDBC279A2C17005F0AE0 /* RepositoryFactory.swift */; };
 		55E3DDBF279A2C64005F0AE0 /* UseCaseFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E3DDBE279A2C64005F0AE0 /* UseCaseFactory.swift */; };
@@ -60,6 +61,7 @@
 		55B6BC47278B8D8500B421AE /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		55B6BC49278B8D8F00B421AE /* OperationFormCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFormCoordinator.swift; sourceTree = "<group>"; };
 		55B85B5E27B0ADB700D07656 /* Features */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Features; sourceTree = "<group>"; };
+		55BEFFA427B33CB90063E1EA /* Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mock.swift; sourceTree = "<group>"; };
 		55E3DDBA279A2B68005F0AE0 /* RemoteDataSourceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataSourceFactory.swift; sourceTree = "<group>"; };
 		55E3DDBC279A2C17005F0AE0 /* RepositoryFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryFactory.swift; sourceTree = "<group>"; };
 		55E3DDBE279A2C64005F0AE0 /* UseCaseFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCaseFactory.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				55E3DDBC279A2C17005F0AE0 /* RepositoryFactory.swift */,
 				55E3DDBE279A2C64005F0AE0 /* UseCaseFactory.swift */,
 				55E3DDC0279A2CC8005F0AE0 /* ViewModelFactory.swift */,
+				55BEFFA427B33CB90063E1EA /* Mock.swift */,
 			);
 			path = Factories;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				55E3DDBF279A2C64005F0AE0 /* UseCaseFactory.swift in Sources */,
 				55E3DDBB279A2B68005F0AE0 /* RemoteDataSourceFactory.swift in Sources */,
 				55E3DDC1279A2CC8005F0AE0 /* ViewModelFactory.swift in Sources */,
+				55BEFFA527B33CB90063E1EA /* Mock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

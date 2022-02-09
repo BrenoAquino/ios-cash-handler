@@ -18,10 +18,10 @@ protocol Network {
 }
 
 extension Network {
-    func execute<Model: Decodable>(endpoint: Endpoints) -> AnyPublisher<Model, CharlesDataError> {
+    func execute<Model: Decodable>(endpoint: Endpoints, keyPath: String? = nil) -> AnyPublisher<Model, CharlesDataError> {
         do {
             let request = try endpoint.createRequest()
-            return execute(session: session, request: request)
+            return execute(session: session, request: request, keyPath: keyPath)
         } catch let error {
             switch error {
             case let error as CharlesDataError:
@@ -34,7 +34,7 @@ extension Network {
         }
     }
     
-    private func execute<Model: Decodable>(session: URLSession, request: URLRequest) -> AnyPublisher<Model, CharlesDataError> {
+    private func execute<Model: Decodable>(session: URLSession, request: URLRequest, keyPath: String? = nil) -> AnyPublisher<Model, CharlesDataError> {
         return session
             .dataTaskPublisher(for: request)
             .tryMap { data, response in
@@ -46,7 +46,7 @@ extension Network {
                 }
                 return data
             }
-            .decode(type: Model.self, decoder: JSONDecoder(), atKeyPath: "data")
+            .decode(type: Model.self, decoder: JSONDecoder(), atKeyPath: keyPath)
             .mapError { error in
                 switch error {
                 case _ as DecodingError:

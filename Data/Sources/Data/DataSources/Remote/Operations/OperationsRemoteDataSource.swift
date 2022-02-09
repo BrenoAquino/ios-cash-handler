@@ -28,6 +28,6 @@ public final class OperationsRemoteDataSourceImpl: Network {
 // MARK: Requests
 extension OperationsRemoteDataSourceImpl: OperationsRemoteDataSource {
     public func addOperation(params: CreateOperationParams) -> AnyPublisher<OperationDTO, CharlesDataError> {
-        return execute(endpoint: .addOperation(params: params))
+        return execute(endpoint: .addOperation(params: params), keyPath: "data")
     }
 }

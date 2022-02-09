@@ -1,0 +1,41 @@
+{
+    "data": [
+        {
+            "id": 7,
+            "name": "Moradia"
+        },
+        {
+            "id": 8,
+            "name": "Outra Pessoa"
+        },
+        {
+            "id": 3,
+            "name": "Assinatura"
+        },
+        {
+            "id": 2,
+            "name": "Tecnologia"
+        },
+        {
+            "id": 4,
+            "name": "Mobilidade"
+        },
+        {
+            "id": 6,
+            "name": "Educação"
+        },
+        {
+            "id": 1,
+            "name": "Refeição"
+        },
+        {
+            "id": 0,
+            "name": "Lazer"
+        },
+        {
+            "id": 5,
+            "name": "Saúde"
+        }
+    ],
+    "requestId": "ae9b49d2-1fa1-417c-9e48-0f652915bdc6"
+}

@@ -12,15 +12,18 @@ public struct CharlesDataError: Error {
     
     // MARK: Types
     public enum ErrorType: Int {
+        // MARK: Flow
+        case unkown = -11
+        case invalidDecoding = -12
+        
         // MARK: Network
         case invalidURL = -21
         case invalidResponse = -22
         case badRequest = 400
         case internalError = 500
         
-        // MARK: Flow
-        case unkown = -11
-        case invalidDecoding = -12
+        // MARK: Decode
+        case invalidKeyPath = -31
     }
     
     // MARK: Variables
