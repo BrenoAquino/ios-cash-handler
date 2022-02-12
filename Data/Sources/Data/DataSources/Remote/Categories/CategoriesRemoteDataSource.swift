@@ -12,21 +12,19 @@ public protocol CategoriesRemoteDataSource {
     func categories() -> AnyPublisher<[CategoryDTO], CharlesDataError>
 }
 
-public final class CategoriesRemoteDataSourceImpl: Network {
+public final class CategoriesRemoteDataSourceImpl {
     typealias Endpoints = CategoriesAPIs
     
-    var session: URLSession
-    var queue: DispatchQueue
+    let networkProvider: NetworkProvider
     
-    public init(session: URLSession, queue: DispatchQueue) {
-        self.session = session
-        self.queue = queue
+    public init(networkProvider: NetworkProvider) {
+        self.networkProvider = networkProvider
     }
 }
 
 // MARK: Requests
 extension CategoriesRemoteDataSourceImpl: CategoriesRemoteDataSource {
     public func categories() -> AnyPublisher<[CategoryDTO], CharlesDataError> {
-        return execute(endpoint: .categories, keyPath: "data")
+        return networkProvider.execute(endpoint: Endpoints.categories, keyPath: "data")
     }
 }

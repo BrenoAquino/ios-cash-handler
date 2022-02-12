@@ -13,21 +13,19 @@ public protocol PaymentMethodsRemoteDataSource {
 }
 
 // MARK: Implementation
-public final class PaymentMethodsRemoteDataSourceImpl: Network {
+public final class PaymentMethodsRemoteDataSourceImpl {
     typealias Endpoints = PaymentMethodsAPIs
     
-    var session: URLSession
-    var queue: DispatchQueue
+    let networkProvider: NetworkProvider
     
-    public init(session: URLSession, queue: DispatchQueue) {
-        self.session = session
-        self.queue = queue
+    public init(networkProvider: NetworkProvider) {
+        self.networkProvider = networkProvider
     }
 }
 
 // MARK: Requests
 extension PaymentMethodsRemoteDataSourceImpl: PaymentMethodsRemoteDataSource {
     public func paymentMethods() -> AnyPublisher<[PaymentMethodDTO], CharlesDataError> {
-        return execute(endpoint: .paymentMethod, keyPath: "data")
+        return networkProvider.execute(endpoint: Endpoints.paymentMethod, keyPath: "data")
     }
 }

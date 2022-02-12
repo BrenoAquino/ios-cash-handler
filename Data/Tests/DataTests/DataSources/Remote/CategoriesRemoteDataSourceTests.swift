@@ -15,14 +15,33 @@ class CategoriesRemoteDataSourceTests: XCTestCase {
     
     var cancellables: Set<AnyCancellable> = .init()
     
-    // MARK: Tests
-    func testCategoriesSuccess() {
+    // MARK: Categories
+    func testCategories() {
         // Given
-        let expectation = expectation(description: "success categories")
-        let sessionMock = URLSessionMock.success(file: .categoriesSuccess)
-        let remoteDataSource = CategoriesRemoteDataSourceImpl(session: sessionMock, queue: .main)
-        var categories: [CategoryDTO]?
+        let expectation = expectation(description: "categories")
+        let networkProvider = TypeMockNetworkProvider()
+        let remoteDataSource = CategoriesRemoteDataSourceImpl(networkProvider: networkProvider)
         
+        // When
+        _ = remoteDataSource
+            .categories()
+            .sinkCompletion { _ in
+                expectation.fulfill()
+            }
+        
+        // Then
+        waitForExpectations(timeout: 5, handler: nil)
+        XCTAssert(networkProvider.decodableType == [CategoryDTO].self)
+        XCTAssert(networkProvider.api?.hashValue() == CategoriesAPIs.categories.hashValue())
+    }
+    
+    func testCategoriesDecoding() {
+        // Given
+        let expectation = expectation(description: "decoding categories")
+        let networkProvider = DecoderMockNetworkProvider(file: .categoriesSuccess)
+        let remoteDataSource = CategoriesRemoteDataSourceImpl(networkProvider: networkProvider)
+        var categories: [CategoryDTO]?
+
         // When
         remoteDataSource
             .categories()
@@ -32,7 +51,7 @@ class CategoriesRemoteDataSourceTests: XCTestCase {
                 categories = value
             }
             .store(in: &cancellables)
-        
+
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(categories)
@@ -40,14 +59,14 @@ class CategoriesRemoteDataSourceTests: XCTestCase {
         XCTAssert(categories?[0].id == 7)
         XCTAssert(categories?[0].name == "Moradia")
     }
-    
-    func testAddOperationEcondingError() {
+
+    func testCategoriesDecondingError() {
         // Given
-        let expectation = expectation(description: "encoding error categories")
-        let sessionMock = URLSessionMock.success(file: .categoriesEncodingError)
-        let remoteDataSource = CategoriesRemoteDataSourceImpl(session: sessionMock, queue: .main)
+        let expectation = expectation(description: "dencoding error categories")
+        let networkProvider = DecoderMockNetworkProvider(file: .categoriesEncodingError)
+        let remoteDataSource = CategoriesRemoteDataSourceImpl(networkProvider: networkProvider)
         var error: CharlesDataError?
-        
+
         // When
         remoteDataSource
             .categories()
@@ -61,39 +80,10 @@ class CategoriesRemoteDataSourceTests: XCTestCase {
                 }
             }, receiveValue: { _ in })
             .store(in: &cancellables)
-        
+
         // Then
         waitForExpectations(timeout: .infinity, handler: nil)
         XCTAssertNotNil(error)
         XCTAssert(error?.type == .invalidDecoding)
-    }
-    
-    func testAddOperationError() {
-        // Given
-        let expectation = expectation(description: "error add operation")
-        let sessionMock = URLSessionMock.failure(statusCode: 500,
-                                                 file: .categoriesError,
-                                                 error: CharlesDataError(type: .unkown))
-        let remoteDataSource = CategoriesRemoteDataSourceImpl(session: sessionMock, queue: .main)
-        var error: CharlesDataError?
-        
-        // When
-        remoteDataSource
-            .categories()
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    XCTFail("Must be an error")
-                case .failure(let e):
-                    error = e
-                    expectation.fulfill()
-                }
-            }, receiveValue: { _ in })
-            .store(in: &cancellables)
-        
-        // Then
-        waitForExpectations(timeout: 5, handler: nil)
-        XCTAssertNotNil(error)
-        XCTAssert(error?.type == .unkown)
     }
 }

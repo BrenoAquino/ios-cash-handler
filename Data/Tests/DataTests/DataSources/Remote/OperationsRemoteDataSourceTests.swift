@@ -18,12 +18,31 @@ class OperationsRemoteDataSourceTests: XCTestCase {
         .init(title: .empty, date: .empty, value: .zero, categoryId: .zero, paymentMethodId: .zero)
     }
     
-    // MARK: Tests
-    func testAddOperationSuccess() {
+    // MARK: Add Operation
+    func testAddOperation() {
         // Given
-        let expectation = expectation(description: "success add operation")
-        let sessionMock = URLSessionMock.success(file: .addOperstionSuccess)
-        let remoteDataSource = OperationsRemoteDataSourceImpl(session: sessionMock, queue: .main)
+        let expectation = expectation(description: "add operation")
+        let networkProvider = TypeMockNetworkProvider()
+        let remoteDataSource = OperationsRemoteDataSourceImpl(networkProvider: networkProvider)
+        
+        // When
+        _ = remoteDataSource
+            .addOperation(params: params)
+            .sinkCompletion { _ in
+                expectation.fulfill()
+            }
+        
+        // Then
+        waitForExpectations(timeout: 5, handler: nil)
+        XCTAssert(networkProvider.decodableType == OperationDTO.self)
+        XCTAssert(networkProvider.api?.hashValue() == OperationsAPIs.addOperation(params: params).hashValue())
+    }
+    
+    func testAddOperationDecoding() {
+        // Given
+        let expectation = expectation(description: "decoding add operation")
+        let networkProvider = DecoderMockNetworkProvider(file: .addOperstionSuccess)
+        let remoteDataSource = OperationsRemoteDataSourceImpl(networkProvider: networkProvider)
         var operation: OperationDTO?
         
         // When
@@ -51,13 +70,13 @@ class OperationsRemoteDataSourceTests: XCTestCase {
         XCTAssert(operation?.value == 123.123)
     }
     
-    func testAddOperationEcondingError() {
+    func testAddOperationDecondingError() {
         // Given
-        let expectation = expectation(description: "encoding error add operation")
-        let sessionMock = URLSessionMock.success(file: .addOperstionEncodingError)
-        let remoteDataSource = OperationsRemoteDataSourceImpl(session: sessionMock, queue: .main)
+        let expectation = expectation(description: "dencoding error add operation")
+        let networkProvider = DecoderMockNetworkProvider(file: .addOperstionEncodingError)
+        let remoteDataSource = OperationsRemoteDataSourceImpl(networkProvider: networkProvider)
         var error: CharlesDataError?
-        
+
         // When
         remoteDataSource
             .addOperation(params: params)
@@ -71,39 +90,10 @@ class OperationsRemoteDataSourceTests: XCTestCase {
                 }
             }, receiveValue: { _ in })
             .store(in: &cancellables)
-        
+
         // Then
         waitForExpectations(timeout: .infinity, handler: nil)
         XCTAssertNotNil(error)
         XCTAssert(error?.type == .invalidDecoding)
-    }
-    
-    func testAddOperationError() {
-        // Given
-        let expectation = expectation(description: "error add operation")
-        let sessionMock = URLSessionMock.failure(statusCode: 500,
-                                                 file: .addOperstionEncodingError,
-                                                 error: CharlesDataError(type: .unkown))
-        let remoteDataSource = OperationsRemoteDataSourceImpl(session: sessionMock, queue: .main)
-        var error: CharlesDataError?
-        
-        // When
-        remoteDataSource
-            .addOperation(params: params)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    XCTFail("Must be an error")
-                case .failure(let e):
-                    error = e
-                    expectation.fulfill()
-                }
-            }, receiveValue: { _ in })
-            .store(in: &cancellables)
-        
-        // Then
-        waitForExpectations(timeout: 5, handler: nil)
-        XCTAssertNotNil(error)
-        XCTAssert(error?.type == .unkown)
     }
 }

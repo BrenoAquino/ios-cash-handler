@@ -15,14 +15,33 @@ class PaymentMethodsRemoteDataSource: XCTestCase {
     
     var cancellables: Set<AnyCancellable> = .init()
     
-    // MARK: Tests
-    func testPaymentMethodsSuccess() {
+    // MARK: Payment Methods
+    func testPaymentMethods() {
         // Given
-        let expectation = expectation(description: "success payment methods")
-        let sessionMock = URLSessionMock.success(file: .paymentMethodsSuccess)
-        let remoteDataSource = PaymentMethodsRemoteDataSourceImpl(session: sessionMock, queue: .main)
-        var paymentMethods: [PaymentMethodDTO]?
+        let expectation = expectation(description: "payment method")
+        let networkProvider = TypeMockNetworkProvider()
+        let remoteDataSource = PaymentMethodsRemoteDataSourceImpl(networkProvider: networkProvider)
         
+        // When
+        _ = remoteDataSource
+            .paymentMethods()
+            .sinkCompletion { _ in
+                expectation.fulfill()
+            }
+        
+        // Then
+        waitForExpectations(timeout: 5, handler: nil)
+        XCTAssert(networkProvider.decodableType == [PaymentMethodDTO].self)
+        XCTAssert(networkProvider.api?.hashValue() == PaymentMethodsAPIs.paymentMethod.hashValue())
+    }
+    
+    func testPaymentMethodsDecoding() {
+        // Given
+        let expectation = expectation(description: "decoding payment methods")
+        let networkProvider = DecoderMockNetworkProvider(file: .paymentMethodsSuccess)
+        let remoteDataSource = PaymentMethodsRemoteDataSourceImpl(networkProvider: networkProvider)
+        var paymentMethods: [PaymentMethodDTO]?
+
         // When
         remoteDataSource
             .paymentMethods()
@@ -32,7 +51,7 @@ class PaymentMethodsRemoteDataSource: XCTestCase {
                 paymentMethods = value
             }
             .store(in: &cancellables)
-        
+
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(paymentMethods)
@@ -40,14 +59,14 @@ class PaymentMethodsRemoteDataSource: XCTestCase {
         XCTAssert(paymentMethods?[0].id == 3)
         XCTAssert(paymentMethods?[0].name == "Vale Alimentação")
     }
-    
-    func testPaymentMethodsEcondingError() {
+
+    func testPaymentMethodsDecondingError() {
         // Given
-        let expectation = expectation(description: "encoding error payment methods")
-        let sessionMock = URLSessionMock.success(file: .paymentMethodsEncodingError)
-        let remoteDataSource = PaymentMethodsRemoteDataSourceImpl(session: sessionMock, queue: .main)
+        let expectation = expectation(description: "dencoding error payment methods")
+        let networkProvider = DecoderMockNetworkProvider(file: .paymentMethodsEncodingError)
+        let remoteDataSource = PaymentMethodsRemoteDataSourceImpl(networkProvider: networkProvider)
         var error: CharlesDataError?
-        
+
         // When
         remoteDataSource
             .paymentMethods()
@@ -61,39 +80,10 @@ class PaymentMethodsRemoteDataSource: XCTestCase {
                 }
             }, receiveValue: { _ in })
             .store(in: &cancellables)
-        
+
         // Then
         waitForExpectations(timeout: .infinity, handler: nil)
         XCTAssertNotNil(error)
         XCTAssert(error?.type == .invalidDecoding)
-    }
-    
-    func testPaymentMethodsError() {
-        // Given
-        let expectation = expectation(description: "error add operation")
-        let sessionMock = URLSessionMock.failure(statusCode: 500,
-                                                 file: .paymentMethodsError,
-                                                 error: CharlesDataError(type: .unkown))
-        let remoteDataSource = PaymentMethodsRemoteDataSourceImpl(session: sessionMock, queue: .main)
-        var error: CharlesDataError?
-        
-        // When
-        remoteDataSource
-            .paymentMethods()
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    XCTFail("Must be an error")
-                case .failure(let e):
-                    error = e
-                    expectation.fulfill()
-                }
-            }, receiveValue: { _ in })
-            .store(in: &cancellables)
-        
-        // Then
-        waitForExpectations(timeout: 5, handler: nil)
-        XCTAssertNotNil(error)
-        XCTAssert(error?.type == .unkown)
     }
 }

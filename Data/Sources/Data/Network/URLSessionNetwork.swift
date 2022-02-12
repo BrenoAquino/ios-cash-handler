@@ -1,37 +1,19 @@
 //
-//  Network.swift
+//  URLSessionNetwork.swift
 //  
 //
-//  Created by Breno Aquino on 20/01/22.
+//  Created by Breno Aquino on 10/02/22.
 //
 
 import Foundation
 import Combine
-import Domain
-import Common
 
-protocol Network {
-    associatedtype Endpoints: APIs
+public class URLSessionNetwork {
     
-    var session: URLSession { get }
-    var queue: DispatchQueue { get }
-}
-
-extension Network {
-    func execute<Model: Decodable>(endpoint: Endpoints, keyPath: String? = nil) -> AnyPublisher<Model, CharlesDataError> {
-        do {
-            let request = try endpoint.createRequest()
-            return execute(session: session, request: request, keyPath: keyPath)
-        } catch let error {
-            switch error {
-            case let error as CharlesDataError:
-                return Fail<Model, CharlesDataError>(error: error)
-                    .eraseToAnyPublisher()
-            default:
-                return Fail<Model, CharlesDataError>(error: CharlesDataError(type: .unkown))
-                    .eraseToAnyPublisher()
-            }
-        }
+    let session: URLSession
+    
+    public init(session: URLSession) {
+        self.session = session
     }
     
     private func execute<Model: Decodable>(session: URLSession, request: URLRequest, keyPath: String? = nil) -> AnyPublisher<Model, CharlesDataError> {
@@ -57,7 +39,25 @@ extension Network {
                     return CharlesDataError(type: .unkown)
                 }
             }
-            .receive(on: queue)
             .eraseToAnyPublisher()
+    }
+}
+
+// MARK: Interface
+extension URLSessionNetwork: NetworkProvider {
+    public func execute<Model: Decodable>(endpoint: APIs, keyPath: String? = nil) -> AnyPublisher<Model, CharlesDataError> {
+        do {
+            let request = try endpoint.createRequest()
+            return execute(session: session, request: request, keyPath: keyPath)
+        } catch let error {
+            switch error {
+            case let error as CharlesDataError:
+                return Fail<Model, CharlesDataError>(error: error)
+                    .eraseToAnyPublisher()
+            default:
+                return Fail<Model, CharlesDataError>(error: CharlesDataError(type: .unkown))
+                    .eraseToAnyPublisher()
+            }
+        }
     }
 }

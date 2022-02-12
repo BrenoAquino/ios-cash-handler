@@ -10,15 +10,19 @@ import Data
 
 enum RemoteDataSourceFactory {
     
+    private static func networkProvider() -> NetworkProvider {
+        return URLSessionNetwork(session: .shared)
+    }
+    
     static func operations() -> OperationsRemoteDataSource {
-        return OperationsRemoteDataSourceImpl(session: .shared, queue: .main)
+        return OperationsRemoteDataSourceImpl(networkProvider: Self.networkProvider())
     }
     
     static func categories() -> CategoriesRemoteDataSource {
-        return CategoriesRemoteDataSourceImpl(session: .shared, queue: .main)
+        return CategoriesRemoteDataSourceImpl(networkProvider: Self.networkProvider())
     }
     
     static func paymentMethods() -> PaymentMethodsRemoteDataSource {
-        return PaymentMethodsRemoteDataSourceImpl(session: .shared, queue: .main)
+        return PaymentMethodsRemoteDataSourceImpl(networkProvider: Self.networkProvider())
     }
 }

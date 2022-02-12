@@ -16,7 +16,7 @@ class OperationsUseCaseMock: OperationsUseCase {
         return Empty().eraseToAnyPublisher()
     }
     
-    func paymentMethods() -> AnyPublisher<[Domain.PaymentMethodDTO], CharlesError> {
+    func paymentMethods() -> AnyPublisher<[Domain.PaymentMethod], CharlesError> {
         return Empty().eraseToAnyPublisher()
     }
     

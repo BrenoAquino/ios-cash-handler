@@ -13,21 +13,19 @@ public protocol OperationsRemoteDataSource {
 }
 
 // MARK: Implementation
-public final class OperationsRemoteDataSourceImpl: Network {
-    typealias Endpoints = OperationsAPIs
+public final class OperationsRemoteDataSourceImpl {
+    typealias Endpoint = OperationsAPIs
     
-    var session: URLSession
-    var queue: DispatchQueue
+    let networkProvider: NetworkProvider
     
-    public init(session: URLSession, queue: DispatchQueue) {
-        self.session = session
-        self.queue = queue
+    public init(networkProvider: NetworkProvider) {
+        self.networkProvider = networkProvider
     }
 }
 
 // MARK: Requests
 extension OperationsRemoteDataSourceImpl: OperationsRemoteDataSource {
     public func addOperation(params: CreateOperationParams) -> AnyPublisher<OperationDTO, CharlesDataError> {
-        return execute(endpoint: .addOperation(params: params), keyPath: "data")
+        return networkProvider.execute(endpoint: Endpoint.addOperation(params: params), keyPath: "data")
     }
 }

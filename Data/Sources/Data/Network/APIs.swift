@@ -8,14 +8,14 @@
 import Foundation
 import Domain
 
-enum RequestMethod: String {
+public enum RequestMethod: String {
     case get = "GET"
     case post = "POST"
     case delete = "DELETE"
     case put = "PUT"
 }
 
-protocol APIs {
+public protocol APIs {
     var baseURL: String { get }
     var path: String { get }
     var method: RequestMethod { get }

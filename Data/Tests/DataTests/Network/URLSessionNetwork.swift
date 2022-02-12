@@ -1,5 +1,5 @@
 //
-//  NetworkTests.swift
+//  URLSessionNetworkTests.swift
 //  
 //
 //  Created by Breno Aquino on 06/02/22.
@@ -9,7 +9,7 @@ import XCTest
 
 @testable import Data
 
-class NetworkTests: XCTestCase {
+class URLSessionNetworkTests: XCTestCase {
     func testInvalidResponse() { XCTFail("Empty test") }
     func testUnsuccessStatusCode() { XCTFail("Empty test") }
     func testUnsuccessDecoding() { XCTFail("Empty test") }
