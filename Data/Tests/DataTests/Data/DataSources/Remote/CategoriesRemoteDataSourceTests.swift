@@ -70,7 +70,7 @@ class CategoriesRemoteDataSourceTests: XCTestCase {
         // When
         remoteDataSource
             .categories()
-            .sink(receiveCompletion: { completion in
+            .sinkCompletion { completion in
                 switch completion {
                 case .finished:
                     XCTFail("Must be an error")
@@ -78,7 +78,7 @@ class CategoriesRemoteDataSourceTests: XCTestCase {
                     error = e
                     expectation.fulfill()
                 }
-            }, receiveValue: { _ in })
+            }
             .store(in: &cancellables)
 
         // Then

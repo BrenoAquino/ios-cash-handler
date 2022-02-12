@@ -1,5 +1,5 @@
 //
-//  PaymentMethodsRemoteDataSource.swift
+//  PaymentMethodsRemoteDataSourceTests.swift
 //  
 //
 //  Created by Breno Aquino on 08/02/22.
@@ -11,7 +11,7 @@ import Combine
 
 @testable import Data
 
-class PaymentMethodsRemoteDataSource: XCTestCase {
+class PaymentMethodsRemoteDataSourceTests: XCTestCase {
     
     var cancellables: Set<AnyCancellable> = .init()
     
@@ -70,7 +70,7 @@ class PaymentMethodsRemoteDataSource: XCTestCase {
         // When
         remoteDataSource
             .paymentMethods()
-            .sink(receiveCompletion: { completion in
+            .sinkCompletion { completion in
                 switch completion {
                 case .finished:
                     XCTFail("Must be an error")
@@ -78,7 +78,7 @@ class PaymentMethodsRemoteDataSource: XCTestCase {
                     error = e
                     expectation.fulfill()
                 }
-            }, receiveValue: { _ in })
+            }
             .store(in: &cancellables)
 
         // Then

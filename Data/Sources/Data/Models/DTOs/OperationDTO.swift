@@ -25,7 +25,8 @@ public struct OperationDTO: Decodable {
 
 public extension OperationDTO {
     func toDomain() -> Domain.Operation {
-        return Domain.Operation(title: .empty,
+        return Domain.Operation(id: id,
+                                title: .empty,
                                 value: .zero,
                                 date: .now,
                                 paymentMethod: .init(id: .zero, name: .empty),
