@@ -19,7 +19,7 @@ class MockSuccessPaymentMethodsRemoteDataSource: PaymentMethodsRemoteDataSource 
             .init(id: 2, name: "PaymentMethod2")
         ]
         return Just(paymentMethods)
-            .mapError { _ in return CharlesDataError(type: .unkown) }
+            .setFailureType(to: CharlesDataError.self)
             .eraseToAnyPublisher()
     }
 }

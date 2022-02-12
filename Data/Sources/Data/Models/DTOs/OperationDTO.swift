@@ -23,13 +23,19 @@ public struct OperationDTO: Decodable {
     }
 }
 
-public extension OperationDTO {
-    func toDomain() -> Domain.Operation {
+extension OperationDTO {
+    func toDomain(paymentMethods: [Domain.PaymentMethod], categories: [Domain.Category]) -> Domain.Operation? {
+        guard let date = DateFormatter(pattern: "dd-MM-yyyy").date(from: date),
+              let paymentMethod = paymentMethods.first(where: { $0.id == paymentMethodId }),
+              let category = categories.first(where: { $0.id == categoryId }) else {
+                  return nil
+              }
+        
         return Domain.Operation(id: id,
-                                title: .empty,
-                                value: .zero,
-                                date: .now,
-                                paymentMethod: .init(id: .zero, name: .empty),
-                                category: .init(id: .zero, name: .empty))
+                                title: title,
+                                value: value,
+                                date: date,
+                                paymentMethod: paymentMethod,
+                                category: category)
     }
 }

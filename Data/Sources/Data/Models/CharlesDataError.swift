@@ -15,6 +15,7 @@ public struct CharlesDataError: Error {
         // MARK: Flow
         case unkown = -11
         case invalidDecoding = -12
+        case invalidDomainConverter = -13
         
         // MARK: Network
         case invalidURL = -21

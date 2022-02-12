@@ -11,8 +11,10 @@ import Domain
 
 public final class PaymentMethodsRepositoryImpl {
     
+    // MARK: DataSources
     private let remoteDataSource: PaymentMethodsRemoteDataSource
     
+    // MARK: Init
     public init(remoteDataSource: PaymentMethodsRemoteDataSource) {
         self.remoteDataSource = remoteDataSource
     }

@@ -19,7 +19,7 @@ class MockSuccessCategoriesRemoteDataSource: CategoriesRemoteDataSource {
             .init(id: 2, name: "Category2")
         ]
         return Just(categories)
-            .mapError { _ in return CharlesDataError(type: .unkown) }
+            .setFailureType(to: CharlesDataError.self)
             .eraseToAnyPublisher()
     }
 }

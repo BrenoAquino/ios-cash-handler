@@ -22,7 +22,7 @@ class MockSuccessOperationsRemoteDataSource: OperationsRemoteDataSource {
             value: params.value
         )
         return Just(operation)
-            .mapError { _ in return CharlesDataError(type: .unkown) }
+            .setFailureType(to: CharlesDataError.self)
             .eraseToAnyPublisher()
     }
 }
