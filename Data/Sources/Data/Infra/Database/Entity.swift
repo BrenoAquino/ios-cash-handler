@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol Entity: AnyObject {
+public protocol Entity {
     associatedtype PrimaryKey: Hashable
     
     var primaryKey: PrimaryKey { get }

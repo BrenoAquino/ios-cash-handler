@@ -60,17 +60,17 @@ class CategoriesRemoteDataSourceTests: XCTestCase {
         XCTAssert(categories?[0].name == "Moradia")
     }
 
-    func testCategoriesDecondingError() {
+    func testCategoriesDecodingError() {
         // Given
         let expectation = expectation(description: "dencoding error categories")
-        let networkProvider = DecoderMockNetworkProvider(file: .categoriesEncodingError)
+        let networkProvider = DecoderMockNetworkProvider(file: .categoriesDecodingError)
         let remoteDataSource = CategoriesRemoteDataSourceImpl(networkProvider: networkProvider)
         var error: CharlesDataError?
 
         // When
         remoteDataSource
             .categories()
-            .sink(receiveCompletion: { completion in
+            .sinkCompletion { completion in
                 switch completion {
                 case .finished:
                     XCTFail("Must be an error")
@@ -78,7 +78,7 @@ class CategoriesRemoteDataSourceTests: XCTestCase {
                     error = e
                     expectation.fulfill()
                 }
-            }, receiveValue: { _ in })
+            }
             .store(in: &cancellables)
 
         // Then

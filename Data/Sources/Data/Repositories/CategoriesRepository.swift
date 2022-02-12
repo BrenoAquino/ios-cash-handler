@@ -10,8 +10,11 @@ import Combine
 import Domain
 
 public final class CategoriesRepositoryImpl {
+    
+    // MARK: DataSources
     private let remoteDataSource: CategoriesRemoteDataSource
     
+    // MARK: Init
     public init(remoteDataSource: CategoriesRemoteDataSource) {
         self.remoteDataSource = remoteDataSource
     }

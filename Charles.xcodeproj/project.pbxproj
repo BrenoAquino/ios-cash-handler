@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55253BAC27B867EF00EEEEE5 /* LocalDataSourceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55253BAB27B867EF00EEEEE5 /* LocalDataSourceFactory.swift */; };
 		5559F40127B20D2B00EB57A8 /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = 5559F40027B20D2B00EB57A8 /* Common */; };
 		5559F40327B20D4000EB57A8 /* Data in Frameworks */ = {isa = PBXBuildFile; productRef = 5559F40227B20D4000EB57A8 /* Data */; };
 		5559F40527B20D4200EB57A8 /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 5559F40427B20D4200EB57A8 /* Domain */; };
@@ -50,6 +51,7 @@
 		5506FB4627B0B29A000E9461 /* Domain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Domain; sourceTree = "<group>"; };
 		5506FB4727B0B2B2000E9461 /* Data */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Data; sourceTree = "<group>"; };
 		5506FB4827B0B2F8000E9461 /* Common */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Common; sourceTree = "<group>"; };
+		55253BAB27B867EF00EEEEE5 /* LocalDataSourceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataSourceFactory.swift; sourceTree = "<group>"; };
 		556603B2278C826400E24511 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		556DEE22278B63E100CBFF5C /* Charles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Charles.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		556DEE25278B63E100CBFF5C /* CharlesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharlesApp.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				55E3DDBA279A2B68005F0AE0 /* RemoteDataSourceFactory.swift */,
+				55253BAB27B867EF00EEEEE5 /* LocalDataSourceFactory.swift */,
 				55E3DDBC279A2C17005F0AE0 /* RepositoryFactory.swift */,
 				55E3DDBE279A2C64005F0AE0 /* UseCaseFactory.swift */,
 				55E3DDC0279A2CC8005F0AE0 /* ViewModelFactory.swift */,
@@ -287,6 +290,7 @@
 				55B6BC48278B8D8500B421AE /* HomeCoordinator.swift in Sources */,
 				556DEE26278B63E100CBFF5C /* CharlesApp.swift in Sources */,
 				55E3DDBF279A2C64005F0AE0 /* UseCaseFactory.swift in Sources */,
+				55253BAC27B867EF00EEEEE5 /* LocalDataSourceFactory.swift in Sources */,
 				55E3DDBB279A2B68005F0AE0 /* RemoteDataSourceFactory.swift in Sources */,
 				55E3DDC1279A2CC8005F0AE0 /* ViewModelFactory.swift in Sources */,
 			);

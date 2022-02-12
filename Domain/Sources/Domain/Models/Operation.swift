@@ -13,13 +13,15 @@ public enum OperationType: String {
 }
 
 public struct Operation {
+    public let id: String
     public let title: String
     public let value: Double
     public let date: Date
     public let paymentMethod: PaymentMethod
     public let category: Category
     
-    public init(title: String, value: Double, date: Date, paymentMethod: PaymentMethod, category: Category) {
+    public init(id: String, title: String, value: Double, date: Date, paymentMethod: PaymentMethod, category: Category) {
+        self.id = id
         self.title = title
         self.value = value
         self.date = date

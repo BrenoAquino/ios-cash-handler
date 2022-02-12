@@ -10,10 +10,25 @@ import Combine
 import Domain
 
 public final class OperationsRepositoryImpl {
-    private let remoteDataSource: OperationsRemoteDataSource
     
-    public init(remoteDataSource: OperationsRemoteDataSource) {
+    private let categories: [Domain.Category]
+    private let paymentMethods: [Domain.PaymentMethod]
+    
+    // MARK: DataSources
+    private let remoteDataSource: OperationsRemoteDataSource
+    private let paymentMethodsLocalDataSource: PaymentMethodsLocalDataSource
+    private let categoriesLocalDataSource: CategoriesLocalDataSource
+    
+    // MARK: Init
+    public init(remoteDataSource: OperationsRemoteDataSource,
+                paymentMethodsLocalDataSource: PaymentMethodsLocalDataSource,
+                categoriesLocalDataSource: CategoriesLocalDataSource) {
         self.remoteDataSource = remoteDataSource
+        self.paymentMethodsLocalDataSource = paymentMethodsLocalDataSource
+        self.categoriesLocalDataSource = categoriesLocalDataSource
+        
+        categories = categoriesLocalDataSource.categories().map { $0.toDomain() }
+        paymentMethods = paymentMethodsLocalDataSource.paymentMethods().map { $0.toDomain() }
     }
 }
 
@@ -27,8 +42,22 @@ extension OperationsRepositoryImpl: Domain.OperationsRepository {
         let params = CreateOperationParams(title: title, date: date, value: value, categoryId: categoryId, paymentMethodId: paymentTypeId)
         return remoteDataSource
             .addOperation(params: params)
-            .map { $0.toDomain() }
-            .mapError { $0.toDomain() }
+            .tryMap { [weak self] operation in
+                guard let self = self else { throw CharlesDataError(type: .unkown) }
+                if let operationDomain = operation.toDomain(paymentMethods: self.paymentMethods, categories: self.categories) {
+                    return operationDomain
+                } else {
+                    throw CharlesDataError(type: .invalidDomainConverter)
+                }
+            }
+            .mapError { error in
+                switch error {
+                case let error as CharlesDataError:
+                    return error.toDomain()
+                default:
+                    return CharlesError(type: .unkown)
+                }
+            }
             .eraseToAnyPublisher()
     }
 }
