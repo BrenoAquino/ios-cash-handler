@@ -12,8 +12,9 @@ import Data
 enum RepositoryFactory {
     
     static func operations() -> OperationsRepository {
-        let remoteDataSource = RemoteDataSourceFactory.operations()
-        return OperationsRepositoryImpl(remoteDataSource: remoteDataSource)
+        return OperationsRepositoryImpl(remoteDataSource: RemoteDataSourceFactory.operations(),
+                                        paymentMethodsLocalDataSource: LocalDataSourceFactory.paymentMethods(),
+                                        categoriesLocalDataSource: LocalDataSourceFactory.categories())
     }
     
     static func categories() -> CategoriesRepository {
