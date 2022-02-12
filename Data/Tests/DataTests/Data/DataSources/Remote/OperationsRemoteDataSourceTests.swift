@@ -70,10 +70,10 @@ class OperationsRemoteDataSourceTests: XCTestCase {
         XCTAssert(operation?.value == 123.123)
     }
     
-    func testAddOperationDecondingError() {
+    func testAddOperationDecodingError() {
         // Given
-        let expectation = expectation(description: "dencoding error add operation")
-        let networkProvider = DecoderMockNetworkProvider(file: .addOperstionEncodingError)
+        let expectation = expectation(description: "decoding error add operation")
+        let networkProvider = DecoderMockNetworkProvider(file: .addOperstionDecodingError)
         let remoteDataSource = OperationsRemoteDataSourceImpl(networkProvider: networkProvider)
         var error: CharlesDataError?
 

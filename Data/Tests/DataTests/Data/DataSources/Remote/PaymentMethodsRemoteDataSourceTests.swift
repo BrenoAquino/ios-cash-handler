@@ -60,10 +60,10 @@ class PaymentMethodsRemoteDataSourceTests: XCTestCase {
         XCTAssert(paymentMethods?[0].name == "Vale Alimentação")
     }
 
-    func testPaymentMethodsDecondingError() {
+    func testPaymentMethodsDecodingError() {
         // Given
         let expectation = expectation(description: "dencoding error payment methods")
-        let networkProvider = DecoderMockNetworkProvider(file: .paymentMethodsEncodingError)
+        let networkProvider = DecoderMockNetworkProvider(file: .paymentMethodsDecodingError)
         let remoteDataSource = PaymentMethodsRemoteDataSourceImpl(networkProvider: networkProvider)
         var error: CharlesDataError?
 

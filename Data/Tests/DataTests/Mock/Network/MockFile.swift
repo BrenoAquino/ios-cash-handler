@@ -14,20 +14,17 @@ enum MockFile: String {
     // MARK: Operations
     // App Operation
     case addOperstionSuccess = "add_operation_success"
-    case addOperstionError = "add_operation_error"
-    case addOperstionEncodingError = "add_operation_encoding_error"
+    case addOperstionDecodingError = "add_operation_decoding_error"
     
     // MARK: Categories
     // Categories
     case categoriesSuccess = "categories_success"
-    case categoriesError = "categories_error"
-    case categoriesEncodingError = "categories_encoding_error"
+    case categoriesDecodingError = "categories_decoding_error"
     
     // MARK: PaymentMethods
     // PaymentMethods
     case paymentMethodsSuccess = "payment_methods_success"
-    case paymentMethodsError = "payment_methods_error"
-    case paymentMethodsEncodingError = "payment_methods_encoding_error"
+    case paymentMethodsDecodingError = "payment_methods_decoding_error"
 }
 
 // MARK: Load File
