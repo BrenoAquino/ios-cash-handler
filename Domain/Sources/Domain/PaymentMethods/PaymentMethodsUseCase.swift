@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 public protocol PaymentMethodsUseCase {
-    func categories() -> AnyPublisher<[PaymentMethod], CharlesError>
+    func paymentMethods() -> AnyPublisher<[PaymentMethod], CharlesError>
 }
 
 // MARK: Implementation
@@ -24,7 +24,7 @@ public final class PaymentMethodsUseCaseImpl {
 
 // MARK: Interfaces
 extension PaymentMethodsUseCaseImpl: PaymentMethodsUseCase {
-    public func categories() -> AnyPublisher<[PaymentMethod], CharlesError> {
+    public func paymentMethods() -> AnyPublisher<[PaymentMethod], CharlesError> {
         return paymentMethodsRepository
             .fetchPaymentMethods()
             .map { $0.sorted(by: { $0.name < $1.name }) }

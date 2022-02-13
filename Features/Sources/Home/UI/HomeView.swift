@@ -17,21 +17,31 @@ public struct HomeView: View {
     }
     
     public var body: some View {
-        ZStack {
-            DSColor.background.rawValue.edgesIgnoringSafeArea([.top, .bottom])
-            content
-        }
-        .confirmationDialog(Localizable.Home.operationOptionsTitle,
-                            isPresented: $viewModel.operationOptions,
-                            titleVisibility: .visible,
-                            actions: {
-            Button(Localizable.Home.cashInOption, action: viewModel.addCashIn)
-            Button(Localizable.Home.cashOutOption, action: viewModel.addCashOut)
-            Button(Localizable.Common.cancel, role: .cancel, action: viewModel.addCancel)
-        })
-        .toolbar {
-            profileBar
-            addBar
+        content
+            .background(
+                DSColor.background.rawValue.edgesIgnoringSafeArea(.all)
+            )
+            .confirmationDialog(Localizable.Home.operationOptionsTitle,
+                                isPresented: $viewModel.operationOptions,
+                                titleVisibility: .visible,
+                                actions: {
+                Button(Localizable.Home.cashInOption, action: viewModel.addCashIn)
+                Button(Localizable.Home.cashOutOption, action: viewModel.addCashOut)
+                Button(Localizable.Common.cancel, role: .cancel, action: viewModel.addCancel)
+            })
+            .toolbar {
+                profileBar
+                addBar
+            }
+    }
+    
+    // MARK: View State
+    private var content: AnyView {
+        switch viewModel.state {
+        case .loading:
+            return AnyView(ViewState.loadingView(background: .opaque))
+        default:
+            return AnyView(operationsList)
         }
     }
     
@@ -70,7 +80,7 @@ public struct HomeView: View {
     }
     
     // MARK: Content List
-    private var content: some View {
+    private var operationsList: some View {
         List(viewModel.operations, id: \.hashValue) { operation in
             OperationCell(name: operation)
         }
@@ -82,7 +92,8 @@ public struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            HomeView(viewModel: .init())
+            HomeView(viewModel: .init(categoriesUseCase: CategoriesUseCasePreview(),
+                                      paymentMethods: PaymentMethodsUseCasePreview()))
         }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  UserDefaultsDB.swift
+//  MemoryDatabase.swift
 //  
 //
 //  Created by Breno Aquino on 12/02/22.
@@ -7,19 +7,21 @@
 
 import Foundation
 
-public class UserDefaultsDB {
+public class MemoryDatabase {
     
-    public static let shared: UserDefaultsDB = UserDefaultsDB()
+    public static let shared: MemoryDatabase = MemoryDatabase()
+    private var tables: [String: [Any]] = [:]
     
     private init() {}
 }
 
 // MARK: Database Interface
-extension UserDefaultsDB: Database {
+extension MemoryDatabase: Database {
+    
     public func all<EntityType>() -> [EntityType] where EntityType : Entity {
         let tableKey = String(describing: EntityType.self)
-        let elements = UserDefaults.standard.array(forKey: tableKey) as? [EntityType]
-        return elements ?? []
+        let elements: [EntityType] = tables[tableKey] as? [EntityType] ?? []
+        return elements
     }
     
     public func get<EntityType>(key: EntityType.PrimaryKey) -> EntityType? where EntityType : Entity {
@@ -31,15 +33,13 @@ extension UserDefaultsDB: Database {
         let tableKey = String(describing: EntityType.self)
         var elements: [EntityType] = all()
         let removedElement = elements.removeFirst(where: { $0.primaryKey == key })
-        UserDefaults.standard.set(elements, forKey: tableKey)
+        tables[tableKey] = elements
         return removedElement
     }
     
     public func add<EntityType>(object: EntityType) where EntityType : Entity {
         let tableKey = String(describing: EntityType.self)
-        var elements: [EntityType] = all()
-        elements.append(object)
-        UserDefaults.standard.set(elements, forKey: tableKey)
+        tables[tableKey]?.append(object)
     }
     
     public func update<EntityType>(object: EntityType) where EntityType : Entity {
@@ -50,12 +50,12 @@ extension UserDefaultsDB: Database {
     public func dropAll<EntityType>() -> [EntityType] where EntityType : Entity {
         let tableKey = String(describing: EntityType.self)
         let elements: [EntityType] = all()
-        UserDefaults.standard.removeObject(forKey: tableKey)
+        tables[tableKey] = []
         return elements
     }
     
     public func addArray<EntityType>(objects: [EntityType]) where EntityType : Entity {
         let tableKey = String(describing: EntityType.self)
-        UserDefaults.standard.set(objects, forKey: tableKey)
+        tables[tableKey] = objects
     }
 }

@@ -44,7 +44,7 @@ public struct OperationFormView: View {
         case .loading:
             return AnyView(ZStack {
                 form
-                ViewState.loadingView
+                ViewState.loadingView(background: .blur)
             })
             
         default:

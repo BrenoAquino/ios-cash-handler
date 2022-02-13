@@ -8,8 +8,19 @@
 import Foundation
 import OperationForm
 import Domain
+import Home
 
 enum ViewModelFactory {
+    
+    static func home() -> HomeView.ViewModel {
+        return HomeView.ViewModel(categoriesUseCase: UseCaseFactory.categories(),
+                                  paymentMethods: UseCaseFactory.paymentMethods())
+    }
+    
+    static func coordinatorHome() -> HomeCoordinator.ViewModel {
+        let viewModel = Self.home()
+        return HomeCoordinator.ViewModel(homeViewModel: viewModel)
+    }
     
     static func operationForm(type: OperationType) -> OperationFormView.ViewModel {
         let useCase = UseCaseFactory.operations()
