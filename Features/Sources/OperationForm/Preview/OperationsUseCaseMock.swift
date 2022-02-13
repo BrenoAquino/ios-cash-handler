@@ -12,15 +12,15 @@ import Domain
 
 // MARK: UseCase
 class OperationsUseCaseMock: OperationsUseCase {
-    func categories() -> AnyPublisher<[Domain.Category], CharlesError> {
-        return Empty().eraseToAnyPublisher()
+    func categories() -> [Domain.Category] {
+        return []
     }
     
-    func paymentMethods() -> AnyPublisher<[Domain.PaymentMethod], CharlesError> {
-        return Empty().eraseToAnyPublisher()
+    func paymentMethods() -> [Domain.PaymentMethod] {
+        return []
     }
     
-    func addOperation(title: String, date: Date, value: String, category: String, paymentType: String) -> AnyPublisher<Domain.Operation, CharlesError> {
+    func addOperation(title: String, date: Date, value: String, categoryId: Int, paymentMethodId: Int) -> AnyPublisher<Domain.Operation, CharlesError> {
         return Empty().eraseToAnyPublisher()
     }
 }

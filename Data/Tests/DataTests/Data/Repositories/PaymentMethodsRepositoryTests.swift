@@ -72,4 +72,19 @@ class PaymentMethodsRepositoryTests: XCTestCase {
         XCTAssertNotNil(error)
         XCTAssert(error?.type == .networkError)
     }
+    
+    // MARK: Cached Payment Methods
+    func testCachedPaymentMethods() {
+        // Given
+        let repository = PaymentMethodsRepositoryImpl(remoteDataSource: MockSuccessPaymentMethodsRemoteDataSource(),
+                                                      localDataSource: MockPaymentMethodsLocalDataSource())
+        
+        // When
+        let paymentMethods = repository.cachedPaymentMethods()
+        
+        // Then
+        XCTAssert(paymentMethods.count == 2)
+        XCTAssert(paymentMethods[0].id == 0)
+        XCTAssert(paymentMethods[1].name == "PaymentMethod1")
+    }
 }

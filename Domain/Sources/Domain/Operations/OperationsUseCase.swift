@@ -10,9 +10,9 @@ import Combine
 import Common
 
 public protocol OperationsUseCase {
-    func categories() -> AnyPublisher<[Category], CharlesError>
-    func paymentMethods() -> AnyPublisher<[PaymentMethod], CharlesError>
-    func addOperation(title: String, date: Date, value: String, category: String, paymentType: String) -> AnyPublisher<Operation, CharlesError>
+    func categories() -> [Category]
+    func paymentMethods() -> [PaymentMethod]
+    func addOperation(title: String, date: Date, value: String, categoryId: Int, paymentMethodId: Int) -> AnyPublisher<Operation, CharlesError>
 }
 
 // MARK: Implementation
@@ -34,17 +34,21 @@ public final class OperationsUseCaseImpl {
 // MARK: Interfaces
 extension OperationsUseCaseImpl: OperationsUseCase {
     
-    public func categories() -> AnyPublisher<[Category], CharlesError> {
+    public func categories() -> [Category] {
         return categoriesRepository
-            .fetchCategories()
+            .cachedCategories()
     }
     
-    public func paymentMethods() -> AnyPublisher<[PaymentMethod], CharlesError> {
+    public func paymentMethods() -> [PaymentMethod] {
         return paymentMethodsRepository
-            .fetchPaymentMethods()
+            .cachedPaymentMethods()
     }
     
-    public func addOperation(title: String, date: Date, value: String, category: String, paymentType: String) -> AnyPublisher<Operation, CharlesError> {
+    public func addOperation(title: String,
+                             date: Date,
+                             value: String,
+                             categoryId: Int,
+                             paymentMethodId: Int) -> AnyPublisher<Operation, CharlesError> {
         guard let value = Double(value) else {
             return Fail(error: CharlesError(type: .wrongInputType))
                 .eraseToAnyPublisher()
@@ -52,6 +56,6 @@ extension OperationsUseCaseImpl: OperationsUseCase {
         
         let dateString = DateFormatter(pattern: "dd-MM-yyyy").string(from: date)
         return operationsRepository
-            .addOperation(title: title, date: dateString, value: value, categoryId: 0, paymentTypeId: 0)
+            .addOperation(title: title, date: dateString, value: value, categoryId: categoryId, paymentMethodId: paymentMethodId)
     }
 }

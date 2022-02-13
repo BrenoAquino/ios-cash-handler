@@ -13,5 +13,5 @@ public protocol OperationsRepository {
                       date: String,
                       value: Double,
                       categoryId: Int,
-                      paymentTypeId: Int) -> AnyPublisher<Operation, CharlesError>
+                      paymentMethodId: Int) -> AnyPublisher<Operation, CharlesError>
 }
