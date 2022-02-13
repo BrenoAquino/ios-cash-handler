@@ -26,7 +26,11 @@ public final class PaymentMethodsRepositoryImpl {
 }
 
 extension PaymentMethodsRepositoryImpl: Domain.PaymentMethodsRepository {
-    public func fetchPaymentMethods() -> AnyPublisher<[PaymentMethod], CharlesError> {
+    public func cachedPaymentMethods() -> [Domain.PaymentMethod] {
+        localDataSource.paymentMethods().map { $0.toDomain() }
+    }
+    
+    public func fetchPaymentMethods() -> AnyPublisher<[Domain.PaymentMethod], CharlesError> {
         let publisher = remoteDataSource.paymentMethods()
         
         publisher

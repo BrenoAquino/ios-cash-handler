@@ -72,4 +72,19 @@ class CategoriesRepositoryTests: XCTestCase {
         XCTAssertNotNil(error)
         XCTAssert(error?.type == .networkError)
     }
+    
+    // MARK: Cached Categories
+    func testCachedCategoroes() {
+        // Given
+        let repository = CategoriesRepositoryImpl(remoteDataSource: MockSuccessCategoriesRemoteDataSource(),
+                                                  localDataSource: MockCategoriesLocalDataSource())
+        
+        // When
+        let categories = repository.cachedCategories()
+        
+        // Then
+        XCTAssert(categories.count == 2)
+        XCTAssert(categories[0].id == 0)
+        XCTAssert(categories[1].name == "Category1")
+    }
 }

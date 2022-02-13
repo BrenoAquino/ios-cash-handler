@@ -27,6 +27,10 @@ public final class CategoriesRepositoryImpl {
 
 // MARK: Interface
 extension CategoriesRepositoryImpl: Domain.CategoriesRepository {
+    public func cachedCategories() -> [Domain.Category] {
+        localDataSource.categories().map { $0.toDomain() }
+    }
+    
     public func fetchCategories() -> AnyPublisher<[Domain.Category], CharlesError> {
         let publisher = remoteDataSource.categories()
         

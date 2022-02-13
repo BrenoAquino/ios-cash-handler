@@ -85,14 +85,32 @@ public struct OperationFormView: View {
                     .listRowBackground(DSColor.secondBackground.rawValue)
             }
             Section(Localizable.OperationForm.categoryTitle) {
-                TextField(Localizable.OperationForm.categoryPlaceholder,
-                          text: $viewModel.category)
-                    .listRowBackground(DSColor.secondBackground.rawValue)
+                Picker(Localizable.OperationForm.categoryPlaceholder, selection: $viewModel.category) {
+                    ForEach(viewModel.categories) {
+                        Text($0.name)
+                    }
+                }
+                .accentColor(
+                    viewModel.isValidCategory ?
+                        DSColor.primaryText.rawValue :
+                        DSColor.placholder.rawValue
+                )
+                .pickerStyle(.menu)
+                .listRowBackground(DSColor.secondBackground.rawValue)
             }
             Section(Localizable.OperationForm.paymentTypeTitle) {
-                TextField(Localizable.OperationForm.paymentPlaceholder,
-                          text: $viewModel.paymentType)
-                    .listRowBackground(DSColor.secondBackground.rawValue)
+                Picker(Localizable.OperationForm.paymentPlaceholder, selection: $viewModel.paymentMethod) {
+                    ForEach(viewModel.paymentMethods) {
+                        Text($0.name)
+                    }
+                }
+                .accentColor(
+                    viewModel.isValidPaymentMethod ?
+                        DSColor.primaryText.rawValue :
+                        DSColor.placholder.rawValue
+                )
+                .pickerStyle(.menu)
+                .listRowBackground(DSColor.secondBackground.rawValue)
             }
             Section(Localizable.OperationForm.dateTitle) {
                 DatePicker(String.empty, selection: $viewModel.date, in: ...Date(), displayedComponents: .date)

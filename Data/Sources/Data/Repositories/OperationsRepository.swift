@@ -35,11 +35,11 @@ public final class OperationsRepositoryImpl {
 // MARK: Interface
 extension OperationsRepositoryImpl: Domain.OperationsRepository {
     public func addOperation(title: String,
-                      date: String,
-                      value: Double,
-                      categoryId: Int,
-                      paymentTypeId: Int) -> AnyPublisher<Domain.Operation, CharlesError> {
-        let params = CreateOperationParams(title: title, date: date, value: value, categoryId: categoryId, paymentMethodId: paymentTypeId)
+                             date: String,
+                             value: Double,
+                             categoryId: Int,
+                             paymentMethodId: Int) -> AnyPublisher<Domain.Operation, CharlesError> {
+        let params = CreateOperationParams(title: title, date: date, value: value, categoryId: categoryId, paymentMethodId: paymentMethodId)
         return remoteDataSource
             .addOperation(params: params)
             .tryMap { [weak self] operation in
