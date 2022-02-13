@@ -12,6 +12,7 @@ import Foundation
 class MockPaymentMethodsLocalDataSource: PaymentMethodsLocalDataSource {
     
     let paymentMethodsEntity: [PaymentMethodEntity]
+    var updatedPaymentMethods: [PaymentMethodEntity]?
     
     init(paymentMethods: [PaymentMethodEntity]? = nil) {
         self.paymentMethodsEntity = paymentMethods ?? [
@@ -22,5 +23,9 @@ class MockPaymentMethodsLocalDataSource: PaymentMethodsLocalDataSource {
     
     func paymentMethods() -> [PaymentMethodEntity] {
         return paymentMethodsEntity
+    }
+    
+    func updatePaumentMethods(_ paymentMethods: [PaymentMethodEntity]) {
+        updatedPaymentMethods = paymentMethods
     }
 }

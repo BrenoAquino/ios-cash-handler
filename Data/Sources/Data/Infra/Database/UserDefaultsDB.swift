@@ -46,4 +46,16 @@ extension UserDefaultsDB: Database {
         let _: EntityType? = remove(key: object.primaryKey)
         add(object: object)
     }
+    
+    public func dropAll<EntityType>() -> [EntityType] where EntityType : Entity {
+        let tableKey = String(describing: EntityType.self)
+        let elements: [EntityType] = all()
+        UserDefaults.standard.removeObject(forKey: tableKey)
+        return elements
+    }
+    
+    public func addArray<EntityType>(objects: [EntityType]) where EntityType : Entity {
+        let tableKey = String(describing: EntityType.self)
+        UserDefaults.standard.set(objects, forKey: tableKey)
+    }
 }

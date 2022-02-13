@@ -13,4 +13,10 @@ extension Publisher {
     public func sinkCompletion(completion: @escaping ((Subscribers.Completion<Self.Failure>) -> Void)) -> AnyCancellable {
         sink(receiveCompletion: completion, receiveValue: { _ in })
     }
+    
+    public func sinkReceiveValue(closure: @escaping ((Output) -> Void)) -> AnyCancellable {
+        sink { _ in } receiveValue: { value in
+            closure(value)
+        }
+    }
 }

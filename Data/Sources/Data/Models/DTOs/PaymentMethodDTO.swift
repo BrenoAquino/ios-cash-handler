@@ -17,4 +17,8 @@ public extension PaymentMethodDTO {
     func toDomain() -> Domain.PaymentMethod {
         return Domain.PaymentMethod(id: id, name: name)
     }
+    
+    func toEntity() -> PaymentMethodEntity {
+        return PaymentMethodEntity(primaryKey: id, name: name)
+    }
 }

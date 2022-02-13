@@ -12,6 +12,7 @@ import Foundation
 class MockCategoriesLocalDataSource: CategoriesLocalDataSource {
     
     let categoriesEntity: [CategoryEntity]
+    var updatedCategories: [CategoryEntity]?
     
     init(categories: [CategoryEntity]? = nil) {
         self.categoriesEntity = categories ?? [
@@ -22,5 +23,9 @@ class MockCategoriesLocalDataSource: CategoriesLocalDataSource {
     
     func categories() -> [CategoryEntity] {
         return categoriesEntity
+    }
+    
+    func updateCategories(_ categories: [CategoryEntity]) {
+        updatedCategories = categories
     }
 }

@@ -10,6 +10,7 @@ import Combine
 
 public protocol CategoriesLocalDataSource {
     func categories() -> [CategoryEntity]
+    func updateCategories(_ categories: [CategoryEntity])
 }
 
 public final class CategoriesLocalDataSourceImpl {
@@ -24,5 +25,10 @@ public final class CategoriesLocalDataSourceImpl {
 extension CategoriesLocalDataSourceImpl: CategoriesLocalDataSource {
     public func categories() -> [CategoryEntity] {
         return database.all()
+    }
+    
+    public func updateCategories(_ categories: [CategoryEntity]) {
+        let _: [CategoryEntity] = database.dropAll()
+        database.addArray(objects: categories)
     }
 }

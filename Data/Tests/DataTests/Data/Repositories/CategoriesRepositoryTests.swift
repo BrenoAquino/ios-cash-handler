@@ -19,8 +19,9 @@ class CategoriesRepositoryTests: XCTestCase {
     func testFetchCategoriesSuccessToDomainType() {
         // Given
         let expectation = expectation(description: "success fetch categories")
-        let remoteDataSource = MockSuccessCategoriesRemoteDataSource()
-        let repository = CategoriesRepositoryImpl(remoteDataSource: remoteDataSource)
+        let localDataSource = MockCategoriesLocalDataSource()
+        let repository = CategoriesRepositoryImpl(remoteDataSource: MockSuccessCategoriesRemoteDataSource(),
+                                                  localDataSource: localDataSource)
         var categories: [Domain.Category]?
         
         // When
@@ -39,13 +40,17 @@ class CategoriesRepositoryTests: XCTestCase {
         XCTAssert(categories?.count == 3)
         XCTAssert(categories?[0].id == 0)
         XCTAssert(categories?[1].name == "Category1")
+        XCTAssertNotNil(localDataSource.updatedCategories)
+        XCTAssert(localDataSource.updatedCategories?.count == 3)
+        XCTAssert(localDataSource.updatedCategories?[0].primaryKey == 0)
+        XCTAssert(localDataSource.updatedCategories?[1].name == "Category1")
     }
     
     func testFetchCategoriesErrorToDomainType() {
         // Given
         let expectation = expectation(description: "error fetch categories")
-        let remoteDataSource = MockErrorCategoriesRemoteDataSource()
-        let repository = CategoriesRepositoryImpl(remoteDataSource: remoteDataSource)
+        let repository = CategoriesRepositoryImpl(remoteDataSource: MockErrorCategoriesRemoteDataSource(),
+                                                  localDataSource: MockCategoriesLocalDataSource())
         var error: Domain.CharlesError?
         
         // When
