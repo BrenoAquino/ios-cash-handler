@@ -19,8 +19,9 @@ class PaymentMethodsRepositoryTests: XCTestCase {
     func testPaymentMethodsSuccessToDomainType() {
         // Given
         let expectation = expectation(description: "success fetch payment methods")
-        let remoteDataSource = MockSuccessPaymentMethodsRemoteDataSource()
-        let repository = PaymentMethodsRepositoryImpl(remoteDataSource: remoteDataSource)
+        let localDataSource = MockPaymentMethodsLocalDataSource()
+        let repository = PaymentMethodsRepositoryImpl(remoteDataSource: MockSuccessPaymentMethodsRemoteDataSource(),
+                                                      localDataSource: localDataSource)
         var paymentMethods: [Domain.PaymentMethod]?
         
         // When
@@ -39,13 +40,17 @@ class PaymentMethodsRepositoryTests: XCTestCase {
         XCTAssert(paymentMethods?.count == 3)
         XCTAssert(paymentMethods?[0].id == 0)
         XCTAssert(paymentMethods?[1].name == "PaymentMethod1")
+        XCTAssertNotNil(localDataSource.updatedPaymentMethods)
+        XCTAssert(localDataSource.updatedPaymentMethods?.count == 3)
+        XCTAssert(localDataSource.updatedPaymentMethods?[0].primaryKey == 0)
+        XCTAssert(localDataSource.updatedPaymentMethods?[1].name == "PaymentMethod1")
     }
     
     func testPaymentMethodsErrorToDomainType() {
         // Given
         let expectation = expectation(description: "error fetch payment methods")
-        let remoteDataSource = MockErrorPaymentMethodsRemoteDataSource()
-        let repository = PaymentMethodsRepositoryImpl(remoteDataSource: remoteDataSource)
+        let repository = PaymentMethodsRepositoryImpl(remoteDataSource: MockErrorPaymentMethodsRemoteDataSource(),
+                                                      localDataSource: MockPaymentMethodsLocalDataSource())
         var error: Domain.CharlesError?
         
         // When

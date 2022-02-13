@@ -35,8 +35,8 @@ public struct CharlesDataError: Error {
         self.type = type
     }
     
-    public init(networkCode: Int) {
-        self.type = ErrorType(rawValue: networkCode) ?? .unkown
+    public init(code: Int) {
+        self.type = ErrorType(rawValue: code) ?? .unkown
     }
 }
 

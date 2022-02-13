@@ -17,4 +17,8 @@ public extension CategoryDTO {
     func toDomain() -> Domain.Category {
         return Domain.Category(id: id, name: name)
     }
+    
+    func toEntity() -> CategoryEntity {
+        return CategoryEntity(primaryKey: id, name: name)
+    }
 }

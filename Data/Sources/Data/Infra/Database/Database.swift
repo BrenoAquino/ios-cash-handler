@@ -15,4 +15,7 @@ public protocol Database {
     
     func add<EntityType>(object: EntityType) where EntityType : Entity
     func update<EntityType>(object: EntityType) where EntityType : Entity
+    
+    func dropAll<EntityType>() -> [EntityType] where EntityType : Entity
+    func addArray<EntityType>(objects: [EntityType]) where EntityType : Entity
 }

@@ -45,6 +45,34 @@ class OperationsRepositoryTests: XCTestCase {
         XCTAssert(operation?.paymentMethod.id == 1)
         XCTAssert(operation?.paymentMethod.name == "PaymentMethod1")
     }
+    
+    func testAddOperationSuccessToDomainWithConverterError() {
+        // Given
+        let expectation = expectation(description: "success add operation")
+        let repository = OperationsRepositoryImpl(remoteDataSource: MockSuccessOperationsRemoteDataSource(),
+                                                  paymentMethodsLocalDataSource: MockPaymentMethodsLocalDataSource(paymentMethods: []),
+                                                  categoriesLocalDataSource: MockCategoriesLocalDataSource(categories: []))
+        var error: Domain.CharlesError?
+        
+        // When
+        repository
+            .addOperation(title: "Title", date: "03/04/1997", value: 132, categoryId: 0, paymentTypeId: 1)
+            .sinkCompletion { completion in
+                switch completion {
+                case .finished:
+                    XCTFail("Must be an error")
+                case .failure(let e):
+                    error = e
+                    expectation.fulfill()
+                }
+            }
+            .store(in: &cancellables)
+
+        // Then
+        waitForExpectations(timeout: 5, handler: nil)
+        XCTAssertNotNil(error)
+        XCTAssert(error?.type == .networkError)
+    }
 
     func testAddOperationErrorToDomainType() {
         // Given
