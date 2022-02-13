@@ -43,8 +43,9 @@ extension OperationsRepositoryImpl: Domain.OperationsRepository {
         return remoteDataSource
             .addOperation(params: params)
             .tryMap { [weak self] operation in
-                guard let self = self else { throw CharlesDataError(type: .unkown) }
-                if let operationDomain = operation.toDomain(paymentMethods: self.paymentMethods, categories: self.categories) {
+                if let categories = self?.categories,
+                   let paymentMethods = self?.paymentMethods,
+                   let operationDomain = operation.toDomain(paymentMethods: paymentMethods, categories: categories) {
                     return operationDomain
                 } else {
                     throw CharlesDataError(type: .invalidDomainConverter)

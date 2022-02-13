@@ -24,7 +24,7 @@ public class URLSessionNetwork {
                     throw CharlesDataError(type: .invalidResponse)
                 }
                 guard response.statusCode >= 200 && response.statusCode <= 299 else {
-                    throw CharlesDataError(networkCode: response.statusCode)
+                    throw CharlesDataError(code: response.statusCode)
                 }
                 return data
             }
@@ -34,7 +34,7 @@ public class URLSessionNetwork {
                 case _ as DecodingError:
                     return CharlesDataError(type: .invalidDecoding)
                 case let error as URLError:
-                    return CharlesDataError(networkCode: error.errorCode)
+                    return CharlesDataError(code: error.errorCode)
                 default:
                     return CharlesDataError(type: .unkown)
                 }

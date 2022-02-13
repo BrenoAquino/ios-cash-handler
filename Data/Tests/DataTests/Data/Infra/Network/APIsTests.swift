@@ -24,7 +24,7 @@ extension APIsMock: APIs {
         case .get, .post, .delete, .put, .validUrl:
             return "https://mock.com"
         case .invalidUrl:
-            return "asd"
+            return "ç"
         }
     }
     
@@ -136,17 +136,18 @@ class APIsTests: XCTestCase {
     
     func testInvalidURL() {
         // Given
+        var error: CharlesDataError?
         let api = APIsMock.invalidUrl
         
         // When
         do {
             _ = try api.createRequest()
+        } catch let err {
+            error = err as? CharlesDataError
         }
         
         // Then
-        catch let error {
-            let error = error as? CharlesDataError
-            XCTAssert(error?.type == .invalidURL)
-        }
+        XCTAssertNotNil(error)
+        XCTAssert(error?.type == .invalidURL)
     }
 }
