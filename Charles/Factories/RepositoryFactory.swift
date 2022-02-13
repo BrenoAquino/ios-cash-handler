@@ -18,12 +18,12 @@ enum RepositoryFactory {
     }
     
     static func categories() -> CategoriesRepository {
-        let remoteDataSource = RemoteDataSourceFactory.categories()
-        return CategoriesRepositoryImpl(remoteDataSource: remoteDataSource)
+        return CategoriesRepositoryImpl(remoteDataSource: RemoteDataSourceFactory.categories(),
+                                        localDataSource: LocalDataSourceFactory.categories())
     }
     
     static func paymentMethods() -> PaymentMethodsRepository {
-        let remoteDataSource = RemoteDataSourceFactory.paymentMethods()
-        return PaymentMethodsRepositoryImpl(remoteDataSource: remoteDataSource)
+        return PaymentMethodsRepositoryImpl(remoteDataSource: RemoteDataSourceFactory.paymentMethods(),
+                                            localDataSource: LocalDataSourceFactory.paymentMethods())
     }
 }
