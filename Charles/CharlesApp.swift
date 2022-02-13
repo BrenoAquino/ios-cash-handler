@@ -31,10 +31,9 @@ struct CharlesApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                HomeCoordinator(viewModel: .init(homeViewModel: .init()))
+                HomeCoordinator(viewModel: ViewModelFactory.coordinatorHome())
             }
             .navigationViewStyle(.automatic)
-//            .navigationViewStyle(.stack)
             .preferredColorScheme(.dark)
         }
     }

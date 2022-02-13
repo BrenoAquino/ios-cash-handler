@@ -11,7 +11,7 @@ import Data
 enum LocalDataSourceFactory {
     
     private static func database() -> Database {
-        return UserDefaultsDB.shared
+        return MemoryDatabase.shared
     }
     
     static func categories() -> CategoriesLocalDataSource {

@@ -16,5 +16,7 @@ public enum ViewState {
 }
 
 public extension ViewState {
-    static var loadingView: some View { LoadingView() }
+    static func loadingView(background: BackgroundMode) -> some View {
+        LoadingView(backgroundMode: background)
+    }
 }

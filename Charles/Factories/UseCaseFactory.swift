@@ -15,4 +15,12 @@ enum UseCaseFactory {
                                      categoriesRepository: RepositoryFactory.categories(),
                                      paymentMethodsRepository: RepositoryFactory.paymentMethods())
     }
+    
+    static func categories() -> CategoriesUseCase {
+        return CategoriesUseCaseImpl(categoriesRepository: RepositoryFactory.categories())
+    }
+    
+    static func paymentMethods() -> PaymentMethodsUseCase {
+        return PaymentMethodsUseCaseImpl(paymentMethodsRepository: RepositoryFactory.paymentMethods())
+    }
 }
