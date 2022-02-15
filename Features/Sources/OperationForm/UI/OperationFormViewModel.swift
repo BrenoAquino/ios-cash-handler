@@ -25,8 +25,8 @@ public extension OperationFormView {
         @Published var name: String = .empty
         @Published var date: Date = .init()
         @Published var value: String = .empty
-        @Published var category: CategoryPickerUI = .placeholder
-        @Published var paymentMethod: PaymentMethodPickerUI = .placeholder
+        @Published var category: Int = PaymentMethodPickerUI.placeholder.id
+        @Published var paymentMethod: Int = PaymentMethodPickerUI.placeholder.id
         
         @Published private(set) var isValidCategory: Bool = false
         @Published private(set) var isValidPaymentMethod: Bool = false
@@ -71,14 +71,16 @@ extension OperationFormView.ViewModel {
         
         $category
             .sink { [weak self] value in
-                self?.isValidCategory = value.id != CategoryPickerUI.placeholder.id
+                print(value)
+                self?.isValidCategory = value != CategoryPickerUI.placeholder.id
                 self?.validInputs = inputValidator()
             }
             .store(in: &cancellables)
         
         $paymentMethod
             .sink { [weak self] value in
-                self?.isValidPaymentMethod = value.id != PaymentMethodPickerUI.placeholder.id
+                print(value)
+                self?.isValidPaymentMethod = value != PaymentMethodPickerUI.placeholder.id
                 self?.validInputs = inputValidator()
             }
             .store(in: &cancellables)
@@ -92,8 +94,8 @@ extension OperationFormView.ViewModel {
             .addOperation(title: name,
                           date: Date(),
                           value: value,
-                          categoryId: category.id,
-                          paymentMethodId: paymentMethod.id)
+                          categoryId: category,
+                          paymentMethodId: paymentMethod)
             .sinkCompletion { [weak self] completion in
                 switch completion {
                 case .finished:
