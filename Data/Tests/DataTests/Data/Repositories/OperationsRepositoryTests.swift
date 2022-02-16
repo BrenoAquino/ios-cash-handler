@@ -25,7 +25,7 @@ class OperationsRepositoryTests: XCTestCase {
         
         // When
         repository
-            .addOperation(title: "Title", date: "03/04/1997", value: 132, categoryId: 0, paymentTypeId: 1)
+            .addOperation(title: "Title", date: "03/04/1997", value: 132, categoryId: 0, paymentMethodId: 1)
             .sink { completion in
                 expectation.fulfill()
             } receiveValue: { value in
@@ -56,7 +56,7 @@ class OperationsRepositoryTests: XCTestCase {
         
         // When
         repository
-            .addOperation(title: "Title", date: "03/04/1997", value: 132, categoryId: 0, paymentTypeId: 1)
+            .addOperation(title: "Title", date: "03/04/1997", value: 132, categoryId: 0, paymentMethodId: 1)
             .sinkCompletion { completion in
                 switch completion {
                 case .finished:
@@ -84,7 +84,7 @@ class OperationsRepositoryTests: XCTestCase {
 
         // When
         repository
-            .addOperation(title: "Title", date: "03/04/1997", value: 132, categoryId: 0, paymentTypeId: 1)
+            .addOperation(title: "Title", date: "03/04/1997", value: 132, categoryId: 0, paymentMethodId: 1)
             .sinkCompletion { completion in
                 switch completion {
                 case .finished:

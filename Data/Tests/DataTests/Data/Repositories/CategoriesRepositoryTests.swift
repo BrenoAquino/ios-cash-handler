@@ -33,7 +33,7 @@ class CategoriesRepositoryTests: XCTestCase {
                 categories = value
             }
             .store(in: &cancellables)
-
+        
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(categories)
