@@ -71,7 +71,6 @@ extension OperationFormView.ViewModel {
         
         $category
             .sink { [weak self] value in
-                print(value)
                 self?.isValidCategory = value != CategoryPickerUI.placeholder.id
                 self?.validInputs = inputValidator()
             }
@@ -79,7 +78,6 @@ extension OperationFormView.ViewModel {
         
         $paymentMethod
             .sink { [weak self] value in
-                print(value)
                 self?.isValidPaymentMethod = value != PaymentMethodPickerUI.placeholder.id
                 self?.validInputs = inputValidator()
             }
@@ -92,10 +90,11 @@ extension OperationFormView.ViewModel {
         
         operationsUseCase
             .addOperation(title: name,
-                          date: Date(),
+                          date: date,
                           value: value,
                           categoryId: category,
                           paymentMethodId: paymentMethod)
+            .receive(on: RunLoop.main)
             .sinkCompletion { [weak self] completion in
                 switch completion {
                 case .finished:
