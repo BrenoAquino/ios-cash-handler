@@ -56,8 +56,8 @@ class CategoriesRemoteDataSourceTests: XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(categories)
         XCTAssert(categories?.count == 9)
-        XCTAssert(categories?[0].id == 7)
-        XCTAssert(categories?[0].name == "Moradia")
+        XCTAssert(categories?[0].id == "521bac2c00686155bc874aac9c83650c2201140d13c14db953251b635bcc25cb")
+        XCTAssert(categories?[0].name == "Saúde")
     }
 
     func testCategoriesDecodingError() {

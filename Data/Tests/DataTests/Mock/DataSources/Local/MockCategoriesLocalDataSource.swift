@@ -16,8 +16,8 @@ class MockCategoriesLocalDataSource: CategoriesLocalDataSource {
     
     init(categories: [CategoryEntity]? = nil) {
         self.categoriesEntity = categories ?? [
-            .init(primaryKey: 0, name: "Category0"),
-            .init(primaryKey: 1, name: "Category1")
+            .init(primaryKey: "0", name: "Category0"),
+            .init(primaryKey: "1", name: "Category1")
         ]
     }
     

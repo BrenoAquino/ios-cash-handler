@@ -16,8 +16,8 @@ class PaymentMethodsLocalDataSourceTests: XCTestCase {
         // Give
         let tableKey = String(describing: PaymentMethodEntity.self)
         let database = MockDatabase(tables: [tableKey: [
-            PaymentMethodEntity(primaryKey: 0, name: "PaymentMethod0"),
-            PaymentMethodEntity(primaryKey: 1, name: "PaymentMethod1")
+            PaymentMethodEntity(primaryKey: "0", name: "PaymentMethod0"),
+            PaymentMethodEntity(primaryKey: "1", name: "PaymentMethod1")
         ]])
         let localDataSource = PaymentMethodsLocalDataSourceImpl(database: database)
         
@@ -26,7 +26,7 @@ class PaymentMethodsLocalDataSourceTests: XCTestCase {
         
         // Then
         XCTAssert(paymentMethods.count == 2)
-        XCTAssert(paymentMethods[0].primaryKey == 0)
+        XCTAssert(paymentMethods[0].primaryKey == "0")
         XCTAssert(paymentMethods[1].name == "PaymentMethod1")
     }
     
@@ -35,22 +35,22 @@ class PaymentMethodsLocalDataSourceTests: XCTestCase {
         // Give
         let tableKey = String(describing: PaymentMethodEntity.self)
         let database = MockDatabase(tables: [tableKey: [
-            PaymentMethodEntity(primaryKey: 0, name: "PaymentMethod0"),
-            PaymentMethodEntity(primaryKey: 1, name: "PaymentMethod1")
+            PaymentMethodEntity(primaryKey: "0", name: "PaymentMethod0"),
+            PaymentMethodEntity(primaryKey: "1", name: "PaymentMethod1")
         ]])
         let localDataSource = PaymentMethodsLocalDataSourceImpl(database: database)
         
         // When
         localDataSource.updatePaumentMethods([
-            .init(primaryKey: 2, name: "PaymentMethod2"),
-            .init(primaryKey: 3, name: "PaymentMethod3")
+            .init(primaryKey: "2", name: "PaymentMethod2"),
+            .init(primaryKey: "3", name: "PaymentMethod3")
         ])
         
         // Then
         let paymentMethods = database.tables[tableKey] as? [PaymentMethodEntity]
         XCTAssertNotNil(paymentMethods)
         XCTAssert(paymentMethods?.count == 2)
-        XCTAssert(paymentMethods?[0].primaryKey == 2)
+        XCTAssert(paymentMethods?[0].primaryKey == "2")
         XCTAssert(paymentMethods?[1].name == "PaymentMethod3")
     }
 }

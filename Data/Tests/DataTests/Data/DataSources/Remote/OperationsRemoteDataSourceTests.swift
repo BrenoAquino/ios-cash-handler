@@ -15,7 +15,7 @@ class OperationsRemoteDataSourceTests: XCTestCase {
     
     var cancellables: Set<AnyCancellable> = .init()
     var params: CreateOperationParams {
-        .init(title: .empty, date: .empty, value: .zero, categoryId: .zero, paymentMethodId: .zero)
+        .init(title: .empty, date: .empty, value: .zero, categoryId: .empty, paymentMethodId: .empty)
     }
     
     // MARK: Add Operation
@@ -65,8 +65,8 @@ class OperationsRemoteDataSourceTests: XCTestCase {
         XCTAssertNotNil(operation)
         XCTAssert(operation?.title == "Madero")
         XCTAssert(operation?.date == "20-12-2022")
-        XCTAssert(operation?.categoryId == 1)
-        XCTAssert(operation?.paymentMethodId == 1)
+        XCTAssert(operation?.categoryId == "1")
+        XCTAssert(operation?.paymentMethodId == "1")
         XCTAssert(operation?.value == 123.123)
     }
     

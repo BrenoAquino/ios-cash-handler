@@ -14,9 +14,9 @@ class MockSuccessCategoriesRemoteDataSource: CategoriesRemoteDataSource {
     
     func categories() -> AnyPublisher<[CategoryDTO], CharlesDataError> {
         let categories: [CategoryDTO] = [
-            .init(id: 0, name: "Category0"),
-            .init(id: 1, name: "Category1"),
-            .init(id: 2, name: "Category2")
+            .init(id: "0", name: "Category0"),
+            .init(id: "1", name: "Category1"),
+            .init(id: "2", name: "Category2")
         ]
         return Just(categories)
             .setFailureType(to: CharlesDataError.self)

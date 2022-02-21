@@ -25,7 +25,7 @@ class OperationsRepositoryTests: XCTestCase {
         
         // When
         repository
-            .addOperation(title: "Title", date: "03/04/1997", value: 132, categoryId: 0, paymentMethodId: 1)
+            .addOperation(title: "Title", date: "03/04/1997", value: 132, categoryId: "0", paymentMethodId: "1")
             .sink { completion in
                 expectation.fulfill()
             } receiveValue: { value in
@@ -40,9 +40,9 @@ class OperationsRepositoryTests: XCTestCase {
         XCTAssert(operation?.title == "Title")
         XCTAssert(operation?.value == 132)
         XCTAssert(operation?.date == Date.components(day: 3, month: 4, year: 1997))
-        XCTAssert(operation?.category.id == 0)
+        XCTAssert(operation?.category.id == "0")
         XCTAssert(operation?.category.name == "Category0")
-        XCTAssert(operation?.paymentMethod.id == 1)
+        XCTAssert(operation?.paymentMethod.id == "1")
         XCTAssert(operation?.paymentMethod.name == "PaymentMethod1")
     }
     
@@ -56,7 +56,7 @@ class OperationsRepositoryTests: XCTestCase {
         
         // When
         repository
-            .addOperation(title: "Title", date: "03/04/1997", value: 132, categoryId: 0, paymentMethodId: 1)
+            .addOperation(title: "Title", date: "03/04/1997", value: 132, categoryId: "0", paymentMethodId: "1")
             .sinkCompletion { completion in
                 switch completion {
                 case .finished:
@@ -84,7 +84,7 @@ class OperationsRepositoryTests: XCTestCase {
 
         // When
         repository
-            .addOperation(title: "Title", date: "03/04/1997", value: 132, categoryId: 0, paymentMethodId: 1)
+            .addOperation(title: "Title", date: "03/04/1997", value: 132, categoryId: "0", paymentMethodId: "1")
             .sinkCompletion { completion in
                 switch completion {
                 case .finished:

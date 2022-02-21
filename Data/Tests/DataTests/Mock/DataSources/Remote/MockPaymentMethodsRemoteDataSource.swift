@@ -14,9 +14,9 @@ class MockSuccessPaymentMethodsRemoteDataSource: PaymentMethodsRemoteDataSource 
     
     func paymentMethods() -> AnyPublisher<[PaymentMethodDTO], CharlesDataError> {
         let paymentMethods: [PaymentMethodDTO] = [
-            .init(id: 0, name: "PaymentMethod0"),
-            .init(id: 1, name: "PaymentMethod1"),
-            .init(id: 2, name: "PaymentMethod2")
+            .init(id: "0", name: "PaymentMethod0"),
+            .init(id: "1", name: "PaymentMethod1"),
+            .init(id: "2", name: "PaymentMethod2")
         ]
         return Just(paymentMethods)
             .setFailureType(to: CharlesDataError.self)
