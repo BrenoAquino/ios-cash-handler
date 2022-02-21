@@ -12,8 +12,8 @@ public struct OperationDTO: Decodable {
     public let id: String
     public let title: String
     public let date: String
-    public let categoryId: Int
-    public let paymentMethodId: Int
+    public let categoryId: String
+    public let paymentMethodId: String
     public let value: Double
     
     private enum CodingKeys : String, CodingKey {

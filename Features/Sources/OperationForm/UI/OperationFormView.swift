@@ -75,8 +75,9 @@ public struct OperationFormView: View {
             }
             Section(Localizable.OperationForm.valueTitle) {
                 TextField(Localizable.OperationForm.valuePlaceholder,
-                          text: $viewModel.value)
-                    .keyboardType(.numberPad)
+                          value: $viewModel.value,
+                          format: .currency(code: viewModel.currency))
+                    .keyboardType(.decimalPad)
                     .listRowBackground(DSColor.secondBackground.rawValue)
             }
             Section(Localizable.OperationForm.categoryTitle) {

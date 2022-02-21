@@ -19,14 +19,15 @@ public extension OperationFormView {
         private let operationsUseCase: Domain.OperationsUseCase
         private var cancellables: Set<AnyCancellable> = .init()
         
-        var categories: [CategoryPickerUI] = []
-        var paymentMethods: [PaymentMethodPickerUI] = []
+        var currency: String { Domain.Currency.brl }
+        private(set) var categories: [CategoryPickerUI] = []
+        private(set) var paymentMethods: [PaymentMethodPickerUI] = []
         
         @Published var name: String = .empty
         @Published var date: Date = .init()
-        @Published var value: String = .empty
-        @Published var category: Int = PaymentMethodPickerUI.placeholder.id
-        @Published var paymentMethod: Int = PaymentMethodPickerUI.placeholder.id
+        @Published var value: Double = 0
+        @Published var category: String = PaymentMethodPickerUI.placeholder.id
+        @Published var paymentMethod: String = PaymentMethodPickerUI.placeholder.id
         
         @Published private(set) var isValidCategory: Bool = false
         @Published private(set) var isValidPaymentMethod: Bool = false
@@ -63,7 +64,7 @@ extension OperationFormView.ViewModel {
     func checkInputsSubscribers() {
         let inputValidator: () -> Bool = { [weak self] in
             guard let self = self else { return false }
-            return !self.name.isEmpty && !self.value.isEmpty && self.isValidCategory && self.isValidPaymentMethod
+            return !self.name.isEmpty && self.isValidCategory && self.isValidPaymentMethod
         }
         
         $name.sink(receiveValue: { [weak self] _ in self?.validInputs = inputValidator() }).store(in: &cancellables)
@@ -91,7 +92,7 @@ extension OperationFormView.ViewModel {
         operationsUseCase
             .addOperation(title: name,
                           date: date,
-                          value: value,
+                          value: "978978",
                           categoryId: category,
                           paymentMethodId: paymentMethod)
             .receive(on: RunLoop.main)

@@ -12,6 +12,6 @@ public protocol OperationsRepository {
     func addOperation(title: String,
                       date: String,
                       value: Double,
-                      categoryId: Int,
-                      paymentMethodId: Int) -> AnyPublisher<Operation, CharlesError>
+                      categoryId: String,
+                      paymentMethodId: String) -> AnyPublisher<Operation, CharlesError>
 }
