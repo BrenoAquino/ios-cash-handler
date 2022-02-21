@@ -20,7 +20,7 @@ class OperationsUseCaseMock: OperationsUseCase {
         return []
     }
     
-    func addOperation(title: String, date: Date, value: String, categoryId: Int, paymentMethodId: Int) -> AnyPublisher<Domain.Operation, CharlesError> {
+    func addOperation(title: String, date: Date, value: String, categoryId: String, paymentMethodId: String) -> AnyPublisher<Domain.Operation, CharlesError> {
         return Empty().eraseToAnyPublisher()
     }
 }

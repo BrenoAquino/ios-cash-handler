@@ -20,35 +20,30 @@ public struct OperationFormView: View {
     }
     
     public var body: some View {
-        Group {
-            content
-        }
-        .navigationTitle(Localizable.OperationForm.operationFormTitle)
-        .background(
-            DSColor.background.rawValue.edgesIgnoringSafeArea(.all)
-        )
-        .toolbar {
-            hideKeyboardBar
-            doneBar
-        }
-        .onReceive(viewModel.$state) { state in
-            if state == .finished {
-                self.presentationMode.wrappedValue.dismiss()
+        form
+            .overlay { overlayState }
+            .navigationTitle(Localizable.OperationForm.operationFormTitle)
+            .background(
+                DSColor.background.rawValue.edgesIgnoringSafeArea(.all)
+            )
+            .toolbar {
+                hideKeyboardBar
+                doneBar
             }
-        }
+            .onReceive(viewModel.$state) { state in
+                if state == .finished {
+                    self.presentationMode.wrappedValue.dismiss()
+                }
+            }
     }
     
     // MARK: View State
-    private var content: AnyView {
+    private var overlayState: some View {
         switch viewModel.state {
         case .loading:
-            return AnyView(ZStack {
-                form
-                ViewState.loadingView(background: .blur)
-            })
-            
+            return AnyView(ViewState.loadingView(background: .blur))
         default:
-            return AnyView(form)
+            return AnyView(EmptyView())
         }
     }
     
@@ -80,8 +75,9 @@ public struct OperationFormView: View {
             }
             Section(Localizable.OperationForm.valueTitle) {
                 TextField(Localizable.OperationForm.valuePlaceholder,
-                          text: $viewModel.value)
-                    .keyboardType(.numberPad)
+                          value: $viewModel.value,
+                          format: .currency(code: viewModel.currency))
+                    .keyboardType(.decimalPad)
                     .listRowBackground(DSColor.secondBackground.rawValue)
             }
             Section(Localizable.OperationForm.categoryTitle) {
@@ -92,7 +88,7 @@ public struct OperationFormView: View {
                 }
                 .accentColor(
                     viewModel.isValidCategory ?
-                        DSColor.primaryText.rawValue :
+                    DSColor.primaryText.rawValue :
                         DSColor.placholder.rawValue
                 )
                 .pickerStyle(.menu)
@@ -106,7 +102,7 @@ public struct OperationFormView: View {
                 }
                 .accentColor(
                     viewModel.isValidPaymentMethod ?
-                        DSColor.primaryText.rawValue :
+                    DSColor.primaryText.rawValue :
                         DSColor.placholder.rawValue
                 )
                 .pickerStyle(.menu)

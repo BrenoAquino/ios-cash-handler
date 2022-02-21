@@ -16,8 +16,8 @@ class CategoriesLocalDataSourceTests: XCTestCase {
         // Give
         let tableKey = String(describing: CategoryEntity.self)
         let database = MockDatabase(tables: [tableKey: [
-            CategoryEntity(primaryKey: 0, name: "Category0"),
-            CategoryEntity(primaryKey: 1, name: "Category1")
+            CategoryEntity(primaryKey: "0", name: "Category0"),
+            CategoryEntity(primaryKey: "1", name: "Category1")
         ]])
         let localDataSource = CategoriesLocalDataSourceImpl(database: database)
         
@@ -26,7 +26,7 @@ class CategoriesLocalDataSourceTests: XCTestCase {
         
         // Then
         XCTAssert(categories.count == 2)
-        XCTAssert(categories[0].primaryKey == 0)
+        XCTAssert(categories[0].primaryKey == "0")
         XCTAssert(categories[1].name == "Category1")
     }
     
@@ -35,22 +35,22 @@ class CategoriesLocalDataSourceTests: XCTestCase {
         // Give
         let tableKey = String(describing: CategoryEntity.self)
         let database = MockDatabase(tables: [tableKey: [
-            CategoryEntity(primaryKey: 0, name: "Category0"),
-            CategoryEntity(primaryKey: 1, name: "Category1")
+            CategoryEntity(primaryKey: "0", name: "Category0"),
+            CategoryEntity(primaryKey: "1", name: "Category1")
         ]])
         let localDataSource = CategoriesLocalDataSourceImpl(database: database)
         
         // When
         localDataSource.updateCategories([
-            .init(primaryKey: 2, name: "Category2"),
-            .init(primaryKey: 3, name: "Category3")
+            .init(primaryKey: "2", name: "Category2"),
+            .init(primaryKey: "3", name: "Category3")
         ])
         
         // Then
         let categories = database.tables[tableKey] as? [CategoryEntity]
         XCTAssertNotNil(categories)
         XCTAssert(categories?.count == 2)
-        XCTAssert(categories?[0].primaryKey == 2)
+        XCTAssert(categories?[0].primaryKey == "2")
         XCTAssert(categories?[1].name == "Category3")
     }
 }

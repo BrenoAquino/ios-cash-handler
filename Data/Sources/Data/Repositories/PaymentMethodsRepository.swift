@@ -31,16 +31,12 @@ extension PaymentMethodsRepositoryImpl: Domain.PaymentMethodsRepository {
     }
     
     public func fetchPaymentMethods() -> AnyPublisher<[Domain.PaymentMethod], CharlesError> {
-        let publisher = remoteDataSource.paymentMethods()
-        
-        publisher
-            .sinkReceiveValue { [weak self] value in
+        return remoteDataSource
+            .paymentMethods()
+            .handleEvents(receiveOutput: { [weak self] value in
                 let paymentMethodsEntity = value.map { $0.toEntity() }
                 self?.localDataSource.updatePaumentMethods(paymentMethodsEntity)
-            }
-            .store(in: &cancellables)
-        
-        return publisher
+            })
             .map { $0.map { $0.toDomain() } }
             .mapError { $0.toDomain() }
             .eraseToAnyPublisher()

@@ -9,7 +9,7 @@ import Foundation
 import Domain
 
 public struct CategoryDTO: Decodable {
-    public let id: Int
+    public let id: String
     public let name: String
 }
 

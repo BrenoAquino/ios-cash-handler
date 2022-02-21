@@ -32,16 +32,12 @@ extension CategoriesRepositoryImpl: Domain.CategoriesRepository {
     }
     
     public func fetchCategories() -> AnyPublisher<[Domain.Category], CharlesError> {
-        let publisher = remoteDataSource.categories()
-        
-        publisher
-            .sinkReceiveValue { [weak self] value in
+        return remoteDataSource
+            .categories()
+            .handleEvents(receiveOutput: { [weak self] value in
                 let categoriesEntity = value.map { $0.toEntity() }
                 self?.localDataSource.updateCategories(categoriesEntity)
-            }
-            .store(in: &cancellables)
-        
-        return publisher
+            })
             .map { $0.map { $0.toDomain() } }
             .mapError { $0.toDomain() }
             .eraseToAnyPublisher()

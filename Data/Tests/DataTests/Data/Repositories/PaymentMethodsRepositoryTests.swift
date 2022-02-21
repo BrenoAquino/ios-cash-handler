@@ -38,11 +38,11 @@ class PaymentMethodsRepositoryTests: XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(paymentMethods)
         XCTAssert(paymentMethods?.count == 3)
-        XCTAssert(paymentMethods?[0].id == 0)
+        XCTAssert(paymentMethods?[0].id == "0")
         XCTAssert(paymentMethods?[1].name == "PaymentMethod1")
         XCTAssertNotNil(localDataSource.updatedPaymentMethods)
         XCTAssert(localDataSource.updatedPaymentMethods?.count == 3)
-        XCTAssert(localDataSource.updatedPaymentMethods?[0].primaryKey == 0)
+        XCTAssert(localDataSource.updatedPaymentMethods?[0].primaryKey == "0")
         XCTAssert(localDataSource.updatedPaymentMethods?[1].name == "PaymentMethod1")
     }
     
@@ -84,7 +84,7 @@ class PaymentMethodsRepositoryTests: XCTestCase {
         
         // Then
         XCTAssert(paymentMethods.count == 2)
-        XCTAssert(paymentMethods[0].id == 0)
+        XCTAssert(paymentMethods[0].id == "0")
         XCTAssert(paymentMethods[1].name == "PaymentMethod1")
     }
 }

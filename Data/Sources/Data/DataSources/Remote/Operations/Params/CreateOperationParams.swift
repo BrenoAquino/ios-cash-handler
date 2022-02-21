@@ -11,8 +11,8 @@ public struct CreateOperationParams: Encodable {
     let title: String
     let date: String
     let value: Double
-    let categoryId: Int
-    let paymentMethodId: Int
+    let categoryId: String
+    let paymentMethodId: String
     
     private enum CodingKeys : String, CodingKey {
         case title, date, value

@@ -8,7 +8,7 @@
 import Foundation
 
 struct PaymentMethodPickerUI: Identifiable, Hashable {
-    let id: Int
+    let id: String
     let name: String
     
     func hash(into hasher: inout Hasher) {
@@ -18,5 +18,5 @@ struct PaymentMethodPickerUI: Identifiable, Hashable {
 }
 
 extension PaymentMethodPickerUI {
-    static let placeholder = PaymentMethodPickerUI(id: -1, name: "Ex: Cartão de Crédito")
+    static let placeholder = PaymentMethodPickerUI(id: .empty, name: "Ex: Cartão de Crédito")
 }

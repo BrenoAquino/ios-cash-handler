@@ -9,7 +9,7 @@ import Foundation
 import DesignSystem
 
 struct CategoryPickerUI: Identifiable, Hashable {
-    let id: Int
+    let id: String
     let name: String
     
     func hash(into hasher: inout Hasher) {
@@ -19,5 +19,5 @@ struct CategoryPickerUI: Identifiable, Hashable {
 }
 
 extension CategoryPickerUI {
-    static let placeholder = CategoryPickerUI(id: -1, name: "Ex: Refeição")
+    static let placeholder = CategoryPickerUI(id: .empty, name: "Ex: Refeição")
 }

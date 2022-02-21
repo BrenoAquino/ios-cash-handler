@@ -33,16 +33,16 @@ class CategoriesRepositoryTests: XCTestCase {
                 categories = value
             }
             .store(in: &cancellables)
-
+        
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(categories)
         XCTAssert(categories?.count == 3)
-        XCTAssert(categories?[0].id == 0)
+        XCTAssert(categories?[0].id == "0")
         XCTAssert(categories?[1].name == "Category1")
         XCTAssertNotNil(localDataSource.updatedCategories)
         XCTAssert(localDataSource.updatedCategories?.count == 3)
-        XCTAssert(localDataSource.updatedCategories?[0].primaryKey == 0)
+        XCTAssert(localDataSource.updatedCategories?[0].primaryKey == "0")
         XCTAssert(localDataSource.updatedCategories?[1].name == "Category1")
     }
     
@@ -84,7 +84,7 @@ class CategoriesRepositoryTests: XCTestCase {
         
         // Then
         XCTAssert(categories.count == 2)
-        XCTAssert(categories[0].id == 0)
+        XCTAssert(categories[0].id == "0")
         XCTAssert(categories[1].name == "Category1")
     }
 }

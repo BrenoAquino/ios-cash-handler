@@ -12,7 +12,7 @@ import Common
 public protocol OperationsUseCase {
     func categories() -> [Category]
     func paymentMethods() -> [PaymentMethod]
-    func addOperation(title: String, date: Date, value: String, categoryId: Int, paymentMethodId: Int) -> AnyPublisher<Operation, CharlesError>
+    func addOperation(title: String, date: Date, value: String, categoryId: String, paymentMethodId: String) -> AnyPublisher<Operation, CharlesError>
 }
 
 // MARK: Implementation
@@ -47,8 +47,8 @@ extension OperationsUseCaseImpl: OperationsUseCase {
     public func addOperation(title: String,
                              date: Date,
                              value: String,
-                             categoryId: Int,
-                             paymentMethodId: Int) -> AnyPublisher<Operation, CharlesError> {
+                             categoryId: String,
+                             paymentMethodId: String) -> AnyPublisher<Operation, CharlesError> {
         guard let value = Double(value) else {
             return Fail(error: CharlesError(type: .wrongInputType))
                 .eraseToAnyPublisher()

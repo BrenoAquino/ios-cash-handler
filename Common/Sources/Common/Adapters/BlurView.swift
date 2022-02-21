@@ -16,6 +16,5 @@ public struct BlurView: UIViewRepresentable {
     }
     
     public func updateUIView(_ uiView: UIVisualEffectView, context: UIViewRepresentableContext<Self>) {
-//        uiView.effect = effect
     }
 }

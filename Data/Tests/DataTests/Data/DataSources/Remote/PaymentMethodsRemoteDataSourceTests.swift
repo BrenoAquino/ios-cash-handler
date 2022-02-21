@@ -56,8 +56,8 @@ class PaymentMethodsRemoteDataSourceTests: XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(paymentMethods)
         XCTAssert(paymentMethods?.count == 5)
-        XCTAssert(paymentMethods?[0].id == 3)
-        XCTAssert(paymentMethods?[0].name == "Vale Alimentação")
+        XCTAssert(paymentMethods?[0].id == "0c1e0dc50d01c9111c308a1bade570345e232abc86d586fbecfb24262b568c50")
+        XCTAssert(paymentMethods?[0].name == "Vale Refeição")
     }
 
     func testPaymentMethodsDecodingError() {

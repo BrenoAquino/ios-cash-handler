@@ -9,7 +9,7 @@ import Foundation
 import Domain
 
 public struct CategoryEntity: Entity {
-    public let primaryKey: Int
+    public let primaryKey: String
     public let name: String
 }
 
