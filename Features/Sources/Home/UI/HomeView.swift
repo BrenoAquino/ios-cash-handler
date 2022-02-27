@@ -81,8 +81,8 @@ public struct HomeView: View {
     
     // MARK: Content List
     private var operationsList: some View {
-        List(viewModel.operations, id: \.hashValue) { operation in
-            OperationCell(name: operation)
+        List(viewModel.operations) { operation in
+            OperationCell(operation: operation)
         }
     }
 }

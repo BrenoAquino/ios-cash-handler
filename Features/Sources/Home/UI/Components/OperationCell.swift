@@ -9,15 +9,15 @@ import SwiftUI
 
 struct OperationCell: View {
     
-    let name: String
+    let operation: OperationUI
     
     var body: some View {
-        Text(name)
+        Text(operation.title)
     }
 }
 
 struct OperationCell_Previews: PreviewProvider {
     static var previews: some View {
-        OperationCell(name: "Madero")
+        OperationCell(operation: .init(id: .empty, title: "Madero"))
     }
 }

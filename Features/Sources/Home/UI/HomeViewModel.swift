@@ -22,7 +22,7 @@ public extension HomeView {
         // MARK: Publisher
         @Published private(set) var state: ViewState = .loading
         @Published var operationOptions: Bool = false
-        @Published var operations: [String] = []
+        @Published var operations: [OperationUI] = []
         
         // MARK: Redirects
         public var selectAddOperation: ((Domain.OperationType) -> Void)?
@@ -72,7 +72,9 @@ extension HomeView.ViewModel {
                     self?.state = .failure
                 }
             } receiveValue: { [weak self] operations in
-                self?.operations = operations.map { $0.title }
+                self?.operations = operations.map {
+                    OperationUI(id: $0.id, title: $0.title)
+                }
             }
             .store(in: &cancellables)
     }
