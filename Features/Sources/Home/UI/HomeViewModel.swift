@@ -19,14 +19,18 @@ public extension HomeView {
         private var cancellables: Set<AnyCancellable> = .init()
         
         // MARK: Publisher
+        @Published private(set) var state: ViewState = .loading
         @Published var operationOptions: Bool = false
         @Published var operations: [String] = ["Breno", "Pinheiro", "Aquino"]
-        @Published private(set) var state: ViewState = .loading
+        @Published var banner: BannerControl = .init(show: false,
+                                                     data: .init(title: "",
+                                                                 subtitle: "",
+                                                                 type: .info))
         
         // MARK: Redirects
         public var selectAddOperation: ((Domain.OperationType) -> Void)?
         
-        // MARK: Inits
+        // MARK: - Inits
         public init(categoriesUseCase: Domain.CategoriesUseCase,
                     paymentMethods: Domain.PaymentMethodsUseCase) {
             self.categoriesUseCase = categoriesUseCase
@@ -34,43 +38,49 @@ public extension HomeView {
             
             fetchCategoriesAndPaymentMethods()
         }
+    }
+}
+
+// MARK: - Flow
+extension HomeView.ViewModel {
+    private func fetchCategoriesAndPaymentMethods() {
+        let categoriesPublisher = categoriesUseCase.categories()
+        let paymentMethodsPublisher = paymentMethods.paymentMethods()
         
-        // MARK: Flow
-        private func fetchCategoriesAndPaymentMethods() {
-            let categoriesPublisher = categoriesUseCase.categories()
-            let paymentMethodsPublisher = paymentMethods.paymentMethods()
-            
-            categoriesPublisher
-                .zip(paymentMethodsPublisher)
-                .receive(on: RunLoop.main)
-                .sinkCompletion { [weak self] completion in
-                    switch completion {
-                    case .finished:
-                        self?.state = .finished
-                    case .failure:
-                        self?.state = .failure
-                    }
+        categoriesPublisher
+            .zip(paymentMethodsPublisher)
+            .receive(on: RunLoop.main)
+            .sinkCompletion { [weak self] completion in
+                switch completion {
+                case .finished:
+                    self?.state = .finished
+                case .failure:
+                    self?.state = .failure
                 }
-                .store(in: &cancellables)
-        }
-        
-        // MARK: Actions
-        func selectAdd() {
-            operationOptions = true
-        }
-        
-        func addCashIn() {
-            operationOptions = false
-            selectAddOperation?(.cashIn)
-        }
-        
-        func addCashOut() {
-            operationOptions = false
-            selectAddOperation?(.cashOut)
-        }
-        
-        func addCancel() {
-            operationOptions = false
-        }
+            }
+            .store(in: &cancellables)
+    }
+}
+
+// MARK: - Actions
+extension HomeView.ViewModel {
+    func selectAdd() {
+        banner.data = .init(title: "Title", subtitle: "Subtitle detail", type: .info)
+        banner.show = true
+//        operationOptions = true
+    }
+    
+    func addCashIn() {
+        operationOptions = false
+        selectAddOperation?(.cashIn)
+    }
+    
+    func addCashOut() {
+        operationOptions = false
+        selectAddOperation?(.cashOut)
+    }
+    
+    func addCancel() {
+        operationOptions = false
     }
 }
