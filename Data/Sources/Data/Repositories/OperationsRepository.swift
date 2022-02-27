@@ -11,13 +11,19 @@ import Domain
 
 public final class OperationsRepositoryImpl {
     
-    private let categories: [Domain.Category]
-    private let paymentMethods: [Domain.PaymentMethod]
-    
     // MARK: DataSources
     private let remoteDataSource: OperationsRemoteDataSource
     private let paymentMethodsLocalDataSource: PaymentMethodsLocalDataSource
     private let categoriesLocalDataSource: CategoriesLocalDataSource
+    
+    // MARK: Gets
+    private var categories: [Domain.Category] {
+        categoriesLocalDataSource.categories().map { $0.toDomain() }
+    }
+    
+    private var  paymentMethods: [Domain.PaymentMethod] {
+        paymentMethodsLocalDataSource.paymentMethods().map { $0.toDomain() }
+    }
     
     // MARK: Init
     public init(remoteDataSource: OperationsRemoteDataSource,
@@ -26,9 +32,6 @@ public final class OperationsRepositoryImpl {
         self.remoteDataSource = remoteDataSource
         self.paymentMethodsLocalDataSource = paymentMethodsLocalDataSource
         self.categoriesLocalDataSource = categoriesLocalDataSource
-        
-        categories = categoriesLocalDataSource.categories().map { $0.toDomain() }
-        paymentMethods = paymentMethodsLocalDataSource.paymentMethods().map { $0.toDomain() }
     }
 }
 

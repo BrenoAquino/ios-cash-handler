@@ -15,33 +15,36 @@ public extension HomeView {
     final class ViewModel: ObservableObject {
         
         private let categoriesUseCase: Domain.CategoriesUseCase
-        private let paymentMethods: Domain.PaymentMethodsUseCase
+        private let paymentMethodsUseCase: Domain.PaymentMethodsUseCase
+        private let operationsUseCase: Domain.OperationsUseCase
         private var cancellables: Set<AnyCancellable> = .init()
         
         // MARK: Publisher
         @Published private(set) var state: ViewState = .loading
         @Published var operationOptions: Bool = false
-        @Published var operations: [String] = ["Breno", "Pinheiro", "Aquino"]
+        @Published var operations: [String] = []
         
         // MARK: Redirects
         public var selectAddOperation: ((Domain.OperationType) -> Void)?
         
         // MARK: - Inits
         public init(categoriesUseCase: Domain.CategoriesUseCase,
-                    paymentMethods: Domain.PaymentMethodsUseCase) {
+                    paymentMethods: Domain.PaymentMethodsUseCase,
+                    operationsUseCase: Domain.OperationsUseCase) {
             self.categoriesUseCase = categoriesUseCase
-            self.paymentMethods = paymentMethods
+            self.paymentMethodsUseCase = paymentMethods
+            self.operationsUseCase = operationsUseCase
             
-            fetchCategoriesAndPaymentMethods()
+            fetchCategoriesPaymentMethods()
         }
     }
 }
 
 // MARK: - Flow
 extension HomeView.ViewModel {
-    private func fetchCategoriesAndPaymentMethods() {
+    private func fetchCategoriesPaymentMethods() {
         let categoriesPublisher = categoriesUseCase.categories()
-        let paymentMethodsPublisher = paymentMethods.paymentMethods()
+        let paymentMethodsPublisher = paymentMethodsUseCase.paymentMethods()
         
         categoriesPublisher
             .zip(paymentMethodsPublisher)
@@ -49,10 +52,27 @@ extension HomeView.ViewModel {
             .sinkCompletion { [weak self] completion in
                 switch completion {
                 case .finished:
+                    self?.fetchOperations()
+                case .failure:
+                    self?.state = .failure
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func fetchOperations() {
+        operationsUseCase
+            .operations()
+            .receive(on: RunLoop.main)
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished:
                     self?.state = .finished
                 case .failure:
                     self?.state = .failure
                 }
+            } receiveValue: { [weak self] operations in
+                self?.operations = operations.map { $0.title }
             }
             .store(in: &cancellables)
     }

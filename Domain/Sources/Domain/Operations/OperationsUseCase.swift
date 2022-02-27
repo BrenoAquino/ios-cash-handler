@@ -12,6 +12,7 @@ import Common
 public protocol OperationsUseCase {
     func categories() -> [Category]
     func paymentMethods() -> [PaymentMethod]
+    func operations() -> AnyPublisher<[Operation], CharlesError>
     func addOperation(title: String, date: Date, value: String, categoryId: String, paymentMethodId: String) -> AnyPublisher<Operation, CharlesError>
 }
 

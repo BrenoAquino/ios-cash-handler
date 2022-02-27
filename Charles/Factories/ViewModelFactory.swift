@@ -14,7 +14,8 @@ enum ViewModelFactory {
     
     static func home() -> HomeView.ViewModel {
         return HomeView.ViewModel(categoriesUseCase: UseCaseFactory.categories(),
-                                  paymentMethods: UseCaseFactory.paymentMethods())
+                                  paymentMethods: UseCaseFactory.paymentMethods(),
+                                  operationsUseCase: UseCaseFactory.operations())
     }
     
     static func coordinatorHome() -> HomeCoordinator.ViewModel {

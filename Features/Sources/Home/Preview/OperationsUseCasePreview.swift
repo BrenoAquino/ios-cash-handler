@@ -1,8 +1,8 @@
 //
-//  OperationFormPreview.swift
+//  OperationsUseCasePreview.swift
 //  
 //
-//  Created by Breno Aquino on 08/02/22.
+//  Created by Breno Aquino on 27/02/22.
 //
 
 #if DEBUG
@@ -11,21 +11,21 @@ import Combine
 import Domain
 
 // MARK: UseCase
-class OperationsUseCaseMock: OperationsUseCase {
+class OperationsUseCasePreview: OperationsUseCase {
     func categories() -> [Domain.Category] {
-        return []
+        []
     }
     
     func paymentMethods() -> [Domain.PaymentMethod] {
-        return []
+        []
     }
     
     func operations() -> AnyPublisher<[Domain.Operation], CharlesError> {
-        return Empty().eraseToAnyPublisher()
+        Empty().eraseToAnyPublisher()
     }
     
     func addOperation(title: String, date: Date, value: String, categoryId: String, paymentMethodId: String) -> AnyPublisher<Domain.Operation, CharlesError> {
-        return Empty().eraseToAnyPublisher()
+        Empty().eraseToAnyPublisher()
     }
 }
 #endif
