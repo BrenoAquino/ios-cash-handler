@@ -12,7 +12,8 @@ public struct BannerModifier: ViewModifier {
     @Binding var data: BannerData
     @Binding var show: Bool
     
-    let duration: TimeInterval = 5
+    let duration: TimeInterval = 3
+    let animationDuration: TimeInterval = 0.3
     
     public func body(content: Self.Content) -> some View {
         ZStack {
@@ -27,11 +28,11 @@ public struct BannerModifier: ViewModifier {
         VStack {
             Spacer()
             HStack {
-                VStack(alignment: .leading, spacing: DSSpace.smallM.rawValue) {
+                VStack(alignment: .leading, spacing: DSSpace.smallS.rawValue) {
                     Text(data.title)
                         .font(DSFont.headline.rawValue)
                     Text(data.subtitle)
-                        .font(DSFont.subheadline.rawValue)
+                        .font(DSFont.subheadlineLarge.rawValue)
                 }
                 Spacer()
             }
@@ -40,16 +41,16 @@ public struct BannerModifier: ViewModifier {
             .cornerRadius(8)
         }
         .padding()
-        .animation(.easeInOut)
+        .animation(.easeInOut(duration: animationDuration))
         .transition(.move(edge: .bottom).combined(with: .opacity))
         .onTapGesture {
-            withAnimation(Animation.easeInOut) {
+            withAnimation(Animation.easeInOut(duration: animationDuration)) {
                 self.show = false
             }
         }
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
-                withAnimation {
+            DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration + duration) {
+                withAnimation(Animation.easeInOut(duration: animationDuration)) {
                     self.show = false
                 }
             }

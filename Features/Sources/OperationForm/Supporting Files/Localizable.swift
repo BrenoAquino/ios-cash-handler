@@ -29,5 +29,7 @@ extension Localizable {
         static let paymentPlaceholder: String = "Ex: Cartão de Crédito"
         
         static let buttonTitle: String = "Adicionar"
+        
+        static let failureTitleBanner: String = "Something went wrong"
     }
 }

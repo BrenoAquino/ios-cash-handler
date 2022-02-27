@@ -23,9 +23,8 @@ public struct OperationFormView: View {
         form
             .overlay { overlayState }
             .navigationTitle(Localizable.OperationForm.operationFormTitle)
-            .background(
-                DSColor.background.rawValue.edgesIgnoringSafeArea(.all)
-            )
+            .background(DSColor.background.rawValue.edgesIgnoringSafeArea(.all))
+            .banner(data: $viewModel.banner.data, show: $viewModel.banner.show)
             .toolbar {
                 hideKeyboardBar
                 doneBar
@@ -61,7 +60,7 @@ public struct OperationFormView: View {
             Button(action: viewModel.addOperation) {
                 ImageAsset.done.tint(DSColor.primaryText.rawValue)
             }
-            .disabled(!viewModel.validInputs)
+            .disabled(viewModel.validInputs)
         }
     }
     
