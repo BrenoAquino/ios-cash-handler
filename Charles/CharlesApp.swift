@@ -13,6 +13,7 @@ struct CharlesApp: App {
     init() {
         setupTableViewAppearance()
         setupScrollViewAppearance()
+        setupNavigationBarAppearance()
     }
     
     // MARK: Setups
@@ -25,6 +26,10 @@ struct CharlesApp: App {
         UIScrollView.appearance().showsVerticalScrollIndicator = false
         UIScrollView.appearance().showsHorizontalScrollIndicator = false
         UIScrollView.appearance().keyboardDismissMode = .onDrag
+    }
+    
+    func setupNavigationBarAppearance() {
+        UINavigationBar.appearance().tintColor = .white
     }
     
     // MARK: Scene
