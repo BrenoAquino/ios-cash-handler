@@ -34,9 +34,15 @@ public extension DesignSystem {
         public static let primaryText: DSColor = DSColor(rawValue: Color(rgba: 0xFFFFFFFF))
         /// Placeholder - 0x9397A0 - 100%
         public static let placholder: DSColor = DSColor(rawValue: Color(rgba: 0x9397A0FF))
-        /// Black - 0x000000 - 100%
+        /// Shadow - 0x000000 - 100%
         public static let shadow: DSColor = DSColor(rawValue: Color(rgba: 0x000000FF))
-        /// Black - 0x000000 - 100%
+        /// Easy Shadow - 0x000000 - 100%
         public static let easyShadow: DSColor = DSColor(rawValue: Color(rgba: 0x00000088))
+        /// Success Feedback
+        public static let successFeedback: DSColor = DSColor(rawValue: Color(rgba: 0x4CC141FF))
+        /// Failure Feedback
+        public static let failureFeedback: DSColor = DSColor(rawValue: Color(rgba: 0xED3F3FFF))
+        /// Info Feedback
+        public static let infoFeedback: DSColor = DSColor(rawValue: Color(rgba: 0x3B49E1FF))
     }
 }

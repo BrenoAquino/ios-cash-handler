@@ -14,7 +14,14 @@ public enum BannerType {
     case info
     
     var color: Color {
-        DSColor.secondBackground.rawValue
+        switch self {
+        case .success:
+            return DSColor.successFeedback.rawValue
+        case .failure:
+            return DSColor.failureFeedback.rawValue
+        case .info:
+            return DSColor.infoFeedback.rawValue
+        }
     }
 }
 
@@ -28,6 +35,10 @@ public struct BannerData {
         self.subtitle = subtitle
         self.type = type
     }
+}
+
+public extension BannerData {
+    static let empty: BannerData = .init(title: .empty, subtitle: .empty, type: .info)
 }
 
 public struct BannerControl {
