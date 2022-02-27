@@ -45,7 +45,7 @@ public struct HomeView: View {
         }
     }
     
-    // MARK: Profile
+    // MARK: Navigation Bar
     private var profileBar: some ToolbarContent {
         ToolbarItem(placement: .navigationBarLeading) {
             HStack(spacing: DSSpace.smallM.rawValue) {
