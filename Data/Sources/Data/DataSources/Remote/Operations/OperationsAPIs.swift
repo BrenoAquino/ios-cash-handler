@@ -13,7 +13,7 @@ enum OperationsAPIs {
 
 extension OperationsAPIs: APIs {
     var baseURL: String {
-        return "https://tqcabp1qk03.execute-api.us-east-1.amazonaws.com/dev/cash-management"
+        return "https://tqcbp1qk03.execute-api.us-east-1.amazonaws.com/dev/cash-management"
     }
     
     var path: String {
