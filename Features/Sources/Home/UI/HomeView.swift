@@ -29,7 +29,6 @@ public struct HomeView: View {
                 Button(Localizable.Home.cashOutOption, action: viewModel.addCashOut)
                 Button(Localizable.Common.cancel, role: .cancel, action: viewModel.addCancel)
             })
-            .banner(data: $viewModel.banner.data, show: $viewModel.banner.show)
             .toolbar {
                 profileBar
                 addBar

@@ -22,10 +22,6 @@ public extension HomeView {
         @Published private(set) var state: ViewState = .loading
         @Published var operationOptions: Bool = false
         @Published var operations: [String] = ["Breno", "Pinheiro", "Aquino"]
-        @Published var banner: BannerControl = .init(show: false,
-                                                     data: .init(title: "",
-                                                                 subtitle: "",
-                                                                 type: .info))
         
         // MARK: Redirects
         public var selectAddOperation: ((Domain.OperationType) -> Void)?
@@ -65,9 +61,7 @@ extension HomeView.ViewModel {
 // MARK: - Actions
 extension HomeView.ViewModel {
     func selectAdd() {
-        banner.data = .init(title: "Title", subtitle: "Subtitle detail", type: .info)
-        banner.show = true
-//        operationOptions = true
+        operationOptions = true
     }
     
     func addCashIn() {

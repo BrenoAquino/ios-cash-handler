@@ -29,7 +29,9 @@ public struct BannerModifier: ViewModifier {
             HStack {
                 VStack(alignment: .leading, spacing: DSSpace.smallM.rawValue) {
                     Text(data.title)
+                        .font(DSFont.headline.rawValue)
                     Text(data.subtitle)
+                        .font(DSFont.subheadline.rawValue)
                 }
                 Spacer()
             }
