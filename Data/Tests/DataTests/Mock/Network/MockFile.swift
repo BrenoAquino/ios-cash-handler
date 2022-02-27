@@ -15,6 +15,9 @@ enum MockFile: String {
     // App Operation
     case addOperstionSuccess = "add_operation_success"
     case addOperstionDecodingError = "add_operation_decoding_error"
+    // Operations
+    case operationsSuccess = "operations_success"
+    case operationsDecodingError = "operations_decoding_error"
     
     // MARK: Categories
     // Categories

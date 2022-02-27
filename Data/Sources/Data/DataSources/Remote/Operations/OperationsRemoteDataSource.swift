@@ -9,6 +9,7 @@ import Foundation
 import Combine
 
 public protocol OperationsRemoteDataSource {
+    func operations() -> AnyPublisher<[OperationDTO], CharlesDataError>
     func addOperation(params: CreateOperationParams) -> AnyPublisher<OperationDTO, CharlesDataError>
 }
 
@@ -25,6 +26,10 @@ public final class OperationsRemoteDataSourceImpl {
 
 // MARK: Requests
 extension OperationsRemoteDataSourceImpl: OperationsRemoteDataSource {
+    public func operations() -> AnyPublisher<[OperationDTO], CharlesDataError> {
+        return networkProvider.execute(endpoint: Endpoint.operations, keyPath: "data")
+    }
+    
     public func addOperation(params: CreateOperationParams) -> AnyPublisher<OperationDTO, CharlesDataError> {
         return networkProvider.execute(endpoint: Endpoint.addOperation(params: params), keyPath: "data")
     }

@@ -44,6 +44,11 @@ extension OperationsUseCaseImpl: OperationsUseCase {
             .cachedPaymentMethods()
     }
     
+    public func operations() -> AnyPublisher<[Operation], CharlesError> {
+        return operationsRepository
+            .operations()
+    }
+    
     public func addOperation(title: String,
                              date: Date,
                              value: String,

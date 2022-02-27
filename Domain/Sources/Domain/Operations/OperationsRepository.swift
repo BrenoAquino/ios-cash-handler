@@ -9,6 +9,7 @@ import Foundation
 import Combine
 
 public protocol OperationsRepository {
+    func operations() -> AnyPublisher<[Operation], CharlesError>
     func addOperation(title: String,
                       date: String,
                       value: Double,

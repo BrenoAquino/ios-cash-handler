@@ -34,6 +34,31 @@ public final class OperationsRepositoryImpl {
 
 // MARK: Interface
 extension OperationsRepositoryImpl: Domain.OperationsRepository {
+    public func operations() -> AnyPublisher<[Domain.Operation], CharlesError> {
+        return remoteDataSource
+            .operations()
+            .tryMap { [weak self] operationsDTOs in
+                if let categories = self?.categories, let paymentMethods = self?.paymentMethods {
+                    do {
+                        return try operationsDTOs.map { try $0.toDomain(paymentMethods: paymentMethods, categories: categories) }
+                    } catch {
+                        throw CharlesDataError(type: .invalidDomainConverter)
+                    }
+                } else {
+                    throw CharlesDataError(type: .invalidDomainConverter)
+                }
+            }
+            .mapError { error in
+                switch error {
+                case let error as CharlesDataError:
+                    return error.toDomain()
+                default:
+                    return CharlesError(type: .unkown)
+                }
+            }
+            .eraseToAnyPublisher()
+    }
+    
     public func addOperation(title: String,
                              date: String,
                              value: Double,
@@ -44,9 +69,12 @@ extension OperationsRepositoryImpl: Domain.OperationsRepository {
             .addOperation(params: params)
             .tryMap { [weak self] operation in
                 if let categories = self?.categories,
-                   let paymentMethods = self?.paymentMethods,
-                   let operationDomain = operation.toDomain(paymentMethods: paymentMethods, categories: categories) {
-                    return operationDomain
+                   let paymentMethods = self?.paymentMethods {
+                    do {
+                        return try operation.toDomain(paymentMethods: paymentMethods, categories: categories)
+                    } catch {
+                        throw CharlesDataError(type: .invalidDomainConverter)
+                    }
                 } else {
                     throw CharlesDataError(type: .invalidDomainConverter)
                 }

@@ -24,11 +24,11 @@ public struct OperationDTO: Decodable {
 }
 
 extension OperationDTO {
-    func toDomain(paymentMethods: [Domain.PaymentMethod], categories: [Domain.Category]) -> Domain.Operation? {
+    func toDomain(paymentMethods: [Domain.PaymentMethod], categories: [Domain.Category]) throws -> Domain.Operation {
         guard let date = DateFormatter(pattern: "dd-MM-yyyy").date(from: date),
               let paymentMethod = paymentMethods.first(where: { $0.id == paymentMethodId }),
               let category = categories.first(where: { $0.id == categoryId }) else {
-                  return nil
+                  throw CharlesDataError(type: .invalidDomainConverter)
               }
         
         return Domain.Operation(id: id,

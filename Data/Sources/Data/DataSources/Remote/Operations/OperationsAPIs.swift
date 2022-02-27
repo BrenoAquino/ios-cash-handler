@@ -8,6 +8,7 @@
 import Foundation
 
 enum OperationsAPIs {
+    case operations
     case addOperation(params: CreateOperationParams)
 }
 
@@ -18,13 +19,15 @@ extension OperationsAPIs: APIs {
     
     var path: String {
         switch self {
-        case .addOperation:
+        case .operations, .addOperation:
             return "operations"
         }
     }
     
     var method: RequestMethod {
         switch self {
+        case .operations:
+            return .get
         case .addOperation:
             return .post
         }
@@ -32,6 +35,8 @@ extension OperationsAPIs: APIs {
     
     var body: Data? {
         switch self {
+        case .operations:
+            return nil
         case .addOperation(let params):
             return try? JSONEncoder().encode(params)
         }
