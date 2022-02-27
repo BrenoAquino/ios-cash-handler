@@ -60,7 +60,7 @@ public struct OperationFormView: View {
             Button(action: viewModel.addOperation) {
                 ImageAsset.done.tint(DSColor.primaryText.rawValue)
             }
-            .disabled(viewModel.validInputs)
+            .disabled(!viewModel.validInputs)
         }
     }
     

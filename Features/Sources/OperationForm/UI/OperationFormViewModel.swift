@@ -28,7 +28,7 @@ public extension OperationFormView {
         // MARK: Publishers
         @Published var name: String = .empty
         @Published var date: Date = .init()
-        @Published var value: Double = 0
+        @Published var value: Double = .zero
         @Published var category: String = PaymentMethodPickerUI.placeholder.id
         @Published var paymentMethod: String = PaymentMethodPickerUI.placeholder.id
         @Published var banner: BannerControl = .init(show: false, data: .empty)
