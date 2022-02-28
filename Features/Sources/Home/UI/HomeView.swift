@@ -39,14 +39,18 @@ public struct HomeView: View {
     }
     
     // MARK: View State
-    private var content: AnyView {
-        switch viewModel.state {
-        case .loading:
-            return AnyView(ViewState.loadingView(background: .opaque))
-        default:
-            return AnyView(operationsList)
-        }
-    }
+    private var content: some View {
+         ZStack {
+             switch viewModel.stateHandler.state {
+             case .loading:
+                 ViewState.loadingView(background: .opaque)
+                     .defaultTransition()
+             default:
+                 operationsList
+                     .defaultTransition()
+             }
+         }
+     }
     
     // MARK: Navigation Bar
     private var profileBar: some ToolbarContent {

@@ -33,8 +33,6 @@ struct LoadingView: View {
             loading
                 .opacity(loadingOpacity)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .transition(.opacity)
         .onAppear {
             withAnimation(.linear(duration: .leastNonzeroMagnitude)) {
                 self.loadingOpacity = 1
