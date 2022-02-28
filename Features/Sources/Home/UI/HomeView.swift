@@ -40,14 +40,14 @@ public struct HomeView: View {
     
     // MARK: View State
     private var content: some View {
-         Group {
+         ZStack {
              switch viewModel.stateHandler.state {
              case .loading:
                  ViewState.loadingView(background: .opaque)
-                     .transition(AnyTransition.opacity.animation(.easeInOut(duration: 1.0)))
+                     .defaultTransition()
              default:
                  operationsList
-                     .transition(AnyTransition.opacity.animation(.easeInOut(duration: 1.0)))
+                     .defaultTransition()
              }
          }
      }
