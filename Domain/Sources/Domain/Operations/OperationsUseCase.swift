@@ -48,6 +48,8 @@ extension OperationsUseCaseImpl: OperationsUseCase {
     public func operations() -> AnyPublisher<[Operation], CharlesError> {
         return operationsRepository
             .operations()
+            .map { $0.sorted(by: { $0.date > $1.date }) }
+            .eraseToAnyPublisher()
     }
     
     public func addOperation(title: String,
