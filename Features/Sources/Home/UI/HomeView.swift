@@ -38,13 +38,16 @@ public struct HomeView: View {
             }
     }
     
-    // MARK: View State
-    private var content: AnyView {
-        switch viewModel.state {
-        case .loading:
-            return AnyView(ViewState.loadingView(background: .opaque))
-        default:
-            return AnyView(operationsList)
+    private var content: some View {
+        VStack {
+            switch viewModel.state {
+            case .loading:
+                ViewState.loadingView(background: .opaque)
+                    .transition(AnyTransition.opacity.animation(.easeInOut(duration: 1.0)))
+            default:
+                operationsList
+                    .transition(AnyTransition.opacity.animation(.easeInOut(duration: 1.0)))
+            }
         }
     }
     

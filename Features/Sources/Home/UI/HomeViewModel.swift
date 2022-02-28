@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import DesignSystem
 import Domain
+import SwiftUI
 
 public extension HomeView {
     
@@ -41,7 +42,9 @@ public extension HomeView {
 // MARK: - Flow
 extension HomeView.ViewModel {
     func fetchDate() {
-        state = .loading
+        withAnimation {
+            state = .loading
+        }
         fetchCategoriesPaymentMethods()
     }
     
@@ -57,7 +60,9 @@ extension HomeView.ViewModel {
                 case .finished:
                     self?.fetchOperations()
                 case .failure:
-                    self?.state = .failure
+                    withAnimation {
+                        self?.state = .failure
+                    }
                 }
             }
             .store(in: &cancellables)
@@ -70,9 +75,13 @@ extension HomeView.ViewModel {
             .sink { [weak self] completion in
                 switch completion {
                 case .finished:
-                    self?.state = .finished
+                    withAnimation {
+                        self?.state = .finished
+                    }
                 case .failure:
-                    self?.state = .failure
+                    withAnimation {
+                        self?.state = .failure
+                    }
                 }
             } receiveValue: { [weak self] operations in
                 self?.operations = operations.map { OperationUI(operation: $0) }
