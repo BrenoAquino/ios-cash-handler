@@ -18,7 +18,9 @@ fileprivate func generateColorFor(text: String) -> UInt32 {
         }
         hash = Int(char.value) + ((hash << 5) - hash)
     }
-    return UInt32(abs(hash) % (256 * 256 * 256))
+    let rgb = UInt32(abs(hash) % (256 * 256 * 256))
+    let rgba = rgb << 8 + 0xff
+    return rgba
 }
 
 public extension Color {
