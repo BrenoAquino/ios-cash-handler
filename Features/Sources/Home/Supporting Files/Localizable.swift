@@ -8,6 +8,8 @@
 import Foundation
 import DesignSystem
 
+typealias HomeLocalizable = Localizable.Home
+
 extension Localizable {
     
     enum Home {
@@ -18,5 +20,7 @@ extension Localizable {
         static let operationOptionsTitle: String = "Tipo de operação a ser adicionada"
         static let cashInOption: String = "Cash In"
         static let cashOutOption: String = "Cash Out"
+        
+        static func subtitleOperationCell(catengory: String, date: String) -> String { "\(catengory) • \(date)" }
     }
 }

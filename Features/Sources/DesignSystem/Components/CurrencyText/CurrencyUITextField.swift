@@ -12,13 +12,7 @@ public class CurrencyUITextField: UIView {
     
     @Binding private var value: Double
     
-    private let formatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.minimumFractionDigits = 2
-        formatter.maximumFractionDigits = 2
-        return formatter
-    }()
+    private let formatter: NumberFormatter = .currency
     
     private lazy var textReferEmpty: String = {
         var zero = formatter.string(for: Double.zero) ?? .empty

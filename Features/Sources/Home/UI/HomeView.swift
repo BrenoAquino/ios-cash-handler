@@ -33,6 +33,9 @@ public struct HomeView: View {
                 profileBar
                 addBar
             }
+            .onAppear {
+                viewModel.fetchDate()
+            }
     }
     
     // MARK: View State
@@ -83,6 +86,11 @@ public struct HomeView: View {
     private var operationsList: some View {
         List(viewModel.operations) { operation in
             OperationCell(operation: operation)
+                .listRowBackground(DSColor.secondBackground.rawValue)
+                .listRowInsets(.init(top: DSSpace.smallM.rawValue,
+                                     leading: .zero,
+                                     bottom: DSSpace.smallM.rawValue,
+                                     trailing: .zero))
         }
     }
 }

@@ -34,14 +34,17 @@ public extension HomeView {
             self.categoriesUseCase = categoriesUseCase
             self.paymentMethodsUseCase = paymentMethods
             self.operationsUseCase = operationsUseCase
-            
-            fetchCategoriesPaymentMethods()
         }
     }
 }
 
 // MARK: - Flow
 extension HomeView.ViewModel {
+    func fetchDate() {
+        state = .loading
+        fetchCategoriesPaymentMethods()
+    }
+    
     private func fetchCategoriesPaymentMethods() {
         let categoriesPublisher = categoriesUseCase.categories()
         let paymentMethodsPublisher = paymentMethodsUseCase.paymentMethods()
@@ -72,9 +75,7 @@ extension HomeView.ViewModel {
                     self?.state = .failure
                 }
             } receiveValue: { [weak self] operations in
-                self?.operations = operations.map {
-                    OperationUI(id: $0.id, title: $0.title)
-                }
+                self?.operations = operations.map { OperationUI(operation: $0) }
             }
             .store(in: &cancellables)
     }
