@@ -107,7 +107,7 @@ extension OperationFormView.ViewModel {
         operationsUseCase
             .addOperation(title: name,
                           date: date,
-                          value: "978978",
+                          value: value,
                           categoryId: category,
                           paymentMethodId: paymentMethod)
             .receive(on: RunLoop.main)
