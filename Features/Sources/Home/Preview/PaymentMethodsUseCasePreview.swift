@@ -13,7 +13,12 @@ import Domain
 // MARK: UseCase
 class PaymentMethodsUseCasePreview: PaymentMethodsUseCase {
     func paymentMethods() -> AnyPublisher<[PaymentMethod], CharlesError> {
-        return Empty().eraseToAnyPublisher()
+        return Just([
+            Domain.PaymentMethod(id: "0", name: "Cartão de Crédito"),
+            Domain.PaymentMethod(id: "1", name: "Transferência Bancária")
+        ])
+            .setFailureType(to: CharlesError.self)
+            .eraseToAnyPublisher()
     }
 }
 #endif

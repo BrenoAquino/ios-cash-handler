@@ -90,7 +90,8 @@ public struct HomeView: View {
     private var operationsList: some View {
         List(viewModel.operations) { operation in
             OperationCell(operation: operation)
-                .listRowBackground(DSColor.secondBackground.rawValue)
+                .listRowSeparator(.hidden)
+                .listRowBackground(DSColor.clear.rawValue)
                 .listRowInsets(.init(top: DSSpace.smallM.rawValue,
                                      leading: .zero,
                                      bottom: DSSpace.smallM.rawValue,
@@ -108,6 +109,7 @@ struct HomeView_Previews: PreviewProvider {
                                       paymentMethods: PaymentMethodsUseCasePreview(),
                                       operationsUseCase: OperationsUseCasePreview()))
         }
+        .preferredColorScheme(.dark)
     }
 }
 #endif
