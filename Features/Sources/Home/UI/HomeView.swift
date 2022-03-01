@@ -29,13 +29,12 @@ public struct HomeView: View {
                 Button(Localizable.Home.cashOutOption, action: viewModel.addCashOut)
                 Button(Localizable.Common.cancel, role: .cancel, action: viewModel.addCancel)
             })
+            .navigationTitle(Localizable.Home.homeTitle)
             .toolbar {
-                profileBar
+//                profileBar
                 addBar
             }
-            .onAppear {
-                viewModel.fetchDate()
-            }
+            .onAppear(perform: viewModel.fetchDate)
     }
     
     // MARK: View State
@@ -97,6 +96,8 @@ public struct HomeView: View {
                                      bottom: DSSpace.smallM.rawValue,
                                      trailing: .zero))
         }
+        .listStyle(.plain)
+        .padding(.horizontal, DSSpace.smallL.rawValue)
     }
 }
 
@@ -104,7 +105,10 @@ public struct HomeView: View {
 // MARK: - Preview
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        UITableView.appearance().backgroundColor = .clear
+        UITableViewCell.appearance().backgroundColor = .clear
+        
+        return NavigationView {
             HomeView(viewModel: .init(categoriesUseCase: CategoriesUseCasePreview(),
                                       paymentMethods: PaymentMethodsUseCasePreview(),
                                       operationsUseCase: OperationsUseCasePreview()))

@@ -13,6 +13,8 @@ typealias HomeLocalizable = Localizable.Home
 extension Localizable {
     
     enum Home {
+        static let homeTitle: String = "Extrato"
+        
         static let userTitle: String = "Breno Aquino"
         static let companyTitle: String = "Charles Inc."
         static let userInitials: String = "BA"

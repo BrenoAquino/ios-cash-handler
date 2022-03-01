@@ -35,8 +35,8 @@ class OperationsUseCasePreview: OperationsUseCase {
                              paymentMethod: .init(id: "0", name: "Cartão de Crédito"),
                              category: .init(id: "0", name: "Lazer")),
             Domain.Operation(id: "1",
-                             title: "Monitor QHD Gigabyte",
-                             value: 2800.75,
+                             title: "Monitor",
+                             value: 1213.89,
                              date: Date.components(day: 20, month: 2, year: 2022)!,
                              paymentMethod: .init(id: "0", name: "Transferência Bancária"),
                              category: .init(id: "0", name: "Tecnologia"))
