@@ -20,6 +20,8 @@ public extension DesignSystem {
         public static let title: DSFont = DSFont(rawValue: Font.system(size: 20, weight: .medium, design: .default))
         /// System Font - Regular - Size 18
         public static let headline: DSFont = DSFont(rawValue: Font.system(size: 18, weight: .regular, design: .default))
+        /// System Font - Regular - Size 14
+        public static let headline2: DSFont = DSFont(rawValue: Font.system(size: 14, weight: .semibold, design: .default))
         /// System Font - Light - Size 14
         public static let subheadlineLarge: DSFont = DSFont(rawValue: Font.system(size: 14, weight: .light, design: .default))
         /// System Font - Light - Size 12

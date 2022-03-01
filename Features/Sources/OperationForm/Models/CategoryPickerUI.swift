@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import DesignSystem
 
 struct CategoryPickerUI: Identifiable, Hashable {
     let id: String

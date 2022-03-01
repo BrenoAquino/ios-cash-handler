@@ -29,21 +29,27 @@ public struct HomeView: View {
                 Button(Localizable.Home.cashOutOption, action: viewModel.addCashOut)
                 Button(Localizable.Common.cancel, role: .cancel, action: viewModel.addCancel)
             })
+            .navigationTitle(Localizable.Home.homeTitle)
             .toolbar {
-                profileBar
+//                profileBar
                 addBar
             }
+            .onAppear(perform: viewModel.fetchDate)
     }
     
     // MARK: View State
-    private var content: AnyView {
-        switch viewModel.state {
-        case .loading:
-            return AnyView(ViewState.loadingView(background: .opaque))
-        default:
-            return AnyView(operationsList)
-        }
-    }
+    private var content: some View {
+         ZStack {
+             switch viewModel.stateHandler.state {
+             case .loading:
+                 ViewState.loadingView(background: .opaque)
+                     .defaultTransition()
+             default:
+                 operationsList
+                     .defaultTransition()
+             }
+         }
+     }
     
     // MARK: Navigation Bar
     private var profileBar: some ToolbarContent {
@@ -81,9 +87,17 @@ public struct HomeView: View {
     
     // MARK: Content List
     private var operationsList: some View {
-        List(viewModel.operations, id: \.hashValue) { operation in
-            OperationCell(name: operation)
+        List(viewModel.operations) { operation in
+            OperationCell(operation: operation)
+                .listRowSeparator(.hidden)
+                .listRowBackground(DSColor.clear.rawValue)
+                .listRowInsets(.init(top: DSSpace.smallM.rawValue,
+                                     leading: .zero,
+                                     bottom: DSSpace.smallM.rawValue,
+                                     trailing: .zero))
         }
+        .listStyle(.plain)
+        .padding(.horizontal, DSSpace.smallL.rawValue)
     }
 }
 
@@ -91,11 +105,15 @@ public struct HomeView: View {
 // MARK: - Preview
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        UITableView.appearance().backgroundColor = .clear
+        UITableViewCell.appearance().backgroundColor = .clear
+        
+        return NavigationView {
             HomeView(viewModel: .init(categoriesUseCase: CategoriesUseCasePreview(),
                                       paymentMethods: PaymentMethodsUseCasePreview(),
                                       operationsUseCase: OperationsUseCasePreview()))
         }
+        .preferredColorScheme(.dark)
     }
 }
 #endif

@@ -20,9 +20,9 @@ public extension HomeView {
         private var cancellables: Set<AnyCancellable> = .init()
         
         // MARK: Publisher
-        @Published private(set) var state: ViewState = .loading
+        @Published private(set) var stateHandler: ViewStateHandler = .init(state: .loading)
         @Published var operationOptions: Bool = false
-        @Published var operations: [String] = []
+        @Published var operations: [OperationUI] = []
         
         // MARK: Redirects
         public var selectAddOperation: ((Domain.OperationType) -> Void)?
@@ -34,14 +34,17 @@ public extension HomeView {
             self.categoriesUseCase = categoriesUseCase
             self.paymentMethodsUseCase = paymentMethods
             self.operationsUseCase = operationsUseCase
-            
-            fetchCategoriesPaymentMethods()
         }
     }
 }
 
 // MARK: - Flow
 extension HomeView.ViewModel {
+    func fetchDate() {
+        stateHandler.loading()
+        fetchCategoriesPaymentMethods()
+    }
+    
     private func fetchCategoriesPaymentMethods() {
         let categoriesPublisher = categoriesUseCase.categories()
         let paymentMethodsPublisher = paymentMethodsUseCase.paymentMethods()
@@ -54,7 +57,7 @@ extension HomeView.ViewModel {
                 case .finished:
                     self?.fetchOperations()
                 case .failure:
-                    self?.state = .failure
+                    self?.stateHandler.failure()
                 }
             }
             .store(in: &cancellables)
@@ -67,12 +70,12 @@ extension HomeView.ViewModel {
             .sink { [weak self] completion in
                 switch completion {
                 case .finished:
-                    self?.state = .finished
+                    self?.stateHandler.finished()
                 case .failure:
-                    self?.state = .failure
+                    self?.stateHandler.failure()
                 }
             } receiveValue: { [weak self] operations in
-                self?.operations = operations.map { $0.title }
+                self?.operations = operations.map { OperationUI(operation: $0) }
             }
             .store(in: &cancellables)
     }

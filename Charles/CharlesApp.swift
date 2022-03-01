@@ -38,7 +38,7 @@ struct CharlesApp: App {
             NavigationView {
                 HomeCoordinator(viewModel: ViewModelFactory.coordinatorHome())
             }
-            .navigationViewStyle(.automatic)
+            .navigationViewStyle(.stack)
             .preferredColorScheme(.dark)
         }
     }

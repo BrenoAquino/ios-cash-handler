@@ -38,11 +38,13 @@ public extension DesignSystem {
         public static let shadow: DSColor = DSColor(rawValue: Color(rgba: 0x000000FF))
         /// Easy Shadow - 0x000000 - 100%
         public static let easyShadow: DSColor = DSColor(rawValue: Color(rgba: 0x00000088))
-        /// Success Feedback
+        /// Success Feedback - 0x4CC141 - 100%
         public static let successFeedback: DSColor = DSColor(rawValue: Color(rgba: 0x4CC141FF))
-        /// Failure Feedback
+        /// Failure Feedback - 0xED3F3F - 100%
         public static let failureFeedback: DSColor = DSColor(rawValue: Color(rgba: 0xED3F3FFF))
-        /// Info Feedback
+        /// Info Feedback - 0x3B49E1 - 100%
         public static let infoFeedback: DSColor = DSColor(rawValue: Color(rgba: 0x3B49E1FF))
+        /// Discount Value - 0xED3F3F - 100%
+        public static let discountValue: DSColor = DSColor(rawValue: Color(rgba: 0xED3F3FFF))
     }
 }
