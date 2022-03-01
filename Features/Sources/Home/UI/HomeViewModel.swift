@@ -21,11 +21,10 @@ public extension HomeView {
         
         // MARK: Publisher
         @Published private(set) var stateHandler: ViewStateHandler = .init(state: .loading)
-        @Published var operationOptions: Bool = false
         @Published var operations: [OperationUI] = []
         
         // MARK: Redirects
-        public var selectAddOperation: ((Domain.OperationType) -> Void)?
+        public var selectAddOperation: (() -> Void)?
         
         // MARK: - Inits
         public init(categoriesUseCase: Domain.CategoriesUseCase,
@@ -84,20 +83,6 @@ extension HomeView.ViewModel {
 // MARK: - Actions
 extension HomeView.ViewModel {
     func selectAdd() {
-        operationOptions = true
-    }
-    
-    func addCashIn() {
-        operationOptions = false
-        selectAddOperation?(.cashIn)
-    }
-    
-    func addCashOut() {
-        operationOptions = false
-        selectAddOperation?(.cashOut)
-    }
-    
-    func addCancel() {
-        operationOptions = false
+        selectAddOperation?()
     }
 }

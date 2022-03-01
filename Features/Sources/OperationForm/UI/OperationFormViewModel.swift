@@ -15,7 +15,6 @@ public extension OperationFormView {
     
     final class ViewModel: ObservableObject {
         
-        let type: Domain.OperationType
         private let operationsUseCase: Domain.OperationsUseCase
         private var cancellables: Set<AnyCancellable> = .init()
         
@@ -39,9 +38,8 @@ public extension OperationFormView {
         @Published private(set) var state: ViewState = .content
         
         // MARK: Inits
-        public init(operationsUseCase: Domain.OperationsUseCase, type: OperationType) {
+        public init(operationsUseCase: Domain.OperationsUseCase) {
             self.operationsUseCase = operationsUseCase
-            self.type = type
             
             setupCategories()
             setupPaymentMethods()

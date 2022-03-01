@@ -21,14 +21,6 @@ public struct HomeView: View {
             .background(
                 DSColor.background.rawValue.edgesIgnoringSafeArea(.all)
             )
-            .confirmationDialog(Localizable.Home.operationOptionsTitle,
-                                isPresented: $viewModel.operationOptions,
-                                titleVisibility: .visible,
-                                actions: {
-                Button(Localizable.Home.cashInOption, action: viewModel.addCashIn)
-                Button(Localizable.Home.cashOutOption, action: viewModel.addCashOut)
-                Button(Localizable.Common.cancel, role: .cancel, action: viewModel.addCancel)
-            })
             .navigationTitle(Localizable.Home.homeTitle)
             .toolbar {
 //                profileBar

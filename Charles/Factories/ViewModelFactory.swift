@@ -23,13 +23,13 @@ enum ViewModelFactory {
         return HomeCoordinator.ViewModel(homeViewModel: viewModel)
     }
     
-    static func operationForm(type: OperationType) -> OperationFormView.ViewModel {
+    static func operationForm() -> OperationFormView.ViewModel {
         let useCase = UseCaseFactory.operations()
-        return OperationFormView.ViewModel(operationsUseCase: useCase, type: type)
+        return OperationFormView.ViewModel(operationsUseCase: useCase)
     }
     
-    static func coordinatorOperationForm(type: OperationType) -> OperationFormCoordinator.ViewModel {
-        let viewModel = Self.operationForm(type: type)
+    static func coordinatorOperationForm() -> OperationFormCoordinator.ViewModel {
+        let viewModel = Self.operationForm()
         return OperationFormCoordinator.ViewModel(operationFormViewModel: viewModel)
     }
 }

@@ -122,8 +122,7 @@ struct OperationFormView_Previews: PreviewProvider {
         UITableView.appearance().backgroundColor = .clear
         
         let viewModel = OperationFormView.ViewModel(
-            operationsUseCase: OperationsUseCaseMock(),
-            type: .cashOut
+            operationsUseCase: OperationsUseCaseMock()
         )
         
         return NavigationView {
