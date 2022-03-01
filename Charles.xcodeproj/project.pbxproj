@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		55253BAC27B867EF00EEEEE5 /* LocalDataSourceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55253BAB27B867EF00EEEEE5 /* LocalDataSourceFactory.swift */; };
+		5546207A27CEA3CA0077CBEF /* UINavigationController+BackTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5546207927CEA3CA0077CBEF /* UINavigationController+BackTitle.swift */; };
 		5559F40127B20D2B00EB57A8 /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = 5559F40027B20D2B00EB57A8 /* Common */; };
 		5559F40327B20D4000EB57A8 /* Data in Frameworks */ = {isa = PBXBuildFile; productRef = 5559F40227B20D4000EB57A8 /* Data */; };
 		5559F40527B20D4200EB57A8 /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 5559F40427B20D4200EB57A8 /* Domain */; };
@@ -52,6 +53,7 @@
 		5506FB4727B0B2B2000E9461 /* Data */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Data; sourceTree = "<group>"; };
 		5506FB4827B0B2F8000E9461 /* Common */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Common; sourceTree = "<group>"; };
 		55253BAB27B867EF00EEEEE5 /* LocalDataSourceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataSourceFactory.swift; sourceTree = "<group>"; };
+		5546207927CEA3CA0077CBEF /* UINavigationController+BackTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationController+BackTitle.swift"; sourceTree = "<group>"; };
 		556603B2278C826400E24511 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		556DEE22278B63E100CBFF5C /* Charles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Charles.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		556DEE25278B63E100CBFF5C /* CharlesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharlesApp.swift; sourceTree = "<group>"; };
@@ -102,6 +104,14 @@
 			path = Factories;
 			sourceTree = "<group>";
 		};
+		5546207827CEA3B70077CBEF /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				5546207927CEA3CA0077CBEF /* UINavigationController+BackTitle.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		556603AB278C79EC00E24511 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +147,7 @@
 			children = (
 				556603B2278C826400E24511 /* Info.plist */,
 				556DEE25278B63E100CBFF5C /* CharlesApp.swift */,
+				5546207827CEA3B70077CBEF /* Utils */,
 				5544CA3A279A21D500F188F5 /* Factories */,
 				55B6BC46278B8D7600B421AE /* Coordinators */,
 				556DEE4F278B642600CBFF5C /* Supporting Files */,
@@ -286,6 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55B6BC4A278B8D8F00B421AE /* OperationFormCoordinator.swift in Sources */,
+				5546207A27CEA3CA0077CBEF /* UINavigationController+BackTitle.swift in Sources */,
 				55E3DDBD279A2C17005F0AE0 /* RepositoryFactory.swift in Sources */,
 				55B6BC48278B8D8500B421AE /* HomeCoordinator.swift in Sources */,
 				556DEE26278B63E100CBFF5C /* CharlesApp.swift in Sources */,
