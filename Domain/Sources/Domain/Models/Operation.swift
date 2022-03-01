@@ -7,11 +7,6 @@
 
 import Foundation
 
-public enum OperationType: String {
-    case cashIn = "cash-in"
-    case cashOut = "cash-out"
-}
-
 public struct Operation {
     public let id: String
     public let title: String

@@ -15,7 +15,6 @@ public extension OperationFormView {
     
     final class ViewModel: ObservableObject {
         
-        let type: Domain.OperationType
         private let operationsUseCase: Domain.OperationsUseCase
         private var cancellables: Set<AnyCancellable> = .init()
         
@@ -36,12 +35,11 @@ public extension OperationFormView {
         @Published private(set) var isValidCategory: Bool = false
         @Published private(set) var isValidPaymentMethod: Bool = false
         @Published private(set) var validInputs: Bool = false
-        @Published private(set) var state: ViewState = .content
+        @Published private(set) var stateHandler: ViewStateHandler = .init(state: .content)
         
         // MARK: Inits
-        public init(operationsUseCase: Domain.OperationsUseCase, type: OperationType) {
+        public init(operationsUseCase: Domain.OperationsUseCase) {
             self.operationsUseCase = operationsUseCase
-            self.type = type
             
             setupCategories()
             setupPaymentMethods()
@@ -101,7 +99,7 @@ extension OperationFormView.ViewModel {
     }
     
     func addOperation() {
-        state = .loading
+        stateHandler.loading()
         validInputs = false
         
         operationsUseCase
@@ -114,10 +112,10 @@ extension OperationFormView.ViewModel {
             .sinkCompletion { [weak self] completion in
                 switch completion {
                 case .finished:
-                    self?.state = .finished
+                    self?.stateHandler.finished()
                 case .failure(let error):
                     self?.setupErrorBanner(error: error)
-                    self?.state = .failure
+                    self?.stateHandler.finished()
                 }
             }
             .store(in: &cancellables)

@@ -29,8 +29,8 @@ public struct OperationFormView: View {
                 hideKeyboardBar
                 doneBar
             }
-            .onReceive(viewModel.$state) { state in
-                if state == .finished {
+            .onReceive(viewModel.$stateHandler) { stateHandler in
+                if stateHandler.state == .finished {
                     self.presentationMode.wrappedValue.dismiss()
                 }
             }
@@ -38,11 +38,13 @@ public struct OperationFormView: View {
     
     // MARK: View State
     private var overlayState: some View {
-        switch viewModel.state {
-        case .loading:
-            return AnyView(ViewState.loadingView(background: .blur))
-        default:
-            return AnyView(EmptyView())
+        ZStack {
+            switch viewModel.stateHandler.state {
+            case .loading:
+                ViewState.loadingView(background: .blur).defaultTransition()
+            default:
+                EmptyView().defaultTransition()
+            }
         }
     }
     
@@ -122,8 +124,7 @@ struct OperationFormView_Previews: PreviewProvider {
         UITableView.appearance().backgroundColor = .clear
         
         let viewModel = OperationFormView.ViewModel(
-            operationsUseCase: OperationsUseCaseMock(),
-            type: .cashOut
+            operationsUseCase: OperationsUseCaseMock()
         )
         
         return NavigationView {
