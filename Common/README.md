@@ -1,11 +1,5 @@
 # Common
-
-| O.S. | Version  |
-|---|---|
-| iOS | 13+ |
-| tvOS | X |
-| macOS | X |
-| watchOS | X |
+![iOS version](https://img.shields.io/badge/iOS-13\+-blue) ![Swift version](https://img.shields.io/badge/Swift-v5.5-orange)
 
 Contém extensions, _utils_ e outros componentes/classes que facilitam o desenvolvimento e configurações em geral.
 
