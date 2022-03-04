@@ -23,11 +23,12 @@ class PaymentMethodsRemoteDataSourceTests: XCTestCase {
         let remoteDataSource = PaymentMethodsRemoteDataSourceImpl(networkProvider: networkProvider)
         
         // When
-        _ = remoteDataSource
+        remoteDataSource
             .paymentMethods()
             .sinkCompletion { _ in
                 expectation.fulfill()
             }
+            .store(in: &cancellables)
         
         // Then
         waitForExpectations(timeout: 5, handler: nil)
@@ -58,6 +59,7 @@ class PaymentMethodsRemoteDataSourceTests: XCTestCase {
         XCTAssert(paymentMethods?.count == 5)
         XCTAssert(paymentMethods?[0].id == "0c1e0dc50d01c9111c308a1bade570345e232abc86d586fbecfb24262b568c50")
         XCTAssert(paymentMethods?[0].name == "Vale Refeição")
+        XCTAssert(paymentMethods?[0].hasInstallments == false)
     }
 
     func testPaymentMethodsDecodingError() {

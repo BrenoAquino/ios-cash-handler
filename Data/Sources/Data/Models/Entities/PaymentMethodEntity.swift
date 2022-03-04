@@ -11,6 +11,7 @@ import Domain
 public struct PaymentMethodEntity: Entity {
     public let primaryKey: String
     public let name: String
+    public let hasInstallments: Bool
 }
 
 public extension PaymentMethodEntity {

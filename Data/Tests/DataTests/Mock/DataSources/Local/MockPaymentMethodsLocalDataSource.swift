@@ -16,8 +16,8 @@ class MockPaymentMethodsLocalDataSource: PaymentMethodsLocalDataSource {
     
     init(paymentMethods: [PaymentMethodEntity]? = nil) {
         self.paymentMethodsEntity = paymentMethods ?? [
-            .init(primaryKey: "0", name: "PaymentMethod0"),
-            .init(primaryKey: "1", name: "PaymentMethod1")
+            .init(primaryKey: "0", name: "PaymentMethod0", hasInstallments: true),
+            .init(primaryKey: "1", name: "PaymentMethod1", hasInstallments: false)
         ]
     }
     
