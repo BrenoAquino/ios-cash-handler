@@ -15,11 +15,17 @@ public struct OperationDTO: Decodable {
     public let categoryId: String
     public let paymentMethodId: String
     public let value: Double
+    public let currentInstallments: Int?
+    public let totalInstallments: Int?
+    public let operationAggregatorId: String?
     
     private enum CodingKeys : String, CodingKey {
         case id, title, date, value
         case categoryId = "category_id"
         case paymentMethodId = "payment_method_id"
+        case currentInstallments = "current_installments"
+        case totalInstallments = "total_installments"
+        case operationAggregatorId = "operation_aggregator_id"
     }
 }
 

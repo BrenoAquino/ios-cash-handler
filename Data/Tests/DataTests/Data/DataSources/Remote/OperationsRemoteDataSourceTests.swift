@@ -34,7 +34,7 @@ class OperationsRemoteDataSourceTests: XCTestCase {
         
         // Then
         waitForExpectations(timeout: 5, handler: nil)
-        XCTAssert(networkProvider.decodableType == OperationDTO.self)
+        XCTAssert(networkProvider.decodableType == [OperationDTO].self)
         XCTAssert(networkProvider.api?.hashValue() == OperationsAPIs.addOperation(params: params).hashValue())
     }
     
@@ -43,7 +43,7 @@ class OperationsRemoteDataSourceTests: XCTestCase {
         let expectation = expectation(description: "decoding add operation")
         let networkProvider = DecoderMockNetworkProvider(file: .addOperstionSuccess)
         let remoteDataSource = OperationsRemoteDataSourceImpl(networkProvider: networkProvider)
-        var operation: OperationDTO?
+        var operations: [OperationDTO]?
         
         // When
         remoteDataSource
@@ -56,18 +56,22 @@ class OperationsRemoteDataSourceTests: XCTestCase {
                     XCTFail("Error Code: \(error.type.rawValue)")
                 }
             }, receiveValue: { value in
-                operation = value
+                operations = value
             })
             .store(in: &cancellables)
         
         // Then
         waitForExpectations(timeout: 5, handler: nil)
-        XCTAssertNotNil(operation)
-        XCTAssert(operation?.title == "Madero")
-        XCTAssert(operation?.date == "20-12-2022")
-        XCTAssert(operation?.categoryId == "1")
-        XCTAssert(operation?.paymentMethodId == "1")
-        XCTAssert(operation?.value == 123.123)
+        XCTAssertNotNil(operations)
+        XCTAssert(operations?.count == 1)
+        XCTAssert(operations?[0].title == "Madero")
+        XCTAssert(operations?[0].date == "20-12-2022")
+        XCTAssert(operations?[0].categoryId == "1")
+        XCTAssert(operations?[0].paymentMethodId == "1")
+        XCTAssert(operations?[0].value == 123.123)
+        XCTAssertNil(operations?[0].currentInstallments)
+        XCTAssertNil(operations?[0].totalInstallments)
+        XCTAssertNil(operations?[0].operationAggregatorId)
     }
     
     func testAddOperationDecodingError() {
@@ -142,13 +146,16 @@ class OperationsRemoteDataSourceTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(operations)
-        XCTAssert(operations?.count == 3)
-        XCTAssert(operations?[0].id == "980c5695-5411-4de0-8fa6-a80b8b3a8e33")
-        XCTAssert(operations?[0].title == "Madero")
-        XCTAssert(operations?[0].date == "20-12-2022")
-        XCTAssert(operations?[0].categoryId == "521bac2c00686155bc874aac9c83650c2201140d13c14db953251b635bcc25cb")
-        XCTAssert(operations?[0].paymentMethodId == "0c1e0dc50d01c9111c308a1bade570345e232abc86d586fbecfb24262b568c50")
-        XCTAssert(operations?[0].value == 123.123)
+        XCTAssert(operations?.count == 4)
+        XCTAssert(operations?[0].id == "d225928d-6701-4870-acb6-80313818c41b")
+        XCTAssert(operations?[0].title == "Roupas")
+        XCTAssert(operations?[0].date == "03-04-2022")
+        XCTAssert(operations?[0].categoryId == "d738b05e792cf0108226b0f8a128e0a9203b859ab55c66fce4a4f480463ea328")
+        XCTAssert(operations?[0].paymentMethodId == "60d5dbad6a8db5f7f37eba1733a3e654e71350d36c7321c73c5d8d6a37b71d22")
+        XCTAssert(operations?[0].value == 192.14)
+        XCTAssert(operations?[0].currentInstallments == 2)
+        XCTAssert(operations?[0].totalInstallments == 2)
+        XCTAssert(operations?[0].operationAggregatorId == "f1aa8034-a788-48f7-9f70-c086e962a8db")
     }
     
     func testOperationsDecodingError() {

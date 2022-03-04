@@ -18,7 +18,10 @@ class MockSuccessOperationsRemoteDataSource: OperationsRemoteDataSource {
             date: "01-01-2000",
             categoryId: "0",
             paymentMethodId: "0",
-            value: 123
+            value: 123,
+            currentInstallments: nil,
+            totalInstallments: nil,
+            operationAggregatorId: nil
         )
         return Just([operation])
             .setFailureType(to: CharlesDataError.self)
@@ -26,15 +29,20 @@ class MockSuccessOperationsRemoteDataSource: OperationsRemoteDataSource {
     }
     
     
-    func addOperation(params: CreateOperationParams) -> AnyPublisher<OperationDTO, CharlesDataError> {
-        let operation: OperationDTO = .init(
-            id: "123",
-            title: params.title,
-            date: params.date,
-            categoryId: params.categoryId,
-            paymentMethodId: params.paymentMethodId,
-            value: params.value
-        )
+    func addOperation(params: CreateOperationParams) -> AnyPublisher<[OperationDTO], CharlesDataError> {
+        let operation: [OperationDTO] = [
+            .init(
+                id: "123",
+                title: params.title,
+                date: params.date,
+                categoryId: params.categoryId,
+                paymentMethodId: params.paymentMethodId,
+                value: params.value,
+                currentInstallments: nil,
+                totalInstallments: nil,
+                operationAggregatorId: nil
+            )
+        ]
         return Just(operation)
             .setFailureType(to: CharlesDataError.self)
             .eraseToAnyPublisher()
@@ -48,7 +56,7 @@ class MockErrorOperationsRemoteDataSource: OperationsRemoteDataSource {
             .eraseToAnyPublisher()
     }
     
-    func addOperation(params: CreateOperationParams) -> AnyPublisher<OperationDTO, CharlesDataError> {
+    func addOperation(params: CreateOperationParams) -> AnyPublisher<[OperationDTO], CharlesDataError> {
         let error = CharlesDataError(type: .badRequest)
         return Fail(error: error)
             .eraseToAnyPublisher()

@@ -22,7 +22,7 @@ class OperationsRepositoryTests: XCTestCase {
         let repository = OperationsRepositoryImpl(remoteDataSource: MockSuccessOperationsRemoteDataSource(),
                                                   paymentMethodsLocalDataSource: MockPaymentMethodsLocalDataSource(),
                                                   categoriesLocalDataSource: MockCategoriesLocalDataSource())
-        var operation: Domain.Operation?
+        var operations: [Domain.Operation]?
         
         // When
         repository
@@ -30,21 +30,22 @@ class OperationsRepositoryTests: XCTestCase {
             .sink { completion in
                 expectation.fulfill()
             } receiveValue: { value in
-                operation = value
+                operations = value
             }
             .store(in: &cancellables)
 
         // Then
         waitForExpectations(timeout: 5, handler: nil)
-        XCTAssertNotNil(operation)
-        XCTAssert(operation?.id == "123")
-        XCTAssert(operation?.title == "Title")
-        XCTAssert(operation?.value == 132)
-        XCTAssert(operation?.date == Date.components(day: 3, month: 4, year: 1997))
-        XCTAssert(operation?.category.id == "0")
-        XCTAssert(operation?.category.name == "Category0")
-        XCTAssert(operation?.paymentMethod.id == "1")
-        XCTAssert(operation?.paymentMethod.name == "PaymentMethod1")
+        XCTAssertNotNil(operations)
+        XCTAssert(operations?.count == 1)
+        XCTAssert(operations?[0].id == "123")
+        XCTAssert(operations?[0].title == "Title")
+        XCTAssert(operations?[0].value == 132)
+        XCTAssert(operations?[0].date == Date.components(day: 3, month: 4, year: 1997))
+        XCTAssert(operations?[0].category.id == "0")
+        XCTAssert(operations?[0].category.name == "Category0")
+        XCTAssert(operations?[0].paymentMethod.id == "1")
+        XCTAssert(operations?[0].paymentMethod.name == "PaymentMethod1")
     }
     
     func testAddOperationSuccessToDomainWithConverterError() {

@@ -13,7 +13,7 @@ public protocol OperationsUseCase {
     func categories() -> [Category]
     func paymentMethods() -> [PaymentMethod]
     func operations() -> AnyPublisher<[Operation], CharlesError>
-    func addOperation(title: String, date: Date, value: Double, categoryId: String, paymentMethodId: String) -> AnyPublisher<Operation, CharlesError>
+    func addOperation(title: String, date: Date, value: Double, categoryId: String, paymentMethodId: String) -> AnyPublisher<[Operation], CharlesError>
 }
 
 // MARK: Implementation
@@ -57,7 +57,7 @@ extension OperationsUseCaseImpl: OperationsUseCase {
                              date: Date,
                              value: Double,
                              categoryId: String,
-                             paymentMethodId: String) -> AnyPublisher<Operation, CharlesError> {
+                             paymentMethodId: String) -> AnyPublisher<[Operation], CharlesError> {
         let dateString = DateFormatter(pattern: "dd-MM-yyyy").string(from: date)
         return operationsRepository
             .addOperation(title: title, date: dateString, value: value, categoryId: categoryId, paymentMethodId: paymentMethodId)
