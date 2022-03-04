@@ -32,5 +32,7 @@ public extension DesignSystem {
         public static let input: DSFont = DSFont(rawValue: Font.system(size: 14, weight: .light, design: .default))
         /// System Font - Semibold - Size 12
         public static let button: DSFont = DSFont(rawValue: Font.system(size: 14, weight: .semibold, design: .default))
+        /// System Font - Light - Size 10
+        public static let footnote: DSFont = DSFont(rawValue: Font.system(size: 10, weight: .light, design: .default))
     }
 }
