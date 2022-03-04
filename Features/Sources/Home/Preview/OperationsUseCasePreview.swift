@@ -21,8 +21,8 @@ class OperationsUseCasePreview: OperationsUseCase {
     
     func paymentMethods() -> [Domain.PaymentMethod] {
         return [
-            Domain.PaymentMethod(id: "0", name: "Cartão de Crédito"),
-            Domain.PaymentMethod(id: "1", name: "Transferência Bancária")
+            Domain.PaymentMethod(id: "0", name: "Cartão de Crédito", hasInstallments: true),
+            Domain.PaymentMethod(id: "1", name: "Transferência Bancária", hasInstallments: false)
         ]
     }
     
@@ -32,13 +32,13 @@ class OperationsUseCasePreview: OperationsUseCase {
                              title: "Hollow Knight",
                              value: 13.99,
                              date: Date.components(day: 1, month: 3, year: 2022)!,
-                             paymentMethod: .init(id: "0", name: "Cartão de Crédito"),
+                             paymentMethod: .init(id: "0", name: "Cartão de Crédito", hasInstallments: true),
                              category: .init(id: "0", name: "Lazer")),
             Domain.Operation(id: "1",
                              title: "Monitor",
                              value: 1213.89,
                              date: Date.components(day: 20, month: 2, year: 2022)!,
-                             paymentMethod: .init(id: "0", name: "Transferência Bancária"),
+                             paymentMethod: .init(id: "0", name: "Transferência Bancária", hasInstallments: false),
                              category: .init(id: "0", name: "Tecnologia"))
         ])
             .setFailureType(to: CharlesError.self)

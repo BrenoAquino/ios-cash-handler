@@ -21,7 +21,7 @@ public struct PaymentMethodDTO: Decodable {
 
 public extension PaymentMethodDTO {
     func toDomain() -> Domain.PaymentMethod {
-        return Domain.PaymentMethod(id: id, name: name)
+        return Domain.PaymentMethod(id: id, name: name, hasInstallments: hasInstallments)
     }
     
     func toEntity() -> PaymentMethodEntity {

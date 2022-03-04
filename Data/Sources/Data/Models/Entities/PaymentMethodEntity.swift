@@ -16,6 +16,6 @@ public struct PaymentMethodEntity: Entity {
 
 public extension PaymentMethodEntity {
     func toDomain() -> Domain.PaymentMethod {
-        return Domain.PaymentMethod(id: primaryKey, name: name)
+        return Domain.PaymentMethod(id: primaryKey, name: name, hasInstallments: hasInstallments)
     }
 }
