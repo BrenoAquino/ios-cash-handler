@@ -42,6 +42,9 @@ extension OperationDTO {
                                 value: value,
                                 date: date,
                                 paymentMethod: paymentMethod,
-                                category: category)
+                                category: category,
+                                currentInstallments: currentInstallments,
+                                totalInstallments: totalInstallments,
+                                operationAggregatorId: operationAggregatorId)
     }
 }
