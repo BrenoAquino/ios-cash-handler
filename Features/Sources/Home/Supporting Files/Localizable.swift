@@ -24,5 +24,6 @@ extension Localizable {
         static let cashOutOption: String = "Cash Out"
         
         static func subtitleOperationCell(catengory: String, date: String) -> String { "\(catengory) • \(date)" }
+        static func valueDescription(currentInstallments: Int, totalInstallments: Int) -> String { "\(currentInstallments) / \(totalInstallments)" }
     }
 }

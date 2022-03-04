@@ -15,13 +15,15 @@ struct OperationUI: Identifiable {
     let subtitle: String
     let value: String
     let paymentMethodId: String
+    let valueDescription: String?
     
-    init(id: String, title: String, subtitle: String, value: String, paymentMethodId: String) {
+    init(id: String, title: String, subtitle: String, value: String, paymentMethodId: String, valueDescription: String?) {
         self.id = id
         self.title = title
         self.subtitle = subtitle
         self.value = value
         self.paymentMethodId = paymentMethodId
+        self.valueDescription = valueDescription
     }
     
     init(operation: Domain.Operation) {
@@ -35,5 +37,11 @@ struct OperationUI: Identifiable {
         
         let value = NumberFormatter.currency.string(for: operation.value)
         self.value = value ?? .empty
+        
+        if let currentInstallments = operation.currentInstallments, let totalInstallments = operation.totalInstallments {
+            self.valueDescription = Localizable.Home.valueDescription(currentInstallments: currentInstallments, totalInstallments: totalInstallments)
+        } else {
+            self.valueDescription = nil
+        }
     }
 }

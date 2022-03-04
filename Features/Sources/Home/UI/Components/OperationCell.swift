@@ -43,10 +43,11 @@ struct OperationCell: View {
 struct OperationCell_Previews: PreviewProvider {
     static var previews: some View {
         OperationCell(operation: .init(id: .empty,
-                                       title: "Madero",
+                                       title: "The Legend of Zelda",
                                        subtitle: "Refeição  •  20 / 12 / 2021",
                                        value: "R$ 112,54",
-                                       paymentMethodId: ""))
+                                       paymentMethodId: "",
+                                       valueDescription: "1 / 2"))
             .frame(height: 50)
             .preferredColorScheme(.dark)
             .previewLayout(.sizeThatFits)
