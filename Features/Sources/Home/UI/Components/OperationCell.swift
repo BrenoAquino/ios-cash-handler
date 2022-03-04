@@ -18,16 +18,32 @@ struct OperationCell: View {
                 Capsule()
                     .frame(width: 1)
                     .foregroundColor(Color.generate(by: operation.paymentMethodId))
+                
                 VStack(alignment: .leading, spacing: DSSpace.smallS.rawValue) {
-                    Text(operation.title)
-                        .font(DSFont.headline2.rawValue)
+                    HStack {
+                        Text(operation.title)
+                            .font(DSFont.headline2.rawValue)
+                            .foregroundColor(DSColor.primaryText.rawValue)
+                        
+                        if let valueDescription = operation.valueDescription {
+                            Text(valueDescription)
+                                .font(DSFont.footnote.rawValue)
+                                .foregroundColor(DSColor.primaryText.rawValue)
+                        }
+                    }
+                    
+                    
                     Text(operation.subtitle)
                         .font(DSFont.subheadline.rawValue)
+                        .foregroundColor(DSColor.primaryText.rawValue)
                 }
+                
                 Spacer()
+                
                 Text(operation.value)
                     .font(DSFont.headline2.rawValue)
                     .foregroundColor(DSColor.discountValue.rawValue)
+                
             }
             .padding(EdgeInsets(top: DSSpace.smallM.rawValue,
                                 leading: DSSpace.smallM.rawValue,
@@ -43,10 +59,21 @@ struct OperationCell: View {
 struct OperationCell_Previews: PreviewProvider {
     static var previews: some View {
         OperationCell(operation: .init(id: .empty,
-                                       title: "Madero",
+                                       title: "The Legend of Zelda",
                                        subtitle: "Refeição  •  20 / 12 / 2021",
                                        value: "R$ 112,54",
-                                       paymentMethodId: ""))
+                                       paymentMethodId: "",
+                                       valueDescription: "1 / 2"))
+            .frame(height: 50)
+            .preferredColorScheme(.dark)
+            .previewLayout(.sizeThatFits)
+        
+        OperationCell(operation: .init(id: .empty,
+                                       title: "The Legend of Zelda",
+                                       subtitle: "Refeição  •  20 / 12 / 2021",
+                                       value: "R$ 112,54",
+                                       paymentMethodId: "",
+                                       valueDescription: nil))
             .frame(height: 50)
             .preferredColorScheme(.dark)
             .previewLayout(.sizeThatFits)

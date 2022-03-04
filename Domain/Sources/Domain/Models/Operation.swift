@@ -14,13 +14,27 @@ public struct Operation {
     public let date: Date
     public let paymentMethod: PaymentMethod
     public let category: Category
+    public let currentInstallments: Int?
+    public let totalInstallments: Int?
+    public let operationAggregatorId: String?
     
-    public init(id: String, title: String, value: Double, date: Date, paymentMethod: PaymentMethod, category: Category) {
+    public init(id: String,
+                title: String,
+                value: Double,
+                date: Date,
+                paymentMethod: PaymentMethod,
+                category: Category,
+                currentInstallments: Int? = nil,
+                totalInstallments: Int? = nil,
+                operationAggregatorId: String? = nil) {
         self.id = id
         self.title = title
         self.value = value
         self.date = date
         self.paymentMethod = paymentMethod
         self.category = category
+        self.currentInstallments = currentInstallments
+        self.totalInstallments = totalInstallments
+        self.operationAggregatorId = operationAggregatorId
     }
 }

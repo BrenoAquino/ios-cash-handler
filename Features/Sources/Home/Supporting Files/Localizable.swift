@@ -13,7 +13,7 @@ typealias HomeLocalizable = Localizable.Home
 extension Localizable {
     
     enum Home {
-        static let homeTitle: String = "Extrato"
+        static let homeTitle: String = "Home"
         
         static let userTitle: String = "Breno Aquino"
         static let companyTitle: String = "Charles Inc."
@@ -24,5 +24,6 @@ extension Localizable {
         static let cashOutOption: String = "Cash Out"
         
         static func subtitleOperationCell(catengory: String, date: String) -> String { "\(catengory) • \(date)" }
+        static func valueDescription(currentInstallments: Int, totalInstallments: Int) -> String { "\(currentInstallments) / \(totalInstallments)" }
     }
 }

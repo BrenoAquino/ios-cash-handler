@@ -11,10 +11,11 @@ import Domain
 public struct PaymentMethodEntity: Entity {
     public let primaryKey: String
     public let name: String
+    public let hasInstallments: Bool
 }
 
 public extension PaymentMethodEntity {
     func toDomain() -> Domain.PaymentMethod {
-        return Domain.PaymentMethod(id: primaryKey, name: name)
+        return Domain.PaymentMethod(id: primaryKey, name: name, hasInstallments: hasInstallments)
     }
 }

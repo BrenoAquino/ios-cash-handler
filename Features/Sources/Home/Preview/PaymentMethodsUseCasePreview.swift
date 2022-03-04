@@ -14,8 +14,8 @@ import Domain
 class PaymentMethodsUseCasePreview: PaymentMethodsUseCase {
     func paymentMethods() -> AnyPublisher<[PaymentMethod], CharlesError> {
         return Just([
-            Domain.PaymentMethod(id: "0", name: "Cartão de Crédito"),
-            Domain.PaymentMethod(id: "1", name: "Transferência Bancária")
+            Domain.PaymentMethod(id: "0", name: "Cartão de Crédito", hasInstallments: true),
+            Domain.PaymentMethod(id: "1", name: "Transferência Bancária", hasInstallments: false)
         ])
             .setFailureType(to: CharlesError.self)
             .eraseToAnyPublisher()
