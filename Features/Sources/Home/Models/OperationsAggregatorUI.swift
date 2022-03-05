@@ -18,7 +18,7 @@ struct OperationsAggregatorUI: Identifiable {
     
     init?(dateAggregator: Domain.DateAggregator, operations: [Domain.Operation]) {
         guard dateAggregator.month >= 1 && dateAggregator.month <= 12 else { return nil }
-        self.month = Calendar.current.monthSymbols[dateAggregator.month - 1]
+        self.month = Date.monthName(month: dateAggregator.month)
         self.year = String(dateAggregator.year)
         self.operations = operations.map { OperationUI(operation: $0) }
     }
