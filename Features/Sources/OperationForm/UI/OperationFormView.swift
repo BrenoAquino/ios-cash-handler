@@ -74,10 +74,12 @@ public struct OperationFormView: View {
                           text: $viewModel.name)
                     .listRowBackground(DSColor.secondBackground.rawValue)
             }
+            
             Section(Localizable.OperationForm.valueTitle) {
                 CurrencyTextField(value: $viewModel.value)
                     .listRowBackground(DSColor.secondBackground.rawValue)
             }
+            
             Section(Localizable.OperationForm.categoryTitle) {
                 Picker(Localizable.OperationForm.categoryPlaceholder, selection: $viewModel.category) {
                     ForEach(viewModel.categories) {
@@ -92,6 +94,7 @@ public struct OperationFormView: View {
                 .pickerStyle(.menu)
                 .listRowBackground(DSColor.secondBackground.rawValue)
             }
+            
             Section(Localizable.OperationForm.paymentTypeTitle) {
                 Picker(Localizable.OperationForm.paymentPlaceholder, selection: $viewModel.paymentMethod) {
                     ForEach(viewModel.paymentMethods) {
@@ -106,6 +109,7 @@ public struct OperationFormView: View {
                 .pickerStyle(.menu)
                 .listRowBackground(DSColor.secondBackground.rawValue)
             }
+            
             Section(Localizable.OperationForm.dateTitle) {
                 DatePicker(String.empty, selection: $viewModel.date, in: ...Date(), displayedComponents: .date)
                     .datePickerStyle(GraphicalDatePickerStyle())
