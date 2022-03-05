@@ -74,12 +74,7 @@ extension HomeView.ViewModel {
                     self?.stateHandler.failure()
                 }
             } receiveValue: { [weak self] operations in
-                for key in operations.keys.sorted(by: { $0.dateToCompate > $1.dateToCompate }) {
-                    guard let values = operations[key],
-                          let operationsAggregatorUI = OperationsAggregatorUI(dateAggregator: key, operations: values)
-                    else { continue }
-                    self?.operations.append(operationsAggregatorUI)
-                }
+                self?.operations = operations.compactMap { OperationsAggregatorUI(operationsAggregator: $0) }
             }
             .store(in: &cancellables)
     }

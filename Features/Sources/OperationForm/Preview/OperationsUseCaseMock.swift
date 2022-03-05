@@ -20,7 +20,7 @@ class OperationsUseCaseMock: OperationsUseCase {
         return []
     }
     
-    func operations() -> AnyPublisher<[DateAggregator : [Domain.Operation]], CharlesError> {
+    func operations() -> AnyPublisher<[Domain.OperationsAggregator], CharlesError> {
         return Empty().eraseToAnyPublisher()
     }
     

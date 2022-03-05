@@ -34,7 +34,6 @@ public extension OperationFormView {
         
         @Published var banner: BannerControl = .init(show: false, data: .empty)
         
-        @Published private(set) var hasInstallments: Bool = true
         @Published private(set) var isValidCategory: Bool = false
         @Published private(set) var isValidPaymentMethod: Bool = false
         @Published private(set) var validInputs: Bool = false
