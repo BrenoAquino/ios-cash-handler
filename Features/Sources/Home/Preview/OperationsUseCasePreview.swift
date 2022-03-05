@@ -26,8 +26,10 @@ class OperationsUseCasePreview: OperationsUseCase {
         ]
     }
     
-    func operations() -> AnyPublisher<[Domain.Operation], CharlesError> {
-        return Just([
+    func operations() -> AnyPublisher<[Domain.DateAggregator : [Domain.Operation]], CharlesError> {
+        let date = Date.components(day: 1, month: 3, year: 2022)!
+        var dict: [Domain.DateAggregator : [Domain.Operation]] = [:]
+        dict[Domain.DateAggregator(date: date)!] = [
             Domain.Operation(id: "0",
                              title: "Hollow Knight",
                              value: 13.99,
@@ -40,7 +42,9 @@ class OperationsUseCasePreview: OperationsUseCase {
                              date: Date.components(day: 20, month: 2, year: 2022)!,
                              paymentMethod: .init(id: "0", name: "Transferência Bancária", hasInstallments: false),
                              category: .init(id: "0", name: "Tecnologia"))
-        ])
+        ]
+        
+        return Just(dict)
             .setFailureType(to: CharlesError.self)
             .eraseToAnyPublisher()
     }

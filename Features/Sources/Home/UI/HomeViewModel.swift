@@ -21,7 +21,7 @@ public extension HomeView {
         
         // MARK: Publisher
         @Published private(set) var stateHandler: ViewStateHandler = .init(state: .loading)
-        @Published var operations: [OperationUI] = []
+        @Published private(set) var operations: [OperationsAggregatorUI] = []
         
         // MARK: Redirects
         public var selectAddOperation: (() -> Void)?
@@ -74,7 +74,12 @@ extension HomeView.ViewModel {
                     self?.stateHandler.failure()
                 }
             } receiveValue: { [weak self] operations in
-                self?.operations = operations.map { OperationUI(operation: $0) }
+                for key in operations.keys.sorted(by: { $0.dateToCompate > $1.dateToCompate }) {
+                    guard let values = operations[key],
+                          let operationsAggregatorUI = OperationsAggregatorUI(dateAggregator: key, operations: values)
+                    else { continue }
+                    self?.operations.append(operationsAggregatorUI)
+                }
             }
             .store(in: &cancellables)
     }

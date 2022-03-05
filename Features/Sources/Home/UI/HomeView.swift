@@ -79,17 +79,32 @@ public struct HomeView: View {
     
     // MARK: Content List
     private var operationsList: some View {
-        List(viewModel.operations) { operation in
-            OperationCell(operation: operation)
-                .listRowSeparator(.hidden)
-                .listRowBackground(DSColor.clear.rawValue)
-                .listRowInsets(.init(top: DSSpace.smallM.rawValue,
-                                     leading: .zero,
-                                     bottom: DSSpace.smallM.rawValue,
-                                     trailing: .zero))
+        List {
+            ForEach(Array(viewModel.operations)) { aggregator in
+                Section {
+                    ForEach(aggregator.operations) { operation in
+                        OperationCell(operation: operation)
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(DSColor.clear.rawValue)
+                            .listRowInsets(.init(top: DSSpace.smallM.rawValue,
+                                                 leading: .zero,
+                                                 bottom: DSSpace.smallM.rawValue,
+                                                 trailing: .zero))
+                    }
+                    
+                } header: {
+                    HStack {
+                        Text(aggregator.month)
+                            .foregroundColor(DSColor.primaryText.rawValue)
+                            .font(DSFont.headline2.rawValue)
+                        
+                        Text(aggregator.year)
+                            .foregroundColor(DSColor.primaryText.rawValue)
+                            .font(DSFont.footnote.rawValue)
+                    }
+                }
+            }
         }
-        .listStyle(.plain)
-        .padding(.horizontal, DSSpace.smallL.rawValue)
     }
 }
 

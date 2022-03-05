@@ -12,7 +12,7 @@ import Common
 public protocol OperationsUseCase {
     func categories() -> [Category]
     func paymentMethods() -> [PaymentMethod]
-    func operations() -> AnyPublisher<[Operation], CharlesError>
+    func operations() -> AnyPublisher<[DateAggregator : [Operation]], CharlesError>
     func addOperation(title: String, date: Date, value: Double, categoryId: String, paymentMethodId: String) -> AnyPublisher<[Operation], CharlesError>
 }
 
@@ -45,11 +45,25 @@ extension OperationsUseCaseImpl: OperationsUseCase {
             .cachedPaymentMethods()
     }
     
-    public func operations() -> AnyPublisher<[Operation], CharlesError> {
+    public func operations() -> AnyPublisher<[DateAggregator : [Operation]], CharlesError> {
         return operationsRepository
             .operations()
             .map { $0.sorted(by: { $0.title < $1.title }) }
             .map { $0.sorted(by: { $0.date > $1.date }) }
+            .map { operations in
+                var operationsPerMonths: [DateAggregator : [Operation]] = [:]
+                
+                for operation in operations {
+                    guard let key = DateAggregator(date: operation.date) else { continue }
+                    if operationsPerMonths[key] != nil {
+                        operationsPerMonths[key]?.append(operation)
+                    } else {
+                        operationsPerMonths[key] = [operation]
+                    }
+                }
+                
+                return operationsPerMonths
+            }
             .eraseToAnyPublisher()
     }
     
