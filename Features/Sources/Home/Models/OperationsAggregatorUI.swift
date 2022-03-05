@@ -16,11 +16,11 @@ struct OperationsAggregatorUI: Identifiable {
     let year: String
     let operations: [OperationUI]
     
-    init?(dateAggregator: Domain.DateAggregator, operations: [Domain.Operation]) {
-        guard dateAggregator.month >= 1 && dateAggregator.month <= 12 else { return nil }
-        self.month = Date.monthName(month: dateAggregator.month)
-        self.year = String(dateAggregator.year)
-        self.operations = operations.map { OperationUI(operation: $0) }
+    init?(operationsAggregator: Domain.OperationsAggregator) {
+        guard operationsAggregator.month >= 1 && operationsAggregator.month <= 12 else { return nil }
+        self.month = Date.monthName(month: operationsAggregator.month)
+        self.year = String(operationsAggregator.year)
+        self.operations = operationsAggregator.operations.map { OperationUI(operation: $0) }
     }
 }
 
