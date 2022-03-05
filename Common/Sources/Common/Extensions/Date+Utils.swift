@@ -7,21 +7,30 @@
 
 import Foundation
 
-extension DateFormatter {
+public extension DateFormatter {
     
-    public convenience init(pattern: String) {
+    convenience init(pattern: String) {
         self.init()
         dateFormat = pattern
     }
 }
 
-extension Date {
+public extension Date {
     
-    public static func components(day: Int, month: Int, year: Int) -> Date? {
+    static func components(day: Int, month: Int, year: Int) -> Date? {
         var dateComponents = DateComponents()
         dateComponents.year = year
         dateComponents.month = month
         dateComponents.day = day
         return Calendar(identifier: .gregorian).date(from: dateComponents)
+    }
+}
+
+public extension Date {
+    
+    static func monthName(month: Int) -> String {
+        let formatter = DateFormatter(pattern: "MMMM")
+        formatter.locale = Locale.preferred
+        return formatter.monthSymbols[month - 1]
     }
 }

@@ -115,7 +115,7 @@ extension OperationFormView.ViewModel {
                     self?.stateHandler.finished()
                 case .failure(let error):
                     self?.setupErrorBanner(error: error)
-                    self?.stateHandler.finished()
+                    self?.stateHandler.failure()
                 }
             }
             .store(in: &cancellables)

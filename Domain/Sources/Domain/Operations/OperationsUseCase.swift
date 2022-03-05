@@ -12,7 +12,7 @@ import Common
 public protocol OperationsUseCase {
     func categories() -> [Category]
     func paymentMethods() -> [PaymentMethod]
-    func operations() -> AnyPublisher<[Operation], CharlesError>
+    func operations() -> AnyPublisher<[OperationsAggregator], CharlesError>
     func addOperation(title: String, date: Date, value: Double, categoryId: String, paymentMethodId: String) -> AnyPublisher<[Operation], CharlesError>
 }
 
@@ -45,11 +45,28 @@ extension OperationsUseCaseImpl: OperationsUseCase {
             .cachedPaymentMethods()
     }
     
-    public func operations() -> AnyPublisher<[Operation], CharlesError> {
+    public func operations() -> AnyPublisher<[OperationsAggregator], CharlesError> {
         return operationsRepository
             .operations()
             .map { $0.sorted(by: { $0.title < $1.title }) }
             .map { $0.sorted(by: { $0.date > $1.date }) }
+            .map { operations in
+                var aggregators: [OperationsAggregator] = []
+                
+                for operation in operations {
+                    let components = Calendar.current.dateComponents([.month, .year], from: operation.date)
+                    guard let month = components.month, let year = components.year else { continue }
+                    
+                    if let index = aggregators.firstIndex(where: { $0.month == month && $0.year == year }) {
+                        aggregators[index].addOperation(operation)
+                    } else {
+                        let aggregator = OperationsAggregator(month: month, year: year, operations: [operation])
+                        aggregators.append(aggregator)
+                    }
+                }
+                
+                return aggregators.sorted(by: { $0.dateToCompate > $1.dateToCompate })
+            }
             .eraseToAnyPublisher()
     }
     

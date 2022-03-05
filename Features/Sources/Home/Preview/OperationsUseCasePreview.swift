@@ -26,8 +26,8 @@ class OperationsUseCasePreview: OperationsUseCase {
         ]
     }
     
-    func operations() -> AnyPublisher<[Domain.Operation], CharlesError> {
-        return Just([
+    func operations() -> AnyPublisher<[Domain.OperationsAggregator], CharlesError> {
+        let march: Domain.OperationsAggregator = .init(month: 3, year: 2022, operations: [
             Domain.Operation(id: "0",
                              title: "Hollow Knight",
                              value: 13.99,
@@ -41,6 +41,8 @@ class OperationsUseCasePreview: OperationsUseCase {
                              paymentMethod: .init(id: "0", name: "Transferência Bancária", hasInstallments: false),
                              category: .init(id: "0", name: "Tecnologia"))
         ])
+        
+        return Just([march])
             .setFailureType(to: CharlesError.self)
             .eraseToAnyPublisher()
     }

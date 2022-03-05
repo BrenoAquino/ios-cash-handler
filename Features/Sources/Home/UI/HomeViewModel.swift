@@ -21,7 +21,7 @@ public extension HomeView {
         
         // MARK: Publisher
         @Published private(set) var stateHandler: ViewStateHandler = .init(state: .loading)
-        @Published var operations: [OperationUI] = []
+        @Published private(set) var operations: [OperationsAggregatorUI] = []
         
         // MARK: Redirects
         public var selectAddOperation: (() -> Void)?
@@ -74,7 +74,7 @@ extension HomeView.ViewModel {
                     self?.stateHandler.failure()
                 }
             } receiveValue: { [weak self] operations in
-                self?.operations = operations.map { OperationUI(operation: $0) }
+                self?.operations = operations.compactMap { OperationsAggregatorUI(operationsAggregator: $0) }
             }
             .store(in: &cancellables)
     }
