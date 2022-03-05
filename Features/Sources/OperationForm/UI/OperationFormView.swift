@@ -69,33 +69,49 @@ public struct OperationFormView: View {
     // MARK: Form
     private var form: some View {
         Form {
-            Section(Localizable.OperationForm.operationTitle) {
-                TextField(Localizable.OperationForm.operationPlaceholder,
-                          text: $viewModel.name)
-                    .listRowBackground(DSColor.secondBackground.rawValue)
-            }
-            
-            Section(Localizable.OperationForm.valueTitle) {
-                CurrencyTextField(value: $viewModel.value)
-                    .listRowBackground(DSColor.secondBackground.rawValue)
-            }
-            
-            Section(Localizable.OperationForm.categoryTitle) {
-                Picker(Localizable.OperationForm.categoryPlaceholder, selection: $viewModel.category) {
-                    ForEach(viewModel.categories) {
-                        Text($0.name)
-                    }
-                }
-                .accentColor(
-                    viewModel.isValidCategory ?
-                    DSColor.primaryText.rawValue :
-                        DSColor.placholder.rawValue
-                )
-                .pickerStyle(.menu)
+            title
+            value
+            category
+            payment
+            date
+        }
+    }
+    
+    private var title: some View {
+        Section(Localizable.OperationForm.operationTitle) {
+            TextField(Localizable.OperationForm.operationPlaceholder,
+                      text: $viewModel.name)
                 .listRowBackground(DSColor.secondBackground.rawValue)
+        }
+    }
+    
+    private var value: some View {
+        Section(Localizable.OperationForm.valueTitle) {
+            CurrencyTextField(value: $viewModel.value)
+                .listRowBackground(DSColor.secondBackground.rawValue)
+        }
+    }
+    
+    private var category: some View {
+        Section(Localizable.OperationForm.categoryTitle) {
+            Picker(Localizable.OperationForm.categoryPlaceholder, selection: $viewModel.category) {
+                ForEach(viewModel.categories) {
+                    Text($0.name)
+                }
             }
-            
-            Section(Localizable.OperationForm.paymentTypeTitle) {
+            .accentColor(
+                viewModel.isValidCategory ?
+                    DSColor.primaryText.rawValue :
+                    DSColor.placholder.rawValue
+            )
+            .pickerStyle(.menu)
+            .listRowBackground(DSColor.secondBackground.rawValue)
+        }
+    }
+    
+    private var payment: some View {
+        Section(Localizable.OperationForm.paymentTypeTitle) {
+            HStack {
                 Picker(Localizable.OperationForm.paymentPlaceholder, selection: $viewModel.paymentMethod) {
                     ForEach(viewModel.paymentMethods) {
                         Text($0.name)
@@ -103,19 +119,25 @@ public struct OperationFormView: View {
                 }
                 .accentColor(
                     viewModel.isValidPaymentMethod ?
-                    DSColor.primaryText.rawValue :
+                        DSColor.primaryText.rawValue :
                         DSColor.placholder.rawValue
                 )
                 .pickerStyle(.menu)
+                
+                if viewModel.hasInstallments {
+                    TextField("x12", text: $viewModel.installments)
+                }
+            }
+            .listRowBackground(DSColor.secondBackground.rawValue)
+        }
+    }
+    
+    private var date: some View {
+        Section(Localizable.OperationForm.dateTitle) {
+            DatePicker(String.empty, selection: $viewModel.date, in: ...Date(), displayedComponents: .date)
+                .datePickerStyle(GraphicalDatePickerStyle())
+                .labelsHidden()
                 .listRowBackground(DSColor.secondBackground.rawValue)
-            }
-            
-            Section(Localizable.OperationForm.dateTitle) {
-                DatePicker(String.empty, selection: $viewModel.date, in: ...Date(), displayedComponents: .date)
-                    .datePickerStyle(GraphicalDatePickerStyle())
-                    .labelsHidden()
-                    .listRowBackground(DSColor.secondBackground.rawValue)
-            }
         }
     }
 }

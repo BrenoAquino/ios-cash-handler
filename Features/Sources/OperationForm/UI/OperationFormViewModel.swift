@@ -28,8 +28,10 @@ public extension OperationFormView {
         @Published var name: String = .empty
         @Published var date: Date = .init()
         @Published var value: Double = .zero
-        @Published var category: String = PaymentMethodPickerUI.placeholder.id
-        @Published var paymentMethod: String = PaymentMethodPickerUI.placeholder.id
+        @Published var category: CategoryPickerUI = CategoryPickerUI.placeholder
+        @Published var paymentMethod: PaymentMethodPickerUI = PaymentMethodPickerUI.placeholder
+        @Published var installments: String = .empty
+        
         @Published var banner: BannerControl = .init(show: false, data: .empty)
         
         @Published private(set) var hasInstallments: Bool = true
@@ -61,7 +63,7 @@ extension OperationFormView.ViewModel {
     private func setupPaymentMethods() {
         paymentMethods = [.placeholder]
         paymentMethods.append(contentsOf: operationsUseCase.paymentMethods().map {
-            PaymentMethodPickerUI(id: $0.id, name: $0.name)
+            PaymentMethodPickerUI(id: $0.id, name: $0.name, hasInstallments: $0.hasInstallments)
         })
     }
     
@@ -86,14 +88,16 @@ extension OperationFormView.ViewModel {
         
         $category
             .sink { [weak self] value in
-                self?.isValidCategory = value != CategoryPickerUI.placeholder.id
+                self?.isValidCategory = value.id != CategoryPickerUI.placeholder.id
                 self?.validInputs = inputValidator()
             }
             .store(in: &cancellables)
         
         $paymentMethod
             .sink { [weak self] value in
-                self?.isValidPaymentMethod = value != PaymentMethodPickerUI.placeholder.id
+                print(value)
+                self?.isValidPaymentMethod = value.id != PaymentMethodPickerUI.placeholder.id
+                self?.hasInstallments = value.hasInstallments
                 self?.validInputs = inputValidator()
             }
             .store(in: &cancellables)
@@ -107,8 +111,8 @@ extension OperationFormView.ViewModel {
             .addOperation(title: name,
                           date: date,
                           value: value,
-                          categoryId: category,
-                          paymentMethodId: paymentMethod)
+                          categoryId: category.id,
+                          paymentMethodId: paymentMethod.id)
             .receive(on: RunLoop.main)
             .sinkCompletion { [weak self] completion in
                 switch completion {
