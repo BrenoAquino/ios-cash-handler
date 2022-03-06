@@ -7,13 +7,15 @@
 
 import SwiftUI
 
-public struct NavigationBar: View {
+public struct NavigationBar<Content>: View where Content : View {
     
     var title = ""
-//    @Binding var hasScrolled: Bool
+    @ViewBuilder private let items: () -> Content?
     
-    public init(title: String = "") {
+    public init(title: String = "",
+                @ViewBuilder items: @escaping () -> Content? = { nil }) {
         self.title = title
+        self.items = items
     }
     
     public var body: some View {
@@ -21,46 +23,37 @@ public struct NavigationBar: View {
             Color.clear
                 .background(.ultraThinMaterial)
                 .blur(radius: 10)
-                .opacity(0)
-//                .opacity(hasScrolled ? 1 : 0)
+                .frame(maxHeight: .infinity)
+                .ignoresSafeArea(.all)
             
-            Text(title)
-//                .animatableFont(size: hasScrolled ? 22 : 34, weight: .bold)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading,20)
-                .padding(.top,20)
-//                .offset(y: hasScrolled ? -4 : 0)
-            
-            HStack(spacing:16) {
-                Image(systemName:"magnifyingglass")
-                    .font(.body.weight(.bold))
-                    .frame(width: 36, height: 36)
-                    .foregroundColor(.secondary)
-                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-//                    .strokeStyle(cornerRadius: 14)
+            HStack(alignment: .center) {
+                Text(title)
+                    .font(DSFont.largeTitle.rawValue)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                    .padding(.leading, 20)
+                    .padding(.top, 20)
                 
-                ImageAsset.add
-                    .resizable()
-                    .foregroundColor(.secondary)
-                    .frame(width: 26, height: 26)
-                    .cornerRadius(10)
-                    .padding(8)
-                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-//                    .strokeStyle(cornerRadius: 18)
+                if let items = items {
+                    NavigationItem {
+                        items()
+                    }
+                }
             }
-            .frame(maxWidth: .infinity, alignment: .trailing)
-            .padding(.trailing, 20)
-            .padding(.top, 20)
-//            .offset(y: hasScrolled ? -4 : 0)
+            .padding(.trailing, DSSpace.smallL.rawValue)
         }
         .frame(height: 70)
-//        .frame(height: hasScrolled ? 44 : 70)
         .frame(maxHeight: .infinity, alignment: .top)
     }
 }
 
 struct NavigationBar_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationBar(title: "Featured")
+        NavigationBar(title: "Featured") {
+            Image(systemName:"magnifyingglass")
+            Image(systemName:"magnifyingglass")
+            Image(systemName:"magnifyingglass")
+        }
+        .preferredColorScheme(.dark)
+        .previewLayout(.sizeThatFits)
     }
 }

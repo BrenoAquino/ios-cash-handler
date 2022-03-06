@@ -17,16 +17,16 @@ public struct HomeView: View {
     }
     
     public var body: some View {
-        content
-            .background(
-                DSColor.background.rawValue.edgesIgnoringSafeArea(.all)
-            )
-            .navigationTitle(Localizable.Home.homeTitle)
-            .banner(data: $viewModel.banner.data, show: $viewModel.banner.show)
-            .toolbar {
-                addBar
+        CustomNavigationBar(Localizable.Home.homeTitle) {
+            content
+        } items: {
+            Button(action: viewModel.selectAdd) {
+                ImageAsset.add.tint(Color.white)
             }
-            .onAppear(perform: viewModel.fetchDate)
+        }
+        .background(DSColor.background.rawValue.edgesIgnoringSafeArea(.all))
+        .banner(data: $viewModel.banner.data, show: $viewModel.banner.show)
+        .onAppear(perform: viewModel.fetchDate)
     }
     
     // MARK: View State

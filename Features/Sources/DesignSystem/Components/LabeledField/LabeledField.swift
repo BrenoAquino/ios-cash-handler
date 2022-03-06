@@ -36,7 +36,3 @@ public struct LabeledField<Content>: View where Content : View {
         }
     }
 }
-
-public extension LabeledField {
-    
-}
