@@ -22,8 +22,8 @@ public struct HomeView: View {
                 DSColor.background.rawValue.edgesIgnoringSafeArea(.all)
             )
             .navigationTitle(Localizable.Home.homeTitle)
+            .banner(data: $viewModel.banner.data, show: $viewModel.banner.show)
             .toolbar {
-//                profileBar
                 addBar
             }
             .onAppear(perform: viewModel.fetchDate)
@@ -44,31 +44,6 @@ public struct HomeView: View {
      }
     
     // MARK: Navigation Bar
-    private var profileBar: some ToolbarContent {
-        ToolbarItem(placement: .navigationBarLeading) {
-            HStack(spacing: DSSpace.smallM.rawValue) {
-                ZStack() {
-                    Circle()
-                        .fill(DSColor.secondBackground.rawValue)
-                        .frame(width: DSHome.circleRadius, height: DSHome.circleRadius)
-                        .shadow(style: .medium)
-                    Text(Localizable.Home.userInitials)
-                        .foregroundColor(DSColor.primaryText.rawValue)
-                        .font(.headline)
-                }
-                Spacer(minLength: DSSpace.smallS.rawValue)
-                VStack(alignment: .leading, spacing: DSSpace.smallS.rawValue) {
-                    Text(Localizable.Home.userTitle)
-                        .foregroundColor(DSColor.primaryText.rawValue)
-                        .font(.headline)
-                    Text(Localizable.Home.companyTitle)
-                        .foregroundColor(DSColor.primaryText.rawValue)
-                        .font(.subheadline)
-                }
-            }
-        }
-    }
-    
     private var addBar: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
             Button(action: viewModel.selectAdd) {

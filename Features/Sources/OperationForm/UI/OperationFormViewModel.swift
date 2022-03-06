@@ -67,7 +67,7 @@ extension OperationFormView.ViewModel {
     }
     
     private func setupErrorBanner(error: CharlesError) {
-        banner.data = .init(title: Localizable.OperationForm.failureTitleBanner,
+        banner.data = .init(title: Localizable.Common.failureTitleBanner,
                             subtitle: error.localizedDescription,
                             type: .failure)
         banner.show = true
