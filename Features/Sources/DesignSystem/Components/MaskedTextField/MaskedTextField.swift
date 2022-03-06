@@ -11,15 +11,21 @@ public struct MaskedTextField: UIViewRepresentable {
     
     let maskedTextField: MaskedUITextField
     
-    public init(placeholder: String? = nil, formatter: @escaping (_ text: String?) -> String?, text: Binding<String>) {
+    public init(placeholder: String? = nil,
+                keyboardType: UIKeyboardType = .default,
+                textAlignment: NSTextAlignment = .left,
+                formatter: @escaping (_ text: String?) -> String?,
+                text: Binding<String>) {
         maskedTextField = MaskedUITextField(placeholder: placeholder, formatter: formatter, text: text)
+        maskedTextField.keyboardType = keyboardType
+        maskedTextField.textAlignment = textAlignment
     }
     
     public func makeUIView(context: Context) -> MaskedUITextField {
         return maskedTextField
     }
     
-    public func updateUIView(_ uiView: MaskedUITextField, context: Context) { }
+    public func updateUIView(_ uiView: MaskedUITextField, context: Context) {}
 }
 
 #if DEBUG
@@ -27,7 +33,7 @@ public struct MaskedTextField: UIViewRepresentable {
 struct MaskedTextField_Previews: PreviewProvider {
     
     static var previews: some View {
-        MaskedTextField(value: .constant(0))
+        MaskedTextField(formatter: { $0 }, text: .constant(.empty))
     }
 }
 #endif

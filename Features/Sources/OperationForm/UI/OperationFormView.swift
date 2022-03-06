@@ -126,20 +126,15 @@ public struct OperationFormView: View {
                 .pickerStyle(.menu)
             }
             
-            if viewModel.hasInstallments || true {
-                LabeledField("Parcelas") {
-                    MaskedTextField(placeholder: "x12", formatter: { text in
-                        if let text = text {
-                            if text.starts(with: "x") == true {
-                                return text
-                            } else {
-                                return "x" + text
-                            }
-                        }
-                        return nil
-                    }, text: $viewModel.installments)
+            if viewModel.hasInstallments {
+                LabeledField(Localizable.OperationForm.installmentsTypeTitle) {
+                    MaskedTextField(placeholder: Localizable.OperationForm.installmentsPlaceholder,
+                                    keyboardType: .numberPad,
+                                    textAlignment: .center,
+                                    formatter: viewModel.installmentsFormatter,
+                                    text: $viewModel.installments)
                 }
-                .frame(width: 100)
+                .frame(width: DSOperationForm.installmentsWidth)
             }
         }
         .padding(.horizontal, DSSpace.smallL.rawValue)

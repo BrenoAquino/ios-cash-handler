@@ -74,6 +74,18 @@ extension OperationFormView.ViewModel {
     }
 }
 
+// MARK: - Formatters
+extension OperationFormView.ViewModel {
+    func installmentsFormatter(_ text: String?) -> String? {
+        guard let text = text else { return nil }
+        if text.starts(with: Localizable.OperationForm.installmentsPrefix) == true {
+            return text
+        } else {
+            return Localizable.OperationForm.installmentsPrefix + text
+        }
+    }
+}
+
 // MARK: - Flows
 extension OperationFormView.ViewModel {
     func checkInputsSubscribers() {

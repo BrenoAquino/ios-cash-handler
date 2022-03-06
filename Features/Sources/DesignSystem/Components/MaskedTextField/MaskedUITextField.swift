@@ -15,6 +15,17 @@ public class MaskedUITextField: UIView {
     
     @Binding private var text: String
     
+    // MARK: Gets/Sets
+    var keyboardType: UIKeyboardType {
+        get { textField.keyboardType }
+        set { textField.keyboardType = newValue }
+    }
+    
+    var textAlignment: NSTextAlignment {
+        get { textField.textAlignment }
+        set { textField.textAlignment = newValue }
+    }
+    
     // MARK: - Layout Vars
     private lazy var textField: UITextField = {
         let textField = UITextField()
