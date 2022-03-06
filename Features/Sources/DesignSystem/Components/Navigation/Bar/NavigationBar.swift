@@ -9,12 +9,16 @@ import SwiftUI
 
 public struct NavigationBar<Content>: View where Content : View {
     
-    var title = ""
+    let title: String
+    let hasBack: Bool
     @ViewBuilder private let items: () -> Content?
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    public init(title: String = "",
+    public init(title: String = .empty,
+                hasBack: Bool = true,
                 @ViewBuilder items: @escaping () -> Content? = { nil }) {
         self.title = title
+        self.hasBack = hasBack
         self.items = items
     }
     
@@ -26,7 +30,18 @@ public struct NavigationBar<Content>: View where Content : View {
                 .frame(maxHeight: .infinity)
                 .ignoresSafeArea(.all)
             
-            HStack(alignment: .center) {
+            HStack {
+                if hasBack {
+                    NavigationItem {
+                        Button {
+                            self.presentationMode.wrappedValue.dismiss()
+                        } label: {
+                            ImageAsset.back
+                                .tint(DSColor.primaryText.rawValue)
+                        }
+                    }
+                }
+                
                 Text(title)
                     .font(DSFont.largeTitle.rawValue)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
@@ -39,7 +54,7 @@ public struct NavigationBar<Content>: View where Content : View {
                     }
                 }
             }
-            .padding(.trailing, DSSpace.smallL.rawValue)
+            .padding(.horizontal, DSSpace.smallL.rawValue)
         }
         .frame(height: 70)
         .frame(maxHeight: .infinity, alignment: .top)
@@ -51,6 +66,12 @@ struct NavigationBar_Previews: PreviewProvider {
         NavigationBar(title: "Featured") {
             Image(systemName:"magnifyingglass")
             Image(systemName:"magnifyingglass")
+            Image(systemName:"magnifyingglass")
+        }
+        .preferredColorScheme(.dark)
+        .previewLayout(.sizeThatFits)
+        
+        NavigationBar(title: "Featured", hasBack: false) {
             Image(systemName:"magnifyingglass")
         }
         .preferredColorScheme(.dark)

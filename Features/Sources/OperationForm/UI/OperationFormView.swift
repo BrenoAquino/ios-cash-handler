@@ -20,20 +20,21 @@ public struct OperationFormView: View {
     }
     
     public var body: some View {
-        form
-            .overlay { overlayState }
-            .navigationTitle(Localizable.OperationForm.operationFormTitle)
-            .background(DSColor.background.rawValue.edgesIgnoringSafeArea(.all))
-            .banner(data: $viewModel.banner.data, show: $viewModel.banner.show)
-            .toolbar {
-                hideKeyboardBar
-                doneBar
+        CustomNavigationBar(Localizable.OperationForm.operationFormTitle) {
+            form
+        } items: {
+            hideKeyboardBar
+            doneBar
+        }
+        .overlay { overlayState }
+        .navigationTitle(Localizable.OperationForm.operationFormTitle)
+        .background(DSColor.background.rawValue.edgesIgnoringSafeArea(.all))
+        .banner(data: $viewModel.banner.data, show: $viewModel.banner.show)
+        .onReceive(viewModel.$stateHandler) { stateHandler in
+            if stateHandler.state == .finished {
+                self.presentationMode.wrappedValue.dismiss()
             }
-            .onReceive(viewModel.$stateHandler) { stateHandler in
-                if stateHandler.state == .finished {
-                    self.presentationMode.wrappedValue.dismiss()
-                }
-            }
+        }
     }
     
     // MARK: View State
@@ -49,21 +50,21 @@ public struct OperationFormView: View {
     }
     
     // MARK: ToolBar
-    private var hideKeyboardBar: some ToolbarContent {
-        ToolbarItem(placement: .navigationBarTrailing) {
+    private var hideKeyboardBar: some View {
+//        ToolbarItem(placement: .navigationBarTrailing) {
             Button(action: UIApplication.shared.endEditing) {
                 ImageAsset.hideKeyboard.tint(DSColor.primaryText.rawValue)
             }
-        }
+//        }
     }
     
-    private var doneBar: some ToolbarContent {
-        ToolbarItem(placement: .navigationBarTrailing) {
+    private var doneBar: some View {
+//        ToolbarItem(placement: .navigationBarTrailing) {
             Button(action: viewModel.addOperation) {
                 ImageAsset.done.tint(DSColor.primaryText.rawValue)
             }
             .disabled(!viewModel.validInputs)
-        }
+//        }
     }
     
     // MARK: Form

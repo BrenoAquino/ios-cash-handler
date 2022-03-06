@@ -9,7 +9,8 @@ import SwiftUI
 
 public enum ImageAsset {
     
+    public static let back: Image = Image(systemName: "chevron.backward")
     public static let add: Image = Image(systemName: "plus")
-    public static let done: Image = Image("done")
-    public static let hideKeyboard: Image = Image("hide_keyboard")
+    public static let done: Image = Image(systemName: "checkmark")
+    public static let hideKeyboard: Image = Image(systemName: "keyboard.chevron.compact.down")
 }

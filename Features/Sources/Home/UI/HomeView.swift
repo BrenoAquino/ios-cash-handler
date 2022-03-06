@@ -17,7 +17,7 @@ public struct HomeView: View {
     }
     
     public var body: some View {
-        CustomNavigationBar(Localizable.Home.homeTitle) {
+        CustomNavigationBar(Localizable.Home.homeTitle, hasBack: false) {
             content
         } items: {
             Button(action: viewModel.selectAdd) {
@@ -80,6 +80,9 @@ public struct HomeView: View {
                 }
             }
         }
+        .gesture(DragGesture().onChanged { value in
+            print("List onChanged", value)
+        })
     }
 }
 
