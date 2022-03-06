@@ -22,6 +22,7 @@ public struct HomeView: View {
                 DSColor.background.rawValue.edgesIgnoringSafeArea(.all)
             )
             .navigationTitle(Localizable.Home.homeTitle)
+            .banner(data: $viewModel.banner.data, show: $viewModel.banner.show)
             .toolbar {
 //                profileBar
                 addBar

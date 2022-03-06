@@ -20,6 +20,7 @@ public extension HomeView {
         private var cancellables: Set<AnyCancellable> = .init()
         
         // MARK: Publisher
+        @Published var banner: BannerControl = .init(show: false, data: .empty)
         @Published private(set) var stateHandler: ViewStateHandler = .init(state: .loading)
         @Published private(set) var operations: [OperationsAggregatorUI] = []
         
@@ -34,6 +35,16 @@ public extension HomeView {
             self.paymentMethodsUseCase = paymentMethods
             self.operationsUseCase = operationsUseCase
         }
+    }
+}
+
+// MARK: - Setups
+extension HomeView.ViewModel {
+    private func setupErrorBanner(error: CharlesError) {
+        banner.data = .init(title: Localizable.Common.failureTitleBanner,
+                            subtitle: error.localizedDescription,
+                            type: .failure)
+        banner.show = true
     }
 }
 
@@ -55,7 +66,8 @@ extension HomeView.ViewModel {
                 switch completion {
                 case .finished:
                     self?.fetchOperations()
-                case .failure:
+                case .failure(let error):
+                    self?.setupErrorBanner(error: error)
                     self?.stateHandler.failure()
                 }
             }
@@ -70,7 +82,8 @@ extension HomeView.ViewModel {
                 switch completion {
                 case .finished:
                     self?.stateHandler.finished()
-                case .failure:
+                case .failure(let error):
+                    self?.setupErrorBanner(error: error)
                     self?.stateHandler.failure()
                 }
             } receiveValue: { [weak self] operations in
