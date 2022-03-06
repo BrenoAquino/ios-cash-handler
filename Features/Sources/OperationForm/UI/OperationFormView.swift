@@ -67,8 +67,27 @@ public struct OperationFormView: View {
     }
     
     // MARK: Form
+    func inputText<Content>(_ title: String, @ViewBuilder content: () -> Content) -> some View where Content : View {
+        VStack(alignment: .leading) {
+            Text(title.uppercased())
+                .font(DSFont.headline3.rawValue)
+                .foregroundColor(DSColor.placholder.rawValue)
+                .padding(.leading, DSSpace.smallL.rawValue)
+
+            HStack {
+                content()
+                Spacer()
+            }
+            .frame(minHeight: 32, alignment: .leading)
+            .padding(.horizontal, DSSpace.smallL.rawValue)
+            .padding(.vertical, DSSpace.smallM.rawValue)
+            .background(DSColor.secondBackground.rawValue)
+            .cornerRadius(DSCornerRadius.normal.rawValue)
+        }
+    }
+    
     private var form: some View {
-        Form {
+        ScrollView {
             title
             value
             category
@@ -78,22 +97,22 @@ public struct OperationFormView: View {
     }
     
     private var title: some View {
-        Section(Localizable.OperationForm.operationTitle) {
-            TextField(Localizable.OperationForm.operationPlaceholder,
-                      text: $viewModel.name)
-                .listRowBackground(DSColor.secondBackground.rawValue)
+        inputText(Localizable.OperationForm.operationTitle) {
+            TextField(Localizable.OperationForm.operationPlaceholder, text: $viewModel.name)
         }
+        .padding(DSSpace.smallL.rawValue)
     }
     
     private var value: some View {
-        Section(Localizable.OperationForm.valueTitle) {
+        inputText(Localizable.OperationForm.valueTitle) {
             CurrencyTextField(value: $viewModel.value)
-                .listRowBackground(DSColor.secondBackground.rawValue)
         }
+        .padding(.horizontal, DSSpace.smallL.rawValue)
+        .padding(.bottom, DSSpace.smallL.rawValue)
     }
     
     private var category: some View {
-        Section(Localizable.OperationForm.categoryTitle) {
+        inputText(Localizable.OperationForm.categoryTitle) {
             Picker(Localizable.OperationForm.categoryPlaceholder, selection: $viewModel.category) {
                 ForEach(viewModel.categories) {
                     Text($0.name)
@@ -105,13 +124,14 @@ public struct OperationFormView: View {
                     DSColor.placholder.rawValue
             )
             .pickerStyle(.menu)
-            .listRowBackground(DSColor.secondBackground.rawValue)
         }
+        .padding(.horizontal, DSSpace.smallL.rawValue)
+        .padding(.bottom, DSSpace.smallL.rawValue)
     }
     
     private var payment: some View {
-        Section(Localizable.OperationForm.paymentTypeTitle) {
-            HStack {
+        HStack {
+            inputText(Localizable.OperationForm.paymentTypeTitle) {
                 Picker(Localizable.OperationForm.paymentPlaceholder, selection: $viewModel.paymentMethod) {
                     ForEach(viewModel.paymentMethods) {
                         Text($0.name)
@@ -123,22 +143,29 @@ public struct OperationFormView: View {
                         DSColor.placholder.rawValue
                 )
                 .pickerStyle(.menu)
-                
-                if viewModel.hasInstallments {
-                    TextField("x12", text: $viewModel.installments)
-                }
             }
-            .listRowBackground(DSColor.secondBackground.rawValue)
+            
+            if viewModel.hasInstallments {
+                inputText("Parcelas") {
+                    TextField("x12", text: $viewModel.name)
+                        .multilineTextAlignment(.center)
+                }
+                .frame(width: 100)
+            }
         }
+        .padding(.horizontal, DSSpace.smallL.rawValue)
+        .padding(.bottom, DSSpace.smallL.rawValue)
     }
     
     private var date: some View {
-        Section(Localizable.OperationForm.dateTitle) {
+        inputText(Localizable.OperationForm.dateTitle) {
             DatePicker(String.empty, selection: $viewModel.date, in: ...Date(), displayedComponents: .date)
                 .datePickerStyle(GraphicalDatePickerStyle())
                 .labelsHidden()
                 .listRowBackground(DSColor.secondBackground.rawValue)
         }
+        .padding(.horizontal, DSSpace.smallL.rawValue)
+        .padding(.bottom, DSSpace.smallL.rawValue)
     }
 }
 
