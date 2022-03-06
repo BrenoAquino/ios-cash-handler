@@ -137,6 +137,7 @@ public struct OperationFormView: View {
                 .frame(width: DSOperationForm.installmentsWidth)
             }
         }
+        .animation(.linear, value: viewModel.hasInstallments)
         .padding(.horizontal, DSSpace.smallL.rawValue)
         .padding(.bottom, DSSpace.smallL.rawValue)
     }

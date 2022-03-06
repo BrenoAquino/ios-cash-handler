@@ -108,8 +108,8 @@ extension OperationFormView.ViewModel {
             .sink { [weak self] value in
                 let paymentMethod = self?.paymentMethods.first(where: { $0.id == value })
                 self?.isValidPaymentMethod = value != PaymentMethodPickerUI.placeholder.id
-                self?.hasInstallments = paymentMethod?.hasInstallments == true
                 self?.validInputs = inputValidator()
+                self?.hasInstallments = paymentMethod?.hasInstallments == true
             }
             .store(in: &cancellables)
     }
