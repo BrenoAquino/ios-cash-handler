@@ -30,6 +30,7 @@ public extension OperationFormView {
         @Published var value: Double = .zero
         @Published var category: String = PaymentMethodPickerUI.placeholder.id
         @Published var paymentMethod: String = PaymentMethodPickerUI.placeholder.id
+        @Published var installments: String = .empty
         @Published var banner: BannerControl = .init(show: false, data: .empty)
         
         @Published private(set) var hasInstallments: Bool = false

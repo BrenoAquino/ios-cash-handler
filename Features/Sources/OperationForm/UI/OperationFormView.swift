@@ -126,10 +126,18 @@ public struct OperationFormView: View {
                 .pickerStyle(.menu)
             }
             
-            if viewModel.hasInstallments {
+            if viewModel.hasInstallments || true {
                 LabeledField("Parcelas") {
-                    TextField("x12", text: $viewModel.name)
-                        .multilineTextAlignment(.center)
+                    MaskedTextField(placeholder: "x12", formatter: { text in
+                        if let text = text {
+                            if text.starts(with: "x") == true {
+                                return text
+                            } else {
+                                return "x" + text
+                            }
+                        }
+                        return nil
+                    }, text: $viewModel.installments)
                 }
                 .frame(width: 100)
             }
