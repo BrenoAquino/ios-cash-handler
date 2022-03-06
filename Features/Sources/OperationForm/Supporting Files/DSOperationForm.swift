@@ -14,5 +14,6 @@ extension DesignSystem {
     
     enum DSOperationForm {
         static let buttonHeight: CGFloat = 56
+        static let installmentsWidth: CGFloat = 100
     }
 }

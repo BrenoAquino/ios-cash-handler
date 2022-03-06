@@ -62,12 +62,13 @@ extension OperationsRepositoryImpl: Domain.OperationsRepository {
             .eraseToAnyPublisher()
     }
     
-    public func addOperation(title: String,
-                             date: String,
-                             value: Double,
-                             categoryId: String,
-                             paymentMethodId: String) -> AnyPublisher<[Domain.Operation], CharlesError> {
-        let params = CreateOperationParams(title: title, date: date, value: value, categoryId: categoryId, paymentMethodId: paymentMethodId)
+    public func addOperation(createOperation: CreateOperation) -> AnyPublisher<[Domain.Operation], CharlesError> {
+        let params = CreateOperationParams(title: createOperation.title,
+                                           date: createOperation.date,
+                                           value: createOperation.value,
+                                           categoryId: createOperation.categoryId,
+                                           paymentMethodId: createOperation.paymentMethodId,
+                                           installments: createOperation.installments)
         return remoteDataSource
             .addOperation(params: params)
             .tryMap { [weak self] operations in

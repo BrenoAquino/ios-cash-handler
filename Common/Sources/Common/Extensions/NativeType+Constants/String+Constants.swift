@@ -1,8 +1,8 @@
 //
-//  NativeType+Constants.swift
-//  Charles
+//  String+Constants.swift
+//  
 //
-//  Created by Breno Aquino on 09/01/22.
+//  Created by Breno Aquino on 06/03/22.
 //
 
 import Foundation

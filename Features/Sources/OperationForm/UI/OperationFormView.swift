@@ -68,34 +68,51 @@ public struct OperationFormView: View {
     
     // MARK: Form
     private var form: some View {
-        Form {
-            Section(Localizable.OperationForm.operationTitle) {
-                TextField(Localizable.OperationForm.operationPlaceholder,
-                          text: $viewModel.name)
-                    .listRowBackground(DSColor.secondBackground.rawValue)
-            }
-            
-            Section(Localizable.OperationForm.valueTitle) {
-                CurrencyTextField(value: $viewModel.value)
-                    .listRowBackground(DSColor.secondBackground.rawValue)
-            }
-            
-            Section(Localizable.OperationForm.categoryTitle) {
-                Picker(Localizable.OperationForm.categoryPlaceholder, selection: $viewModel.category) {
-                    ForEach(viewModel.categories) {
-                        Text($0.name)
-                    }
+        ScrollView {
+            title
+            value
+            category
+            payment
+            date
+        }
+    }
+    
+    private var title: some View {
+        LabeledField(Localizable.OperationForm.operationTitle) {
+            TextField(Localizable.OperationForm.operationPlaceholder, text: $viewModel.name)
+        }
+        .padding(DSSpace.smallL.rawValue)
+    }
+    
+    private var value: some View {
+        LabeledField(Localizable.OperationForm.valueTitle) {
+            CurrencyTextField(value: $viewModel.value)
+        }
+        .padding(.horizontal, DSSpace.smallL.rawValue)
+        .padding(.bottom, DSSpace.smallL.rawValue)
+    }
+    
+    private var category: some View {
+        LabeledField(Localizable.OperationForm.categoryTitle) {
+            Picker(Localizable.OperationForm.categoryPlaceholder, selection: $viewModel.category) {
+                ForEach(viewModel.categories) {
+                    Text($0.name)
                 }
-                .accentColor(
-                    viewModel.isValidCategory ?
-                    DSColor.primaryText.rawValue :
-                        DSColor.placholder.rawValue
-                )
-                .pickerStyle(.menu)
-                .listRowBackground(DSColor.secondBackground.rawValue)
             }
-            
-            Section(Localizable.OperationForm.paymentTypeTitle) {
+            .accentColor(
+                viewModel.isValidCategory ?
+                    DSColor.primaryText.rawValue :
+                    DSColor.placholder.rawValue
+            )
+            .pickerStyle(.menu)
+        }
+        .padding(.horizontal, DSSpace.smallL.rawValue)
+        .padding(.bottom, DSSpace.smallL.rawValue)
+    }
+    
+    private var payment: some View {
+        HStack {
+            LabeledField(Localizable.OperationForm.paymentTypeTitle) {
                 Picker(Localizable.OperationForm.paymentPlaceholder, selection: $viewModel.paymentMethod) {
                     ForEach(viewModel.paymentMethods) {
                         Text($0.name)
@@ -103,20 +120,40 @@ public struct OperationFormView: View {
                 }
                 .accentColor(
                     viewModel.isValidPaymentMethod ?
-                    DSColor.primaryText.rawValue :
+                        DSColor.primaryText.rawValue :
                         DSColor.placholder.rawValue
                 )
                 .pickerStyle(.menu)
-                .listRowBackground(DSColor.secondBackground.rawValue)
             }
             
-            Section(Localizable.OperationForm.dateTitle) {
-                DatePicker(String.empty, selection: $viewModel.date, in: ...Date(), displayedComponents: .date)
-                    .datePickerStyle(GraphicalDatePickerStyle())
-                    .labelsHidden()
-                    .listRowBackground(DSColor.secondBackground.rawValue)
+            if viewModel.hasInstallments {
+                LabeledField(Localizable.OperationForm.installmentsTypeTitle) {
+                    MaskedTextField(placeholder: Localizable.OperationForm.installmentsPlaceholder,
+                                    keyboardType: .numberPad,
+                                    textAlignment: .center,
+                                    formatter: viewModel.installmentsFormatter,
+                                    text: $viewModel.installments)
+                }
+                .frame(width: DSOperationForm.installmentsWidth)
             }
         }
+        .animation(.linear, value: viewModel.hasInstallments)
+        .padding(.horizontal, DSSpace.smallL.rawValue)
+        .padding(.bottom, DSSpace.smallL.rawValue)
+    }
+    
+    private var date: some View {
+        LabeledField(Localizable.OperationForm.dateTitle) {
+            DatePicker(String.empty,
+                       selection: $viewModel.date,
+                       in: ...Date(),
+                       displayedComponents: .date)
+                .datePickerStyle(GraphicalDatePickerStyle())
+                .labelsHidden()
+                .listRowBackground(DSColor.secondBackground.rawValue)
+        }
+        .padding(.horizontal, DSSpace.smallL.rawValue)
+        .padding(.bottom, DSSpace.smallL.rawValue)
     }
 }
 

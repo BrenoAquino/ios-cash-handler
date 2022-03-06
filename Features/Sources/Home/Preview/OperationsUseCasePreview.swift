@@ -47,7 +47,12 @@ class OperationsUseCasePreview: OperationsUseCase {
             .eraseToAnyPublisher()
     }
     
-    func addOperation(title: String, date: Date, value: Double, categoryId: String, paymentMethodId: String) -> AnyPublisher<[Domain.Operation], CharlesError> {
+    func addOperation(title: String,
+                      date: Date,
+                      value: Double,
+                      categoryId: String,
+                      paymentMethodId: String,
+                      installments: String) -> AnyPublisher<[Domain.Operation], CharlesError> {
         Empty().eraseToAnyPublisher()
     }
 }

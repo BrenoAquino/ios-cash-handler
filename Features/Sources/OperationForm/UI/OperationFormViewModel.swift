@@ -30,8 +30,10 @@ public extension OperationFormView {
         @Published var value: Double = .zero
         @Published var category: String = PaymentMethodPickerUI.placeholder.id
         @Published var paymentMethod: String = PaymentMethodPickerUI.placeholder.id
+        @Published var installments: String = .empty
         @Published var banner: BannerControl = .init(show: false, data: .empty)
         
+        @Published private(set) var hasInstallments: Bool = false
         @Published private(set) var isValidCategory: Bool = false
         @Published private(set) var isValidPaymentMethod: Bool = false
         @Published private(set) var validInputs: Bool = false
@@ -60,7 +62,7 @@ extension OperationFormView.ViewModel {
     private func setupPaymentMethods() {
         paymentMethods = [.placeholder]
         paymentMethods.append(contentsOf: operationsUseCase.paymentMethods().map {
-            PaymentMethodPickerUI(id: $0.id, name: $0.name)
+            PaymentMethodPickerUI(id: $0.id, name: $0.name, hasInstallments: $0.hasInstallments)
         })
     }
     
@@ -69,6 +71,18 @@ extension OperationFormView.ViewModel {
                             subtitle: error.localizedDescription,
                             type: .failure)
         banner.show = true
+    }
+}
+
+// MARK: - Formatters
+extension OperationFormView.ViewModel {
+    func installmentsFormatter(_ text: String?) -> String? {
+        guard let text = text else { return nil }
+        if text.starts(with: Localizable.OperationForm.installmentsPrefix) == true {
+            return text
+        } else {
+            return Localizable.OperationForm.installmentsPrefix + text
+        }
     }
 }
 
@@ -92,8 +106,10 @@ extension OperationFormView.ViewModel {
         
         $paymentMethod
             .sink { [weak self] value in
+                let paymentMethod = self?.paymentMethods.first(where: { $0.id == value })
                 self?.isValidPaymentMethod = value != PaymentMethodPickerUI.placeholder.id
                 self?.validInputs = inputValidator()
+                self?.hasInstallments = paymentMethod?.hasInstallments == true
             }
             .store(in: &cancellables)
     }
@@ -107,7 +123,8 @@ extension OperationFormView.ViewModel {
                           date: date,
                           value: value,
                           categoryId: category,
-                          paymentMethodId: paymentMethod)
+                          paymentMethodId: paymentMethod,
+                          installments: installments)
             .receive(on: RunLoop.main)
             .sinkCompletion { [weak self] completion in
                 switch completion {
