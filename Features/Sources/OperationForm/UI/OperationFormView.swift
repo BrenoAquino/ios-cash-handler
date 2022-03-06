@@ -67,25 +67,6 @@ public struct OperationFormView: View {
     }
     
     // MARK: Form
-    func inputText<Content>(_ title: String, @ViewBuilder content: () -> Content) -> some View where Content : View {
-        VStack(alignment: .leading) {
-            Text(title.uppercased())
-                .font(DSFont.headline3.rawValue)
-                .foregroundColor(DSColor.placholder.rawValue)
-                .padding(.leading, DSSpace.smallL.rawValue)
-
-            HStack {
-                content()
-                Spacer()
-            }
-            .frame(minHeight: 32, alignment: .leading)
-            .padding(.horizontal, DSSpace.smallL.rawValue)
-            .padding(.vertical, DSSpace.smallM.rawValue)
-            .background(DSColor.secondBackground.rawValue)
-            .cornerRadius(DSCornerRadius.normal.rawValue)
-        }
-    }
-    
     private var form: some View {
         ScrollView {
             title
@@ -97,14 +78,14 @@ public struct OperationFormView: View {
     }
     
     private var title: some View {
-        inputText(Localizable.OperationForm.operationTitle) {
+        LabeledField(Localizable.OperationForm.operationTitle) {
             TextField(Localizable.OperationForm.operationPlaceholder, text: $viewModel.name)
         }
         .padding(DSSpace.smallL.rawValue)
     }
     
     private var value: some View {
-        inputText(Localizable.OperationForm.valueTitle) {
+        LabeledField(Localizable.OperationForm.valueTitle) {
             CurrencyTextField(value: $viewModel.value)
         }
         .padding(.horizontal, DSSpace.smallL.rawValue)
@@ -112,7 +93,7 @@ public struct OperationFormView: View {
     }
     
     private var category: some View {
-        inputText(Localizable.OperationForm.categoryTitle) {
+        LabeledField(Localizable.OperationForm.categoryTitle) {
             Picker(Localizable.OperationForm.categoryPlaceholder, selection: $viewModel.category) {
                 ForEach(viewModel.categories) {
                     Text($0.name)
@@ -131,7 +112,7 @@ public struct OperationFormView: View {
     
     private var payment: some View {
         HStack {
-            inputText(Localizable.OperationForm.paymentTypeTitle) {
+            LabeledField(Localizable.OperationForm.paymentTypeTitle) {
                 Picker(Localizable.OperationForm.paymentPlaceholder, selection: $viewModel.paymentMethod) {
                     ForEach(viewModel.paymentMethods) {
                         Text($0.name)
@@ -146,7 +127,7 @@ public struct OperationFormView: View {
             }
             
             if viewModel.hasInstallments {
-                inputText("Parcelas") {
+                LabeledField("Parcelas") {
                     TextField("x12", text: $viewModel.name)
                         .multilineTextAlignment(.center)
                 }
@@ -158,8 +139,11 @@ public struct OperationFormView: View {
     }
     
     private var date: some View {
-        inputText(Localizable.OperationForm.dateTitle) {
-            DatePicker(String.empty, selection: $viewModel.date, in: ...Date(), displayedComponents: .date)
+        LabeledField(Localizable.OperationForm.dateTitle) {
+            DatePicker(String.empty,
+                       selection: $viewModel.date,
+                       in: ...Date(),
+                       displayedComponents: .date)
                 .datePickerStyle(GraphicalDatePickerStyle())
                 .labelsHidden()
                 .listRowBackground(DSColor.secondBackground.rawValue)
