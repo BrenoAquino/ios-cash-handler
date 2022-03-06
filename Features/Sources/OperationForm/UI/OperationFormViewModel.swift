@@ -123,7 +123,8 @@ extension OperationFormView.ViewModel {
                           date: date,
                           value: value,
                           categoryId: category,
-                          paymentMethodId: paymentMethod)
+                          paymentMethodId: paymentMethod,
+                          installments: installments)
             .receive(on: RunLoop.main)
             .sinkCompletion { [weak self] completion in
                 switch completion {

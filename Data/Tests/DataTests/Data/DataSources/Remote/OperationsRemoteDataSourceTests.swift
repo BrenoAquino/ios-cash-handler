@@ -15,7 +15,7 @@ class OperationsRemoteDataSourceTests: XCTestCase {
     
     var cancellables: Set<AnyCancellable> = .init()
     var params: CreateOperationParams {
-        .init(title: .empty, date: .empty, value: .zero, categoryId: .empty, paymentMethodId: .empty)
+        .init(title: .empty, date: .empty, value: .zero, categoryId: .empty, paymentMethodId: .empty, installments: .one)
     }
     
     // MARK: Add Operation

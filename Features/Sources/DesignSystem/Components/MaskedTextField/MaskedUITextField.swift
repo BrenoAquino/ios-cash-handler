@@ -67,5 +67,6 @@ public class MaskedUITextField: UIView {
         } else {
             textField.text = formatter(textField.text)
         }
+        text = textField.text ?? .empty
     }
 }
