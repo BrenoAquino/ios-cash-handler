@@ -1,5 +1,5 @@
 //
-//  SpinnerCircle.swift
+//  ArcCircle.swift
 //  
 //
 //  Created by Breno Aquino on 08/02/22.
@@ -24,7 +24,7 @@ struct ArcCircle: View {
 
 #if DEBUG
 // MARK: - Preview
-struct SpinnerCircle_Previews: PreviewProvider {
+struct ArcCircle_Previews: PreviewProvider {
     static var previews: some View {
         ArcCircle(start: .zero, end: 0.5, angle: .degrees(180), stroke: 20)
             .previewLayout(.sizeThatFits)
