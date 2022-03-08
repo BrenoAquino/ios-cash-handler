@@ -6,43 +6,34 @@
 //
 
 import SwiftUI
-
-private struct SizePreferenceKey: PreferenceKey {
-    static var defaultValue: CGSize = .zero
-    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {}
-}
-
-extension View {
-    func readSize(onChange: @escaping (CGSize) -> Void) -> some View {
-        background(
-            GeometryReader { geometryProxy in
-                Color.clear
-                    .preference(key: SizePreferenceKey.self, value: geometryProxy.size)
-            }
-        )
-            .onPreferenceChange(SizePreferenceKey.self, perform: onChange)
-    }
-}
+import Common
 
 struct CircleSubtitleChart: View {
+    
+    let spacing: CGFloat = 16
     
     @State var subtitles: [SubtitleConfig]
     @State private var elementsSize: [SubtitleConfig: CGSize] = [:]
     
+    // MARK: View
     var body : some View {
-        VStack(alignment: .leading, spacing: 16) {
-            ForEach(computeRows(), id: \.self) { row in
-                HStack(spacing: 16) {
-                    ForEach(row, id: \.self) { element in
-                        cell(title: element.title, color: element.color)
-                            .fixedSize()
-                            .readSize { size in
-                                elementsSize[element] = size
-                            }
+        GeometryReader { geometry in
+            VStack(alignment: .leading, spacing: spacing) {
+                ForEach(computeRows(geometry.size), id: \.self) { row in
+                    HStack(spacing: spacing) {
+                        ForEach(row, id: \.self) { element in
+                            cell(title: element.title, color: element.color)
+                                .fixedSize()
+                                .readSize { size in
+                                    elementsSize[element] = size
+                                }
+                        }
                     }
                 }
             }
+            .frame(width: geometry.size.width, height: geometry.size.height)
         }
+        .frame(minWidth: .zero, minHeight: .zero)
     }
     
     private func cell(title: String, color: Color) -> some View {
@@ -53,23 +44,24 @@ struct CircleSubtitleChart: View {
         }
     }
     
-    func computeRows() -> [[SubtitleConfig]] {
+    // MARK: Create Matrix
+    func computeRows(_ size: CGSize = UIScreen.main.bounds.size) -> [[SubtitleConfig]] {
         var rows: [[SubtitleConfig]] = [[]]
-        var currentRow = 0
-        var remainingWidth = UIScreen.main.bounds.width
+        var currentRow: Int = .zero
+        var remainingWidth = size.width
         
         for element in subtitles {
-            let elementSize = elementsSize[element, default: CGSize(width: UIScreen.main.bounds.width, height: 1)]
+            let elementSize = elementsSize[element, default: CGSize(width: size.width, height: .one)]
             
-            if remainingWidth - (elementSize.width + 16) >= 0 {
+            if remainingWidth - (elementSize.width + spacing) >= .zero {
                 rows[currentRow].append(element)
             } else {
-                currentRow = currentRow + 1
+                currentRow = currentRow + .one
                 rows.append([element])
-                remainingWidth = UIScreen.main.bounds.width
+                remainingWidth = size.width
             }
             
-            remainingWidth = remainingWidth - (elementSize.width + 16)
+            remainingWidth = remainingWidth - (elementSize.width + spacing)
         }
         
         return rows
@@ -93,6 +85,8 @@ struct CircleSubtitleChart_Previews: PreviewProvider {
             .init(title: "Lazer", color: .orange)
         ]
         return CircleSubtitleChart(subtitles: subtitlesConfig)
+            .background(Color.cyan)
+            .previewLayout(.sizeThatFits)
     }
 }
 #endif

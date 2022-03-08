@@ -10,6 +10,9 @@ import SwiftUI
 struct CircleCoreChart: View {
     
     @State var arcs: [ArcConfig]
+    var padding: CGFloat {
+        (DSCircleChart.strokeMin + DSCircleChart.strokeDiff * CGFloat(arcs.count)) / 2
+    }
     
     var body: some View {
         ZStack {
@@ -19,10 +22,10 @@ struct CircleCoreChart: View {
                           angle: .degrees(-90),
                           stroke: data.stroke)
                     .foregroundColor(data.color)
-                    .frame(width: 100, height: 100)
                     .shadow(style: .easy)
             }
         }
+        .padding(padding)
     }
 }
 

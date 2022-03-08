@@ -25,10 +25,27 @@ public struct OverviewView: View {
     private var content: some View {
         ScrollView(.vertical, showsIndicators: false) {
             Spacer(minLength: DSSpace.normal.rawValue)
+            title
+            Spacer(minLength: DSSpace.smallM.rawValue)
             overviewMonth
             Spacer(minLength: DSSpace.bigL.rawValue)
             circleChart
         }
+    }
+    
+    // MARK: Title
+    private var title: some View {
+        HStack(alignment: .center) {
+            Text(viewModel.month)
+                .foregroundColor(DSColor.primaryText.rawValue)
+                .font(DSFont.title.rawValue)
+            
+            Text(viewModel.year)
+                .foregroundColor(DSColor.primaryText.rawValue)
+                .font(DSFont.subheadline.rawValue)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, DSSpace.normal.rawValue)
     }
     
     // MARK: OverviewMonth
@@ -40,6 +57,7 @@ public struct OverviewView: View {
     // MARK: Charts
     private var circleChart: some View {
         CircleChart(data: viewModel.data)
+            .frame(width: 300)
     }
 }
 

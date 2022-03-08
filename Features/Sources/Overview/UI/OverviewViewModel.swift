@@ -14,6 +14,8 @@ public extension OverviewView {
     final class ViewModel: ObservableObject {
         
         // MARK: Publisher
+        @Published private(set) var month: String = "Março"
+        @Published private(set) var year: String = "2022"
         @Published private(set) var overviewMonth: OverviewMonthUI = .init(
             income: "R$ 32K",
             expense: "R$ 4,32K",
