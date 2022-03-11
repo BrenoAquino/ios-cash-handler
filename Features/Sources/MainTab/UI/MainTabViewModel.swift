@@ -5,12 +5,12 @@
 //  Created by Breno Aquino on 11/03/22.
 //
 
-import Foundation
+import SwiftUI
 import Combine
 import DesignSystem
 import Domain
 
-public extension SplashView {
+public extension MainTabView {
     
     final class ViewModel: ObservableObject {
         
@@ -19,7 +19,7 @@ public extension SplashView {
         private var cancellables: Set<AnyCancellable> = .init()
         
         // MARK: Redirects
-        public var fetchedData: (() -> Void)?
+        public var fetchViews: () -> some View
         
         // MARK: Publishers
         @Published private(set) var stateHandler: ViewStateHandler = .init(state: .loading)
@@ -33,7 +33,7 @@ public extension SplashView {
 }
 
 // MARK: - Flow
-extension SplashView.ViewModel {
+extension MainTabView.ViewModel {
     func fetchData() {
         stateHandler.loading()
         fetchCategoriesPaymentMethods()
@@ -49,7 +49,7 @@ extension SplashView.ViewModel {
             .sinkCompletion { [weak self] completion in
                 switch completion {
                 case .finished:
-                    self?.fetchedData?()
+                    self?.fetchViews?()
                     
                 case .failure(let error):
                     self?.stateHandler.failure()

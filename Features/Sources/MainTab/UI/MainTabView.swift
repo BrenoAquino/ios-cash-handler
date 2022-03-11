@@ -1,5 +1,5 @@
 //
-//  SplashView.swift
+//  MainTabView.swift
 //  
 //
 //  Created by Breno Aquino on 11/03/22.
@@ -8,7 +8,7 @@
 import SwiftUI
 import DesignSystem
 
-public struct SplashView: View {
+public struct MainTabView: View {
     
     @ObservedObject private(set) var viewModel: ViewModel
     
@@ -39,7 +39,7 @@ public struct SplashView: View {
 
 #if DEBUG
 // MARK: - Preview
-struct SplashView_Previews: PreviewProvider {
+struct MainTabView_Previews: PreviewProvider {
     static var previews: some View {
         SplashView(viewModel: .init(categoriesUseCase: CategoriesUseCasePreview(),
                                     paymentMethods: PaymentMethodsUseCasePreview()))
