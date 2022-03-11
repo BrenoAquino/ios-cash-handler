@@ -21,6 +21,17 @@ public extension OverviewView {
             expense: "R$ 4,32K",
             refer: "+5,32%"
         )
+        @Published private(set) var categories: [[CategoryOverviewUI]] = [
+            [.init(title: "Tecnologia", expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3),
+             .init(title: "Tecnologia", expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3)],
+            [.init(title: "Tecnologia", expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3),
+             .init(title: "Tecnologia", expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3)],
+            [.init(title: "Tecnologia", expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3),
+             .init(title: "Tecnologia", expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3)],
+            [.init(title: "Tecnologia", expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3),
+             .init(title: "Tecnologia", expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3)],
+            [.init(title: "Tecnologia", expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3)]
+        ]
         @Published private(set) var data: [CircleChartData] = [
             .init(title: "Lazer", value: 1, color: .orange),
             .init(title: "Tecnologia", value: 2, color: .yellow),

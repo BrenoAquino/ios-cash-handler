@@ -13,12 +13,33 @@ struct CategoryOverviewView: View {
     @State var categoryOverview: CategoryOverviewUI
     
     var body: some View {
-        HStack(alignment: .center) {
-            element(title: "Total Entrada", value: overviewMont.income)
-            element(title: "Total Saída", value: overviewMont.expense)
-            element(title: "Acréscimo", value: overviewMont.refer)
+        VStack(alignment: .leading, spacing: DSSpace.smallM.rawValue) {
+            Text("Tecnologia")
+                .foregroundColor(DSColor.primaryText.rawValue)
+                .font(DSFont.subheadlineLarge.rawValue)
+            
+            VStack(alignment: .leading, spacing: DSSpace.smallS.rawValue) {
+                Text(categoryOverview.expense)
+                    .foregroundColor(DSColor.primaryText.rawValue)
+                    .font(DSFont.title2.rawValue)
+                
+                LineBar(config: .init(percentage: categoryOverview.expensePercentage,
+                                      color: Color(rgba: 0xD86239FF),
+                                      backgroundColor: .gray))
+                    .frame(height: 2)
+            }
+            
+            VStack(alignment: .leading, spacing: DSSpace.smallS.rawValue) {
+                Text(categoryOverview.count)
+                    .foregroundColor(DSColor.primaryText.rawValue)
+                    .font(DSFont.title2.rawValue)
+                
+                LineBar(config: .init(percentage: categoryOverview.countPercentage,
+                                      color: .orange,
+                                      backgroundColor: .gray))
+                    .frame(height: 2)
+            }
         }
-        .frame(maxWidth: .infinity)
         .padding(DSSpace.smallL.rawValue)
         .background(DSColor.secondBackground.rawValue)
         .cornerRadius(DSCornerRadius.normal.rawValue)
@@ -44,12 +65,15 @@ struct CategoryOverviewView: View {
 struct CategoryOverviewView_Previews: PreviewProvider {
     static var previews: some View {
         return CategoryOverviewView(categoryOverview: .init(
+            title: "Tecnologia",
             expense: "R$ 2800",
             expensePercentage: 0.75,
             count: "12 compras",
             countPercentage: 0.3
         ))
-        .previewLayout(.sizeThatFits)
+            .padding()
+            .preferredColorScheme(.dark)
+            .previewLayout(.sizeThatFits)
     }
 }
 #endif

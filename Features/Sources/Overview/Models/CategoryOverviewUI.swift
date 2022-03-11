@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct CategoryOverviewUI {
+struct CategoryOverviewUI: Hashable {
+    let title: String
     let expense: String
     let expensePercentage: Double
     let count: String

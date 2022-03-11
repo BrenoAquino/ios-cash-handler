@@ -29,7 +29,8 @@ public struct OverviewView: View {
             Spacer(minLength: DSSpace.smallM.rawValue)
             overviewMonth
             Spacer(minLength: DSSpace.bigL.rawValue)
-            circleChart
+            categories
+            Spacer(minLength: DSSpace.bigL.rawValue)
         }
     }
     
@@ -52,6 +53,21 @@ public struct OverviewView: View {
     private var overviewMonth: some View {
         OverviewMonthView(overviewMont: viewModel.overviewMonth)
             .padding()
+    }
+    
+    // MARK: Categories
+    private var categories: some View {
+        VStack(spacing: DSSpace.smallM.rawValue) {
+            ForEach(viewModel.categories, id: \.self) { row in
+                HStack(spacing: DSSpace.smallM.rawValue) {
+                    ForEach(row, id: \.self) { element in
+                        CategoryOverviewView(categoryOverview: element)
+                            .frame(maxWidth: .infinity)
+                    }
+                }
+            }
+        }
+        .padding(DSSpace.smallL.rawValue)
     }
     
     // MARK: Charts

@@ -6,11 +6,19 @@
 //
 
 import Foundation
-import OperationForm
-import Domain
+import Overview
 import Home
+import OperationForm
 
 enum ViewModelFactory {
+    
+    static func overview() -> OverviewView.ViewModel {
+        return OverviewView.ViewModel()
+    }
+    
+    static func coordinatorOverview() -> OverviewCoordinator.ViewModel {
+        return OverviewCoordinator.ViewModel(overviewViewModel: Self.overview())
+    }
     
     static func home() -> HomeView.ViewModel {
         return HomeView.ViewModel(categoriesUseCase: UseCaseFactory.categories(),
@@ -19,17 +27,14 @@ enum ViewModelFactory {
     }
     
     static func coordinatorHome() -> HomeCoordinator.ViewModel {
-        let viewModel = Self.home()
-        return HomeCoordinator.ViewModel(homeViewModel: viewModel)
+        return HomeCoordinator.ViewModel(homeViewModel: Self.home())
     }
     
     static func operationForm() -> OperationFormView.ViewModel {
-        let useCase = UseCaseFactory.operations()
-        return OperationFormView.ViewModel(operationsUseCase: useCase)
+        return OperationFormView.ViewModel(operationsUseCase: UseCaseFactory.operations())
     }
     
     static func coordinatorOperationForm() -> OperationFormCoordinator.ViewModel {
-        let viewModel = Self.operationForm()
-        return OperationFormCoordinator.ViewModel(operationFormViewModel: viewModel)
+        return OperationFormCoordinator.ViewModel(operationFormViewModel: Self.operationForm())
     }
 }
