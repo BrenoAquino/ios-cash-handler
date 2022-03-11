@@ -35,11 +35,9 @@ struct CharlesApp: App {
     // MARK: Scene
     var body: some Scene {
         WindowGroup {
-            NavigationView {
-                HomeCoordinator(viewModel: ViewModelFactory.coordinatorHome())
-            }
-            .navigationViewStyle(.stack)
-            .preferredColorScheme(.dark)
+            MainTabCoordinator(viewModel: ViewModelFactory.coordinatorMainTab())
+                .navigationViewStyle(.stack)
+                .preferredColorScheme(.dark)
         }
     }
 }

@@ -8,29 +8,35 @@
 import SwiftUI
 import DesignSystem
 
-public struct MainTabView: View {
+public struct MainTabView<Content>: View where Content : View {
     
-    @ObservedObject private(set) var viewModel: ViewModel
+    @ObservedObject private(set) var viewModel: MainTabViewModel
+    @ViewBuilder private let content: () -> Content
     
-    public init(viewModel: ViewModel) {
+    public init(viewModel: MainTabViewModel, @ViewBuilder content: @escaping () -> Content) {
         self.viewModel = viewModel
+        self.content = content
     }
     
     public var body: some View {
-        content
+        contentView
             .onAppear(perform: viewModel.fetchData)
     }
     
     // MARK: View State
-    private var content: some View {
+    private var contentView: some View {
          ZStack {
              switch viewModel.stateHandler.state {
+             case .loading:
+                 ViewState.loadingView(background: .opaque)
+                     .defaultTransition()
              case .failure:
                  EmptyView()
                      .defaultTransition()
-                 
              default:
-                 ViewState.loadingView(background: .opaque)
+                 TabView {
+                     content()
+                 }
                      .defaultTransition()
              }
          }
@@ -41,9 +47,10 @@ public struct MainTabView: View {
 // MARK: - Preview
 struct MainTabView_Previews: PreviewProvider {
     static var previews: some View {
-        SplashView(viewModel: .init(categoriesUseCase: CategoriesUseCasePreview(),
-                                    paymentMethods: PaymentMethodsUseCasePreview()))
-            .preferredColorScheme(.dark)
+        MainTabView(viewModel: .init(categoriesUseCase: CategoriesUseCasePreview(),
+                                     paymentMethods: PaymentMethodsUseCasePreview())) {
+            EmptyView()
+        }
     }
 }
 #endif

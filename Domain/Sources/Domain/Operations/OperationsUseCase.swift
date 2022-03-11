@@ -12,7 +12,10 @@ import Common
 public protocol OperationsUseCase {
     func categories() -> [Category]
     func paymentMethods() -> [PaymentMethod]
+    
     func operations() -> AnyPublisher<[OperationsAggregator], CharlesError>
+    func operations(by month: Int) -> AnyPublisher<[Operation], CharlesError>
+    
     func addOperation(title: String,
                       date: Date,
                       value: Double,
@@ -48,6 +51,16 @@ extension OperationsUseCaseImpl: OperationsUseCase {
     public func paymentMethods() -> [PaymentMethod] {
         return paymentMethodsRepository
             .cachedPaymentMethods()
+    }
+    
+    public func operations(by month: Int) -> AnyPublisher<[Operation], CharlesError> {
+        return operations()
+            .map { operationsAggregator in
+                operationsAggregator
+                    .filter { $0.month == month }
+                    .flatMap { $0.operations }
+            }
+            .eraseToAnyPublisher()
     }
     
     public func operations() -> AnyPublisher<[OperationsAggregator], CharlesError> {

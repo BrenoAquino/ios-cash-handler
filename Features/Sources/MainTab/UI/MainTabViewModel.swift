@@ -10,30 +10,24 @@ import Combine
 import DesignSystem
 import Domain
 
-public extension MainTabView {
+public final class MainTabViewModel: ObservableObject {
     
-    final class ViewModel: ObservableObject {
-        
-        private let categoriesUseCase: Domain.CategoriesUseCase
-        private let paymentMethodsUseCase: Domain.PaymentMethodsUseCase
-        private var cancellables: Set<AnyCancellable> = .init()
-        
-        // MARK: Redirects
-        public var fetchViews: () -> some View
-        
-        // MARK: Publishers
-        @Published private(set) var stateHandler: ViewStateHandler = .init(state: .loading)
-        
-        // MARK: - Inits
-        public init(categoriesUseCase: Domain.CategoriesUseCase, paymentMethods: Domain.PaymentMethodsUseCase) {
-            self.categoriesUseCase = categoriesUseCase
-            self.paymentMethodsUseCase = paymentMethods
-        }
+    private let categoriesUseCase: Domain.CategoriesUseCase
+    private let paymentMethodsUseCase: Domain.PaymentMethodsUseCase
+    private var cancellables: Set<AnyCancellable> = .init()
+    
+    // MARK: Publishers
+    @Published private(set) var stateHandler: ViewStateHandler = .init(state: .loading)
+    
+    // MARK: - Inits
+    public init(categoriesUseCase: Domain.CategoriesUseCase, paymentMethods: Domain.PaymentMethodsUseCase) {
+        self.categoriesUseCase = categoriesUseCase
+        self.paymentMethodsUseCase = paymentMethods
     }
 }
 
 // MARK: - Flow
-extension MainTabView.ViewModel {
+extension MainTabViewModel {
     func fetchData() {
         stateHandler.loading()
         fetchCategoriesPaymentMethods()
@@ -49,9 +43,8 @@ extension MainTabView.ViewModel {
             .sinkCompletion { [weak self] completion in
                 switch completion {
                 case .finished:
-                    self?.fetchViews?()
-                    
-                case .failure(let error):
+                    self?.stateHandler.content()
+                case .failure:
                     self?.stateHandler.failure()
                 }
             }

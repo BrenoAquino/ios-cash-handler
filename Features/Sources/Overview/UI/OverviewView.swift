@@ -17,11 +17,27 @@ public struct OverviewView: View {
     }
     
     public var body: some View {
-        content
+        state
             .navigationTitle("Overview")
             .background(DSColor.background.rawValue.ignoresSafeArea())
+            .onAppear(perform: viewModel.fetchOperations)
     }
     
+    // MARK: View State
+    private var state: some View {
+         ZStack {
+             switch viewModel.stateHandler.state {
+             case .loading:
+                 ViewState.loadingView(background: .opaque)
+                     .defaultTransition()
+             default:
+                 content
+                     .defaultTransition()
+             }
+         }
+     }
+    
+    // MARK: Content
     private var content: some View {
         ScrollView(.vertical, showsIndicators: false) {
             Spacer(minLength: DSSpace.normal.rawValue)
@@ -69,12 +85,6 @@ public struct OverviewView: View {
         }
         .padding(DSSpace.smallL.rawValue)
     }
-    
-    // MARK: Charts
-    private var circleChart: some View {
-        CircleChart(data: viewModel.data)
-            .frame(width: 300)
-    }
 }
 
 #if DEBUG
@@ -82,7 +92,7 @@ public struct OverviewView: View {
 struct OverviewView_Previews: PreviewProvider {
     static var previews: some View {
         return NavigationView {
-            OverviewView(viewModel: .init())
+            OverviewView(viewModel: .init(operationsUseCase: OperationsUseCasePreview()))
         }
         .preferredColorScheme(.dark)
     }
