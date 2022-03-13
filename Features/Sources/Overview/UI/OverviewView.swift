@@ -89,6 +89,8 @@ public struct OverviewView: View {
 
 #if DEBUG
 // MARK: - Preview
+import Previews
+
 struct OverviewView_Previews: PreviewProvider {
     static var previews: some View {
         return NavigationView {

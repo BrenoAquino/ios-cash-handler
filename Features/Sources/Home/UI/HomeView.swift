@@ -85,6 +85,8 @@ public struct HomeView: View {
 
 #if DEBUG
 // MARK: - Preview
+import Previews
+
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         UITableView.appearance().backgroundColor = .clear

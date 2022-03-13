@@ -159,13 +159,17 @@ public struct OperationFormView: View {
 
 #if DEBUG
 // MARK: - Preview
+import Previews
+
 struct OperationFormView_Previews: PreviewProvider {
     
     static var previews: some View {
         UITableView.appearance().backgroundColor = .clear
         
         let viewModel = OperationFormView.ViewModel(
-            operationsUseCase: OperationsUseCaseMock()
+            operationsUseCase: OperationsUseCasePreview(),
+            categoriesUseCase: CategoriesUseCasePreview(),
+            paymentMethodsUseCase: PaymentMethodsUseCasePreview()
         )
         
         return NavigationView {

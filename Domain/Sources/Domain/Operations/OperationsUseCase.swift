@@ -10,11 +10,8 @@ import Combine
 import Common
 
 public protocol OperationsUseCase {
-    func categories() -> [Category]
-    func paymentMethods() -> [PaymentMethod]
-    
-    func operations() -> AnyPublisher<[OperationsAggregator], CharlesError>
-    func operations(by month: Int) -> AnyPublisher<[Operation], CharlesError>
+    func aggregateOperations() -> AnyPublisher<[OperationsAggregator], CharlesError>
+    func operations(month: Int?, year: Int?) -> AnyPublisher<[Operation], CharlesError>
     
     func addOperation(title: String,
                       date: Date,
@@ -43,31 +40,16 @@ public final class OperationsUseCaseImpl {
 // MARK: Interfaces
 extension OperationsUseCaseImpl: OperationsUseCase {
     
-    public func categories() -> [Category] {
-        return categoriesRepository
-            .cachedCategories()
-    }
-    
-    public func paymentMethods() -> [PaymentMethod] {
-        return paymentMethodsRepository
-            .cachedPaymentMethods()
-    }
-    
-    public func operations(by month: Int) -> AnyPublisher<[Operation], CharlesError> {
-        return operations()
-            .map { operationsAggregator in
-                operationsAggregator
-                    .filter { $0.month == month }
-                    .flatMap { $0.operations }
-            }
+    public func operations(month: Int?, year: Int?) -> AnyPublisher<[Operation], CharlesError> {
+        return operationsRepository
+            .operations(month: month, year: year)
+            .map { $0.sorted(by: { $0.title < $1.title }) }
+            .map { $0.sorted(by: { $0.date > $1.date }) }
             .eraseToAnyPublisher()
     }
     
-    public func operations() -> AnyPublisher<[OperationsAggregator], CharlesError> {
-        return operationsRepository
-            .operations()
-            .map { $0.sorted(by: { $0.title < $1.title }) }
-            .map { $0.sorted(by: { $0.date > $1.date }) }
+    public func aggregateOperations() -> AnyPublisher<[OperationsAggregator], CharlesError> {
+        return operations(month: nil, year: nil)
             .map { operations in
                 var aggregators: [OperationsAggregator] = []
                 

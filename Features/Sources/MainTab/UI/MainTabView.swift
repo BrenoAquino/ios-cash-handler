@@ -45,6 +45,8 @@ public struct MainTabView<Content>: View where Content : View {
 
 #if DEBUG
 // MARK: - Preview
+import Previews
+
 struct MainTabView_Previews: PreviewProvider {
     static var previews: some View {
         MainTabView(viewModel: .init(categoriesUseCase: CategoriesUseCasePreview(),

@@ -47,7 +47,7 @@ extension HomeView.ViewModel {
     func fetchOperations() {
         stateHandler.loading()
         operationsUseCase
-            .operations()
+            .aggregateOperations()
             .receive(on: RunLoop.main)
             .sink { [weak self] completion in
                 switch completion {

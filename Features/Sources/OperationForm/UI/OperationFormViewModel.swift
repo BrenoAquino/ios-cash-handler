@@ -16,6 +16,8 @@ public extension OperationFormView {
     final class ViewModel: ObservableObject {
         
         private let operationsUseCase: Domain.OperationsUseCase
+        private let categoriesUseCase: Domain.CategoriesUseCase
+        private let paymentMethodsUseCase: Domain.PaymentMethodsUseCase
         private var cancellables: Set<AnyCancellable> = .init()
         
         private(set) var categories: [CategoryPickerUI] = []
@@ -40,8 +42,12 @@ public extension OperationFormView {
         @Published private(set) var stateHandler: ViewStateHandler = .init(state: .content)
         
         // MARK: Inits
-        public init(operationsUseCase: Domain.OperationsUseCase) {
+        public init(operationsUseCase: Domain.OperationsUseCase,
+                    categoriesUseCase: Domain.CategoriesUseCase,
+                    paymentMethodsUseCase: Domain.PaymentMethodsUseCase) {
             self.operationsUseCase = operationsUseCase
+            self.categoriesUseCase = categoriesUseCase
+            self.paymentMethodsUseCase = paymentMethodsUseCase
             
             setupCategories()
             setupPaymentMethods()
@@ -54,14 +60,14 @@ public extension OperationFormView {
 extension OperationFormView.ViewModel {
     private func setupCategories() {
         categories = [.placeholder]
-        categories.append(contentsOf: operationsUseCase.categories().map {
+        categories.append(contentsOf: categoriesUseCase.cachedCategories().map {
             CategoryPickerUI(id: $0.id, name: $0.name)
         })
     }
     
     private func setupPaymentMethods() {
         paymentMethods = [.placeholder]
-        paymentMethods.append(contentsOf: operationsUseCase.paymentMethods().map {
+        paymentMethods.append(contentsOf: paymentMethodsUseCase.cachedPaymentMethods().map {
             PaymentMethodPickerUI(id: $0.id, name: $0.name, hasInstallments: $0.hasInstallments)
         })
     }

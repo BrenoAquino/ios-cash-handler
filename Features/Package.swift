@@ -16,19 +16,22 @@ let package = Package(
     ],
     targets: [
         .target(
+            name: "Previews",
+            dependencies: ["Common", "Domain"]),
+        .target(
             name: "DesignSystem",
             dependencies: ["Common"]),
         .target(
             name: "MainTab",
-            dependencies: ["Common", "Domain", "DesignSystem"]),
+            dependencies: ["Previews", "Common", "Domain", "DesignSystem"]),
         .target(
             name: "Overview",
-            dependencies: ["Common", "Domain", "DesignSystem"]),
+            dependencies: ["Previews", "Common", "Domain", "DesignSystem"]),
         .target(
             name: "Home",
-            dependencies: ["Common", "Domain", "DesignSystem"]),
+            dependencies: ["Previews", "Common", "Domain", "DesignSystem"]),
         .target(
             name: "OperationForm",
-            dependencies: ["Common", "Domain", "DesignSystem"]),
+            dependencies: ["Previews", "Common", "Domain", "DesignSystem"]),
     ]
 )

@@ -43,7 +43,9 @@ enum ViewModelFactory {
     
     // MARK: Operation Form
     static func operationForm() -> OperationFormView.ViewModel {
-        return OperationFormView.ViewModel(operationsUseCase: UseCaseFactory.operations())
+        return OperationFormView.ViewModel(operationsUseCase: UseCaseFactory.operations(),
+                                           categoriesUseCase: UseCaseFactory.categories(),
+                                           paymentMethodsUseCase: UseCaseFactory.paymentMethods())
     }
     
     static func coordinatorOperationForm() -> OperationFormCoordinator.ViewModel {

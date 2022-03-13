@@ -72,7 +72,7 @@ extension OverviewView.ViewModel {
     func fetchOperations() {
         stateHandler.loading()
         operationsUseCase
-            .operations(by: self.currentMonth)
+            .operations(month: 3, year: 2022)
             .receive(on: RunLoop.main)
             .sink { [weak self] completion in
                 switch completion {

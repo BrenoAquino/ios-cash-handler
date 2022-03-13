@@ -10,6 +10,7 @@ import Combine
 
 public protocol PaymentMethodsUseCase {
     func paymentMethods() -> AnyPublisher<[PaymentMethod], CharlesError>
+    func cachedPaymentMethods() -> [PaymentMethod]
 }
 
 // MARK: Implementation
@@ -24,6 +25,11 @@ public final class PaymentMethodsUseCaseImpl {
 
 // MARK: Interfaces
 extension PaymentMethodsUseCaseImpl: PaymentMethodsUseCase {
+    public func cachedPaymentMethods() -> [PaymentMethod] {
+        return paymentMethodsRepository
+            .cachedPaymentMethods()
+    }
+    
     public func paymentMethods() -> AnyPublisher<[PaymentMethod], CharlesError> {
         return paymentMethodsRepository
             .fetchPaymentMethods()
