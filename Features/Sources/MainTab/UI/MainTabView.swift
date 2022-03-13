@@ -37,7 +37,8 @@ public struct MainTabView<Content>: View where Content : View {
                  TabView {
                      content()
                  }
-                     .defaultTransition()
+                 .accentColor(Color(rgba: 0xD86239FF))
+                 .defaultTransition()
              }
          }
      }

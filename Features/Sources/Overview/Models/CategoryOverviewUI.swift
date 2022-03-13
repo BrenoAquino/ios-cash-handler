@@ -13,4 +13,12 @@ struct CategoryOverviewUI: Hashable {
     let expensePercentage: Double
     let count: String
     let countPercentage: Double
+    let paymentMethods: [PaymentMethodUI]
+    
+    struct PaymentMethodUI: Hashable, Identifiable {
+        var id: String { title }
+        
+        let title: String
+        var isSelected: Bool
+    }
 }

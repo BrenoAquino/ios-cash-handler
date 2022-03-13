@@ -44,7 +44,7 @@ public struct OverviewView: View {
             title
             Spacer(minLength: DSSpace.smallM.rawValue)
             overviewMonth
-            Spacer(minLength: DSSpace.bigL.rawValue)
+            Spacer(minLength: DSSpace.smallM.rawValue)
             categories
             Spacer(minLength: DSSpace.bigL.rawValue)
         }
@@ -73,17 +73,12 @@ public struct OverviewView: View {
     
     // MARK: Categories
     private var categories: some View {
-        VStack(spacing: DSSpace.smallM.rawValue) {
-            ForEach(viewModel.categories, id: \.self) { row in
-                HStack(spacing: DSSpace.smallM.rawValue) {
-                    ForEach(row, id: \.self) { element in
-                        CategoryOverviewView(categoryOverview: element)
-                            .frame(maxWidth: .infinity)
-                    }
-                }
-            }
+        ForEach(viewModel.categories, id: \.self) { element in
+            CategoryOverviewView(categoryOverview: element)
+                .frame(maxWidth: .infinity)
+                .padding(.bottom, DSSpace.smallL.rawValue)
         }
-        .padding(DSSpace.smallL.rawValue)
+        .padding(.horizontal, DSSpace.smallL.rawValue)
     }
 }
 
