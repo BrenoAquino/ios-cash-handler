@@ -18,7 +18,7 @@ public extension OverviewView {
         private var operations: [Domain.Operation] = []
         private var cancellables: Set<AnyCancellable> = .init()
         
-        private let currentMonth: Int
+        private let currentMonth: (month: Int, year: Int)
         let month: String
         let year: String
         
@@ -44,9 +44,11 @@ public extension OverviewView {
         public init(operationsUseCase: Domain.OperationsUseCase) {
             self.operationsUseCase = operationsUseCase
             
-            self.month = DateFormatter(pattern: "MMMM").string(from: .now)
+            self.month = DateFormatter(pattern: "MMMM").string(from: .now).capitalized
             self.year = DateFormatter(pattern: "yyyy").string(from: .now)
-            self.currentMonth = Calendar.current.component(.month, from: .now)
+            
+            let components = Calendar.current.dateComponents([.month, .year], from: .now)
+            self.currentMonth = (components.month ?? .zero, components.year ?? .zero)
         }
     }
 }
@@ -72,7 +74,7 @@ extension OverviewView.ViewModel {
     func fetchOperations() {
         stateHandler.loading()
         operationsUseCase
-            .operations(month: 3, year: 2022)
+            .operations(month: currentMonth.month, year: currentMonth.year)
             .receive(on: RunLoop.main)
             .sink { [weak self] completion in
                 switch completion {

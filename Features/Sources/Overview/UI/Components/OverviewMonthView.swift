@@ -26,14 +26,14 @@ struct OverviewMonthView: View {
     }
     
     private func element(title: String, value: String) -> some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: DSSpace.smallS.rawValue) {
             Text(title)
+                .font(DSFont.subheadline.rawValue)
                 .foregroundColor(DSColor.primaryText.rawValue)
-                .font(DSFont.subheadlineLarge.rawValue)
             
             Text(value)
+                .font(DSFont.headline2.rawValue)
                 .foregroundColor(DSColor.primaryText.rawValue)
-                .font(DSFont.title2.rawValue)
         }
         .frame(maxWidth: .infinity)
     }
