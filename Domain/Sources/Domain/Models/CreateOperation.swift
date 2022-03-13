@@ -14,4 +14,13 @@ public struct CreateOperation {
     public let categoryId: String
     public let paymentMethodId: String
     public let installments: Int?
+    
+    public init(title: String, date: String, value: Double, categoryId: String, paymentMethodId: String, installments: Int?) {
+        self.title = title
+        self.date = date
+        self.value = value
+        self.categoryId = categoryId
+        self.paymentMethodId = paymentMethodId
+        self.installments = installments
+    }
 }

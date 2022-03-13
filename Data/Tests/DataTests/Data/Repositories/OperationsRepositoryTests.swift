@@ -14,6 +14,14 @@ import Domain
 class OperationsRepositoryTests: XCTestCase {
     
     var cancellables: Set<AnyCancellable> = .init()
+    let params: CreateOperation = .init(
+        title: "Title",
+        date: "03/04/1997",
+        value: 132,
+        categoryId: "0",
+        paymentMethodId: "1",
+        installments: nil
+    )
     
     // MARK: Add Operations
     func testAddOperationSuccessToDomainType() {
@@ -26,7 +34,7 @@ class OperationsRepositoryTests: XCTestCase {
         
         // When
         repository
-            .addOperation(title: "Title", date: "03/04/1997", value: 132, categoryId: "0", paymentMethodId: "1")
+            .addOperation(createOperation: params)
             .sink { completion in
                 expectation.fulfill()
             } receiveValue: { value in
@@ -58,7 +66,7 @@ class OperationsRepositoryTests: XCTestCase {
         
         // When
         repository
-            .addOperation(title: "Title", date: "03/04/1997", value: 132, categoryId: "0", paymentMethodId: "1")
+            .addOperation(createOperation: params)
             .sinkCompletion { completion in
                 switch completion {
                 case .finished:
@@ -86,7 +94,7 @@ class OperationsRepositoryTests: XCTestCase {
 
         // When
         repository
-            .addOperation(title: "Title", date: "03/04/1997", value: 132, categoryId: "0", paymentMethodId: "1")
+            .addOperation(createOperation: params)
             .sinkCompletion { completion in
                 switch completion {
                 case .finished:

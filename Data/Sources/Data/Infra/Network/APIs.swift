@@ -19,12 +19,27 @@ public protocol APIs {
     var baseURL: String { get }
     var path: String { get }
     var method: RequestMethod { get }
+    
+    var queryParams: [String: Any]? { get }
     var body: Data? { get }
 }
 
 extension APIs {
     func createRequest() throws -> URLRequest {
-        guard let url = URL(string: baseURL + "/" + path) else {
+        guard var components = URLComponents(string: baseURL + "/" + path) else {
+            throw CharlesDataError(type: .invalidURL)
+        }
+        
+        if let queryParams = queryParams {
+            components.queryItems = []
+            for (key, value) in queryParams {
+                components.queryItems?.append(
+                    .init(name: key, value: String(describing: value))
+                )
+            }
+        }
+        
+        guard let url = components.url else {
             throw CharlesDataError(type: .invalidURL)
         }
         

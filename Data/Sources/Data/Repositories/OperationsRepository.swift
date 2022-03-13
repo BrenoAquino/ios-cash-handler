@@ -39,7 +39,7 @@ public final class OperationsRepositoryImpl {
 extension OperationsRepositoryImpl: Domain.OperationsRepository {
     public func operations() -> AnyPublisher<[Domain.Operation], CharlesError> {
         return remoteDataSource
-            .operations()
+            .operations(params: nil)
             .tryMap { [weak self] operationsDTOs in
                 if let categories = self?.categories, let paymentMethods = self?.paymentMethods {
                     do {

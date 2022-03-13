@@ -110,7 +110,7 @@ class OperationsRemoteDataSourceTests: XCTestCase {
         
         // When
         _ = remoteDataSource
-            .operations()
+            .operations(params: .init(month: 10, year: 2022))
             .sinkCompletion { _ in
                 expectation.fulfill()
             }
@@ -118,7 +118,7 @@ class OperationsRemoteDataSourceTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssert(networkProvider.decodableType == [OperationDTO].self)
-        XCTAssert(networkProvider.api?.hashValue() == OperationsAPIs.operations.hashValue())
+        XCTAssert(networkProvider.api?.hashValue() == OperationsAPIs.operations(params: .init(month: 10, year: 2022)).hashValue())
     }
     
     func testOperationsDecoding() {
@@ -130,7 +130,7 @@ class OperationsRemoteDataSourceTests: XCTestCase {
         
         // When
         remoteDataSource
-            .operations()
+            .operations(params: nil)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:
@@ -167,7 +167,7 @@ class OperationsRemoteDataSourceTests: XCTestCase {
 
         // When
         remoteDataSource
-            .operations()
+            .operations(params: nil)
             .sinkCompletion { completion in
                 switch completion {
                 case .finished:

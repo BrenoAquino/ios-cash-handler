@@ -30,6 +30,10 @@ extension PaymentMethodsAPIs: APIs {
         }
     }
     
+    var queryParams: [String : Any]? {
+        return nil
+    }
+    
     var body: Data? {
         switch self {
         case .paymentMethod:
