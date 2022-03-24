@@ -97,6 +97,15 @@ extension OverviewView.ViewModel {
             }
             .store(in: &cancellables)
     }
+    
+    func select(paymentMethodIndex: Int, overviewMonth: CategoryOverviewUI) {
+        guard let monthIndex = categories.firstIndex(where: { $0.id == overviewMonth.id }) else { return }
+        var categories = categories
+        categories[monthIndex].paymentMethods[paymentMethodIndex].isSelected.toggle()
+        self.categories = categories
+        
+        print(categories[monthIndex].paymentMethods[paymentMethodIndex].isSelected)
+    }
 }
 
 // MARK: - Actions

@@ -11,6 +11,7 @@ import DesignSystem
 struct CategoryOverviewView: View {
     
     @State var categoryOverview: CategoryOverviewUI
+    var paymentMethodSelection: (_ categoryOverview: CategoryOverviewUI, _ paymentMethodIndex: Int) -> Void
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -53,8 +54,11 @@ struct CategoryOverviewView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: DSSpace.smallL.rawValue) {
-                    ForEach(categoryOverview.paymentMethods) { paymentMethod in
-                        tagElement(title: paymentMethod.title)
+                    ForEach(categoryOverview.paymentMethods.indices) { index in
+                        tagElement(paymentMethod: categoryOverview.paymentMethods[index])
+                            .onTapGesture {
+                                paymentMethodSelection(categoryOverview, index)
+                            }
                     }
                 }
             }
@@ -78,14 +82,18 @@ struct CategoryOverviewView: View {
         .frame(maxWidth: .infinity)
     }
     
-    private func tagElement(title: String) -> some View {
-        Text(title)
+    private func tagElement(paymentMethod: CategoryOverviewUI.PaymentMethodUI) -> some View {
+        Text(paymentMethod.title)
             .font(DSFont.subheadline.rawValue)
             .padding(.vertical, DSSpace.smallS.rawValue)
             .padding(.horizontal, DSSpace.smallL.rawValue)
             .overlay(
                 Capsule()
                     .stroke(Color(rgba: 0xD86239FF), lineWidth: 1.5)
+            )
+            .background(
+                Capsule()
+                    .fill(paymentMethod.isSelected ? Color(rgba: 0xD86239FF) : DSColor.clear.rawValue)
             )
     }
 }
@@ -109,7 +117,9 @@ struct CategoryOverviewView_Previews: PreviewProvider {
                 .init(title: "Texto 6", isSelected: true),
                 .init(title: "Texto 7", isSelected: true)
             ]
-        ))
+        ), paymentMethodSelection: { _, _ in
+            
+        })
             .padding()
             .preferredColorScheme(.dark)
 //            .previewLayout(.sizeThatFits)
