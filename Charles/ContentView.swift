@@ -6,22 +6,11 @@
 //
 
 import SwiftUI
-import Home
 
 struct ContentView: View {
     
     var body: some View {
-        TabView {
-            OverviewCoordinator(viewModel: ViewModelFactory.coordinatorOverview())
-                .tabItem {
-                    Label("Overview", systemImage: "chart.bar.fill")
-                }
-            
-            HomeCoordinator(viewModel: ViewModelFactory.coordinatorHome())
-                .tabItem {
-                    Label("Home", systemImage: "house.fill")
-                }
-        }
+        MainTabCoordinator(viewModel: ViewModelFactory.coordinatorMainTab())
     }
 }
 

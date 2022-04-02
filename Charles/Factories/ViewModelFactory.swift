@@ -7,7 +7,7 @@
 
 import Foundation
 import Overview
-import Home
+import Statement
 import OperationForm
 import MainTab
 
@@ -32,13 +32,13 @@ enum ViewModelFactory {
         return OverviewCoordinator.ViewModel(overviewViewModel: Self.overview())
     }
     
-    // MARK: Home
-    static func home() -> HomeView.ViewModel {
-        return HomeView.ViewModel(operationsUseCase: UseCaseFactory.operations())
+    // MARK: Statement
+    static func statement() -> StatementView.ViewModel {
+        return StatementView.ViewModel(operationsUseCase: UseCaseFactory.operations())
     }
     
-    static func coordinatorHome() -> HomeCoordinator.ViewModel {
-        return HomeCoordinator.ViewModel(homeViewModel: Self.home())
+    static func coordinatorStatement() -> StatementCoordinator.ViewModel {
+        return StatementCoordinator.ViewModel(statementViewModel: Self.statement())
     }
     
     // MARK: Operation Form

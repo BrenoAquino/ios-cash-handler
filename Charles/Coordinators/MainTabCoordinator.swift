@@ -36,10 +36,10 @@ struct MainTabCoordinator: View {
             }
             
             NavigationView {
-                HomeCoordinator(viewModel: ViewModelFactory.coordinatorHome())
+                StatementCoordinator(viewModel: ViewModelFactory.coordinatorStatement())
             }
             .tabItem {
-                Label("Home", systemImage: "house.fill")
+                Label("Extrato", systemImage: "list.triangle")
             }
         }
     }

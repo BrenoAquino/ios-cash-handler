@@ -6,20 +6,20 @@
 //
 
 import SwiftUI
-import Home
+import Statement
 import OperationForm
 
-struct HomeCoordinator: View {
+struct StatementCoordinator: View {
     
     class ViewModel: ObservableObject {
-        let homeViewModel: HomeView.ViewModel
+        let statementViewModel: StatementView.ViewModel
         
         // MARK: Destionations ViewModel
         @Published var operationFormViewModel: OperationFormCoordinator.ViewModel?
         
-        init(homeViewModel: HomeView.ViewModel) {
-            self.homeViewModel = homeViewModel
-            self.homeViewModel.selectAddOperation = { [weak self] in
+        init(statementViewModel: StatementView.ViewModel) {
+            self.statementViewModel = statementViewModel
+            self.statementViewModel.selectAddOperation = { [weak self] in
                 self?.operationFormViewModel = ViewModelFactory.coordinatorOperationForm()
             }
         }
@@ -34,7 +34,7 @@ struct HomeCoordinator: View {
     
     // MARK: Self View
     var body: some View {
-        HomeView(viewModel: viewModel.homeViewModel)
+        StatementView(viewModel: viewModel.statementViewModel)
             .overlay(operationFormLink)
     }
     

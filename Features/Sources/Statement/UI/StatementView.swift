@@ -1,5 +1,5 @@
 //
-//  HomeView.swift
+//  StatementView.swift
 //  Charles
 //
 //  Created by Breno Aquino on 09/01/22.
@@ -8,7 +8,7 @@
 import SwiftUI
 import DesignSystem
 
-public struct HomeView: View {
+public struct StatementView: View {
     
     @ObservedObject private(set) var viewModel: ViewModel
     
@@ -21,7 +21,7 @@ public struct HomeView: View {
             .background(
                 DSColor.background.rawValue.edgesIgnoringSafeArea(.all)
             )
-            .navigationTitle(Localizable.Home.homeTitle)
+            .navigationTitle(StatementLocalizable.title)
             .banner(data: $viewModel.banner.data, show: $viewModel.banner.show)
             .toolbar {
                 addBar
@@ -87,13 +87,13 @@ public struct HomeView: View {
 // MARK: - Preview
 import Previews
 
-struct HomeView_Previews: PreviewProvider {
+struct StatementView_Previews: PreviewProvider {
     static var previews: some View {
         UITableView.appearance().backgroundColor = .clear
         UITableViewCell.appearance().backgroundColor = .clear
         
         return NavigationView {
-            HomeView(viewModel: .init(operationsUseCase: OperationsUseCasePreview()))
+            StatementView(viewModel: .init(operationsUseCase: OperationsUseCasePreview()))
         }
         .preferredColorScheme(.dark)
     }

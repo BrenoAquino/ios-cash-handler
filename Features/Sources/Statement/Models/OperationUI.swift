@@ -32,14 +32,14 @@ struct OperationUI: Identifiable {
         self.paymentMethodId = operation.paymentMethod.id
         
         let date = DateFormatter(pattern: "dd / MM / yyyy").string(from: operation.date)
-        let subtitle = HomeLocalizable.subtitleOperationCell(catengory: operation.category.name, date: date)
+        let subtitle = StatementLocalizable.subtitleOperationCell(catengory: operation.category.name, date: date)
         self.subtitle = subtitle
         
         let value = NumberFormatter.currency.string(for: operation.value)
         self.value = value ?? .empty
         
         if let currentInstallments = operation.currentInstallments, let totalInstallments = operation.totalInstallments {
-            self.valueDescription = Localizable.Home.valueDescription(currentInstallments: currentInstallments, totalInstallments: totalInstallments)
+            self.valueDescription = StatementLocalizable.valueDescription(currentInstallments: currentInstallments, totalInstallments: totalInstallments)
         } else {
             self.valueDescription = nil
         }
