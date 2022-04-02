@@ -55,7 +55,6 @@ extension OverviewView.ViewModel {
 // MARK: - Flow
 extension OverviewView.ViewModel {
     func fetchOperations() {
-        state = .loading
         operationsUseCase
             .monthOverview(month: currentMonth.month, year: currentMonth.year)
             .receive(on: RunLoop.main)
