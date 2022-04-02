@@ -8,20 +8,16 @@
 import Foundation
 import DesignSystem
 
-typealias HomeLocalizable = Localizable.Home
+typealias StatementLocalizable = Localizable.Statement
 
 extension Localizable {
     
-    enum Home {
-        static let homeTitle: String = "Home"
+    enum Statement {
+        static let title: String = "Extrato"
         
         static let userTitle: String = "Breno Aquino"
         static let companyTitle: String = "Charles Inc."
         static let userInitials: String = "BA"
-        
-        static let operationOptionsTitle: String = "Tipo de operação a ser adicionada"
-        static let cashInOption: String = "Cash In"
-        static let cashOutOption: String = "Cash Out"
         
         static func subtitleOperationCell(catengory: String, date: String) -> String { "\(catengory) • \(date)" }
         static func valueDescription(currentInstallments: Int, totalInstallments: Int) -> String { "\(currentInstallments) / \(totalInstallments)" }

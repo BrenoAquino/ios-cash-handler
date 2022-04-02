@@ -1,5 +1,5 @@
 //
-//  DSHome.swift
+//  DSStatement.swift
 //  Charles
 //
 //  Created by Breno Aquino on 09/01/22.
@@ -8,11 +8,11 @@
 import SwiftUI
 import DesignSystem
 
-typealias DSHome = DesignSystem.DSHome
+typealias DSStatement = DesignSystem.DSStatement
 
 extension DesignSystem {
     
-    enum DSHome {
+    enum DSStatement {
         
         static let circleRadius: CGFloat = 40
     }

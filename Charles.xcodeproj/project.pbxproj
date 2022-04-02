@@ -20,7 +20,7 @@
 		556DEE2D278B63E200CBFF5C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 556DEE2C278B63E200CBFF5C /* Preview Assets.xcassets */; };
 		556DEE37278B63E200CBFF5C /* CharlesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DEE36278B63E200CBFF5C /* CharlesTests.swift */; };
 		55886F9227DB917800F0F65E /* MainTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55886F9127DB917800F0F65E /* MainTabCoordinator.swift */; };
-		55B6BC48278B8D8500B421AE /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B6BC47278B8D8500B421AE /* HomeCoordinator.swift */; };
+		55B6BC48278B8D8500B421AE /* StatementCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B6BC47278B8D8500B421AE /* StatementCoordinator.swift */; };
 		55B6BC4A278B8D8F00B421AE /* OperationFormCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B6BC49278B8D8F00B421AE /* OperationFormCoordinator.swift */; };
 		55E3DDBB279A2B68005F0AE0 /* RemoteDataSourceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E3DDBA279A2B68005F0AE0 /* RemoteDataSourceFactory.swift */; };
 		55E3DDBD279A2C17005F0AE0 /* RepositoryFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E3DDBC279A2C17005F0AE0 /* RepositoryFactory.swift */; };
@@ -67,7 +67,7 @@
 		556DEE32278B63E200CBFF5C /* CharlesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CharlesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		556DEE36278B63E200CBFF5C /* CharlesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharlesTests.swift; sourceTree = "<group>"; };
 		55886F9127DB917800F0F65E /* MainTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabCoordinator.swift; sourceTree = "<group>"; };
-		55B6BC47278B8D8500B421AE /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		55B6BC47278B8D8500B421AE /* StatementCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementCoordinator.swift; sourceTree = "<group>"; };
 		55B6BC49278B8D8F00B421AE /* OperationFormCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFormCoordinator.swift; sourceTree = "<group>"; };
 		55B85B5E27B0ADB700D07656 /* Features */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Features; sourceTree = "<group>"; };
 		55E3DDBA279A2B68005F0AE0 /* RemoteDataSourceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataSourceFactory.swift; sourceTree = "<group>"; };
@@ -190,7 +190,7 @@
 		55B6BC46278B8D7600B421AE /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
-				55B6BC47278B8D8500B421AE /* HomeCoordinator.swift */,
+				55B6BC47278B8D8500B421AE /* StatementCoordinator.swift */,
 				55B6BC49278B8D8F00B421AE /* OperationFormCoordinator.swift */,
 				550E9C5B27DA9F3800399860 /* OverviewCoordinator.swift */,
 				55886F9127DB917800F0F65E /* MainTabCoordinator.swift */,
@@ -309,7 +309,7 @@
 				55B6BC4A278B8D8F00B421AE /* OperationFormCoordinator.swift in Sources */,
 				5546207A27CEA3CA0077CBEF /* UINavigationController+BackTitle.swift in Sources */,
 				55E3DDBD279A2C17005F0AE0 /* RepositoryFactory.swift in Sources */,
-				55B6BC48278B8D8500B421AE /* HomeCoordinator.swift in Sources */,
+				55B6BC48278B8D8500B421AE /* StatementCoordinator.swift in Sources */,
 				556DEE26278B63E100CBFF5C /* CharlesApp.swift in Sources */,
 				55E3DDBF279A2C64005F0AE0 /* UseCaseFactory.swift in Sources */,
 				550E9C5A27DA9E8400399860 /* ContentView.swift in Sources */,

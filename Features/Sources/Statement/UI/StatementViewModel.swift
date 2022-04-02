@@ -1,5 +1,5 @@
 //
-//  HomeViewModel.swift
+//  StatementViewModel.swift
 //  Charles
 //
 //  Created by Breno Aquino on 09/01/22.
@@ -10,7 +10,7 @@ import Combine
 import DesignSystem
 import Domain
 
-public extension HomeView {
+public extension StatementView {
     
     final class ViewModel: ObservableObject {
         
@@ -33,7 +33,7 @@ public extension HomeView {
 }
 
 // MARK: - Setups
-extension HomeView.ViewModel {
+extension StatementView.ViewModel {
     private func setupErrorBanner(error: CharlesError) {
         banner.data = .init(title: Localizable.Common.failureTitleBanner,
                             subtitle: error.localizedDescription,
@@ -43,7 +43,7 @@ extension HomeView.ViewModel {
 }
 
 // MARK: - Flow
-extension HomeView.ViewModel {
+extension StatementView.ViewModel {
     func fetchOperations() {
         stateHandler.loading()
         operationsUseCase
@@ -65,7 +65,7 @@ extension HomeView.ViewModel {
 }
 
 // MARK: - Actions
-extension HomeView.ViewModel {
+extension StatementView.ViewModel {
     func selectAdd() {
         selectAddOperation?()
     }
