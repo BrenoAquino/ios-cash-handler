@@ -29,8 +29,8 @@ public class OperationsUseCasePreview: OperationsUseCase {
     
     public init() {}
     
-    public func operations(month: Int?, year: Int?) -> AnyPublisher<[Domain.Operation], CharlesError> {
-        return Just(operations)
+    public func monthOverview(month: Int, year: Int) -> AnyPublisher<MonthOverview, CharlesError> {
+        return Just(Domain.MonthOverview(month: month, year: year, expense: 1234.7, categoriesOverviews: []))
             .setFailureType(to: CharlesError.self)
             .eraseToAnyPublisher()
     }

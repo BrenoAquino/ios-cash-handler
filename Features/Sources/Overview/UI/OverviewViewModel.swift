@@ -15,7 +15,6 @@ public extension OverviewView {
     final class ViewModel: ObservableObject {
         
         private let operationsUseCase: Domain.OperationsUseCase
-        private var operations: [Domain.Operation] = []
         private var cancellables: Set<AnyCancellable> = .init()
         
         private let currentMonth: (month: Int, year: Int)
@@ -25,17 +24,8 @@ public extension OverviewView {
         // MARK: Publisher
         @Published var banner: BannerControl = .init(show: false, data: .empty)
         @Published private(set) var stateHandler: ViewStateHandler = .init(state: .loading)
-        @Published private(set) var overviewMonth: OverviewMonthUI = .init(income: .empty, expense: .empty, refer: .empty)
-        @Published private(set) var categories: [CategoryOverviewUI] = [
-            .init(title: "Tecnologia".uppercased(), expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3),
-            .init(title: "Saúde".uppercased(), expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3),
-            .init(title: "Lazer".uppercased(), expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3),
-            .init(title: "Educação".uppercased(), expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3),
-            .init(title: "Refeição".uppercased(), expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3),
-            .init(title: "Mobilidade".uppercased(), expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3),
-            .init(title: "Moradia".uppercased(), expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3),
-            .init(title: "Outras Pessoas".uppercased(), expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3)
-        ]
+        @Published private(set) var overviewMonth: OverviewMonthUI = .placeholder
+        @Published private(set) var categoriesOverview: [CategoryOverviewUI] = []
         
         // MARK: Redirects
         
@@ -60,12 +50,6 @@ extension OverviewView.ViewModel {
                             type: .failure)
         banner.show = true
     }
-    
-    private func setupOverview() {
-        let total = operations.reduce(.zero, { $0 + $1.value })
-        let totalString = String(format: "R$ %.2f", total)
-        overviewMonth = .init(income: "N/D", expense: totalString, refer: "N/D")
-    }
 }
 
 // MARK: - Flow
@@ -73,7 +57,7 @@ extension OverviewView.ViewModel {
     func fetchOperations() {
         stateHandler.loading()
         operationsUseCase
-            .operations(month: currentMonth.month, year: currentMonth.year)
+            .monthOverview(month: currentMonth.month, year: currentMonth.year)
             .receive(on: RunLoop.main)
             .sink { [weak self] completion in
                 switch completion {
@@ -83,9 +67,9 @@ extension OverviewView.ViewModel {
                     self?.setupErrorBanner(error: error)
                     self?.stateHandler.failure()
                 }
-            } receiveValue: { [weak self] operations in
-                self?.operations = operations
-                self?.setupOverview()
+            } receiveValue: { [weak self] overview in
+                self?.overviewMonth = .init(monthOverview: overview)
+                self?.categoriesOverview = overview.categoriesOverviews.map { .init(categoryOverview: $0) }
             }
             .store(in: &cancellables)
     }
