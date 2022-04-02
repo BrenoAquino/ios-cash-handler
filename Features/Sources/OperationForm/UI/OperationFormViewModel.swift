@@ -39,7 +39,7 @@ public extension OperationFormView {
         @Published private(set) var isValidCategory: Bool = false
         @Published private(set) var isValidPaymentMethod: Bool = false
         @Published private(set) var validInputs: Bool = false
-        @Published private(set) var stateHandler: ViewStateHandler = .init(state: .content)
+        @Published private(set) var state: ViewState = .content
         
         // MARK: Inits
         public init(operationsUseCase: Domain.OperationsUseCase,
@@ -121,7 +121,7 @@ extension OperationFormView.ViewModel {
     }
     
     func addOperation() {
-        stateHandler.loading()
+        state = .loading
         validInputs = false
         
         operationsUseCase
@@ -135,10 +135,10 @@ extension OperationFormView.ViewModel {
             .sinkCompletion { [weak self] completion in
                 switch completion {
                 case .finished:
-                    self?.stateHandler.finished()
+                    self?.state = .finished
                 case .failure(let error):
                     self?.setupErrorBanner(error: error)
-                    self?.stateHandler.failure()
+                    self?.state = .failure
                 }
             }
             .store(in: &cancellables)

@@ -26,7 +26,7 @@ public struct MainTabView<Content>: View where Content : View {
     // MARK: View State
     private var contentView: some View {
          ZStack {
-             switch viewModel.stateHandler.state {
+             switch viewModel.state {
              case .loading:
                  ViewState.loadingView(background: .opaque)
                      .defaultTransition()

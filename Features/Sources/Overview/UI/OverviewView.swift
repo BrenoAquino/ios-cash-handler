@@ -26,7 +26,7 @@ public struct OverviewView: View {
     // MARK: View State
     private var state: some View {
          ZStack {
-             switch viewModel.stateHandler.state {
+             switch viewModel.state {
              case .loading:
                  ViewState.loadingView(background: .opaque)
                      .defaultTransition()

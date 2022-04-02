@@ -23,7 +23,7 @@ public extension OverviewView {
         
         // MARK: Publisher
         @Published var banner: BannerControl = .init(show: false, data: .empty)
-        @Published private(set) var stateHandler: ViewStateHandler = .init(state: .loading)
+        @Published private(set) var state: ViewState = .loading
         @Published private(set) var overviewMonth: OverviewMonthUI = .placeholder
         @Published private(set) var categoriesOverview: [CategoryOverviewUI] = []
         
@@ -55,17 +55,17 @@ extension OverviewView.ViewModel {
 // MARK: - Flow
 extension OverviewView.ViewModel {
     func fetchOperations() {
-        stateHandler.loading()
+        state = .loading
         operationsUseCase
             .monthOverview(month: currentMonth.month, year: currentMonth.year)
             .receive(on: RunLoop.main)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished:
-                    self?.stateHandler.finished()
+                    self?.state = .content
                 case .failure(let error):
                     self?.setupErrorBanner(error: error)
-                    self?.stateHandler.failure()
+                    self?.state = .failure
                 }
             } receiveValue: { [weak self] overview in
                 self?.overviewMonth = .init(monthOverview: overview)

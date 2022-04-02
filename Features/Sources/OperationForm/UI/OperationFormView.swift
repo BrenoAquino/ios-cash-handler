@@ -29,8 +29,8 @@ public struct OperationFormView: View {
                 hideKeyboardBar
                 doneBar
             }
-            .onReceive(viewModel.$stateHandler) { stateHandler in
-                if stateHandler.state == .finished {
+            .onReceive(viewModel.$state) { state in
+                if state == .finished {
                     self.presentationMode.wrappedValue.dismiss()
                 }
             }
@@ -39,7 +39,7 @@ public struct OperationFormView: View {
     // MARK: View State
     private var overlayState: some View {
         ZStack {
-            switch viewModel.stateHandler.state {
+            switch viewModel.state {
             case .loading:
                 ViewState.loadingView(background: .blur).defaultTransition()
             default:
