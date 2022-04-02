@@ -16,7 +16,7 @@ struct CategoryOverviewView: View {
         VStack(alignment: .leading) {
             Text(categoryOverview.title)
                 .foregroundColor(DSColor.primaryText.rawValue)
-                .font(DSFont.headline2.rawValue)
+                .font(DSFont.subheadline.rawValue)
                 .padding(.leading, DSSpace.smallM.rawValue)
             
             container
@@ -26,29 +26,8 @@ struct CategoryOverviewView: View {
     private var container: some View {
         VStack(alignment: .leading, spacing: DSSpace.smallL.rawValue) {
             HStack {
-                VStack(alignment: .leading, spacing: DSSpace.smallS.rawValue) {
-                    Text(categoryOverview.expense)
-                        .foregroundColor(DSColor.primaryText.rawValue)
-                        .font(DSFont.title2.rawValue)
-                    
-                    LineBar(config: .init(percentage: categoryOverview.expensePercentage,
-                                          color: DSColor.main.rawValue,
-                                          backgroundColor: .gray))
-                    .frame(height: DSOverview.categoryOverviewLineHeight)
-                }
-                .frame(maxWidth: .infinity)
-                
-                VStack(alignment: .leading, spacing: DSSpace.smallS.rawValue) {
-                    Text(categoryOverview.count)
-                        .foregroundColor(DSColor.primaryText.rawValue)
-                        .font(DSFont.title2.rawValue)
-                    
-                    LineBar(config: .init(percentage: categoryOverview.countPercentage,
-                                          color: DSColor.main.rawValue,
-                                          backgroundColor: .gray))
-                    .frame(height: DSOverview.categoryOverviewLineHeight)
-                }
-                .frame(maxWidth: .infinity)
+                expense
+                count
             }
         }
         .padding(DSSpace.smallL.rawValue)
@@ -57,15 +36,30 @@ struct CategoryOverviewView: View {
         .shadow(style: .medium)
     }
     
-    private func element(title: String, value: String) -> some View {
-        VStack(alignment: .leading) {
-            Text(title)
+    private var expense: some View {
+        VStack(alignment: .leading, spacing: DSSpace.smallS.rawValue) {
+            Text(categoryOverview.expense)
                 .foregroundColor(DSColor.primaryText.rawValue)
-                .font(DSFont.subheadlineLarge.rawValue)
+                .font(DSFont.headline2.rawValue)
             
-            Text(value)
+            LineBar(config: .init(percentage: categoryOverview.expensePercentage,
+                                  color: DSColor.main.rawValue,
+                                  backgroundColor: .gray))
+            .frame(height: DSOverview.categoryOverviewLineHeight)
+        }
+        .frame(maxWidth: .infinity)
+    }
+    
+    private var count: some View {
+        VStack(alignment: .leading, spacing: DSSpace.smallS.rawValue) {
+            Text(categoryOverview.count)
                 .foregroundColor(DSColor.primaryText.rawValue)
-                .font(DSFont.title2.rawValue)
+                .font(DSFont.headline2.rawValue)
+            
+            LineBar(config: .init(percentage: categoryOverview.countPercentage,
+                                  color: DSColor.main.rawValue,
+                                  backgroundColor: .gray))
+            .frame(height: DSOverview.categoryOverviewLineHeight)
         }
         .frame(maxWidth: .infinity)
     }

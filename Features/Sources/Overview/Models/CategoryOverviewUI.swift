@@ -18,11 +18,11 @@ struct CategoryOverviewUI: Hashable, Identifiable {
     let countPercentage: Double
     
     init(categoryOverview: Domain.CategoryOverview) {
-        self.title = categoryOverview.categoryName
+        self.title = categoryOverview.categoryName.uppercased()
         
         self.expense = NumberFormatter.currency.string(for: categoryOverview.expense) ?? .empty
         self.expensePercentage = categoryOverview.expensePercentage
-        self.count = OverviewLocalizable.totalCount(number: String(categoryOverview.count)) 
+        self.count = OverviewLocalizable.totalCount(number: String(categoryOverview.count))
         self.countPercentage = categoryOverview.countPercentage
     }
     
