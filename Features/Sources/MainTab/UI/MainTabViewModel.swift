@@ -17,7 +17,7 @@ public final class MainTabViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = .init()
     
     // MARK: Publishers
-    @Published private(set) var stateHandler: ViewStateHandler = .init(state: .loading)
+    @Published private(set) var state: ViewState = .loading
     
     // MARK: - Inits
     public init(categoriesUseCase: Domain.CategoriesUseCase, paymentMethods: Domain.PaymentMethodsUseCase) {
@@ -29,7 +29,7 @@ public final class MainTabViewModel: ObservableObject {
 // MARK: - Flow
 extension MainTabViewModel {
     func fetchData() {
-        stateHandler.loading()
+        state = .loading
         fetchCategoriesPaymentMethods()
     }
     
@@ -43,9 +43,9 @@ extension MainTabViewModel {
             .sinkCompletion { [weak self] completion in
                 switch completion {
                 case .finished:
-                    self?.stateHandler.content()
+                    self?.state = .content
                 case .failure:
-                    self?.stateHandler.failure()
+                    self?.state = .failure
                 }
             }
             .store(in: &cancellables)

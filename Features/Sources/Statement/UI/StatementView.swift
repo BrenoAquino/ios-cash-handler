@@ -32,7 +32,7 @@ public struct StatementView: View {
     // MARK: View State
     private var content: some View {
          ZStack {
-             switch viewModel.stateHandler.state {
+             switch viewModel.state {
              case .loading:
                  ViewState.loadingView(background: .opaque)
                      .defaultTransition()

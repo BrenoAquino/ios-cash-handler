@@ -19,7 +19,7 @@ public extension StatementView {
         
         // MARK: Publisher
         @Published var banner: BannerControl = .init(show: false, data: .empty)
-        @Published private(set) var stateHandler: ViewStateHandler = .init(state: .loading)
+        @Published private(set) var state: ViewState = .loading
         @Published private(set) var operations: [OperationsAggregatorUI] = []
         
         // MARK: Redirects
@@ -45,17 +45,17 @@ extension StatementView.ViewModel {
 // MARK: - Flow
 extension StatementView.ViewModel {
     func fetchOperations() {
-        stateHandler.loading()
+        state = .loading
         operationsUseCase
             .aggregateOperations()
             .receive(on: RunLoop.main)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished:
-                    self?.stateHandler.finished()
+                    self?.state = .finished
                 case .failure(let error):
                     self?.setupErrorBanner(error: error)
-                    self?.stateHandler.failure()
+                    self?.state = .failure
                 }
             } receiveValue: { [weak self] operations in
                 self?.operations = operations.compactMap { OperationsAggregatorUI(operationsAggregator: $0) }
