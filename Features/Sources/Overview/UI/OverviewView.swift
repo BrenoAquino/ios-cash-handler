@@ -74,10 +74,7 @@ public struct OverviewView: View {
     // MARK: Categories
     private var categories: some View {
         ForEach(viewModel.categories) { element in
-            CategoryOverviewView(categoryOverview: element,
-                                 paymentMethodSelection: { _, paymentMethodIndex in
-                viewModel.select(paymentMethodIndex: paymentMethodIndex, overviewMonth: element)
-            })
+            CategoryOverviewView(categoryOverview: element)
                 .frame(maxWidth: .infinity)
                 .padding(.bottom, DSSpace.smallL.rawValue)
         }

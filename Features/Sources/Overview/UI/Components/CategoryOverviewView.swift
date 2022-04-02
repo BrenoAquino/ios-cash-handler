@@ -11,7 +11,6 @@ import DesignSystem
 struct CategoryOverviewView: View {
     
     @State var categoryOverview: CategoryOverviewUI
-    var paymentMethodSelection: (_ categoryOverview: CategoryOverviewUI, _ paymentMethodIndex: Int) -> Void
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -33,9 +32,9 @@ struct CategoryOverviewView: View {
                         .font(DSFont.title2.rawValue)
                     
                     LineBar(config: .init(percentage: categoryOverview.expensePercentage,
-                                          color: Color(rgba: 0xD86239FF),
+                                          color: DSColor.main.rawValue,
                                           backgroundColor: .gray))
-                        .frame(height: 2)
+                    .frame(height: DSOverview.categoryOverviewLineHeight)
                 }
                 .frame(maxWidth: .infinity)
                 
@@ -45,22 +44,11 @@ struct CategoryOverviewView: View {
                         .font(DSFont.title2.rawValue)
                     
                     LineBar(config: .init(percentage: categoryOverview.countPercentage,
-                                          color: Color(rgba: 0xD86239FF),
+                                          color: DSColor.main.rawValue,
                                           backgroundColor: .gray))
-                        .frame(height: 2)
+                    .frame(height: DSOverview.categoryOverviewLineHeight)
                 }
                 .frame(maxWidth: .infinity)
-            }
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: DSSpace.smallL.rawValue) {
-                    ForEach(categoryOverview.paymentMethods.indices) { index in
-                        tagElement(paymentMethod: categoryOverview.paymentMethods[index])
-                            .onTapGesture {
-                                paymentMethodSelection(categoryOverview, index)
-                            }
-                    }
-                }
             }
         }
         .padding(DSSpace.smallL.rawValue)
@@ -81,21 +69,6 @@ struct CategoryOverviewView: View {
         }
         .frame(maxWidth: .infinity)
     }
-    
-    private func tagElement(paymentMethod: CategoryOverviewUI.PaymentMethodUI) -> some View {
-        Text(paymentMethod.title)
-            .font(DSFont.subheadline.rawValue)
-            .padding(.vertical, DSSpace.smallS.rawValue)
-            .padding(.horizontal, DSSpace.smallL.rawValue)
-            .overlay(
-                Capsule()
-                    .stroke(Color(rgba: 0xD86239FF), lineWidth: 1.5)
-            )
-            .background(
-                Capsule()
-                    .fill(paymentMethod.isSelected ? Color(rgba: 0xD86239FF) : DSColor.clear.rawValue)
-            )
-    }
 }
 
 #if DEBUG
@@ -107,22 +80,13 @@ struct CategoryOverviewView_Previews: PreviewProvider {
             expense: "R$ 2800",
             expensePercentage: 0.75,
             count: "12 compras",
-            countPercentage: 0.3,
-            paymentMethods: [
-                .init(title: "Texto 1", isSelected: true),
-                .init(title: "Texto 2", isSelected: true),
-                .init(title: "Texto 3", isSelected: true),
-                .init(title: "Texto 4", isSelected: true),
-                .init(title: "Texto 5", isSelected: true),
-                .init(title: "Texto 6", isSelected: true),
-                .init(title: "Texto 7", isSelected: true)
-            ]
-        ), paymentMethodSelection: { _, _ in
-            
-        })
+            countPercentage: 0.3
+        ))
+            .background(.orange)
             .padding()
+            .background(.gray)
             .preferredColorScheme(.dark)
-//            .previewLayout(.sizeThatFits)
+            .previewLayout(.sizeThatFits)
     }
 }
 #endif

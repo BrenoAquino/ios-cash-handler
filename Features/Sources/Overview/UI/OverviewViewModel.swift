@@ -10,14 +10,6 @@ import Combine
 import DesignSystem
 import Domain
 
-private let categoriesOpetions: [CategoryOverviewUI.PaymentMethodUI] = [
-    .init(title: "Cartão de Crédito", isSelected: false),
-    .init(title: "Vale Refeição", isSelected: false),
-    .init(title: "Vale Alimentação", isSelected: false),
-    .init(title: "Transferência Bancária", isSelected: false),
-    .init(title: "Cartão de Débito", isSelected: false)
-]
-
 public extension OverviewView {
     
     final class ViewModel: ObservableObject {
@@ -35,14 +27,14 @@ public extension OverviewView {
         @Published private(set) var stateHandler: ViewStateHandler = .init(state: .loading)
         @Published private(set) var overviewMonth: OverviewMonthUI = .init(income: .empty, expense: .empty, refer: .empty)
         @Published private(set) var categories: [CategoryOverviewUI] = [
-            .init(title: "Tecnologia".uppercased(), expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3, paymentMethods: categoriesOpetions),
-            .init(title: "Saúde".uppercased(), expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3, paymentMethods: categoriesOpetions),
-            .init(title: "Lazer".uppercased(), expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3, paymentMethods: categoriesOpetions),
-            .init(title: "Educação".uppercased(), expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3, paymentMethods: categoriesOpetions),
-            .init(title: "Refeição".uppercased(), expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3, paymentMethods: categoriesOpetions),
-            .init(title: "Mobilidade".uppercased(), expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3, paymentMethods: categoriesOpetions),
-            .init(title: "Moradia".uppercased(), expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3, paymentMethods: categoriesOpetions),
-            .init(title: "Outras Pessoas".uppercased(), expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3, paymentMethods: categoriesOpetions)
+            .init(title: "Tecnologia".uppercased(), expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3),
+            .init(title: "Saúde".uppercased(), expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3),
+            .init(title: "Lazer".uppercased(), expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3),
+            .init(title: "Educação".uppercased(), expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3),
+            .init(title: "Refeição".uppercased(), expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3),
+            .init(title: "Mobilidade".uppercased(), expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3),
+            .init(title: "Moradia".uppercased(), expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3),
+            .init(title: "Outras Pessoas".uppercased(), expense: "R$ 2800", expensePercentage: 0.75, count: "13 compras", countPercentage: 0.3)
         ]
         
         // MARK: Redirects
@@ -96,15 +88,6 @@ extension OverviewView.ViewModel {
                 self?.setupOverview()
             }
             .store(in: &cancellables)
-    }
-    
-    func select(paymentMethodIndex: Int, overviewMonth: CategoryOverviewUI) {
-        guard let monthIndex = categories.firstIndex(where: { $0.id == overviewMonth.id }) else { return }
-        var categories = categories
-        categories[monthIndex].paymentMethods[paymentMethodIndex].isSelected.toggle()
-        self.categories = categories
-        
-        print(categories[monthIndex].paymentMethods[paymentMethodIndex].isSelected)
     }
 }
 

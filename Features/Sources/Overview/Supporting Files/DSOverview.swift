@@ -13,5 +13,6 @@ typealias DSOverview = DesignSystem.DSOverview
 extension DesignSystem {
     
     enum DSOverview {
+        static let categoryOverviewLineHeight: CGFloat = 2
     }
 }
