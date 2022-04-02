@@ -26,7 +26,7 @@ public struct HomeView: View {
             .toolbar {
                 addBar
             }
-            .onAppear(perform: viewModel.fetchDate)
+            .onAppear(perform: viewModel.fetchOperations)
     }
     
     // MARK: View State
@@ -85,15 +85,15 @@ public struct HomeView: View {
 
 #if DEBUG
 // MARK: - Preview
+import Previews
+
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         UITableView.appearance().backgroundColor = .clear
         UITableViewCell.appearance().backgroundColor = .clear
         
         return NavigationView {
-            HomeView(viewModel: .init(categoriesUseCase: CategoriesUseCasePreview(),
-                                      paymentMethods: PaymentMethodsUseCasePreview(),
-                                      operationsUseCase: OperationsUseCasePreview()))
+            HomeView(viewModel: .init(operationsUseCase: OperationsUseCasePreview()))
         }
         .preferredColorScheme(.dark)
     }

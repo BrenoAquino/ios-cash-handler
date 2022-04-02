@@ -8,7 +8,7 @@ let package = Package(
     products: [
         .library(
             name: "Features",
-            targets: ["DesignSystem", "Home", "OperationForm"]),
+            targets: ["DesignSystem", "MainTab", "Overview", "Home", "OperationForm"]),
     ],
     dependencies: [
         .package(name: "Common", path: "../Common"),
@@ -16,13 +16,22 @@ let package = Package(
     ],
     targets: [
         .target(
+            name: "Previews",
+            dependencies: ["Common", "Domain"]),
+        .target(
             name: "DesignSystem",
             dependencies: ["Common"]),
         .target(
+            name: "MainTab",
+            dependencies: ["Previews", "Common", "Domain", "DesignSystem"]),
+        .target(
+            name: "Overview",
+            dependencies: ["Previews", "Common", "Domain", "DesignSystem"]),
+        .target(
             name: "Home",
-            dependencies: ["Common", "Domain", "DesignSystem"]),
+            dependencies: ["Previews", "Common", "Domain", "DesignSystem"]),
         .target(
             name: "OperationForm",
-            dependencies: ["Common", "Domain", "DesignSystem"]),
+            dependencies: ["Previews", "Common", "Domain", "DesignSystem"]),
     ]
 )

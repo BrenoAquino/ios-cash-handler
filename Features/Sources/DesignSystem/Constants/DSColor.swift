@@ -24,6 +24,11 @@ public extension DesignSystem {
     struct DSColor {
         public var rawValue: Color
         
+        // MARK: Theme
+        /// Main - 0xD86239 - 100%
+        public static let main: DSColor = DSColor(rawValue: Color(rgba: 0xD86239FF))
+        
+        // MARK: Context
         /// Clear - 0xFFFFFF - 0%
         public static let clear: DSColor = DSColor(rawValue: Color(rgba: 0xFFFFFF00))
         /// Backgorund - 0x171B1E - 100%

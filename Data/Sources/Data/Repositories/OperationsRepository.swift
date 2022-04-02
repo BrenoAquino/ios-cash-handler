@@ -37,9 +37,14 @@ public final class OperationsRepositoryImpl {
 
 // MARK: Interface
 extension OperationsRepositoryImpl: Domain.OperationsRepository {
-    public func operations() -> AnyPublisher<[Domain.Operation], CharlesError> {
+    public func operations(month: Int?, year: Int?) -> AnyPublisher<[Domain.Operation], CharlesError> {
+        var parms: OperationsFilterParams? = nil
+        if let month = month, let year = year {
+            parms = .init(month: month, year: year)
+        }
+        
         return remoteDataSource
-            .operations()
+            .operations(params: parms)
             .tryMap { [weak self] operationsDTOs in
                 if let categories = self?.categories, let paymentMethods = self?.paymentMethods {
                     do {

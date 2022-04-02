@@ -18,13 +18,13 @@ class HostConfig {
             case .dev:
                 return "https://tqcbp1qk03.execute-api.us-east-1.amazonaws.com/dev/cash-management"
             case .prd:
-                return ""
+                return "https://uyj0eypesi.execute-api.us-east-1.amazonaws.com/prd/cash-management"
             }
         }
     }
     
     static let shared: HostConfig = .init()
-    let environment: Environment = .dev
+    let environment: Environment = .prd
     
     private init() {}
 }

@@ -16,12 +16,13 @@ enum APIsMock {
     case put
     case validUrl
     case invalidUrl
+    case queryParams
 }
 
 extension APIsMock: APIs {
     var baseURL: String {
         switch self {
-        case .get, .post, .delete, .put, .validUrl:
+        case .get, .post, .delete, .put, .validUrl, .queryParams:
             return "https://mock.com"
         case .invalidUrl:
             return "ç"
@@ -34,7 +35,7 @@ extension APIsMock: APIs {
     
     var method: RequestMethod {
         switch self {
-        case .get, .validUrl, .invalidUrl:
+        case .get, .validUrl, .invalidUrl, .queryParams:
             return .get
         case .post:
             return .post
@@ -45,11 +46,20 @@ extension APIsMock: APIs {
         }
     }
     
+    var queryParams: [String : Any]? {
+        switch self {
+        case .queryParams:
+            return ["key1": "value1", "key2": 2]
+        default:
+            return nil
+        }
+    }
+    
     var body: Data? {
         switch self {
         case .post:
             return Data()
-        case .get, .delete, .put, .validUrl, .invalidUrl:
+        case .get, .delete, .put, .validUrl, .invalidUrl, .queryParams:
             return nil
         }
     }
@@ -149,5 +159,26 @@ class APIsTests: XCTestCase {
         // Then
         XCTAssertNotNil(error)
         XCTAssert(error?.type == .invalidURL)
+    }
+    
+    func testQueryParams() {
+        // Given
+        let api = APIsMock.queryParams
+        
+        // When
+        let request = try? api.createRequest()
+        
+        // Then
+        var queryParams: [String: String] = [:]
+        let queryComponents = request!.url!.query!.components(separatedBy: "&")
+        for component in queryComponents {
+            let keyValue = component.components(separatedBy: "=")
+            queryParams[keyValue[0]] = keyValue[1]
+        }
+        let url = request!.url!.absoluteString.components(separatedBy: "?")[0]
+        
+        XCTAssert(url == "https://mock.com/path/to/be/here")
+        XCTAssert(queryParams["key1"] == "value1")
+        XCTAssert(queryParams["key2"] == "2")
     }
 }

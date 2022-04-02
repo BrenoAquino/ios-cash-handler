@@ -11,7 +11,7 @@ import Combine
 @testable import Data
 
 class MockSuccessOperationsRemoteDataSource: OperationsRemoteDataSource {
-    func operations() -> AnyPublisher<[OperationDTO], CharlesDataError> {
+    func operations(params: OperationsFilterParams?) -> AnyPublisher<[OperationDTO], CharlesDataError> {
         let operation: OperationDTO = .init(
             id: "123",
             title: "title",
@@ -50,7 +50,7 @@ class MockSuccessOperationsRemoteDataSource: OperationsRemoteDataSource {
 }
 
 class MockErrorOperationsRemoteDataSource: OperationsRemoteDataSource {
-    func operations() -> AnyPublisher<[OperationDTO], CharlesDataError> {
+    func operations(params: OperationsFilterParams?) -> AnyPublisher<[OperationDTO], CharlesDataError> {
         let error = CharlesDataError(type: .badRequest)
         return Fail(error: error)
             .eraseToAnyPublisher()

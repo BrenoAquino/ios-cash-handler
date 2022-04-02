@@ -14,8 +14,6 @@ public extension HomeView {
     
     final class ViewModel: ObservableObject {
         
-        private let categoriesUseCase: Domain.CategoriesUseCase
-        private let paymentMethodsUseCase: Domain.PaymentMethodsUseCase
         private let operationsUseCase: Domain.OperationsUseCase
         private var cancellables: Set<AnyCancellable> = .init()
         
@@ -28,11 +26,7 @@ public extension HomeView {
         public var selectAddOperation: (() -> Void)?
         
         // MARK: - Inits
-        public init(categoriesUseCase: Domain.CategoriesUseCase,
-                    paymentMethods: Domain.PaymentMethodsUseCase,
-                    operationsUseCase: Domain.OperationsUseCase) {
-            self.categoriesUseCase = categoriesUseCase
-            self.paymentMethodsUseCase = paymentMethods
+        public init(operationsUseCase: Domain.OperationsUseCase) {
             self.operationsUseCase = operationsUseCase
         }
     }
@@ -50,33 +44,10 @@ extension HomeView.ViewModel {
 
 // MARK: - Flow
 extension HomeView.ViewModel {
-    func fetchDate() {
+    func fetchOperations() {
         stateHandler.loading()
-        fetchCategoriesPaymentMethods()
-    }
-    
-    private func fetchCategoriesPaymentMethods() {
-        let categoriesPublisher = categoriesUseCase.categories()
-        let paymentMethodsPublisher = paymentMethodsUseCase.paymentMethods()
-        
-        categoriesPublisher
-            .zip(paymentMethodsPublisher)
-            .receive(on: RunLoop.main)
-            .sinkCompletion { [weak self] completion in
-                switch completion {
-                case .finished:
-                    self?.fetchOperations()
-                case .failure(let error):
-                    self?.setupErrorBanner(error: error)
-                    self?.stateHandler.failure()
-                }
-            }
-            .store(in: &cancellables)
-    }
-    
-    private func fetchOperations() {
         operationsUseCase
-            .operations()
+            .aggregateOperations()
             .receive(on: RunLoop.main)
             .sink { [weak self] completion in
                 switch completion {

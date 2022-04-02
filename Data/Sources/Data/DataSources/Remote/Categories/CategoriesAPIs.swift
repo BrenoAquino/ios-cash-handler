@@ -30,6 +30,10 @@ extension CategoriesAPIs: APIs {
         }
     }
     
+    var queryParams: [String : Any]? {
+        return nil
+    }
+    
     var body: Data? {
         switch self {
         case .categories:
