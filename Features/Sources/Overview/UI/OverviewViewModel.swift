@@ -33,11 +33,11 @@ public extension OverviewView {
         public init(operationsUseCase: Domain.OperationsUseCase) {
             self.operationsUseCase = operationsUseCase
             
-            self.month = DateFormatter(pattern: "MMMM").string(from: .now).capitalized
-            self.year = DateFormatter(pattern: "yyyy").string(from: .now)
-            
             let components = Calendar.current.dateComponents([.month, .year], from: .now)
             self.currentMonth = (components.month ?? .zero, components.year ?? .zero)
+            
+            self.month = Date.monthName(month: components.month ?? .zero).capitalized
+            self.year = DateFormatter(pattern: "yyyy").string(from: .now)
         }
     }
 }
