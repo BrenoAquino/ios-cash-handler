@@ -26,6 +26,7 @@ public extension OverviewView {
         @Published private(set) var state: ViewState = .loading
         @Published private(set) var overviewMonth: OverviewMonthUI = .placeholder
         @Published private(set) var categoriesOverview: [CategoryOverviewUI] = []
+        @Published private(set) var historicOverview: [OverviewMonthUI] = []
         
         // MARK: Redirects
         
@@ -57,9 +58,10 @@ extension OverviewView.ViewModel {
     func fetchStats() {
         let monthOverview = statsUseCase.monthOverview(month: currentMonth.month, year: currentMonth.year)
         let categories = statsUseCase.categories(month: currentMonth.month, year: currentMonth.year)
+        let historic = statsUseCase.historic(numberOfMonths: 2)
         
         monthOverview
-            .zip(categories)
+            .zip(categories, historic)
             .receive(on: RunLoop.main)
             .sink { [weak self] completion in
                 switch completion {
@@ -72,6 +74,7 @@ extension OverviewView.ViewModel {
             } receiveValue: { [weak self] stats in
                 self?.overviewMonth = .init(monthOverview: stats.0)
                 self?.categoriesOverview = stats.1.map { .init(categoryOverview: $0) }
+                self?.historicOverview = stats.2.map { .init(monthOverview: $0) }
             }
             .store(in: &cancellables)
     }

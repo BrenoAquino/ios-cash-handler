@@ -12,6 +12,7 @@ import Common
 public protocol StatsUseCase {
     func monthOverview(month: Int, year: Int) -> AnyPublisher<MonthOverview, CharlesError>
     func categories(month: Int, year: Int) -> AnyPublisher<[CategoryOverview], CharlesError>
+    func historic(numberOfMonths: Int) -> AnyPublisher<[MonthOverview], CharlesError>
 }
 
 // MARK: Implementation
@@ -73,12 +74,31 @@ extension StatsUseCaseImpl: StatsUseCase {
     }
     
     // MARK: Historic
-    public func historic(numberOfMonths: Int = 12) -> AnyPublisher<[MonthOverview], CharlesError> {
+    public func historic(numberOfMonths: Int) -> AnyPublisher<[MonthOverview], CharlesError> {
+        let endData = Date()
+        let startDate = Calendar.current.date(byAdding: .month, value: -numberOfMonths, to: endData) ?? Date()
         
+        let endDateComponents = Calendar.current.dateComponents([.month, .year], from: endData)
+        let startDateComponents = Calendar.current.dateComponents([.month, .year], from: startDate)
         
-        
-        return Empty()
+        return operationsRepository
+            .operations(startMonth: startDateComponents.month ?? .zero,
+                        startYear: startDateComponents.year ?? .zero,
+                        endMonth: endDateComponents.month ?? .zero,
+                        endYear: endDateComponents.year ?? .zero)
+            .map { operations in
+                var operationsPerMonth: [Date : [Operation]] = [:]
+                operations.forEach { operationsPerMonth[$0.date, default: []].append($0) }
+                
+                return operationsPerMonth.compactMap { (key, value) in
+                    let components = Calendar.current.dateComponents([.month, .year], from: key)
+                    let totalExpense = value.reduce(Double.zero, { $0 + $1.value })
+                    
+                    return MonthOverview(month: components.month ?? .zero,
+                                         year: components.year ?? .zero,
+                                         expense: totalExpense)
+                }
+            }
             .eraseToAnyPublisher()
     }
-    
 }
