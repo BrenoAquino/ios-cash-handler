@@ -18,7 +18,7 @@ public struct OverviewView: View {
     
     public var body: some View {
         state
-            .navigationTitle("Overview")
+            .navigationTitle(OverviewLocalizable.title)
             .background(DSColor.background.rawValue.ignoresSafeArea())
             .onAppear(perform: viewModel.fetchOperations)
     }
