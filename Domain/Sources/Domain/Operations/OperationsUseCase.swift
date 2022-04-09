@@ -70,7 +70,7 @@ extension OperationsUseCaseImpl: OperationsUseCase {
                                             count: value.count,
                                             expensePercentage: categoryExpense / totalExpense,
                                             countPercentage: Double(value.count) / Double(operationsPerMonth.count))
-                }
+                }.sorted(by: { $0.expense > $1.expense })
                 
                 return MonthOverview(month: month,
                                      year: year,
