@@ -73,6 +73,12 @@ extension StatsUseCaseImpl: StatsUseCase {
     }
     
     // MARK: Historic
-//    public func historic(numberOfMonths: Int = 12) -> AnyPublisher<>
+    public func historic(numberOfMonths: Int = 12) -> AnyPublisher<[MonthOverview], CharlesError> {
+        
+        
+        
+        return Empty()
+            .eraseToAnyPublisher()
+    }
     
 }

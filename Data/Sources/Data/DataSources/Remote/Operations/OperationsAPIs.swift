@@ -37,7 +37,7 @@ extension OperationsAPIs: APIs {
     var queryParams: [String : Any]? {
         switch self {
         case .operations(let params):
-            return try? params?.asDictionary()
+            return try? params?.param?.asDictionary()
         default:
             return nil
         }
