@@ -11,8 +11,6 @@ import Common
 
 public protocol OperationsUseCase {
     func aggregateOperations() -> AnyPublisher<[OperationsAggregator], CharlesError>
-    func monthOverview(month: Int, year: Int) -> AnyPublisher<MonthOverview, CharlesError>
-    
     func addOperation(title: String,
                       date: Date,
                       value: Double,
@@ -50,35 +48,6 @@ extension OperationsUseCaseImpl {
 
 // MARK: Interfaces
 extension OperationsUseCaseImpl: OperationsUseCase {
-    
-    // MARK: Overview
-    public func monthOverview(month: Int, year: Int) -> AnyPublisher<MonthOverview, CharlesError> {
-        return operations(month: month, year: year)
-            .map { operationsPerMonth in
-                let totalExpense = operationsPerMonth.reduce(Double.zero, { $0 + $1.value })
-                
-                var operationsPerCategory: [String : [Operation]] = [:]
-                operationsPerMonth.forEach { operationsPerCategory[$0.category.id, default: []].append($0) }
-                
-                let categoriesOverviews: [CategoryOverview] = operationsPerCategory.compactMap { (_, value) in
-                    guard let category = value.first?.category else { return nil }
-                    let categoryExpense = value.reduce(Double.zero, { $0 + $1.value })
-                    
-                    return CategoryOverview(categoryId: category.id,
-                                            categoryName: category.name,
-                                            expense: categoryExpense,
-                                            count: value.count,
-                                            expensePercentage: categoryExpense / totalExpense,
-                                            countPercentage: Double(value.count) / Double(operationsPerMonth.count))
-                }.sorted(by: { $0.expense > $1.expense })
-                
-                return MonthOverview(month: month,
-                                     year: year,
-                                     expense: totalExpense,
-                                     categoriesOverviews: categoriesOverviews)
-            }
-            .eraseToAnyPublisher()
-    }
     
     // MARK: Operations Aggregated
     public func aggregateOperations() -> AnyPublisher<[OperationsAggregator], CharlesError> {

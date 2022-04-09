@@ -14,7 +14,7 @@ public extension OverviewView {
     
     final class ViewModel: ObservableObject {
         
-        private let operationsUseCase: Domain.OperationsUseCase
+        private let statsUseCase: Domain.StatsUseCase
         private var cancellables: Set<AnyCancellable> = .init()
         
         private let currentMonth: (month: Int, year: Int)
@@ -30,8 +30,8 @@ public extension OverviewView {
         // MARK: Redirects
         
         // MARK: - Inits
-        public init(operationsUseCase: Domain.OperationsUseCase) {
-            self.operationsUseCase = operationsUseCase
+        public init(statsUseCase: Domain.StatsUseCase) {
+            self.statsUseCase = statsUseCase
             
             let components = Calendar.current.dateComponents([.month, .year], from: .now)
             self.currentMonth = (components.month ?? .zero, components.year ?? .zero)
@@ -54,9 +54,12 @@ extension OverviewView.ViewModel {
 
 // MARK: - Flow
 extension OverviewView.ViewModel {
-    func fetchOperations() {
-        operationsUseCase
-            .monthOverview(month: currentMonth.month, year: currentMonth.year)
+    func fetchStats() {
+        let monthOverview = statsUseCase.monthOverview(month: currentMonth.month, year: currentMonth.year)
+        let categories = statsUseCase.categories(month: currentMonth.month, year: currentMonth.year)
+        
+        monthOverview
+            .zip(categories)
             .receive(on: RunLoop.main)
             .sink { [weak self] completion in
                 switch completion {
@@ -66,9 +69,9 @@ extension OverviewView.ViewModel {
                     self?.setupErrorBanner(error: error)
                     self?.state = .failure
                 }
-            } receiveValue: { [weak self] overview in
-                self?.overviewMonth = .init(monthOverview: overview)
-                self?.categoriesOverview = overview.categoriesOverviews.map { .init(categoryOverview: $0) }
+            } receiveValue: { [weak self] stats in
+                self?.overviewMonth = .init(monthOverview: stats.0)
+                self?.categoriesOverview = stats.1.map { .init(categoryOverview: $0) }
             }
             .store(in: &cancellables)
     }

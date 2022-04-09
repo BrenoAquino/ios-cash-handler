@@ -20,7 +20,7 @@ public struct OverviewView: View {
         state
             .navigationTitle(OverviewLocalizable.title)
             .background(DSColor.background.rawValue.ignoresSafeArea())
-            .onAppear(perform: viewModel.fetchOperations)
+            .onAppear(perform: viewModel.fetchStats)
     }
     
     // MARK: View State
@@ -89,7 +89,7 @@ import Previews
 struct OverviewView_Previews: PreviewProvider {
     static var previews: some View {
         return NavigationView {
-            OverviewView(viewModel: .init(operationsUseCase: OperationsUseCasePreview()))
+            OverviewView(viewModel: .init(statsUseCase: StatsUseCasePreview()))
         }
         .preferredColorScheme(.dark)
     }
