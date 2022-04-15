@@ -17,14 +17,15 @@ struct Columns: View {
     
     public var body: some View {
         GeometryReader { reader in
-            HStack(alignment: .bottom, spacing: 24) {
+            HStack(alignment: .bottom) {
                 ForEach(Array(zip(offsets.indices, offsets)), id: \.0) { index, value in
                     dotElement(
-                        color: index.magnitude % 2 == 0 ?
+                        color: index.magnitude % .two == .zero ?
                             DSColor.main.rawValue :
                             DSColor.contrast.rawValue
                     )
-                    .offset(x: .zero, y: reader.size.height / 2 + DSColumnsChart.columnHeight / 2)
+                    .frame(maxWidth: .infinity)
+                    .offset(x: .zero, y: reader.size.height / .two + DSColumnsChart.columnHeight / .two)
                     .offset(x: .zero, y: -reader.size.height * value)
                 }
             }
@@ -37,11 +38,11 @@ struct Columns: View {
             .fill(color)
             .frame(width: DSColumnsChart.columnWidth, height: DSColumnsChart.columnHeight)
             .mask(
-                LinearGradient(gradient: Gradient(colors: [Color.black,
-                                                           Color.black.opacity(0.25),
-                                                           Color.black.opacity(0)]),
-                               startPoint: .top,
-                               endPoint: .bottom)
+                LinearGradient(
+                    gradient: Gradient(colors: DSColumnsChart.columnGradientColors),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
             )
     }
 }

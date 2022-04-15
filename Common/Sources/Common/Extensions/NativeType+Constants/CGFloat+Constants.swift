@@ -9,4 +9,5 @@ import UIKit
 
 public extension CGFloat {
     static let one: CGFloat = 1
+    static let two: CGFloat = 2
 }
