@@ -31,6 +31,7 @@ public struct ColumnsChart: View {
                     .offset(x: DSColumnsChart.verticalAxisWidth,
                             y: DSColumnsChart.horizontalAxisHeight / .two)
             }
+            .clipped()
         }
     }
 }

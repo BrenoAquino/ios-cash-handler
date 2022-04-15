@@ -45,6 +45,8 @@ public struct OverviewView: View {
             Spacer(minLength: DSSpace.smallM.rawValue)
             overviewMonth
             Spacer(minLength: DSSpace.smallM.rawValue)
+            historic
+            Spacer(minLength: DSSpace.bigL.rawValue)
             categories
             Spacer(minLength: DSSpace.bigL.rawValue)
         }
@@ -69,6 +71,18 @@ public struct OverviewView: View {
     private var overviewMonth: some View {
         OverviewMonthView(overviewMont: viewModel.overviewMonth)
             .padding()
+    }
+    
+    // MARK: Historic
+    private var historic: some View {
+        ColumnsChart()
+            .padding(.horizontal, DSSpace.smallM.rawValue)
+            .padding(.vertical, DSSpace.smallS.rawValue)
+            .frame(height: 200)
+            .background(DSColor.secondBackground.rawValue)
+            .cornerRadius(DSCornerRadius.normal.rawValue)
+            .shadow(style: .medium)
+            .padding(.horizontal, DSSpace.smallL.rawValue)
     }
     
     // MARK: Categories
