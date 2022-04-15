@@ -16,6 +16,8 @@ extension ColumnsChart {
         
         // MARK: Publishers
         @Published private(set) var offsets: [Double] = []
+        @Published private(set) var verticalTitles: [String] = ["10K", "7.5K", "5K", "2.5K", "0"]
+        @Published private(set) var horizontalTitles: [String] = ["Jan", "Fev", "Mar", "Abr", "Mai"]
         
         // MARK: Inits
         init() {

@@ -14,6 +14,8 @@ extension DesignSystem {
     enum DSColumnsChart {
         static let columnHeight: CGFloat = 75
         static let columnWidth: CGFloat = 16
+        static let verticalAxisWidth: CGFloat = 40
+        static let horizontalAxisHeight: CGFloat = 40
         
         // MARK: Columns
         static let columnGradientColors: [Color] = [.black, .black.opacity(0.25), .black.opacity(.zero)]

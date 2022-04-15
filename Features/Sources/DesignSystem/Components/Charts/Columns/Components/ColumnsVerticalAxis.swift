@@ -9,28 +9,31 @@ import SwiftUI
 
 struct ColumnsVerticalAxis: View {
     
-    @State var intervals: [Double]
+    @State var titles: [String]
     
-    init(intervals: [Double]) {
-        self.intervals = intervals
+    init(titles: [String]) {
+        self.titles = titles
     }
     
     public var body: some View {
         VStack(alignment: .leading) {
-            ForEach(intervals, id: \.self) { point in
-                lineElement(point: point)
+            ForEach(titles, id: \.self) { title in
+                lineElement(title: title)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
-    private func lineElement(point: Double) -> some View {
+    private func lineElement(title: String) -> some View {
         HStack(spacing: .zero) {
-            Text(String(point))
-                .frame(width: 40, height: 20)
+            Text(title)
+                .font(DSFont.subheadline.rawValue)
+                .foregroundColor(DSColor.contrast.rawValue)
+                .frame(width: DSColumnsChart.verticalAxisWidth)
             
             DashLine()
-                .stroke(style: StrokeStyle(lineWidth: 1, dash: [1]))
+                .stroke(style: StrokeStyle(lineWidth: 1, dash: [10, 20]))
+                .foregroundColor(DSColor.contrast.rawValue)
                 .frame(height: 1)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
@@ -42,7 +45,9 @@ struct ColumnsVerticalAxis: View {
 struct ColumnsVerticalAxis_Previews: PreviewProvider {
     
     static var previews: some View {
-        return ColumnsVerticalAxis(intervals: [0, 2, 4, 6, 8, 10])
+        return ColumnsVerticalAxis(titles: [
+            "0", "2K", "4K", "6K", "8K", "10K"
+        ])
             .frame(width: 300, height: 200)
             .background(.black)
             .padding(48)

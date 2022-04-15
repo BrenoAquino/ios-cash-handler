@@ -16,7 +16,7 @@ struct ColumnsAxes: View {
     public var body: some View {
         GeometryReader { reader in
             ZStack(alignment: .topLeading) {
-                ColumnsVerticalAxis(intervals: points)
+                ColumnsVerticalAxis(titles: [])
                     .frame(height: reader.size.height - 10)
                 
                 ColumnsHorizontalAxis(intervals: points)
