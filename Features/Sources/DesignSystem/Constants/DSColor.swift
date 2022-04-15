@@ -27,6 +27,8 @@ public extension DesignSystem {
         // MARK: Theme
         /// Main - 0xD86239 - 100%
         public static let main: DSColor = DSColor(rawValue: Color(rgba: 0xD86239FF))
+        /// Contrast - 0x76767E - 100%
+        public static let contrast: DSColor = DSColor(rawValue: Color(rgba: 0x76767EFF))
         
         // MARK: Context
         /// Clear - 0xFFFFFF - 0%

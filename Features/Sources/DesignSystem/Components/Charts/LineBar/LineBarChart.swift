@@ -1,5 +1,5 @@
 //
-//  LineBar.swift
+//  LineBarChart.swift
 //  
 //
 //  Created by Breno Aquino on 07/03/22.
@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-public struct LineBar: View {
+public struct LineBarChart: View {
     
-    @State var config: LineBarConfig
+    @State var config: LineBarChartConfig
     
-    public init(config: LineBarConfig) {
+    public init(config: LineBarChartConfig) {
         self.config = config
     }
     
@@ -31,10 +31,10 @@ public struct LineBar: View {
 
 #if DEBUG
 // MARK: - Preview
-struct LineBar_Previews: PreviewProvider {
+struct LineBarChart_Previews: PreviewProvider {
     
     static var previews: some View {
-        return LineBar(config: .init(percentage: 0.8,
+        return LineBarChart(config: .init(percentage: 0.8,
                                      color: .orange,
                                      backgroundColor: .gray))
             .frame(width: 300, height: 20)
