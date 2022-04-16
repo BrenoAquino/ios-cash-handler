@@ -25,8 +25,10 @@ struct Columns: View {
                             DSColor.contrast.rawValue
                     )
                     .frame(maxWidth: .infinity)
-                    .offset(x: .zero, y: reader.size.height / .two + DSColumnsChart.columnHeight / .two)
-                    .offset(x: .zero, y: -reader.size.height * value)
+                    .offset(
+                        x: .zero,
+                        y: reader.size.height / .two + DSColumnsChart.columnHeight / .two - reader.size.height * value
+                    )
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)

@@ -27,12 +27,20 @@ public struct ColumnsChart: View {
                 
                 Columns(offset: viewModel.offsets)
                     .frame(width: reader.size.width - DSColumnsChart.verticalAxisWidth,
-                           height: reader.size.height - .two * DSColumnsChart.horizontalAxisHeight)
+                           height: reader.size.height - DSColumnsChart.horizontalAxisHeight - lineHeight(height: reader.size.height))
                     .offset(x: DSColumnsChart.verticalAxisWidth,
-                            y: DSColumnsChart.horizontalAxisHeight / .two)
+                            y: halfLineHeight(height: reader.size.height))
             }
-            .clipped()
         }
+    }
+    
+    // MARK: Utils
+    private func lineHeight(height: CGFloat) -> CGFloat {
+        (height - DSColumnsChart.horizontalAxisHeight) / CGFloat(viewModel.verticalTitles.count)
+    }
+    
+    private func halfLineHeight(height: CGFloat) -> CGFloat {
+        lineHeight(height: height) / .two
     }
 }
 

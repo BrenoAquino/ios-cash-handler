@@ -76,7 +76,8 @@ public struct OverviewView: View {
     // MARK: Historic
     private var historic: some View {
         ColumnsChart()
-            .padding(.horizontal, DSSpace.smallM.rawValue)
+            .padding(.leading, DSSpace.smallM.rawValue)
+            .padding(.trailing, DSSpace.normal.rawValue)
             .padding(.vertical, DSSpace.smallS.rawValue)
             .frame(height: 200)
             .background(DSColor.secondBackground.rawValue)

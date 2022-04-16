@@ -16,7 +16,7 @@ struct ColumnsVerticalAxis: View {
     }
     
     public var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: .zero) {
             ForEach(titles, id: \.self) { title in
                 lineElement(title: title)
             }
@@ -32,9 +32,9 @@ struct ColumnsVerticalAxis: View {
                 .frame(width: DSColumnsChart.verticalAxisWidth)
             
             DashLine()
-                .stroke(style: StrokeStyle(lineWidth: 1, dash: [10, 20]))
+                .stroke(style: StrokeStyle(lineWidth: DSColumnsChart.dashLineWidth, dash: DSColumnsChart.dashLineConfig))
                 .foregroundColor(DSColor.contrast.rawValue)
-                .frame(height: 1)
+                .frame(height: DSColumnsChart.dashLineHeight)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
     }

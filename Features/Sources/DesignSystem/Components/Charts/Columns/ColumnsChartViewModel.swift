@@ -12,7 +12,7 @@ extension ColumnsChart {
         
         let minValue: Double = .zero
         let maxValue: Double = 10
-        let values: [Double] = [2, 4, 5, 7, 10]
+        let values: [Double] = [2, 2.5, 5, 7.5, 10]
         
         // MARK: Publishers
         @Published private(set) var offsets: [Double] = []
