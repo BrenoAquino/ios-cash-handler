@@ -11,18 +11,18 @@ public struct ColumnsChart: View {
     
     @ObservedObject private(set) var viewModel: ViewModel
     
-    public init() {
-        viewModel = ViewModel()
+    public init(config: ColumnsChartConfig) {
+        viewModel = ViewModel(config: config, values: [2, 2.5, 5, 10])
     }
     
     public var body: some View {
         VStack(spacing: .zero) {
             GeometryReader { reader in
                 ZStack(alignment: .topLeading) {
-                    ColumnsVerticalAxis(titles: viewModel.verticalTitles)
+                    ColumnsVerticalAxis(titles: viewModel.config.axes.vertical)
                         .frame(height: reader.size.height - DSColumnsChart.horizontalAxisHeight)
                     
-                    ColumnsSubtitles(titles: viewModel.horizontalTitles)
+                    ColumnsSubtitles(titles: viewModel.config.axes.horizontal)
                         .frame(width: reader.size.width - DSColumnsChart.verticalAxisWidth)
                         .offset(x: DSColumnsChart.verticalAxisWidth)
                     
@@ -74,7 +74,7 @@ public struct ColumnsChart: View {
     
     // MARK: Utils
     private func lineHeight(height: CGFloat) -> CGFloat {
-        (height - DSColumnsChart.horizontalAxisHeight) / CGFloat(viewModel.verticalTitles.count)
+        (height - DSColumnsChart.horizontalAxisHeight) / CGFloat(viewModel.config.axes.vertical.count)
     }
     
     private func halfLineHeight(height: CGFloat) -> CGFloat {
@@ -82,7 +82,7 @@ public struct ColumnsChart: View {
     }
     
     private func columnWidth(width: CGFloat) -> CGFloat {
-        (width - DSColumnsChart.verticalAxisWidth) / CGFloat(viewModel.horizontalTitles.count)
+        (width - DSColumnsChart.verticalAxisWidth) / CGFloat(viewModel.config.axes.horizontal.count)
     }
     
     private func halfColumnWidth(width: CGFloat) -> CGFloat {
@@ -103,7 +103,13 @@ public struct ColumnsChart: View {
 struct ColumnsChart_Previews: PreviewProvider {
     
     static var previews: some View {
-        return ColumnsChart()
+        return ColumnsChart(config: .init(
+            max: 0,
+            min: 12.5,
+            axes: .init(
+                vertical: ["12,5K", "10K", "7.5K", "5K", "2.5K", "0"],
+                horizontal: ["Jan", "Fev", "Mar", "Abr"]
+            )))
             .frame(height: 240)
             .background(.black)
             .padding()

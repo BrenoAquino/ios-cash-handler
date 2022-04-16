@@ -75,6 +75,7 @@ extension OverviewView.ViewModel {
                 self?.overviewMonth = .init(monthOverview: stats.0)
                 self?.categoriesOverview = stats.1.map { .init(categoryOverview: $0) }
                 self?.historicOverview = stats.2.map { .init(monthOverview: $0) }
+                print(self?.historicOverview.count)
             }
             .store(in: &cancellables)
     }
