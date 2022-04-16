@@ -16,20 +16,23 @@ public struct ColumnsChart: View {
     }
     
     public var body: some View {
-        GeometryReader { reader in
-            ZStack(alignment: .topLeading) {
-                ColumnsVerticalAxis(titles: viewModel.verticalTitles)
-                    .frame(height: reader.size.height - DSColumnsChart.horizontalAxisHeight)
-                
-                ColumnsSubtitles(titles: viewModel.horizontalTitles)
-                    .frame(width: reader.size.width - DSColumnsChart.verticalAxisWidth)
-                    .offset(x: DSColumnsChart.verticalAxisWidth)
-                
-                Columns(offset: viewModel.offsets)
-                    .frame(width: reader.size.width - DSColumnsChart.verticalAxisWidth,
-                           height: reader.size.height - DSColumnsChart.horizontalAxisHeight - lineHeight(height: reader.size.height))
-                    .offset(x: DSColumnsChart.verticalAxisWidth,
-                            y: halfLineHeight(height: reader.size.height))
+        VStack {
+            Spacer(minLength: 50)
+            GeometryReader { reader in
+                ZStack(alignment: .topLeading) {
+                    ColumnsVerticalAxis(titles: viewModel.verticalTitles)
+                        .frame(height: reader.size.height - DSColumnsChart.horizontalAxisHeight)
+                    
+                    ColumnsSubtitles(titles: viewModel.horizontalTitles)
+                        .frame(width: reader.size.width - DSColumnsChart.verticalAxisWidth)
+                        .offset(x: DSColumnsChart.verticalAxisWidth)
+                    
+                    Columns(offset: viewModel.offsets)
+                        .frame(width: reader.size.width - DSColumnsChart.verticalAxisWidth,
+                               height: reader.size.height - DSColumnsChart.horizontalAxisHeight - lineHeight(height: reader.size.height))
+                        .offset(x: DSColumnsChart.verticalAxisWidth,
+                                y: halfLineHeight(height: reader.size.height))
+                }
             }
         }
     }
@@ -52,10 +55,10 @@ struct ColumnsChart_Previews: PreviewProvider {
         return ColumnsChart()
             .frame(height: 240)
             .background(.black)
-//            .padding()
+            .padding()
             .background(.gray)
             .preferredColorScheme(.dark)
-//            .previewLayout(.sizeThatFits)
+            .previewLayout(.sizeThatFits)
     }
 }
 #endif

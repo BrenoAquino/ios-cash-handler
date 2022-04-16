@@ -26,5 +26,9 @@ extension DesignSystem {
         static let dashLineWidth: CGFloat = 1
         static let dashLineHeight: CGFloat = 1
         static let dashLineConfig: [CGFloat] = [10, 20]
+        
+        // MARK: ColumnsSelection
+        static let arrowWidth: CGFloat = 20
+        static let arrowHeight: CGFloat = 10
     }
 }
