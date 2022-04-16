@@ -9,16 +9,15 @@ import SwiftUI
 
 struct ColumnsSelection: View {
     
-    @State var title: String
-    @State var subtitle: String
+    let title: String
+    let subtitle: String
     
     init(title: String, subtitle: String) {
         self.title = title
         self.subtitle = subtitle
-        print(self.title, self.subtitle)
     }
     
-    public var body: some View {
+    var body: some View {
         VStack(spacing: .zero) {
             content
             arrow

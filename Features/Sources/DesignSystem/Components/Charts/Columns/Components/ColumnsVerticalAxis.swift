@@ -9,13 +9,13 @@ import SwiftUI
 
 struct ColumnsVerticalAxis: View {
     
-    @State var titles: [String]
+    let titles: [String]
     
     init(titles: [String]) {
         self.titles = titles
     }
     
-    public var body: some View {
+    var body: some View {
         VStack(alignment: .leading, spacing: .zero) {
             ForEach(titles, id: \.self) { title in
                 lineElement(title: title)

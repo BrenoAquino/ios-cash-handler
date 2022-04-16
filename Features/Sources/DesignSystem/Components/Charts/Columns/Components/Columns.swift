@@ -9,15 +9,15 @@ import SwiftUI
 
 struct Columns: View {
     
-    var onTapGesture: ((_ offsetIndex: Int) -> Void)? = nil
-    @State var offsets: [Double]
+    let onTapGesture: ((_ offsetIndex: Int) -> Void)?
+    let offsets: [Double]
     
     init(offset: [Double], onTap: ((Int) -> Void)? = nil) {
         self.offsets = offset
         self.onTapGesture = onTap
     }
     
-    public var body: some View {
+    var body: some View {
         GeometryReader { reader in
             HStack(alignment: .bottom, spacing: .zero) {
                 ForEach(Array(zip(offsets.indices, offsets)), id: \.0) { index, value in

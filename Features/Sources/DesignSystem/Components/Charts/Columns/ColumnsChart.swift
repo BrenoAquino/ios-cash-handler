@@ -70,7 +70,10 @@ public struct ColumnsChart: View {
     // MARK: Floating Views
     private func columnSelection(size: CGSize, title: String, subtitle: String, index: Int) -> some View {
         ColumnsSelection(title: title, subtitle: subtitle)
-            .frame(width: DSColumnsChart.selectionWidth, height: DSColumnsChart.selectionHeight)
+            .frame(
+                width: DSColumnsChart.selectionWidth,
+                height: DSColumnsChart.selectionHeight
+            )
             .offset(
                 x: DSColumnsChart.verticalAxisWidth -
                 (size.width - DSColumnsChart.verticalAxisWidth) / .two +

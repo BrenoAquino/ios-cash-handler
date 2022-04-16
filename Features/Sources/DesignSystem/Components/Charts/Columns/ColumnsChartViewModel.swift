@@ -18,7 +18,7 @@ extension ColumnsChart {
         @Published private(set) var offsets: [Double] = []
         @Published private(set) var verticalTitles: [String] = []
         @Published private(set) var horizontalTitles: [String] = []
-        @Published private(set) var selectedColumn: (index: Int, value: ColumnsChartConfig.ColumnsValue)? = nil
+        @Published private(set) var selectedColumn: (index: Int, value: ColumnsValue)? = nil
         
         // MARK: Inits
         init(config: ColumnsChartConfig) {

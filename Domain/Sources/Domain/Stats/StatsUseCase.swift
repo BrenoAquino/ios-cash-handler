@@ -88,7 +88,7 @@ extension StatsUseCaseImpl: StatsUseCase {
                         endYear: endDateComponents.year ?? .zero)
             .map { operations in
                 var operationsPerMonth: [Date : [Operation]] = [:]
-                operations.forEach { operationsPerMonth[$0.date, default: []].append($0) }
+                operations.forEach { operationsPerMonth[$0.date.firstDayMonth, default: []].append($0) }
                 
                 return operationsPerMonth.compactMap { (key, value) in
                     let components = Calendar.current.dateComponents([.month, .year], from: key)

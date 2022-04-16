@@ -27,6 +27,7 @@ public extension OverviewView {
         @Published private(set) var overviewMonth: OverviewMonthUI = .placeholder
         @Published private(set) var categoriesOverview: [CategoryOverviewUI] = []
         @Published private(set) var historicOverview: [OverviewMonthUI] = []
+        @Published private(set) var historicConfig: ColumnsChartConfig = .init(max: .zero, min: .zero, verticalTitles: [])
         
         // MARK: Redirects
         
@@ -75,11 +76,21 @@ extension OverviewView.ViewModel {
                 self?.overviewMonth = .init(monthOverview: stats.0)
                 self?.categoriesOverview = stats.1.map { .init(categoryOverview: $0) }
                 self?.historicOverview = stats.2.map { .init(monthOverview: $0) }
+                
+                let max: Double = stats.2.max(by: { $0.expense < $1.expense })?.expense ?? .zero
+                let interval: Double = max / 4
+                let verticalTitles = Array(0 ..< 6).map { NumberFormatter.currency.string(for: Double($0) * interval) ?? .empty }.reversed()
+                let values = stats.2.map { ColumnsValue(value: $0.expense, abbreviation: "Mar", fullSubtitle: "Mar 2022") }
+                
+                self?.historicConfig = .init(
+                    max: max + interval,
+                    min: .zero,
+                    verticalTitles: Array(verticalTitles),
+                    values: values
+                )
+                
+                print(self?.historicOverview.count)
             }
             .store(in: &cancellables)
     }
-}
-
-// MARK: - Actions
-extension OverviewView.ViewModel {
 }

@@ -9,13 +9,13 @@ import SwiftUI
 
 struct ColumnsSubtitles: View {
     
-    @State var titles: [String]
+    let titles: [String]
     
     init(titles: [String]) {
         self.titles = titles
     }
     
-    public var body: some View {
+    var body: some View {
         VStack {
             Spacer()
             HStack(spacing: .zero) {
