@@ -19,20 +19,31 @@ struct ColumnsSubtitles: View {
         VStack {
             Spacer()
             HStack(spacing: .zero) {
-                ForEach(titles, id: \.self) { title in
-                    lineElement(title: title)
+                ForEach(Array(zip(titles.indices, titles)), id: \.0) { index, title in
+                    lineElement(title: title,
+                                color: index.magnitude % .two == .zero ?
+                                    DSColor.main.rawValue :
+                                    DSColor.contrast.rawValue)
                 }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
-    private func lineElement(title: String) -> some View {
-        Text(title)
-            .frame(height: DSColumnsChart.horizontalAxisHeight)
-            .frame(maxWidth: .infinity, alignment: .center)
-            .foregroundColor(DSColor.contrast.rawValue)
-            .font(DSFont.subheadline.rawValue)
+    private func lineElement(title: String, color: Color) -> some View {
+        VStack(spacing: .zero) {
+            Spacer(minLength: DSSpace.smallL.rawValue)
+            
+            Circle()
+                .fill(color)
+                .frame(width: 10, height: 10)
+            
+            Text(title)
+                .frame(height: DSColumnsChart.horizontalAxisHeight)
+                .frame(maxWidth: .infinity, alignment: .center)
+                .foregroundColor(DSColor.contrast.rawValue)
+                .font(DSFont.subheadline.rawValue)
+        }
     }
 }
 

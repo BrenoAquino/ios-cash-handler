@@ -9,15 +9,17 @@ import SwiftUI
 
 struct Columns: View {
     
+    var onTapGesture: ((_ offsetIndex: Int) -> Void)? = nil
     @State var offsets: [Double]
     
-    init(offset: [Double]) {
+    init(offset: [Double], onTap: ((Int) -> Void)? = nil) {
         self.offsets = offset
+        self.onTapGesture = onTap
     }
     
     public var body: some View {
         GeometryReader { reader in
-            HStack(alignment: .bottom) {
+            HStack(alignment: .bottom, spacing: .zero) {
                 ForEach(Array(zip(offsets.indices, offsets)), id: \.0) { index, value in
                     dotElement(
                         color: index.magnitude % .two == .zero ?
@@ -29,6 +31,9 @@ struct Columns: View {
                         x: .zero,
                         y: reader.size.height / .two + DSColumnsChart.columnHeight / .two - reader.size.height * value
                     )
+                    .onTapGesture {
+                        self.onTapGesture?(Int(index.magnitude))
+                    }
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)

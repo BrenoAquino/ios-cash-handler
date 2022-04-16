@@ -79,7 +79,7 @@ public struct OverviewView: View {
             .padding(.leading, DSSpace.smallM.rawValue)
             .padding(.trailing, DSSpace.normal.rawValue)
             .padding(.vertical, DSSpace.smallS.rawValue)
-            .frame(height: 200)
+            .frame(height: 336)
             .background(DSColor.secondBackground.rawValue)
             .cornerRadius(DSCornerRadius.normal.rawValue)
             .shadow(style: .medium)

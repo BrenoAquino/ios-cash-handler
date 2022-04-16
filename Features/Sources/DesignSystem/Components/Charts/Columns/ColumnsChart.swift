@@ -16,8 +16,7 @@ public struct ColumnsChart: View {
     }
     
     public var body: some View {
-        VStack {
-            Spacer(minLength: 50)
+        VStack(spacing: .zero) {
             GeometryReader { reader in
                 ZStack(alignment: .topLeading) {
                     ColumnsVerticalAxis(titles: viewModel.verticalTitles)
@@ -27,14 +26,50 @@ public struct ColumnsChart: View {
                         .frame(width: reader.size.width - DSColumnsChart.verticalAxisWidth)
                         .offset(x: DSColumnsChart.verticalAxisWidth)
                     
-                    Columns(offset: viewModel.offsets)
-                        .frame(width: reader.size.width - DSColumnsChart.verticalAxisWidth,
-                               height: reader.size.height - DSColumnsChart.horizontalAxisHeight - lineHeight(height: reader.size.height))
-                        .offset(x: DSColumnsChart.verticalAxisWidth,
-                                y: halfLineHeight(height: reader.size.height))
+                    Columns(offset: viewModel.offsets,
+                            onTap: { index in
+                        viewModel.select(index: index)
+                    })
+                    .frame(
+                        width: reader.size.width - DSColumnsChart.verticalAxisWidth,
+                        height: reader.size.height -
+                        DSColumnsChart.horizontalAxisHeight -
+                        lineHeight(height: reader.size.height)
+                    )
+                    .offset(
+                        x: DSColumnsChart.verticalAxisWidth,
+                        y: halfLineHeight(height: reader.size.height)
+                    )
+                    .overlay {
+                        columnSelection(
+                            size: reader.size,
+                            title: "R$ 2,0K",
+                            subtitle: "Jan 2022",
+                            index: viewModel.selectedIndex
+                        )
+                    }
                 }
             }
         }
+        .padding(.top, DSSpace.smallL.rawValue)
+        .padding(.bottom, DSSpace.smallM.rawValue)
+        .padding(.horizontal, DSSpace.smallM.rawValue)
+    }
+    
+    private func columnSelection(size: CGSize, title: String, subtitle: String, index: Int) -> some View {
+        ColumnsSelection(title: title, subtitle: subtitle)
+            .frame(width: DSColumnsChart.selectionWidth, height: DSColumnsChart.selectionHeight)
+            .offset(
+                x: DSColumnsChart.verticalAxisWidth -
+                (size.width - DSColumnsChart.verticalAxisWidth) / .two +
+                halfColumnWidth(width: size.width) +
+                CGFloat(index) * columnWidth(width: size.width),
+                y: halfLineHeight(height: size.height) +
+                halfColumnsViewHeight(height: size.height) -
+                columnsViewHeight(height: size.height) *
+                viewModel.offsets[index] -
+                DSColumnsChart.selectionHeight / .two
+            )
     }
     
     // MARK: Utils
@@ -44,6 +79,22 @@ public struct ColumnsChart: View {
     
     private func halfLineHeight(height: CGFloat) -> CGFloat {
         lineHeight(height: height) / .two
+    }
+    
+    private func columnWidth(width: CGFloat) -> CGFloat {
+        (width - DSColumnsChart.verticalAxisWidth) / CGFloat(viewModel.horizontalTitles.count)
+    }
+    
+    private func halfColumnWidth(width: CGFloat) -> CGFloat {
+        columnWidth(width: width) / .two
+    }
+    
+    private func columnsViewHeight(height: CGFloat) -> CGFloat {
+        height - DSColumnsChart.horizontalAxisHeight - lineHeight(height: height)
+    }
+    
+    private func halfColumnsViewHeight(height: CGFloat) -> CGFloat {
+        columnsViewHeight(height: height) / .two
     }
 }
 

@@ -16,6 +16,8 @@ extension DesignSystem {
         static let columnWidth: CGFloat = 12
         static let verticalAxisWidth: CGFloat = 40
         static let horizontalAxisHeight: CGFloat = 40
+        static let selectionWidth: CGFloat = 100
+        static let selectionHeight: CGFloat = 60
         
         // MARK: Columns
         static let columnGradientColors: [Color] = [DSColor.main.rawValue,
