@@ -31,19 +31,17 @@ struct ColumnsSubtitles: View {
     }
     
     private func lineElement(title: String, color: Color) -> some View {
-        VStack(spacing: .zero) {
-            Spacer(minLength: DSSpace.smallL.rawValue)
-            
+        VStack(spacing: DSSpace.smallM.rawValue) {
             Circle()
                 .fill(color)
                 .frame(width: 10, height: 10)
             
             Text(title)
-                .frame(height: DSColumnsChart.horizontalAxisHeight)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .foregroundColor(DSColor.contrast.rawValue)
                 .font(DSFont.subheadline.rawValue)
         }
+        .frame(height: DSColumnsChart.horizontalAxisHeight)
     }
 }
 

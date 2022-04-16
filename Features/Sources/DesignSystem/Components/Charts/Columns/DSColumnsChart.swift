@@ -25,9 +25,9 @@ extension DesignSystem {
                                                     DSColor.main.rawValue.opacity(.zero)]
         
         // MARK: ColumnsVerticalAxis
-        static let dashLineWidth: CGFloat = 1
-        static let dashLineHeight: CGFloat = 1
-        static let dashLineConfig: [CGFloat] = [10, 20]
+        static let dashLineWidth: CGFloat = 0.5
+        static let dashLineHeight: CGFloat = 0.5
+        static let dashLineConfig: [CGFloat] = [8, 4]
         
         // MARK: ColumnsSelection
         static let arrowWidth: CGFloat = 20
