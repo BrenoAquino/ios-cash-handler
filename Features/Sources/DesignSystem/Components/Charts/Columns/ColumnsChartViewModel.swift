@@ -10,19 +10,20 @@ import SwiftUI
 extension ColumnsChart {
     final class ViewModel: ObservableObject {
         
-        var values: [Double]
+        var config: ColumnsChartConfig {
+            didSet { update() }
+        }
         
         // MARK: Publishers
-        @Published private(set) var config: ColumnsChartConfig
-        @Published private(set) var selectedIndex: Int = 3
         @Published private(set) var offsets: [Double] = []
+        @Published private(set) var verticalTitles: [String] = []
+        @Published private(set) var horizontalTitles: [String] = []
+        @Published private(set) var selectedColumn: (index: Int, value: ColumnsChartConfig.ColumnsValue)? = nil
         
         // MARK: Inits
-        init(config: ColumnsChartConfig, values: [Double]) {
+        init(config: ColumnsChartConfig) {
             self.config = config
-            self.values = values
-            
-            setupOffsets()
+            update()
         }
     }
 }
@@ -30,18 +31,26 @@ extension ColumnsChart {
 // MARK: Actions
 extension ColumnsChart.ViewModel {
     func select(index: Int) {
-        selectedIndex = index
+        guard index >= .zero && index <= config.values.count else { return }
+        selectedColumn = (index, config.values[index])
     }
 }
 
-// MARK: Offsets
+// MARK: Updates
 extension ColumnsChart.ViewModel {
-    func setupOffsets() {
-        offsets = []
+    private func update() {
+        updateColumns()
+        updateVerticalTitles()
+    }
+    
+    private func updateColumns() {
         let interval = config.max - config.min
-        
-        for value in values {
-            offsets.append(value / interval)
-        }
+        offsets = config.values.map { $0.value / interval }
+        horizontalTitles = config.values.map { $0.abbreviation }
+        select(index: config.values.count - .one)
+    }
+    
+    private func updateVerticalTitles() {
+        verticalTitles = config.verticalTitles
     }
 }

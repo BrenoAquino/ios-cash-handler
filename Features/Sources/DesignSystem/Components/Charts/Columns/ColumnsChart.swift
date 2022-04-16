@@ -12,42 +12,16 @@ public struct ColumnsChart: View {
     @ObservedObject private(set) var viewModel: ViewModel
     
     public init(config: ColumnsChartConfig) {
-        viewModel = ViewModel(config: config, values: [2, 2.5, 5, 10])
+        viewModel = ViewModel(config: config)
     }
     
     public var body: some View {
         VStack(spacing: .zero) {
             GeometryReader { reader in
                 ZStack(alignment: .topLeading) {
-                    ColumnsVerticalAxis(titles: viewModel.config.axes.vertical)
-                        .frame(height: reader.size.height - DSColumnsChart.horizontalAxisHeight)
-                    
-                    ColumnsSubtitles(titles: viewModel.config.axes.horizontal)
-                        .frame(width: reader.size.width - DSColumnsChart.verticalAxisWidth)
-                        .offset(x: DSColumnsChart.verticalAxisWidth)
-                    
-                    Columns(offset: viewModel.offsets,
-                            onTap: { index in
-                        viewModel.select(index: index)
-                    })
-                    .frame(
-                        width: reader.size.width - DSColumnsChart.verticalAxisWidth,
-                        height: reader.size.height -
-                        DSColumnsChart.horizontalAxisHeight -
-                        lineHeight(height: reader.size.height)
-                    )
-                    .offset(
-                        x: DSColumnsChart.verticalAxisWidth,
-                        y: halfLineHeight(height: reader.size.height)
-                    )
-                    .overlay {
-                        columnSelection(
-                            size: reader.size,
-                            title: "R$ 2,0K",
-                            subtitle: "Jan 2022",
-                            index: viewModel.selectedIndex
-                        )
-                    }
+                    verticalAxis(size: reader.size)
+                    subtitles(size: reader.size)
+                    columns(size: reader.size)
                 }
             }
         }
@@ -56,6 +30,44 @@ public struct ColumnsChart: View {
         .padding(.horizontal, DSSpace.smallM.rawValue)
     }
     
+    // MARK: Axes
+    private func verticalAxis(size: CGSize) -> some View {
+        ColumnsVerticalAxis(titles: viewModel.verticalTitles)
+            .frame(height: size.height - DSColumnsChart.horizontalAxisHeight)
+    }
+    
+    private func subtitles(size: CGSize) -> some View {
+        ColumnsSubtitles(titles: viewModel.horizontalTitles)
+            .frame(width: size.width - DSColumnsChart.verticalAxisWidth)
+            .offset(x: DSColumnsChart.verticalAxisWidth)
+    }
+    
+    // MARK: Columns
+    private func columns(size: CGSize) -> some View {
+        Columns(offset: viewModel.offsets, onTap: { viewModel.select(index: $0) })
+            .frame(
+                width: size.width - DSColumnsChart.verticalAxisWidth,
+                height: size.height -
+                DSColumnsChart.horizontalAxisHeight -
+                lineHeight(height: size.height)
+            )
+            .offset(
+                x: DSColumnsChart.verticalAxisWidth,
+                y: halfLineHeight(height: size.height)
+            )
+            .overlay {
+                if let (index, value) = viewModel.selectedColumn {
+                    columnSelection(
+                        size: size,
+                        title: value.valueFormatted,
+                        subtitle: value.fullSubtitle,
+                        index: index
+                    )
+                }
+            }
+    }
+    
+    // MARK: Floating Views
     private func columnSelection(size: CGSize, title: String, subtitle: String, index: Int) -> some View {
         ColumnsSelection(title: title, subtitle: subtitle)
             .frame(width: DSColumnsChart.selectionWidth, height: DSColumnsChart.selectionHeight)
@@ -74,7 +86,7 @@ public struct ColumnsChart: View {
     
     // MARK: Utils
     private func lineHeight(height: CGFloat) -> CGFloat {
-        (height - DSColumnsChart.horizontalAxisHeight) / CGFloat(viewModel.config.axes.vertical.count)
+        (height - DSColumnsChart.horizontalAxisHeight) / CGFloat(viewModel.verticalTitles.count)
     }
     
     private func halfLineHeight(height: CGFloat) -> CGFloat {
@@ -82,7 +94,7 @@ public struct ColumnsChart: View {
     }
     
     private func columnWidth(width: CGFloat) -> CGFloat {
-        (width - DSColumnsChart.verticalAxisWidth) / CGFloat(viewModel.config.axes.horizontal.count)
+        (width - DSColumnsChart.verticalAxisWidth) / CGFloat(viewModel.horizontalTitles.count)
     }
     
     private func halfColumnWidth(width: CGFloat) -> CGFloat {
@@ -104,18 +116,21 @@ struct ColumnsChart_Previews: PreviewProvider {
     
     static var previews: some View {
         return ColumnsChart(config: .init(
-            max: 0,
-            min: 12.5,
-            axes: .init(
-                vertical: ["12,5K", "10K", "7.5K", "5K", "2.5K", "0"],
-                horizontal: ["Jan", "Fev", "Mar", "Abr"]
-            )))
-            .frame(height: 240)
-            .background(.black)
-            .padding()
-            .background(.gray)
-            .preferredColorScheme(.dark)
-            .previewLayout(.sizeThatFits)
+            max: 12.5,
+            min: 0,
+            verticalTitles: ["12,5K", "10K", "7.5K", "5K", "2.5K", "0"],
+            values: [
+                .init(value: 2, valueFormatted: "R$ 2,5K", abbreviation: "Jan", fullSubtitle: "Jan 2022"),
+                .init(value: 2.5, valueFormatted: "R$ 2,5K", abbreviation: "Fev", fullSubtitle: "Fev 2022"),
+                .init(value: 5, valueFormatted: "R$ 5,0K", abbreviation: "Mar", fullSubtitle: "Mar 2022"),
+                .init(value: 10, valueFormatted: "R$ 10,0K", abbreviation: "Abr", fullSubtitle: "Abr 2022")
+            ]))
+        .frame(height: 240)
+        .background(.black)
+        .padding()
+        .background(.gray)
+        .preferredColorScheme(.dark)
+        .previewLayout(.sizeThatFits)
     }
 }
 #endif

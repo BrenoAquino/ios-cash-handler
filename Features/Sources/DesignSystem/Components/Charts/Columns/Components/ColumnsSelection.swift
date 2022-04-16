@@ -15,6 +15,7 @@ struct ColumnsSelection: View {
     init(title: String, subtitle: String) {
         self.title = title
         self.subtitle = subtitle
+        print(self.title, self.subtitle)
     }
     
     public var body: some View {

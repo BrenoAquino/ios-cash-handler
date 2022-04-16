@@ -8,23 +8,31 @@
 import SwiftUI
 
 public struct ColumnsChartConfig {
-    public let min: CGFloat
-    public let max: CGFloat
-    public let axes: ColumnsAxesConfig
+    public var min: CGFloat
+    public var max: CGFloat
+    public let verticalTitles: [String]
+    public var values: [ColumnsValue]
     
-    public init(max: CGFloat, min: CGFloat, axes: ColumnsAxesConfig) {
+    // MARK: Inits
+    public init(max: CGFloat, min: CGFloat, verticalTitles: [String], values: [ColumnsValue] = []) {
         self.max = max
         self.min = min
-        self.axes = axes
+        self.verticalTitles = verticalTitles
+        self.values = values
     }
     
-    public struct ColumnsAxesConfig {
-        public let vertical: [String]
-        public let horizontal: [String]
+    // MARK: Values
+    public struct ColumnsValue {
+        public let value: Double
+        public let valueFormatted: String
+        public let abbreviation: String
+        public let fullSubtitle: String
         
-        public init(vertical: [String], horizontal: [String]) {
-            self.vertical = vertical
-            self.horizontal = horizontal
+        public init(value: Double, valueFormatted: String? = nil, abbreviation: String, fullSubtitle: String) {
+            self.value = value
+            self.valueFormatted = valueFormatted ?? String(value)
+            self.abbreviation = abbreviation
+            self.fullSubtitle = fullSubtitle
         }
     }
 }
