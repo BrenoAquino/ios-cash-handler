@@ -90,7 +90,7 @@ extension StatsUseCaseImpl: StatsUseCase {
                 var operationsPerMonth: [Date : [Operation]] = [:]
                 operations.forEach { operationsPerMonth[$0.date.firstDayMonth, default: []].append($0) }
                 
-                return operationsPerMonth.compactMap { (key, value) in
+                return operationsPerMonth.sorted(by: { $0.key < $1.key }).compactMap { (key, value) in
                     let components = Calendar.current.dateComponents([.month, .year], from: key)
                     let totalExpense = value.reduce(Double.zero, { $0 + $1.value })
                     
