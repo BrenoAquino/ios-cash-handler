@@ -22,8 +22,9 @@ struct ColumnsSubtitles: View {
                 ForEach(Array(zip(titles.indices, titles)), id: \.0) { index, title in
                     lineElement(title: title,
                                 color: index.magnitude % .two == .zero ?
-                                    DSColor.main.rawValue :
-                                    DSColor.contrast.rawValue)
+                                DSColor.contrast.rawValue :
+                                    DSColor.main.rawValue
+                    )
                 }
             }
         }
@@ -53,12 +54,12 @@ struct ColumnsSubtitle_Previews: PreviewProvider {
         return ColumnsSubtitles(titles: [
             "0", "2K", "4K", "6K", "8K", "10K"
         ])
-            .frame(width: 300, height: 200)
-            .background(.black)
-            .padding(48)
-            .background(.gray)
-            .preferredColorScheme(.dark)
-            .previewLayout(.sizeThatFits)
+        .frame(width: 300, height: 200)
+        .background(.black)
+        .padding(48)
+        .background(.gray)
+        .preferredColorScheme(.dark)
+        .previewLayout(.sizeThatFits)
     }
 }
 #endif

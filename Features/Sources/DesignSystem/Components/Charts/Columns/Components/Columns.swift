@@ -23,8 +23,8 @@ struct Columns: View {
                 ForEach(Array(zip(offsets.indices, offsets)), id: \.0) { index, value in
                     dotElement(
                         color: index.magnitude % .two == .zero ?
-                            DSColor.main.rawValue :
-                            DSColor.contrast.rawValue
+                        DSColor.contrast.rawValue :
+                            DSColor.main.rawValue
                     )
                     .frame(maxWidth: .infinity)
                     .offset(
