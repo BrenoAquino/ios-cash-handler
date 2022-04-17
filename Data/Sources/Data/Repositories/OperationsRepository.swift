@@ -35,16 +35,11 @@ public final class OperationsRepositoryImpl {
     }
 }
 
-// MARK: Interface
-extension OperationsRepositoryImpl: Domain.OperationsRepository {
-    public func operations(month: Int?, year: Int?) -> AnyPublisher<[Domain.Operation], CharlesError> {
-        var parms: OperationsFilterParams? = nil
-        if let month = month, let year = year {
-            parms = .init(month: month, year: year)
-        }
-        
+// MARK: Utils
+extension OperationsRepositoryImpl {
+    private func requestOperations(params: OperationsFilterParams?) -> AnyPublisher<[Domain.Operation], CharlesError>  {
         return remoteDataSource
-            .operations(params: parms)
+            .operations(params: params)
             .tryMap { [weak self] operationsDTOs in
                 if let categories = self?.categories, let paymentMethods = self?.paymentMethods {
                     do {
@@ -65,6 +60,22 @@ extension OperationsRepositoryImpl: Domain.OperationsRepository {
                 }
             }
             .eraseToAnyPublisher()
+    }
+}
+
+// MARK: Interface
+extension OperationsRepositoryImpl: Domain.OperationsRepository {
+    public func operations(month: Int?, year: Int?) -> AnyPublisher<[Domain.Operation], CharlesError> {
+        var params: OperationsFilterParams? = nil
+        if let month = month, let year = year {
+            params = .init(month: month, year: year)
+        }
+        return requestOperations(params: params)
+    }
+    
+    public func operations(startMonth: Int, startYear: Int, endMonth: Int, endYear: Int) -> AnyPublisher<[Domain.Operation], CharlesError> {
+        let params: OperationsFilterParams = .init(startMonth: startMonth, startYear: startYear, endMonth: endMonth, endYear: endYear)
+        return requestOperations(params: params)
     }
     
     public func addOperation(createOperation: CreateOperation) -> AnyPublisher<[Domain.Operation], CharlesError> {

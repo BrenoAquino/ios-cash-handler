@@ -18,9 +18,9 @@ public struct OverviewView: View {
     
     public var body: some View {
         state
-            .navigationTitle("Overview")
+            .navigationTitle(OverviewLocalizable.title)
             .background(DSColor.background.rawValue.ignoresSafeArea())
-            .onAppear(perform: viewModel.fetchOperations)
+            .onAppear(perform: viewModel.fetchStats)
     }
     
     // MARK: View State
@@ -45,6 +45,8 @@ public struct OverviewView: View {
             Spacer(minLength: DSSpace.smallM.rawValue)
             overviewMonth
             Spacer(minLength: DSSpace.smallM.rawValue)
+            historic
+            Spacer(minLength: DSSpace.bigL.rawValue)
             categories
             Spacer(minLength: DSSpace.bigL.rawValue)
         }
@@ -71,6 +73,19 @@ public struct OverviewView: View {
             .padding()
     }
     
+    // MARK: Historic
+    private var historic: some View {
+        ColumnsChart(config: viewModel.historicConfig)
+            .padding(.leading, DSSpace.smallM.rawValue)
+            .padding(.trailing, DSSpace.normal.rawValue)
+            .padding(.vertical, DSSpace.smallS.rawValue)
+            .frame(height: 336)
+            .background(DSColor.secondBackground.rawValue)
+            .cornerRadius(DSCornerRadius.normal.rawValue)
+            .shadow(style: .medium)
+            .padding(.horizontal, DSSpace.smallL.rawValue)
+    }
+    
     // MARK: Categories
     private var categories: some View {
         ForEach(viewModel.categoriesOverview) { element in
@@ -89,7 +104,7 @@ import Previews
 struct OverviewView_Previews: PreviewProvider {
     static var previews: some View {
         return NavigationView {
-            OverviewView(viewModel: .init(operationsUseCase: OperationsUseCasePreview()))
+            OverviewView(viewModel: .init(statsUseCase: StatsUseCasePreview()))
         }
         .preferredColorScheme(.dark)
     }

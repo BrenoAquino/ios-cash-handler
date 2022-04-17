@@ -32,7 +32,6 @@ struct OperationCell: View {
                         }
                     }
                     
-                    
                     Text(operation.subtitle)
                         .font(DSFont.subheadline.rawValue)
                         .foregroundColor(DSColor.primaryText.rawValue)

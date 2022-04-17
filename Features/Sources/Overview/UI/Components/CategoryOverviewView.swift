@@ -42,7 +42,7 @@ struct CategoryOverviewView: View {
                 .foregroundColor(DSColor.primaryText.rawValue)
                 .font(DSFont.headline2.rawValue)
             
-            LineBar(config: .init(percentage: categoryOverview.expensePercentage,
+            LineBarChart(config: .init(percentage: categoryOverview.expensePercentage,
                                   color: DSColor.main.rawValue,
                                   backgroundColor: .gray))
             .frame(height: DSOverview.categoryOverviewLineHeight)
@@ -56,7 +56,7 @@ struct CategoryOverviewView: View {
                 .foregroundColor(DSColor.primaryText.rawValue)
                 .font(DSFont.headline2.rawValue)
             
-            LineBar(config: .init(percentage: categoryOverview.countPercentage,
+            LineBarChart(config: .init(percentage: categoryOverview.countPercentage,
                                   color: DSColor.main.rawValue,
                                   backgroundColor: .gray))
             .frame(height: DSOverview.categoryOverviewLineHeight)

@@ -23,4 +23,8 @@ enum UseCaseFactory {
     static func paymentMethods() -> PaymentMethodsUseCase {
         return PaymentMethodsUseCaseImpl(paymentMethodsRepository: RepositoryFactory.paymentMethods())
     }
+    
+    static func stats() -> StatsUseCase {
+        return StatsUseCaseImpl(operationsRepository: RepositoryFactory.operations())
+    }
 }

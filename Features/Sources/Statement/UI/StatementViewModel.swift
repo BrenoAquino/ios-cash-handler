@@ -45,14 +45,13 @@ extension StatementView.ViewModel {
 // MARK: - Flow
 extension StatementView.ViewModel {
     func fetchOperations() {
-        state = .loading
         operationsUseCase
             .aggregateOperations()
             .receive(on: RunLoop.main)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished:
-                    self?.state = .finished
+                    self?.state = .content
                 case .failure(let error):
                     self?.setupErrorBanner(error: error)
                     self?.state = .failure

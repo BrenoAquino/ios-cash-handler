@@ -25,7 +25,7 @@ enum ViewModelFactory {
     
     // MARK: Overview
     static func overview() -> OverviewView.ViewModel {
-        return OverviewView.ViewModel(operationsUseCase: UseCaseFactory.operations())
+        return OverviewView.ViewModel(statsUseCase: UseCaseFactory.stats())
     }
     
     static func coordinatorOverview() -> OverviewCoordinator.ViewModel {
