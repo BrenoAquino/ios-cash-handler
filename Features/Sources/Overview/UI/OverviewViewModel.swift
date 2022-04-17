@@ -59,7 +59,7 @@ extension OverviewView.ViewModel {
     func fetchStats() {
         let monthOverview = statsUseCase.monthOverview(month: currentMonth.month, year: currentMonth.year)
         let categories = statsUseCase.categories(month: currentMonth.month, year: currentMonth.year)
-        let historic = statsUseCase.historic(numberOfMonths: 2)
+        let historic = statsUseCase.historic(numberOfMonths: 6)
         
         monthOverview
             .zip(categories, historic)
@@ -78,18 +78,21 @@ extension OverviewView.ViewModel {
                 self?.historicOverview = stats.2.map { .init(monthOverview: $0) }
                 
                 let max: Double = stats.2.max(by: { $0.expense < $1.expense })?.expense ?? .zero
-                let interval: Double = max / 4
-                let verticalTitles = Array(0 ..< 6).map { NumberFormatter.currency.string(for: Double($0) * interval) ?? .empty }.reversed()
-                let values = stats.2.map { ColumnsValue(value: $0.expense, abbreviation: "Mar", fullSubtitle: "Mar 2022") }
+                let interval: Int = (max / Double(DSOverview.numberOfVerticalTitles - .one)).ceilMaxDecimal
+                
+                let numberOfTitles: [Int] = Array(.zero ... DSOverview.numberOfVerticalTitles)
+                let verticalTitles: [String] = numberOfTitles.map { NumberFormatter.inThousands(number: $0 * interval) }.reversed()
+                
+                let values: [ColumnsValue] = stats.2.map { monthOverview in
+                    ColumnsValue(value: monthOverview.expense, abbreviation: "Mar", fullSubtitle: "Mar 2022")
+                }
                 
                 self?.historicConfig = .init(
-                    max: max + interval,
+                    max: Double(DSOverview.numberOfVerticalTitles * interval),
                     min: .zero,
-                    verticalTitles: Array(verticalTitles),
+                    verticalTitles: verticalTitles,
                     values: values
                 )
-                
-                print(self?.historicOverview.count)
             }
             .store(in: &cancellables)
     }

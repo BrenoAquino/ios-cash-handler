@@ -14,5 +14,6 @@ extension DesignSystem {
     
     enum DSOverview {
         static let categoryOverviewLineHeight: CGFloat = 2
+        static let numberOfVerticalTitles: Int = 5
     }
 }
