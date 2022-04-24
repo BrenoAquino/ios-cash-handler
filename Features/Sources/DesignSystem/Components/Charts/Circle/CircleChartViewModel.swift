@@ -46,7 +46,6 @@ extension CircleChart.ViewModel {
             arcs.append(arc)
             subtitles.append(subtitle)
             
-            print(stroke)
             stroke -= config.strokeDiff
             lastestEnd = end
         }

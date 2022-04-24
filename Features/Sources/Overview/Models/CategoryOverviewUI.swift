@@ -28,8 +28,6 @@ struct CategoryOverviewUI: Hashable, Identifiable {
         self.othersPercentage = .one - categoryOverview.expensePercentage
         
         self.count = String(categoryOverview.count)
-        
-        print(title, expensePercentage, othersPercentage, expensePercentage + othersPercentage)
     }
     
     init(title: String, expense: String, expensePercentageDescription: String, expensePercentage: Double, othersPercentage: Double, count: String) {
