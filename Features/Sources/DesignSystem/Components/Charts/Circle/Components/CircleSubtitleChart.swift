@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  CircleSubtitleChart.swift
 //  
 //
 //  Created by Breno Aquino on 07/03/22.
@@ -8,15 +8,13 @@
 import SwiftUI
 import Common
 
-struct CircleSubtitleChart2: View {
+struct CircleSubtitleChart: View {
     
-    let spacing: CGFloat = 16
-    
-    @State var subtitles: [SubtitleConfig]
+    let subtitles: [SubtitleConfig]
     
     // MARK: View
     var body : some View {
-        VStack(alignment: .leading, spacing: spacing) {
+        VStack(alignment: .leading, spacing: DSSpace.smallL.rawValue) {
             ForEach(subtitles, id: \.self) { subtitle in
                 cell(title: subtitle.title, color: subtitle.color)
             }
@@ -28,7 +26,8 @@ struct CircleSubtitleChart2: View {
         HStack {
             Circle()
                 .foregroundColor(color)
-                .frame(width: 20, height: 20)
+                .frame(width: DSCircleChart.circleSubtitleSize.width, height: DSCircleChart.circleSubtitleSize.height)
+            
             Text(title)
         }
     }
@@ -36,7 +35,7 @@ struct CircleSubtitleChart2: View {
 
 #if DEBUG
 // MARK: - Preview
-struct CircleSubtitleChart2_Previews: PreviewProvider {
+struct CircleSubtitleChart_Previews: PreviewProvider {
     
     static var previews: some View {
         let subtitlesConfig: [SubtitleConfig] = [
@@ -50,7 +49,7 @@ struct CircleSubtitleChart2_Previews: PreviewProvider {
             .init(title: "Outra Pessoa", color: Color.purple),
             .init(title: "Lazer", color: .orange)
         ]
-        return CircleSubtitleChart2(subtitles: subtitlesConfig)
+        return CircleSubtitleChart(subtitles: subtitlesConfig)
             .background(Color.cyan)
             .previewLayout(.sizeThatFits)
     }

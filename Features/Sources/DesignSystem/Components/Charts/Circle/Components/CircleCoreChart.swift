@@ -9,9 +9,10 @@ import SwiftUI
 
 struct CircleCoreChart: View {
     
-    @State var arcs: [ArcConfig]
+    let arcs: [ArcConfig]
+    
     var padding: CGFloat {
-        (DSCircleChart.strokeMin + DSCircleChart.strokeDiff * CGFloat(arcs.count)) / 2
+        (DSCircleChart.strokeMin + DSCircleChart.strokeDiff * CGFloat(arcs.count)) / .two
     }
     
     var body: some View {

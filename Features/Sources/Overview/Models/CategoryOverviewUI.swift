@@ -13,24 +13,31 @@ struct CategoryOverviewUI: Hashable, Identifiable {
     
     let title: String
     let expense: String
+    let expensePercentageDescription: String
     let expensePercentage: Double
+    let othersPercentage: Double
+    
     let count: String
-    let countPercentage: Double
     
     init(categoryOverview: Domain.CategoryOverview) {
-        self.title = categoryOverview.categoryName.uppercased()
+        self.title = categoryOverview.categoryName.capitalized
         
         self.expense = NumberFormatter.currency.string(for: categoryOverview.expense) ?? .empty
+        self.expensePercentageDescription = String(Int(categoryOverview.expensePercentage * 100)) + "%"
         self.expensePercentage = categoryOverview.expensePercentage
-        self.count = OverviewLocalizable.totalCount(number: String(categoryOverview.count))
-        self.countPercentage = categoryOverview.countPercentage
+        self.othersPercentage = .one - categoryOverview.expensePercentage
+        
+        self.count = String(categoryOverview.count)
+        
+        print(title, expensePercentage, othersPercentage, expensePercentage + othersPercentage)
     }
     
-    init(title: String, expense: String, expensePercentage: Double, count: String, countPercentage: Double) {
+    init(title: String, expense: String, expensePercentageDescription: String, expensePercentage: Double, othersPercentage: Double, count: String) {
         self.title = title
         self.expense = expense
+        self.expensePercentageDescription = expensePercentageDescription
         self.expensePercentage = expensePercentage
+        self.othersPercentage = othersPercentage
         self.count = count
-        self.countPercentage = countPercentage
     }
 }

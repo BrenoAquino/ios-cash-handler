@@ -10,58 +10,66 @@ import DesignSystem
 
 struct CategoryOverviewView: View {
     
-    @State var categoryOverview: CategoryOverviewUI
+    let categoryOverview: CategoryOverviewUI
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(categoryOverview.title)
-                .foregroundColor(DSColor.primaryText.rawValue)
-                .font(DSFont.subheadline.rawValue)
-                .padding(.leading, DSSpace.smallM.rawValue)
-            
-            container
+        VStack(spacing: DSSpace.smallL.rawValue) {
+            title
+            lineStats(title: "Gasto", value: categoryOverview.expense, average: "R$ 0,0K / mês")
+            lineStats(title: "Quantidade", value: categoryOverview.count, average: "00 / mês")
         }
-    }
-    
-    private var container: some View {
-        VStack(alignment: .leading, spacing: DSSpace.smallL.rawValue) {
-            HStack {
-                expense
-                count
-            }
-        }
+        .frame(width: 232)
         .padding(DSSpace.smallL.rawValue)
         .background(DSColor.secondBackground.rawValue)
         .cornerRadius(DSCornerRadius.normal.rawValue)
         .shadow(style: .medium)
     }
     
-    private var expense: some View {
-        VStack(alignment: .leading, spacing: DSSpace.smallS.rawValue) {
-            Text(categoryOverview.expense)
-                .foregroundColor(DSColor.primaryText.rawValue)
-                .font(DSFont.headline2.rawValue)
+    // MARK: Title Header
+    private var title: some View {
+        HStack {
+            Text(categoryOverview.title)
             
-            LineBarChart(config: .init(percentage: categoryOverview.expensePercentage,
-                                  color: DSColor.main.rawValue,
-                                  backgroundColor: .gray))
-            .frame(height: DSOverview.categoryOverviewLineHeight)
+            Spacer()
+            
+            VStack(spacing: .zero) {
+                CircleChart(config: .init(hasSubtitle: false, strokeMin: 2, strokeDiff: 1, data: [
+                    .init(title: .empty, value: categoryOverview.expensePercentage, color: DSColor.main.rawValue),
+                    .init(title: .empty, value: categoryOverview.othersPercentage, color: DSColor.contrast.rawValue)
+                ]))
+                    .frame(width: 36, height: 36)
+                
+                Text(categoryOverview.expensePercentageDescription)
+                    .font(DSFont.footnote.rawValue)
+            }
         }
-        .frame(maxWidth: .infinity)
     }
     
-    private var count: some View {
-        VStack(alignment: .leading, spacing: DSSpace.smallS.rawValue) {
-            Text(categoryOverview.count)
-                .foregroundColor(DSColor.primaryText.rawValue)
-                .font(DSFont.headline2.rawValue)
+    // MARK: Line Stats
+    private func lineStats(title: String, value: String, average: String) -> some View {
+        VStack(alignment: .leading, spacing: DSSpace.smallM.rawValue) {
+            Text(title)
+                .font(DSFont.headline3.rawValue)
             
-            LineBarChart(config: .init(percentage: categoryOverview.countPercentage,
-                                  color: DSColor.main.rawValue,
-                                  backgroundColor: .gray))
-            .frame(height: DSOverview.categoryOverviewLineHeight)
+            HStack(spacing: DSSpace.smallL.rawValue) {
+                stats(value: value, subtitle: "Total")
+                stats(value: average, subtitle: "Média (M-1)")
+            }
         }
-        .frame(maxWidth: .infinity)
+    }
+    
+    private func stats(value: String, subtitle: String) -> some View {
+        VStack {
+            Text(value)
+                .frame(maxWidth: .infinity)
+                .font(DSFont.headline2.rawValue)
+                .foregroundColor(DSColor.primaryText.rawValue)
+            
+            Text(subtitle)
+                .frame(maxWidth: .infinity)
+                .font(DSFont.footnote.rawValue)
+                .foregroundColor(DSColor.primaryText.rawValue)
+        }
     }
 }
 
@@ -72,9 +80,10 @@ struct CategoryOverviewView_Previews: PreviewProvider {
         return CategoryOverviewView(categoryOverview: .init(
             title: "Tecnologia",
             expense: "R$ 2800",
+            expensePercentageDescription: "55%",
             expensePercentage: 0.75,
-            count: "12 compras",
-            countPercentage: 0.3
+            othersPercentage: 0.25,
+            count: "12 compras"
         ))
             .background(.orange)
             .padding()
