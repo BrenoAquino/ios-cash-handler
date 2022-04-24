@@ -123,7 +123,7 @@ class OperationsRepositoryTests: XCTestCase {
         
         // When
         repository
-            .operations()
+            .operations(month: nil, year: nil)
             .sink { completion in
                 expectation.fulfill()
             } receiveValue: { value in
@@ -155,7 +155,7 @@ class OperationsRepositoryTests: XCTestCase {
         
         // When
         repository
-            .operations()
+            .operations(month: 3, year: nil)
             .sinkCompletion { completion in
                 switch completion {
                 case .finished:
@@ -183,7 +183,7 @@ class OperationsRepositoryTests: XCTestCase {
 
         // When
         repository
-            .operations()
+            .operations(month: 2, year: 2022)
             .sinkCompletion { completion in
                 switch completion {
                 case .finished:
