@@ -60,11 +60,12 @@ class StatsRemoteDataSourceTests: XCTestCase {
         XCTAssert(stats?.year == 2022)
         XCTAssert(stats?.expense == 732.14)
         XCTAssert(stats?.categories.count == 3)
-        XCTAssert(stats?.categories[0].categoryId == "d738b05e792cf0108226b0f8a128e0a9203b859ab55c66fce4a4f480463ea328")
-        XCTAssert(stats?.categories[0].expense == 192.14)
-        XCTAssert(stats?.categories[0].averageExpense == 4725)
+        XCTAssert(stats?.categories[0].categoryId == "61e5fd461fa16bf63f4493ae6417f52640e0c15998be8a17c963b2483a66e677")
+        XCTAssert(stats?.categories[0].expense == 330)
+        XCTAssert(stats?.categories[0].averageExpense == 6417)
+        XCTAssert(stats?.categories[0].percentageExpense == 0.45)
         XCTAssert(stats?.categories[0].count == 1)
-        XCTAssert(stats?.categories[0].averageCount == 8)
+        XCTAssert(stats?.categories[0].averageCount == 5)
     }
 
     func testStatsDecodingError() {

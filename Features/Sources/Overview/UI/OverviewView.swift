@@ -71,6 +71,7 @@ public struct OverviewView: View {
     private var overviewMonth: some View {
         OverviewMonthView(overviewMont: viewModel.overviewMonth)
             .padding()
+            .shadow(style: .medium)
     }
     
     // MARK: Historic
@@ -95,10 +96,9 @@ public struct OverviewView: View {
                 .padding(.horizontal, DSSpace.normal.rawValue)
             
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
+                HStack(spacing: .zero) {
                     ForEach(viewModel.categoriesOverview) { element in
                         CategoryOverviewView(categoryOverview: element)
-                            .frame(maxWidth: .infinity)
                             .padding(.bottom, DSSpace.smallL.rawValue)
                     }
                     .padding(.horizontal, DSSpace.smallL.rawValue)

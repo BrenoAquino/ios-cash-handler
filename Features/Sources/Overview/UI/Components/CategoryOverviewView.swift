@@ -18,7 +18,7 @@ struct CategoryOverviewView: View {
             lineStats(title: "Gasto", value: categoryOverview.expense, average: categoryOverview.averageExpense)
             lineStats(title: "Quantidade", value: categoryOverview.count, average: categoryOverview.averageCount)
         }
-        .frame(width: 232)
+        .frame(width: 280)
         .padding(DSSpace.smallL.rawValue)
         .background(DSColor.secondBackground.rawValue)
         .cornerRadius(DSCornerRadius.normal.rawValue)
@@ -52,7 +52,9 @@ struct CategoryOverviewView: View {
             
             HStack(spacing: DSSpace.smallL.rawValue) {
                 stats(value: value, subtitle: "Total")
+                    .frame(maxWidth: .infinity)
                 stats(value: average, subtitle: "Média (M-1)")
+                    .frame(maxWidth: .infinity)
             }
         }
     }
@@ -60,12 +62,10 @@ struct CategoryOverviewView: View {
     private func stats(value: String, subtitle: String) -> some View {
         VStack {
             Text(value)
-                .frame(maxWidth: .infinity)
                 .font(DSFont.headline2.rawValue)
                 .foregroundColor(DSColor.primaryText.rawValue)
             
             Text(subtitle)
-                .frame(maxWidth: .infinity)
                 .font(DSFont.footnote.rawValue)
                 .foregroundColor(DSColor.primaryText.rawValue)
         }
