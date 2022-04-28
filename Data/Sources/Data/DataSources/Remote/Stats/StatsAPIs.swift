@@ -9,7 +9,7 @@ import Foundation
 
 enum StatsAPIs {
     case stats(params: StatsParams)
-    case historic(numberMonths: Int)
+    case historic(numberOfMonths: Int)
 }
 
 extension StatsAPIs: APIs {
@@ -37,8 +37,8 @@ extension StatsAPIs: APIs {
         switch self {
         case .stats(let params):
             return try? params.asDictionary()
-        case .historic(let numberMonths):
-            return ["number_of_months": numberMonths]
+        case .historic(let numberOfMonths):
+            return ["number_of_months": numberOfMonths]
         }
     }
     

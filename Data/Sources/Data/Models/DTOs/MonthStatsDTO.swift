@@ -13,3 +13,9 @@ public struct MonthStatsDTO: Decodable {
     public let year: Int
     public let expense: Double
 }
+
+extension MonthStatsDTO {
+    func toDomain() -> Domain.MonthStats {
+        return Domain.MonthStats(month: month, year: year, expense: expense)
+    }
+}

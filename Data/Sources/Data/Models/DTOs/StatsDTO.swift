@@ -14,3 +14,10 @@ public struct StatsDTO: Decodable {
     public let expense: Double
     public let categories: [CategoryStatsDTO]
 }
+
+extension StatsDTO {
+    func toDomain(categories: [Domain.Category]) throws -> Domain.Stats {
+        let categories = try self.categories.map { try $0.toDomain(categories: categories) }
+        return Domain.Stats(month: month, year: year, expense: expense, categories: categories)
+    }
+}

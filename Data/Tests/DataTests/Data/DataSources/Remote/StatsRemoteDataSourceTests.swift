@@ -103,7 +103,7 @@ class StatsRemoteDataSourceTests: XCTestCase {
         
         // When
         remoteDataSource
-            .historic(numberMonths: 4)
+            .historic(numberOfMonths: 4)
             .sinkCompletion { _ in
                 expectation.fulfill()
             }
@@ -112,7 +112,7 @@ class StatsRemoteDataSourceTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssert(networkProvider.decodableType == [MonthStatsDTO].self)
-        XCTAssert(networkProvider.api?.hashValue() == StatsAPIs.historic(numberMonths: 4).hashValue())
+        XCTAssert(networkProvider.api?.hashValue() == StatsAPIs.historic(numberOfMonths: 4).hashValue())
     }
     
     func testHistoricDecoding() {
@@ -124,7 +124,7 @@ class StatsRemoteDataSourceTests: XCTestCase {
 
         // When
         remoteDataSource
-            .historic(numberMonths: 4)
+            .historic(numberOfMonths: 4)
             .sink { completion in
                 expectation.fulfill()
             } receiveValue: { value in
@@ -150,7 +150,7 @@ class StatsRemoteDataSourceTests: XCTestCase {
 
         // When
         remoteDataSource
-            .historic(numberMonths: 4)
+            .historic(numberOfMonths: 4)
             .sinkCompletion { completion in
                 switch completion {
                 case .finished:
