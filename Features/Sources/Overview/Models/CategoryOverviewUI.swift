@@ -13,29 +13,41 @@ struct CategoryOverviewUI: Hashable, Identifiable {
     
     let title: String
     let expense: String
-    let expensePercentageDescription: String
-    let expensePercentage: Double
+    let averageExpense: String
+    let percentageExpenseDescription: String
+    let percentageExpense: Double
     let othersPercentage: Double
-    
     let count: String
+    let averageCount: String
     
-    init(categoryOverview: Domain.CategoryOverview) {
-        self.title = categoryOverview.categoryName.capitalized
+    init(categoryStats: Domain.CategoryStats) {
+        self.title = categoryStats.categoryName.capitalized
         
-        self.expense = NumberFormatter.currency.string(for: categoryOverview.expense) ?? .empty
-        self.expensePercentageDescription = String(Int(categoryOverview.expensePercentage * 100)) + "%"
-        self.expensePercentage = categoryOverview.expensePercentage
-        self.othersPercentage = .one - categoryOverview.expensePercentage
-        
-        self.count = String(categoryOverview.count)
+        self.expense = NumberFormatter.currency.string(for: categoryStats.expense) ?? .empty
+        self.averageExpense = OverviewLocalizable.average(NumberFormatter.currency.string(for: categoryStats.averageExpense) ?? .empty)
+        self.percentageExpenseDescription = OverviewLocalizable.percentageDescription(String(Int(categoryStats.percentageExpense * 100)))
+        self.percentageExpense = categoryStats.percentageExpense
+        self.othersPercentage = .one - categoryStats.percentageExpense
+        self.count = String(categoryStats.count)
+        self.averageCount = OverviewLocalizable.average(String(categoryStats.averageCount))
     }
     
-    init(title: String, expense: String, expensePercentageDescription: String, expensePercentage: Double, othersPercentage: Double, count: String) {
+    init(title: String,
+         expense: String,
+         averageExpense: String,
+         percentageExpenseDescription: String,
+         percentageExpense: Double,
+         othersPercentage: Double,
+         count: String,
+         averageCount: String) {
         self.title = title
         self.expense = expense
-        self.expensePercentageDescription = expensePercentageDescription
-        self.expensePercentage = expensePercentage
+        self.averageExpense = averageExpense
+        self.percentageExpenseDescription = percentageExpenseDescription
+        self.percentageExpense = percentageExpense
         self.othersPercentage = othersPercentage
         self.count = count
+        self.averageCount = averageCount
     }
 }
+

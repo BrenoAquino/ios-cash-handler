@@ -15,8 +15,8 @@ struct CategoryOverviewView: View {
     var body: some View {
         VStack(spacing: DSSpace.smallL.rawValue) {
             title
-            lineStats(title: "Gasto", value: categoryOverview.expense, average: "R$ 0,0K / mês")
-            lineStats(title: "Quantidade", value: categoryOverview.count, average: "00 / mês")
+            lineStats(title: "Gasto", value: categoryOverview.expense, average: categoryOverview.averageExpense)
+            lineStats(title: "Quantidade", value: categoryOverview.count, average: categoryOverview.averageCount)
         }
         .frame(width: 232)
         .padding(DSSpace.smallL.rawValue)
@@ -33,12 +33,12 @@ struct CategoryOverviewView: View {
             
             VStack(spacing: .zero) {
                 CircleChart(config: .init(hasSubtitle: false, strokeMin: 2, strokeDiff: 1, data: [
-                    .init(title: .empty, value: categoryOverview.expensePercentage, color: DSColor.main.rawValue),
+                    .init(title: .empty, value: categoryOverview.percentageExpense, color: DSColor.main.rawValue),
                     .init(title: .empty, value: categoryOverview.othersPercentage, color: DSColor.contrast.rawValue)
                 ]))
                     .frame(width: 36, height: 36)
                 
-                Text(categoryOverview.expensePercentageDescription)
+                Text(categoryOverview.percentageExpenseDescription)
                     .font(DSFont.footnote.rawValue)
             }
         }
@@ -79,10 +79,12 @@ struct CategoryOverviewView_Previews: PreviewProvider {
         return CategoryOverviewView(categoryOverview: .init(
             title: "Tecnologia",
             expense: "R$ 2800",
-            expensePercentageDescription: "55%",
-            expensePercentage: 0.75,
+            averageExpense: "R$ 2300 / mês",
+            percentageExpenseDescription: "55%",
+            percentageExpense: 0.75,
             othersPercentage: 0.25,
-            count: "12 compras"
+            count: "12",
+            averageCount: "6"
         ))
             .background(.orange)
             .padding()
