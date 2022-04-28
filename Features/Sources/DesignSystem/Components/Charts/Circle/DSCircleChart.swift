@@ -12,6 +12,7 @@ typealias DSCircleChart = DesignSystem.DSCircleChart
 extension DesignSystem {
     
     enum DSCircleChart {
+        static let circleSubtitleSize: CGSize = .init(width: 20, height: 20)
         static let strokeMin: CGFloat = 10
         static let strokeDiff: CGFloat = 5
     }

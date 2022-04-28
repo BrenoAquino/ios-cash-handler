@@ -22,7 +22,6 @@ struct OverviewMonthView: View {
         .padding(DSSpace.smallL.rawValue)
         .background(DSColor.secondBackground.rawValue)
         .cornerRadius(DSCornerRadius.normal.rawValue)
-        .shadow(style: .medium)
     }
     
     private func element(title: String, value: String) -> some View {

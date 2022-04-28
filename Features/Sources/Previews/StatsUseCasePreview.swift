@@ -15,25 +15,23 @@ public class StatsUseCasePreview: StatsUseCase {
     
     public init() {}
     
-    public func monthOverview(month: Int, year: Int) -> AnyPublisher<MonthOverview, CharlesError> {
-        return Just(Domain.MonthOverview(month: month, year: year, expense: 1234.7))
+    public func stats() -> AnyPublisher<Stats, CharlesError> {
+        let categories: [CategoryStats] = [
+            .init(categoryId: "1", categoryName: "Tecnologia", expense: 2352.90, averageExpense: 1121.45, percentageExpense: 0.82, count: 1, averageCount: 2),
+            .init(categoryId: "2", categoryName: "Saúde", expense: 270, averageExpense: 520, percentageExpense: 0.1, count: 2, averageCount: 1),
+            .init(categoryId: "0", categoryName: "Lazer", expense: 234.23, averageExpense: 523.72, percentageExpense: 0.08, count: 5, averageCount: 5)
+        ]
+        let stats = Stats(month: 4, year: 2022, expense: 2857.13, categories: categories)
+        return Just(stats)
             .setFailureType(to: CharlesError.self)
             .eraseToAnyPublisher()
     }
     
-    public func categories(month: Int, year: Int) -> AnyPublisher<[CategoryOverview], CharlesError> {
+    public func historic(numberOfMonths: Int) -> AnyPublisher<[MonthStats], CharlesError> {
         return Just([
-            .init(categoryId: "1", categoryName: "Tecnologia", expense: 123.32, count: 12, expensePercentage: 0.3, countPercentage: 0.1)
-        ])
-        .setFailureType(to: CharlesError.self)
-        .eraseToAnyPublisher()
-    }
-    
-    public func historic(numberOfMonths: Int) -> AnyPublisher<[MonthOverview], CharlesError> {
-        return Just([
-            Domain.MonthOverview(month: 3, year: 2022, expense: 1234.7),
-            Domain.MonthOverview(month: 2, year: 2022, expense: 782.17),
-            Domain.MonthOverview(month: 1, year: 2022, expense: 53.3)
+            Domain.MonthStats(month: 3, year: 2022, expense: 1234.7),
+            Domain.MonthStats(month: 2, year: 2022, expense: 782.17),
+            Domain.MonthStats(month: 1, year: 2022, expense: 53.3)
         ])
         .setFailureType(to: CharlesError.self)
         .eraseToAnyPublisher()

@@ -46,7 +46,7 @@ public struct OverviewView: View {
             overviewMonth
             Spacer(minLength: DSSpace.smallM.rawValue)
             historic
-            Spacer(minLength: DSSpace.bigL.rawValue)
+            Spacer(minLength: DSSpace.bigS.rawValue)
             categories
             Spacer(minLength: DSSpace.bigL.rawValue)
         }
@@ -71,6 +71,7 @@ public struct OverviewView: View {
     private var overviewMonth: some View {
         OverviewMonthView(overviewMont: viewModel.overviewMonth)
             .padding()
+            .shadow(style: .medium)
     }
     
     // MARK: Historic
@@ -88,12 +89,23 @@ public struct OverviewView: View {
     
     // MARK: Categories
     private var categories: some View {
-        ForEach(viewModel.categoriesOverview) { element in
-            CategoryOverviewView(categoryOverview: element)
-                .frame(maxWidth: .infinity)
-                .padding(.bottom, DSSpace.smallL.rawValue)
+        VStack(alignment: .leading) {
+            Text("Categorias")
+                .foregroundColor(DSColor.primaryText.rawValue)
+                .font(DSFont.title.rawValue)
+                .padding(.horizontal, DSSpace.normal.rawValue)
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: .zero) {
+                    ForEach(viewModel.categoriesOverview) { element in
+                        CategoryOverviewView(categoryOverview: element)
+                            .padding(.bottom, DSSpace.smallL.rawValue)
+                    }
+                    .padding(.horizontal, DSSpace.smallL.rawValue)
+                }
+            }
+            .shadow(style: .medium)
         }
-        .padding(.horizontal, DSSpace.smallL.rawValue)
     }
 }
 

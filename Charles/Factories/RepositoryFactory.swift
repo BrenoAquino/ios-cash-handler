@@ -26,4 +26,9 @@ enum RepositoryFactory {
         return PaymentMethodsRepositoryImpl(remoteDataSource: RemoteDataSourceFactory.paymentMethods(),
                                             localDataSource: LocalDataSourceFactory.paymentMethods())
     }
+    
+    static func stats() -> StatsRepository {
+        return StatsRepositoryImpl(statsRemoteDataSource: RemoteDataSourceFactory.stats(),
+                                   categoriesLocalDataSource: LocalDataSourceFactory.categories())
+    }
 }

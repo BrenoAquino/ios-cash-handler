@@ -1,0 +1,17 @@
+{
+    "data": {
+        "month": "4",
+        "year": 2022,
+        "expense": 732.14,
+        "categories": [
+            {
+                "category_id": "521bac2c00686155bc874aac9c83650c2201140d13c14db953251b635bcc25cb",
+                "expense": 210,
+                "average_expense": 5358,
+                "count": 1,
+                "average_count": 7
+            }
+        ]
+    },
+    "requestId": "19904f2d-d022-4a6f-bd4a-e9f126dcf1fa"
+}

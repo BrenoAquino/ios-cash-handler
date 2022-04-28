@@ -50,7 +50,7 @@ extension OverviewView.ViewModel {
         banner.show = true
     }
     
-    private func generateColumnsConfig(months: [Domain.MonthOverview]) -> ColumnsChartConfig {
+    private func generateColumnsConfig(months: [Domain.MonthStats]) -> ColumnsChartConfig {
         let max: Double = months.max(by: { $0.expense < $1.expense })?.expense ?? .zero
         let interval: Int = (max / Double(DSOverview.numberOfVerticalTitles - .one)).ceilMaxDecimal
         
@@ -81,12 +81,11 @@ extension OverviewView.ViewModel {
 // MARK: - Flow
 extension OverviewView.ViewModel {
     func fetchStats() {
-        let monthOverview = statsUseCase.monthOverview(month: currentMonth.month, year: currentMonth.year)
-        let categories = statsUseCase.categories(month: currentMonth.month, year: currentMonth.year)
+        let stats = statsUseCase.stats()
         let historic = statsUseCase.historic(numberOfMonths: 6)
         
-        monthOverview
-            .zip(categories, historic)
+        stats
+            .zip(historic)
             .receive(on: RunLoop.main)
             .sink { [weak self] completion in
                 switch completion {
@@ -98,9 +97,9 @@ extension OverviewView.ViewModel {
                 }
             } receiveValue: { [weak self] stats in
                 guard let self = self else { return }
-                self.overviewMonth = .init(monthOverview: stats.0)
-                self.categoriesOverview = stats.1.map { .init(categoryOverview: $0) }
-                self.historicConfig = self.generateColumnsConfig(months: stats.2)
+                self.overviewMonth = .init(stats: stats.0)
+                self.categoriesOverview = stats.0.categories.map { .init(categoryStats: $0) }
+                self.historicConfig = self.generateColumnsConfig(months: stats.1)
             }
             .store(in: &cancellables)
     }

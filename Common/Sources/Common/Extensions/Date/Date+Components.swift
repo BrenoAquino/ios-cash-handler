@@ -15,4 +15,8 @@ public extension Date {
         dateComponents.day = day
         return Calendar(identifier: .gregorian).date(from: dateComponents)
     }
+    
+    func componentes(_ componentes: Set<Calendar.Component>) -> DateComponents {
+        return Calendar.current.dateComponents(componentes, from: self)
+    }
 }

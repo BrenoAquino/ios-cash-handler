@@ -25,4 +25,8 @@ enum RemoteDataSourceFactory {
     static func paymentMethods() -> PaymentMethodsRemoteDataSource {
         return PaymentMethodsRemoteDataSourceImpl(networkProvider: Self.networkProvider())
     }
+    
+    static func stats() -> StatsRemoteDataSource {
+        return StatsRemoteDataSourceImpl(networkProvider: Self.networkProvider())
+    }
 }

@@ -1,0 +1,15 @@
+{
+    "data": [
+        {
+            "month": 4,
+            "year": 2022,
+            "expense": 732.14
+        },
+        {
+            "month": 3,
+            "year": 2022,
+            "expense": 2243.9500000000003
+        }
+    ],
+    "requestId": "de8a68fd-50c3-4319-b737-121c3d853ffd"
+}

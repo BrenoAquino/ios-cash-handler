@@ -13,11 +13,11 @@ struct OverviewMonthUI {
     let expense: String
     let refer: String
     
-    init(monthOverview: Domain.MonthOverview) {
+    init(stats: Domain.Stats) {
         income = "N/A"
         refer = "N/A"
         
-        let value = NumberFormatter.currency.string(for: monthOverview.expense)
+        let value = NumberFormatter.currency.string(for: stats.expense)
         self.expense = value ?? .empty
     }
     

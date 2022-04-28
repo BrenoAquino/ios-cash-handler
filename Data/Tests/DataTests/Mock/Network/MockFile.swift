@@ -28,6 +28,14 @@ enum MockFile: String {
     // PaymentMethods
     case paymentMethodsSuccess = "payment_methods_success"
     case paymentMethodsDecodingError = "payment_methods_decoding_error"
+    
+    // MARK: Stats
+    // Stats
+    case statsSuccess = "stats_success"
+    case statsDecodingError = "stats_decoding_error"
+    // Historic
+    case historicSuccess = "historic_success"
+    case historicDecodingError = "historic_decoding_error"
 }
 
 // MARK: Load File
