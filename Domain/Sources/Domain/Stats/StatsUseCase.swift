@@ -39,6 +39,13 @@ extension StatsUseCaseImpl: StatsUseCase {
     public func historic(numberOfMonths: Int) -> AnyPublisher<[MonthStats], CharlesError> {
         return statsRepository
             .historic(numberOfMonths: numberOfMonths)
+            .map { historic in
+                return historic.sorted { lhs, rhs in
+                    let lhsDate = Date.components(day: .one, month: lhs.month, year: lhs.year) ?? .distantPast
+                    let rhsDate = Date.components(day: .one, month: rhs.month, year: rhs.year) ?? .distantPast
+                    return lhsDate < rhsDate
+                }
+            }
             .eraseToAnyPublisher()
     }
 }

@@ -21,6 +21,7 @@ extension DesignSystem {
         
         // MARK: Columns
         static let columnGradientColors: [Color] = [DSColor.main.rawValue,
+                                                    DSColor.main.rawValue,
                                                     DSColor.main.rawValue.opacity(0.5),
                                                     DSColor.main.rawValue.opacity(.zero)]
         
