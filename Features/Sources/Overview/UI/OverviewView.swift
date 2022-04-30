@@ -80,7 +80,7 @@ public struct OverviewView: View {
             .padding(.leading, DSSpace.smallM.rawValue)
             .padding(.trailing, DSSpace.normal.rawValue)
             .padding(.vertical, DSSpace.smallS.rawValue)
-            .frame(height: 336)
+            .frame(height: DSOverview.heightColumns)
             .background(DSColor.secondBackground.rawValue)
             .cornerRadius(DSCornerRadius.normal.rawValue)
             .shadow(style: .medium)
@@ -90,7 +90,7 @@ public struct OverviewView: View {
     // MARK: Categories
     private var categories: some View {
         VStack(alignment: .leading) {
-            Text("Categorias")
+            Text(OverviewLocalizable.categoryTitleSection)
                 .foregroundColor(DSColor.primaryText.rawValue)
                 .font(DSFont.title.rawValue)
                 .padding(.horizontal, DSSpace.normal.rawValue)

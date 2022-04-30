@@ -15,10 +15,14 @@ struct CategoryOverviewView: View {
     var body: some View {
         VStack(spacing: DSSpace.smallL.rawValue) {
             title
-            lineStats(title: "Gasto", value: categoryOverview.expense, average: categoryOverview.averageExpense)
-            lineStats(title: "Quantidade", value: categoryOverview.count, average: categoryOverview.averageCount)
+            lineStats(title: OverviewLocalizable.expenseTitle,
+                      value: categoryOverview.expense,
+                      average: categoryOverview.averageExpense)
+            lineStats(title: OverviewLocalizable.countTitle,
+                      value: categoryOverview.count,
+                      average: categoryOverview.averageCount)
         }
-        .frame(width: 280)
+        .frame(width: DSOverview.categoryOverviewWidth)
         .padding(DSSpace.smallL.rawValue)
         .background(DSColor.secondBackground.rawValue)
         .cornerRadius(DSCornerRadius.normal.rawValue)
@@ -32,11 +36,15 @@ struct CategoryOverviewView: View {
             Spacer()
             
             VStack(spacing: .zero) {
-                CircleChart(config: .init(hasSubtitle: false, strokeMin: 2, strokeDiff: 1, data: [
+                CircleChart(config: .init(hasSubtitle: false,
+                                          strokeMin: DSOverview.percentageExapenseStrokeMin,
+                                          strokeDiff: DSOverview.percentageExapenseStrokeDiff,
+                                          data: [
                     .init(title: .empty, value: categoryOverview.percentageExpense, color: DSColor.main.rawValue),
                     .init(title: .empty, value: categoryOverview.othersPercentage, color: DSColor.contrast.rawValue)
                 ]))
-                    .frame(width: 36, height: 36)
+                .frame(width: DSOverview.percentageExapenseSize.width,
+                       height: DSOverview.percentageExapenseSize.height)
                 
                 Text(categoryOverview.percentageExpenseDescription)
                     .font(DSFont.footnote.rawValue)
@@ -51,9 +59,9 @@ struct CategoryOverviewView: View {
                 .font(DSFont.headline3.rawValue)
             
             HStack(spacing: DSSpace.smallL.rawValue) {
-                stats(value: value, subtitle: "Total")
+                stats(value: value, subtitle: OverviewLocalizable.totalSubtitle)
                     .frame(maxWidth: .infinity)
-                stats(value: average, subtitle: "Média (M-1)")
+                stats(value: average, subtitle: OverviewLocalizable.averageSubtitle)
                     .frame(maxWidth: .infinity)
             }
         }

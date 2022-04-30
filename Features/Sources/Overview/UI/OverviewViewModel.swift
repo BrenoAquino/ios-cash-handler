@@ -14,6 +14,10 @@ public extension OverviewView {
     
     final class ViewModel: ObservableObject {
         
+        // MARK: - Constants
+        private static let numberOfMonths: Int = 6
+        
+        // MARK: - Proprieties
         private let statsUseCase: Domain.StatsUseCase
         private var cancellables: Set<AnyCancellable> = .init()
         
@@ -60,7 +64,7 @@ extension OverviewView.ViewModel {
         let values: [ColumnsValue] = months.map { monthOverview in
             let date = Date.components(day: .one, month: monthOverview.month, year: monthOverview.year) ?? .distantPast
             let valueFormatted = NumberFormatter.inThousands(number: monthOverview.expense)
-            let value = "R$ \(valueFormatted)"
+            let value = Localizable.Common.currency(valueFormatted)
             return ColumnsValue(
                 value: monthOverview.expense,
                 valueFormatted: value,
@@ -82,7 +86,7 @@ extension OverviewView.ViewModel {
 extension OverviewView.ViewModel {
     func fetchStats() {
         let stats = statsUseCase.stats()
-        let historic = statsUseCase.historic(numberOfMonths: 6)
+        let historic = statsUseCase.historic(numberOfMonths: Self.numberOfMonths)
         
         stats
             .zip(historic)

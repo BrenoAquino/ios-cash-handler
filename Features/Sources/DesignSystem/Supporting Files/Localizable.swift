@@ -12,5 +12,6 @@ public enum Localizable {
     public enum Common {
         public static let cancel: String = "Cancelar"
         public static let failureTitleBanner: String = "Something went wrong"
+        public static func currency(_ value: String) -> String { "R$ \(value)" }
     }
 }

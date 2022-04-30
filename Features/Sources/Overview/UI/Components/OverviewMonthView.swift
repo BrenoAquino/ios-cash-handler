@@ -14,9 +14,9 @@ struct OverviewMonthView: View {
     
     var body: some View {
         HStack(alignment: .center) {
-            element(title: "Total Entrada", value: overviewMont.income)
-            element(title: "Total Saída", value: overviewMont.expense)
-            element(title: "Acréscimo", value: overviewMont.refer)
+            element(title: OverviewLocalizable.totalIncome, value: overviewMont.income)
+            element(title: OverviewLocalizable.totalExpense, value: overviewMont.expense)
+            element(title: OverviewLocalizable.percentageLastMonth, value: overviewMont.refer)
         }
         .frame(maxWidth: .infinity)
         .padding(DSSpace.smallL.rawValue)
