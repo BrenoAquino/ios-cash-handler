@@ -8,21 +8,16 @@
 import Foundation
 import Combine
 
-enum DataState<Output> {
-    case empty
-    case loaded(data: Output, update: Date)
-}
-
 class DataPublisher<Output, Failure> where Failure: Error {
     
     // MARK: - Proprieties
-    private let cacheTime: TimeInterval
+    private let cacheConfig: DataCacheConfig
     private var isLoading: Bool = false
     private var subject: CurrentValueSubject<DataState<Output>, Failure>
     
     // MARK: - Inits
-    init(cacheTime: TimeInterval = .zero) {
-        self.cacheTime = cacheTime
+    init(cacheRetrieveRule: DataCacheConfig.RetrieveRule, cacheTime: TimeInterval = .zero) {
+        self.cacheConfig = .init(retrieveRule: cacheRetrieveRule, cacheTime: cacheTime)
         self.subject = .init(.empty)
     }
 }
@@ -44,14 +39,17 @@ extension DataPublisher {
     }
     
     func enableReload() -> Bool {
-        if case .loaded(_, let update) = subject.value, cacheTime > .zero {
+        if case .loaded(_, let update) = subject.value {
             let deltaTime = TimeInterval(Date().timeIntervalSince(update))
-            let needRefresh = deltaTime > cacheTime
-            if needRefresh { subject.send(.empty) }
-            return needRefresh
-        } else {
-            return !isLoading
+            let cacheExpired = deltaTime > cacheConfig.cacheTime
+            
+            if cacheExpired && cacheConfig.retrieveRule == .firstReloadIfNeeded {
+                subject.send(.empty)
+            }
+            
+            return cacheExpired
         }
+        return !isLoading
     }
 }
 

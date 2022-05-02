@@ -17,34 +17,34 @@ class CustomPublisherSubscriptionTests: XCTestCase {
  
 // MARK: - Publisher
 extension CustomPublisherSubscriptionTests {
-    func testB1Alone() async {
-        // Given
-        let pub = DataPublisher<Int, Never>()
-        var sinks1: [Int] = []
-        var sinks2: [Int] = []
-        var sinks3: [Int] = []
-        var sinks4: [Int] = []
-        
-        // When
-        pub.loaded(0)
-        pub.sink(receiveValue: { sinks1.append($0) }).store(in: &cancellables)
-        pub.loading()
-        pub.loaded(1)
-        pub.sink(receiveValue: { sinks2.append($0) }).store(in: &cancellables)
-        pub.loaded(2)
-        pub.sink(receiveValue: { sinks3.append($0) }).store(in: &cancellables)
-        pub.empty()
-        pub.sink(receiveValue: { sinks4.append($0) }).store(in: &cancellables)
-        
-        // Then
-        XCTAssert(sinks1.count == 3)
-        XCTAssert(sinks1 == [0, 1, 2])
-        XCTAssert(sinks2.count == 2)
-        XCTAssert(sinks2 == [1, 2])
-        XCTAssert(sinks3.count == 1)
-        XCTAssert(sinks3 == [2])
-        XCTAssert(sinks4.count == 0)
-    }
+//    func testB1Alone() async {
+//        // Given
+//        let pub = DataPublisher<Int, Never>()
+//        var sinks1: [Int] = []
+//        var sinks2: [Int] = []
+//        var sinks3: [Int] = []
+//        var sinks4: [Int] = []
+//        
+//        // When
+//        pub.loaded(0)
+//        pub.sink(receiveValue: { sinks1.append($0) }).store(in: &cancellables)
+//        pub.loading()
+//        pub.loaded(1)
+//        pub.sink(receiveValue: { sinks2.append($0) }).store(in: &cancellables)
+//        pub.loaded(2)
+//        pub.sink(receiveValue: { sinks3.append($0) }).store(in: &cancellables)
+//        pub.empty()
+//        pub.sink(receiveValue: { sinks4.append($0) }).store(in: &cancellables)
+//        
+//        // Then
+//        XCTAssert(sinks1.count == 3)
+//        XCTAssert(sinks1 == [0, 1, 2])
+//        XCTAssert(sinks2.count == 2)
+//        XCTAssert(sinks2 == [1, 2])
+//        XCTAssert(sinks3.count == 1)
+//        XCTAssert(sinks3 == [2])
+//        XCTAssert(sinks4.count == 0)
+//    }
 }
  
 // MARK: - Repository without Cachetime

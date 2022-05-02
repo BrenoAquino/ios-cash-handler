@@ -21,7 +21,7 @@ public final class ChlsCategoriesRepository {
     // MARK: Init
     public init(remoteDataSource: CategoriesRemoteDataSource, cacheTime: TimeInterval) {
         self.remoteDataSource = remoteDataSource
-        self.categoriesPublisher = .init(cacheTime: cacheTime)
+        self.categoriesPublisher = .init(cacheRetrieveRule: .firstDataAfterReloadIfNeeded, cacheTime: cacheTime)
     }
 }
 
