@@ -66,7 +66,7 @@ class CategoriesRepositoryTests: XCTestCase {
                 }
             }
             .store(in: &cancellables)
-
+        
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(error)
@@ -86,5 +86,17 @@ class CategoriesRepositoryTests: XCTestCase {
         XCTAssert(categories.count == 2)
         XCTAssert(categories[0].id == "0")
         XCTAssert(categories[1].name == "Category1")
+    }
+}
+
+// MARK: Async
+extension CategoriesRepositoryTests {
+    func testAsyncWithSingleton() {
+        // Given
+        let remoteDataSource = MockCounterCategoriesRemoteDataSource(responseDelay: 1)
+        let localDataSource = MockCategoriesLocalDataSource()
+        let repository = CategoriesRepositoryImpl(remoteDataSource: remoteDataSource, localDataSource: localDataSource)
+        
+        // When
     }
 }

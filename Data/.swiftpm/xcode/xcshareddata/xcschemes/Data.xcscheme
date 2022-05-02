@@ -38,6 +38,50 @@
                BlueprintName = "DataTests"
                ReferencedContainer = "container:">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "APIsTests">
+               </Test>
+               <Test
+                  Identifier = "CategoriesLocalDataSourceTests">
+               </Test>
+               <Test
+                  Identifier = "CategoriesRemoteDataSourceTests">
+               </Test>
+               <Test
+                  Identifier = "CategoriesRepositoryTests">
+               </Test>
+               <Test
+                  Identifier = "CharlesDataErrorTests">
+               </Test>
+               <Test
+                  Identifier = "OperationsRemoteDataSourceTests">
+               </Test>
+               <Test
+                  Identifier = "OperationsRepositoryTests">
+               </Test>
+               <Test
+                  Identifier = "PaymentMethodsLocalDataSourceTests">
+               </Test>
+               <Test
+                  Identifier = "PaymentMethodsRemoteDataSourceTests">
+               </Test>
+               <Test
+                  Identifier = "PaymentMethodsRepositoryTests">
+               </Test>
+               <Test
+                  Identifier = "StatsRemoteDataSourceTests">
+               </Test>
+               <Test
+                  Identifier = "StatsRepositoryTests">
+               </Test>
+               <Test
+                  Identifier = "URLSessionNetworkTests">
+               </Test>
+               <Test
+                  Identifier = "UserDefaultsDBTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>
