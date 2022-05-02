@@ -44,13 +44,13 @@ extension DataPublisher {
     }
     
     func enableReload() -> Bool {
-        if isLoading {
-            return false
-        } else if case .loaded(_, let update) = subject.value {
+        if case .loaded(_, let update) = subject.value, cacheTime > .zero {
             let deltaTime = TimeInterval(Date().timeIntervalSince(update))
-            return deltaTime > cacheTime
+            let needRefresh = deltaTime > cacheTime
+            if needRefresh { subject.send(.empty) }
+            return needRefresh
         } else {
-            return true
+            return !isLoading
         }
     }
 }
