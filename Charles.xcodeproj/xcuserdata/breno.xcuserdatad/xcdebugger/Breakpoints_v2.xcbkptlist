@@ -30,6 +30,38 @@
             endingLineNumber = "35"
             landmarkName = "execute(session:request:keyPath:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "86574E1C-67AC-438F-A3C3-F955981F6511 - ef83e8b96cfc6af3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Error) -&gt; Data.CharlesDataError in Data.URLSessionNetwork.execute&lt;&#x3c4;_0_0 where &#x3c4;_0_0: Swift.Decodable&gt;(session: __C.NSURLSession, request: Foundation.URLRequest, keyPath: Swift.Optional&lt;Swift.String&gt;) -&gt; Combine.AnyPublisher&lt;&#x3c4;_0_0, Data.CharlesDataError&gt;"
+                  moduleName = "Charles"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/breno/Developer/charles/cash/ios/Data/Sources/Data/Infra/Network/URLSessionNetwork.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "368">
+               </Location>
+               <Location
+                  uuid = "86574E1C-67AC-438F-A3C3-F955981F6511 - c9b85eb2ed679e2c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Error) -&gt; Data.CharlesDataError in Data.URLSessionNetwork.execute&lt;&#x3c4;_0_0 where &#x3c4;_0_0: Swift.Decodable&gt;(session: __C.NSURLSession, request: Foundation.URLRequest, keyPath: Swift.Optional&lt;Swift.String&gt;) -&gt; Combine.AnyPublisher&lt;&#x3c4;_0_0, Data.CharlesDataError&gt;"
+                  moduleName = "DataTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/breno/Developer/charles/cash/ios/Data/Sources/Data/Infra/Network/URLSessionNetwork.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "368">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
