@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct DataCacheConfig {
-    enum RetrieveRule {
+public struct DataCacheConfig {
+    public enum RetrieveRule {
         case firstDataAfterReloadIfNeeded
         case firstReloadIfNeeded
     }
     
-    let retrieveRule: RetrieveRule
-    let cacheTime: TimeInterval
+    public let retrieveRule: RetrieveRule
+    public let cacheTime: TimeInterval
 }

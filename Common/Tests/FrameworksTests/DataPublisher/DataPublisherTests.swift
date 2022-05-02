@@ -9,7 +9,7 @@ import XCTest
 import Combine
 import Domain
 
-@testable import Data
+@testable import Common
 
 class DataPublisherTests: XCTestCase {
     var cancellables: Set<AnyCancellable> = .init()
@@ -17,10 +17,13 @@ class DataPublisherTests: XCTestCase {
     private func fakeRequest<Output, Failure>(_ publisher: DataPublisher<Output, Failure>,
                                               delay: TimeInterval,
                                               possibleValue: Output) -> AnyPublisher<Output, Failure> where Failure: Error {
-        guard publisher.enableReload() else { return publisher.eraseToAnyPublisher() }
-        publisher.loading()
-        DispatchQueue.global().asyncAfter(deadline: .now() + delay) {
-            publisher.loaded(possibleValue)
+        defer {
+            if publisher.enableReload() {
+                publisher.loading()
+                DispatchQueue.global().asyncAfter(deadline: .now() + delay) {
+                    publisher.loaded(possibleValue)
+                }
+            }
         }
         return publisher.eraseToAnyPublisher()
     }
