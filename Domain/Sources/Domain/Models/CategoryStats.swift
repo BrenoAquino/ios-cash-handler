@@ -8,17 +8,15 @@
 import Foundation
 
 public struct CategoryStats {
-    public let categoryId: String
-    public let categoryName: String
+    public let category: Category
     public let expense: Double
     public let averageExpense: Double
     public let percentageExpense: Double
     public let count: Int
     public let averageCount: Int
     
-    public init(categoryId: String, categoryName: String, expense: Double, averageExpense: Double, percentageExpense: Double, count: Int, averageCount: Int) {
-        self.categoryId = categoryId
-        self.categoryName = categoryName
+    public init(category: Category, expense: Double, averageExpense: Double, percentageExpense: Double, count: Int, averageCount: Int) {
+        self.category = category
         self.expense = expense
         self.averageExpense = averageExpense
         self.percentageExpense = percentageExpense

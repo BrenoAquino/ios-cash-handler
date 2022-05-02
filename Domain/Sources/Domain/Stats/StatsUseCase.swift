@@ -1,6 +1,6 @@
 //
 //  StatsUseCase.swift
-//  
+//
 //
 //  Created by Breno Aquino on 09/04/22.
 //
@@ -18,9 +18,12 @@ public protocol StatsUseCase {
 public final class StatsUseCaseImpl {
     
     private let statsRepository: StatsRepository
+    private let categoriesRepository: _CategoriesRepository
     
-    public init(statsRepository: StatsRepository) {
+    public init(statsRepository: StatsRepository,
+                categoriesRepository: _CategoriesRepository) {
         self.statsRepository = statsRepository
+        self.categoriesRepository = categoriesRepository
     }
 }
 
@@ -30,8 +33,15 @@ extension StatsUseCaseImpl: StatsUseCase {
     // MARK: Stats
     public func stats() -> AnyPublisher<Stats, CharlesError> {
         let currentMonth = Date().componentes([.month, .year])
-        return statsRepository
-            .stats(month: currentMonth.month ?? .zero, year: currentMonth.year ?? .zero)
+        return categoriesRepository
+            .categories()
+            .flatMap { categories -> AnyPublisher<Stats, CharlesError> in
+                let month = currentMonth.month ?? .zero
+                let year = currentMonth.year ?? .zero
+                return self.statsRepository
+                    .stats(month: month, year: year, categories: categories)
+                    .eraseToAnyPublisher()
+            }
             .eraseToAnyPublisher()
     }
     

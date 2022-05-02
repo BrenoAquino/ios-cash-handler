@@ -12,3 +12,7 @@ public protocol CategoriesRepository {
     func cachedCategories() -> [Category]
     func fetchCategories() -> AnyPublisher<[Category], CharlesError>
 }
+
+public protocol _CategoriesRepository {
+    func categories() -> AnyPublisher<[Category], CharlesError>
+}

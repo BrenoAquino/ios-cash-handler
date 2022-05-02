@@ -10,5 +10,5 @@ import Combine
 
 public protocol StatsRepository {
     func historic(numberOfMonths: Int) -> AnyPublisher<[MonthStats], CharlesError>
-    func stats(month: Int, year: Int) -> AnyPublisher<Stats, CharlesError>
+    func stats(month: Int, year: Int, categories: [Category]) -> AnyPublisher<Stats, CharlesError>
 }

@@ -30,8 +30,7 @@ extension CategoryStatsDTO {
         guard let category = categories.first(where: { $0.id == categoryId }) else {
             throw CharlesDataError(type: .invalidDomainConverter)
         }
-        return Domain.CategoryStats(categoryId: categoryId,
-                                    categoryName: category.name,
+        return Domain.CategoryStats(category: category,
                                     expense: expense,
                                     averageExpense: averageExpense,
                                     percentageExpense: percentageExpense,

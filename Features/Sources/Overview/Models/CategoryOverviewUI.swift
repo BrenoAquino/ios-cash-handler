@@ -21,8 +21,7 @@ struct CategoryOverviewUI: Hashable, Identifiable {
     let averageCount: String
     
     init(categoryStats: Domain.CategoryStats) {
-        self.title = categoryStats.categoryName.capitalized
-        
+        self.title = categoryStats.category.name
         self.expense = NumberFormatter.currency.string(for: categoryStats.expense) ?? .empty
         self.averageExpense = OverviewLocalizable.average(NumberFormatter.currency.string(for: categoryStats.averageExpense) ?? .empty)
         self.percentageExpenseDescription = OverviewLocalizable.percentageDescription(String(Int(categoryStats.percentageExpense * 100)))

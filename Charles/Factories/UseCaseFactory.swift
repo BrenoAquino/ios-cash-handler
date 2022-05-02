@@ -25,6 +25,7 @@ enum UseCaseFactory {
     }
     
     static func stats() -> StatsUseCase {
-        return StatsUseCaseImpl(statsRepository: RepositoryFactory.stats())
+        return StatsUseCaseImpl(statsRepository: RepositoryFactory.stats(),
+                                categoriesRepository: RepositoryFactory._categories())
     }
 }

@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import DesignSystem
 import Domain
+import Data
 
 public extension OverviewView {
     
@@ -85,13 +86,13 @@ extension OverviewView.ViewModel {
 // MARK: - Flow
 extension OverviewView.ViewModel {
     func fetchStats() {
-        let stats = statsUseCase.stats()
-        let historic = statsUseCase.historic(numberOfMonths: Self.numberOfMonths)
+        let stats = self.statsUseCase.stats()
+        let historic = self.statsUseCase.historic(numberOfMonths: Self.numberOfMonths)
         
         stats
             .zip(historic)
             .receive(on: RunLoop.main)
-            .sink { [weak self] completion in
+            .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .finished:
                     self?.state = .content
@@ -99,12 +100,12 @@ extension OverviewView.ViewModel {
                     self?.setupErrorBanner(error: error)
                     self?.state = .failure
                 }
-            } receiveValue: { [weak self] stats in
+            }, receiveValue: { [weak self] stats in
                 guard let self = self else { return }
                 self.overviewMonth = .init(stats: stats.0)
                 self.categoriesOverview = stats.0.categories.map { .init(categoryStats: $0) }
                 self.historicConfig = self.generateColumnsConfig(months: stats.1)
-            }
+            })
             .store(in: &cancellables)
     }
 }

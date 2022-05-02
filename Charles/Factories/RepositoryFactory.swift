@@ -22,13 +22,16 @@ enum RepositoryFactory {
                                         localDataSource: LocalDataSourceFactory.categories())
     }
     
+    static func _categories() -> _CategoriesRepository {
+        return _CategoriesRepositoryImpl(remoteDataSource: RemoteDataSourceFactory.categories())
+    }
+    
     static func paymentMethods() -> PaymentMethodsRepository {
         return PaymentMethodsRepositoryImpl(remoteDataSource: RemoteDataSourceFactory.paymentMethods(),
                                             localDataSource: LocalDataSourceFactory.paymentMethods())
     }
     
     static func stats() -> StatsRepository {
-        return StatsRepositoryImpl(statsRemoteDataSource: RemoteDataSourceFactory.stats(),
-                                   categoriesLocalDataSource: LocalDataSourceFactory.categories())
+        return StatsRepositoryImpl(statsRemoteDataSource: RemoteDataSourceFactory.stats())
     }
 }
