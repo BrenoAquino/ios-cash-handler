@@ -8,59 +8,83 @@
 import Foundation
 import Combine
 
-public class DataPublisher<Output, Failure> where Failure: Error {
+public typealias AnyDataPubliher<Output, Failure: Error> = AnyPublisher<DataResult<Output, Failure>?, Never>
+
+public class DataPublisher<SuccessModel, FailureModel> where FailureModel: Error {
+    
+    enum RetrieveDataState {
+        case empty
+        case loading
+        case availableData(update: Date)
+    }
+    
+    public typealias Output = DataResult<SuccessModel, FailureModel>?
+    public typealias Failure = Never
     
     // MARK: - Proprieties
     let cacheConfig: DataCacheConfig
-    private var isLoading: Bool = false
-    private var subject: CurrentValueSubject<DataState<Output>, Failure>
+    private var retreiveDataState: RetrieveDataState = .empty
+    private var subject: CurrentValueSubject<Output, Failure>
     
     // MARK: - Inits
     public init(cacheRetrieveRule: DataCacheConfig.RetrieveRule, cacheTime: TimeInterval = .zero) {
         self.cacheConfig = .init(retrieveRule: cacheRetrieveRule, cacheTime: cacheTime)
-        self.subject = .init(.empty)
+        self.subject = .init(nil)
     }
 }
 
 // MARK: - Handle Values
 extension DataPublisher {
     public func empty() {
-        isLoading = false
-        subject.send(.empty)
+        retreiveDataState = .empty
+        subject.send(nil)
     }
     
     public func loading() {
-        isLoading = true
+        retreiveDataState = .loading
     }
     
-    public func loaded(_ value: Output) {
-        isLoading = false
-        subject.send(.loaded(data: value, update: .init()))
+    public func loaded(_ value: SuccessModel) {
+        retreiveDataState = .availableData(update: .init())
+        subject.send(.data(data: value))
     }
     
-    public func finish(_ completion: Subscribers.Completion<Failure>) {
-        subject.send(completion: completion)
+    public func error(_ error: FailureModel) {
+        retreiveDataState = .empty
+        subject.send(.error(error: error))
     }
     
     public func enableReload() -> Bool {
-        if case .loaded(_, let update) = subject.value {
-            let deltaTime = TimeInterval(Date().timeIntervalSince(update))
-            let cacheExpired = deltaTime > cacheConfig.cacheTime
-            
-            if cacheExpired && cacheConfig.retrieveRule == .firstReloadIfNeeded {
-                subject.send(.empty)
+        switch retreiveDataState {
+        case .availableData(let update):
+            if cacheConfig.retrieveRule == .reloadIfLocalIsEmpty {
+                return false
             }
             
-            return cacheExpired
+            let deltaTime = TimeInterval(Date().timeIntervalSince(update))
+            let isCacheExpired = deltaTime > cacheConfig.cacheTime
+            
+            if isCacheExpired && cacheConfig.retrieveRule == .firstReloadIfNeeded {
+                retreiveDataState = .empty
+                subject.send(nil)
+            }
+            
+            return isCacheExpired
+            
+        case .loading:
+            return false
+            
+        default:
+            return true
         }
-        return !isLoading
     }
 }
 
 // MARK: - Publisher
 extension DataPublisher: Publisher {
+    
     public func receive<S>(subscriber: S) where S : Subscriber, Failure == S.Failure, Output == S.Input {
-        let subscription = DataSubscription<S, Output, Failure>(subscriber, requestPublisher: self.subject)
+        let subscription = DataSubscription<S, SuccessModel, FailureModel>(subscriber, requestPublisher: self.subject)
         subscriber.receive(subscription: subscription)   
     }
 }

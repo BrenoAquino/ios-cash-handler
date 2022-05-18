@@ -14,19 +14,23 @@ enum RemoteDataSourceFactory {
         return URLSessionNetwork(session: .shared)
     }
     
+    private static let operationsRemoteDataSource = OperationsRemoteDataSourceImpl(networkProvider: Self.networkProvider())
     static func operations() -> OperationsRemoteDataSource {
-        return OperationsRemoteDataSourceImpl(networkProvider: Self.networkProvider())
+        return operationsRemoteDataSource
     }
     
+    private static let categoriesRemoteDataSource = CategoriesRemoteDataSourceImpl(networkProvider: Self.networkProvider())
     static func categories() -> CategoriesRemoteDataSource {
-        return CategoriesRemoteDataSourceImpl(networkProvider: Self.networkProvider())
+        return categoriesRemoteDataSource
     }
     
+    private static let paymentMethodsRemoteDataSource = PaymentMethodsRemoteDataSourceImpl(networkProvider: Self.networkProvider())
     static func paymentMethods() -> PaymentMethodsRemoteDataSource {
-        return PaymentMethodsRemoteDataSourceImpl(networkProvider: Self.networkProvider())
+        return paymentMethodsRemoteDataSource
     }
     
+    private static let statsRemoteDataSource = StatsRemoteDataSourceImpl(networkProvider: Self.networkProvider())
     static func stats() -> StatsRemoteDataSource {
-        return StatsRemoteDataSourceImpl(networkProvider: Self.networkProvider())
+        return statsRemoteDataSource
     }
 }

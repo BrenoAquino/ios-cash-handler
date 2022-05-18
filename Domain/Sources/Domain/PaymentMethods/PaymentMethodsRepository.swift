@@ -7,8 +7,8 @@
 
 import Foundation
 import Combine
+import Common
 
 public protocol PaymentMethodsRepository {
-    func cachedPaymentMethods() -> [PaymentMethod]
-    func fetchPaymentMethods() -> AnyPublisher<[PaymentMethod], CharlesError>
+    func paymentMethods() -> AnyDataPubliher<[PaymentMethod], CharlesError>
 }

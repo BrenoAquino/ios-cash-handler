@@ -40,13 +40,8 @@ extension MainTabViewModel {
         categoriesPublisher
             .zip(paymentMethodsPublisher)
             .receive(on: RunLoop.main)
-            .sinkCompletion { [weak self] completion in
-                switch completion {
-                case .finished:
-                    self?.state = .content
-                case .failure:
-                    self?.state = .failure
-                }
+            .sinkReceiveValue { _ in
+                self.state = .content
             }
             .store(in: &cancellables)
     }

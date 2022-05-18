@@ -38,10 +38,16 @@ public final class OperationsUseCaseImpl {
 // MARK: Utils
 extension OperationsUseCaseImpl {
     private func operations(month: Int?, year: Int?) -> AnyPublisher<[Operation], CharlesError> {
-        return operationsRepository
-            .operations(month: month, year: year)
-            .map { $0.sorted(by: { $0.title < $1.title }) }
-            .map { $0.sorted(by: { $0.date > $1.date }) }
+        let categories = categoriesRepository.categories()
+        let paymentMethods = paymentMethodsRepository.paymentMethods()
+        
+        return categories
+            .zip(paymentMethods)
+            .flatMap { result -> AnyPublisher<[Operation], CharlesError> in
+                return self.operationsRepository
+                    .operations(month: month, year: year, categories: result.0, paymentMethods: result.1)
+                    .eraseToAnyPublisher()
+            }
             .eraseToAnyPublisher()
     }
 }
@@ -88,7 +94,17 @@ extension OperationsUseCaseImpl: OperationsUseCase {
             paymentMethodId: paymentMethodId,
             installments: Int(installments)
         )
-        return operationsRepository
-            .addOperation(createOperation: createOperation)
+        
+        let categories = categoriesRepository.categories()
+        let paymentMethods = paymentMethodsRepository.paymentMethods()
+        
+        return categories
+            .zip(paymentMethods)
+            .flatMap { result -> AnyPublisher<[Operation], CharlesError> in
+                return self.operationsRepository
+                    .addOperation(createOperation: createOperation, categories: result.0, paymentMethods: result.1)
+                    .eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
     }
 }

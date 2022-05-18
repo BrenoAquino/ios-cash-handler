@@ -31,25 +31,21 @@ public final class StatsRepositoryImpl {
 }
 
 extension StatsRepositoryImpl: Domain.StatsRepository {
-    public func historic(numberOfMonths: Int) -> AnyPublisher<[MonthStats], CharlesError> {
+    public func historic(numberOfMonths: Int) -> AnyDataPubliher<[MonthStats], CharlesError> {
         defer {
             if historicPublisher.enableReload() {
                 statsRemoteDataSource
                     .historic(numberOfMonths: numberOfMonths)
                     .map { $0.map { $0.toDomain() } }
                     .mapError { $0.toDomain() }
-                    .sink { [weak self] completion in
-                        self?.historicPublisher.finish(completion)
-                    } receiveValue: { [weak self] stats in
-                        self?.historicPublisher.loaded(stats)
-                    }
+                    .sinkWithDataPublisher(historicPublisher)
                     .store(in: &cancellables)
             }
         }
         return historicPublisher.eraseToAnyPublisher()
     }
     
-    public func stats(month: Int, year: Int, categories: [Domain.Category]) -> AnyPublisher<Stats, CharlesError> {
+    public func stats(month: Int, year: Int, categories: [Domain.Category]) -> AnyDataPubliher<Stats, CharlesError> {
         defer {
             if statsPublisher.enableReload() {
                 statsRemoteDataSource
@@ -63,11 +59,7 @@ extension StatsRepositoryImpl: Domain.StatsRepository {
                             return CharlesError(type: .unkown)
                         }
                     }
-                    .sink { [weak self] completion in
-                        self?.statsPublisher.finish(completion)
-                    } receiveValue: { [weak self] stats in
-                        self?.statsPublisher.loaded(stats)
-                    }
+                    .sinkWithDataPublisher(statsPublisher)
                     .store(in: &cancellables)
             }
         }

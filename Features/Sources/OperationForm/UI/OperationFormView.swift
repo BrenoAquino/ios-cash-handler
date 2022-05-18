@@ -34,6 +34,7 @@ public struct OperationFormView: View {
                     self.presentationMode.wrappedValue.dismiss()
                 }
             }
+            .onAppear(perform: viewModel.fetchData)
     }
     
     // MARK: View State

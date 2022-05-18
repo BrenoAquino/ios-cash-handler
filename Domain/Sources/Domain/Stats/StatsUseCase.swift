@@ -18,10 +18,10 @@ public protocol StatsUseCase {
 public final class StatsUseCaseImpl {
     
     private let statsRepository: StatsRepository
-    private let categoriesRepository: _CategoriesRepository
+    private let categoriesRepository: CategoriesRepository
     
     public init(statsRepository: StatsRepository,
-                categoriesRepository: _CategoriesRepository) {
+                categoriesRepository: CategoriesRepository) {
         self.statsRepository = statsRepository
         self.categoriesRepository = categoriesRepository
     }
@@ -35,13 +35,14 @@ extension StatsUseCaseImpl: StatsUseCase {
         let currentMonth = Date().componentes([.month, .year])
         return categoriesRepository
             .categories()
-            .flatMap { categories -> AnyPublisher<Stats, CharlesError> in
+            .map { categories -> AnyPublisher<Stats, CharlesError> in
                 let month = currentMonth.month ?? .zero
                 let year = currentMonth.year ?? .zero
                 return self.statsRepository
                     .stats(month: month, year: year, categories: categories)
                     .eraseToAnyPublisher()
             }
+            .switchToLatest()
             .eraseToAnyPublisher()
     }
     

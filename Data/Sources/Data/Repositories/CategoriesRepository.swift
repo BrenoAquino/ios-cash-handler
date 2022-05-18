@@ -2,44 +2,45 @@
 //  CategoriesRepository.swift
 //  
 //
-//  Created by Breno Aquino on 08/02/22.
+//  Created by Breno Aquino on 02/05/22.
 //
 
 import Foundation
 import Combine
 import Domain
+import Common
 
 public final class CategoriesRepositoryImpl {
     
     private var cancellables: Set<AnyCancellable> = .init()
     
+    // MARK: Publishers
+    private let categoriesPublishers: DataPublisher<[Domain.Category], CharlesError>
+    
     // MARK: DataSources
     private let remoteDataSource: CategoriesRemoteDataSource
-    private let localDataSource: CategoriesLocalDataSource
     
     // MARK: Init
-    public init(remoteDataSource: CategoriesRemoteDataSource,
-                localDataSource: CategoriesLocalDataSource) {
+    public init(remoteDataSource: CategoriesRemoteDataSource) {
         self.remoteDataSource = remoteDataSource
-        self.localDataSource = localDataSource
+        
+        categoriesPublishers = .init(cacheRetrieveRule: .firstReloadIfNeeded, cacheTime: 60)
     }
 }
 
 // MARK: Interface
 extension CategoriesRepositoryImpl: Domain.CategoriesRepository {
-    public func cachedCategories() -> [Domain.Category] {
-        localDataSource.categories().map { $0.toDomain() }
-    }
-    
-    public func fetchCategories() -> AnyPublisher<[Domain.Category], CharlesError> {
-        return remoteDataSource
-            .categories()
-            .handleEvents(receiveOutput: { [weak self] value in
-                let categoriesEntity = value.map { $0.toEntity() }
-                self?.localDataSource.updateCategories(categoriesEntity)
-            })
-            .map { $0.map { $0.toDomain() } }
-            .mapError { $0.toDomain() }
-            .eraseToAnyPublisher()
+    public func categories() -> AnyDataPubliher<[Domain.Category], CharlesError> {
+        defer {
+            if categoriesPublishers.enableReload() {
+                remoteDataSource
+                    .categories()
+                    .map { $0.map { $0.toDomain() } }
+                    .mapError { $0.toDomain() }
+                    .sinkWithDataPublisher(categoriesPublishers)
+                    .store(in: &cancellables)
+            }
+        }
+        return categoriesPublishers.eraseToAnyPublisher()
     }
 }

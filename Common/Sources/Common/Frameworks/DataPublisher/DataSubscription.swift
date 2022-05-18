@@ -8,15 +8,15 @@
 import Foundation
 import Combine
 
-class DataSubscription<S: Subscriber, Output, Failure>: Subscription where S.Input == Output, Failure: Error {
+class DataSubscription<S: Subscriber, SuccessModel, FailureModel>: Subscription where S.Input == DataResult<SuccessModel, FailureModel>? {
     
     // MARK: - Props
     private var cancellable: AnyCancellable?
     private(set) var subscriber: S?
-    private let requestPublisher: CurrentValueSubject<DataState<Output>, Failure>
+    private let requestPublisher: CurrentValueSubject<S.Input, Never>
     
     // MARK: - Inits
-    init(_ subscriber: S, requestPublisher: CurrentValueSubject<DataState<Output>, Failure>) {
+    init(_ subscriber: S, requestPublisher: CurrentValueSubject<S.Input, Never>) {
         self.subscriber = subscriber
         self.requestPublisher = requestPublisher
     }
@@ -25,14 +25,17 @@ class DataSubscription<S: Subscriber, Output, Failure>: Subscription where S.Inp
 // MARK: - Business Rule
 extension DataSubscription {
     private func setupPublisher() {
-        cancellable?.cancel()
         cancellable = requestPublisher
-            .sink { [weak self] completion in
-                self?.subscriber?.receive(completion: .finished)
-            } receiveValue: { [weak self] model in
-                guard case .loaded(let date, _) = model else { return }
-                _ = self?.subscriber?.receive(date)
-            }
+            .sink(receiveValue: { [weak self] result in
+                switch result {
+                case .data(let data):
+                    _ = self?.subscriber?.receive(.data(data: data))
+                case .error(let error):
+                    _ = self?.subscriber?.receive(.error(error: error))
+                case .none:
+                    break
+                }
+            })
     }
 }
 
@@ -43,6 +46,6 @@ extension DataSubscription {
     }
     
     func request(_ demand: Subscribers.Demand) {
-        self.setupPublisher()
+        setupPublisher()
     }
 }

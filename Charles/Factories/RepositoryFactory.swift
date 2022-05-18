@@ -11,27 +11,23 @@ import Data
 
 enum RepositoryFactory {
     
+    private static let operationsRepository = OperationsRepositoryImpl(remoteDataSource: RemoteDataSourceFactory.operations())
     static func operations() -> OperationsRepository {
-        return OperationsRepositoryImpl(remoteDataSource: RemoteDataSourceFactory.operations(),
-                                        paymentMethodsLocalDataSource: LocalDataSourceFactory.paymentMethods(),
-                                        categoriesLocalDataSource: LocalDataSourceFactory.categories())
+        return operationsRepository
     }
     
+    private static let categoriesRepository = CategoriesRepositoryImpl(remoteDataSource: RemoteDataSourceFactory.categories())
     static func categories() -> CategoriesRepository {
-        return CategoriesRepositoryImpl(remoteDataSource: RemoteDataSourceFactory.categories(),
-                                        localDataSource: LocalDataSourceFactory.categories())
+        return categoriesRepository
     }
     
-    static func _categories() -> _CategoriesRepository {
-        return _CategoriesRepositoryImpl(remoteDataSource: RemoteDataSourceFactory.categories())
-    }
-    
+    private static let paymentMethodsRepository = PaymentMethodsRepositoryImpl(remoteDataSource: RemoteDataSourceFactory.paymentMethods())
     static func paymentMethods() -> PaymentMethodsRepository {
-        return PaymentMethodsRepositoryImpl(remoteDataSource: RemoteDataSourceFactory.paymentMethods(),
-                                            localDataSource: LocalDataSourceFactory.paymentMethods())
+        return paymentMethodsRepository
     }
     
+    private static let statsRepository = StatsRepositoryImpl(statsRemoteDataSource: RemoteDataSourceFactory.stats())
     static func stats() -> StatsRepository {
-        return StatsRepositoryImpl(statsRemoteDataSource: RemoteDataSourceFactory.stats())
+        return statsRepository
     }
 }

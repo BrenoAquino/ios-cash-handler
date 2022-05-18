@@ -16,7 +16,21 @@ class DataPublisherTests: XCTestCase {
     
     private func fakeRequest<Output, Failure>(_ publisher: DataPublisher<Output, Failure>,
                                               delay: TimeInterval,
-                                              possibleValue: Output) -> AnyPublisher<Output, Failure> where Failure: Error {
+                                              possibleValue: Output) -> AnyDataPubliher<Output, Failure> {
+        defer {
+            if publisher.enableReload() {
+                publisher.loading()
+                DispatchQueue.global().asyncAfter(deadline: .now() + delay) {
+                    publisher.loaded(possibleValue)
+                }
+            }
+        }
+        return publisher.eraseToAnyPublisher()
+    }
+    
+    private func fakeRequestError<Output, Failure>(_ publisher: DataPublisher<Output, Failure>,
+                                                   delay: TimeInterval,
+                                                   possibleValue: Output) -> AnyDataPubliher<Output, Failure> {
         defer {
             if publisher.enableReload() {
                 publisher.loading()
@@ -28,7 +42,7 @@ class DataPublisherTests: XCTestCase {
         return publisher.eraseToAnyPublisher()
     }
 }
- 
+
 // MARK: - Config: Cachetime(zero) and FirstDataAfterReloadIfNeeded
 extension DataPublisherTests {
     func testDuplicatedZeroCachetimeAndFirstDataAfterReloadIfNeeded() {
@@ -41,15 +55,25 @@ extension DataPublisherTests {
         
         // When
         fakeRequest(publisher, delay: 1, possibleValue: 0)
-            .sink(receiveValue: {
-                sink1.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink1.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
         
         fakeRequest(publisher, delay: 1, possibleValue: 1)
-            .sink(receiveValue: {
-                sink2.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink2.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
@@ -72,16 +96,26 @@ extension DataPublisherTests {
         
         // When
         fakeRequest(publisher, delay: 1, possibleValue: 0)
-            .sink(receiveValue: {
-                sink1.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink1.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
         
         DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
             self.fakeRequest(publisher, delay: 1, possibleValue: 1)
-                .sink(receiveValue: {
-                    sink2.append($0)
+                .sink(receiveValue: { result in
+                    switch result {
+                    case .data(let data):
+                        sink2.append(data)
+                    default:
+                        XCTFail("Must be success")
+                    }
                     expectation.fulfill()
                 })
                 .store(in: &self.cancellables)
@@ -106,23 +140,38 @@ extension DataPublisherTests {
         
         // When
         fakeRequest(publisher, delay: 1, possibleValue: 0)
-            .sink(receiveValue: {
-                sink1.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink1.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
         
         fakeRequest(publisher, delay: 1, possibleValue: 1)
-            .sink(receiveValue: {
-                sink2.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink2.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
         
         DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
             self.fakeRequest(publisher, delay: 1, possibleValue: 2)
-                .sink(receiveValue: {
-                    sink3.append($0)
+                .sink(receiveValue: { result in
+                    switch result {
+                    case .data(let data):
+                        sink3.append(data)
+                    default:
+                        XCTFail("Must be success")
+                    }
                     expectation.fulfill()
                 })
                 .store(in: &self.cancellables)
@@ -150,15 +199,25 @@ extension DataPublisherTests {
         
         // When
         fakeRequest(publisher, delay: 1, possibleValue: 0)
-            .sink(receiveValue: {
-                sink1.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink1.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
         
         fakeRequest(publisher, delay: 1, possibleValue: 1)
-            .sink(receiveValue: {
-                sink2.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink2.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
@@ -181,16 +240,26 @@ extension DataPublisherTests {
         
         // When
         fakeRequest(publisher, delay: 1, possibleValue: 0)
-            .sink(receiveValue: {
-                sink1.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink1.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
         
         DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
             self.fakeRequest(publisher, delay: 1, possibleValue: 1)
-                .sink(receiveValue: {
-                    sink2.append($0)
+                .sink(receiveValue: { result in
+                    switch result {
+                    case .data(let data):
+                        sink2.append(data)
+                    default:
+                        XCTFail("Must be success")
+                    }
                     expectation.fulfill()
                 })
                 .store(in: &self.cancellables)
@@ -215,23 +284,38 @@ extension DataPublisherTests {
         
         // When
         fakeRequest(publisher, delay: 1, possibleValue: 0)
-            .sink(receiveValue: {
-                sink1.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink1.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
         
         fakeRequest(publisher, delay: 1, possibleValue: 1)
-            .sink(receiveValue: {
-                sink2.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink2.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
         
         DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
             self.fakeRequest(publisher, delay: 1, possibleValue: 2)
-                .sink(receiveValue: {
-                    sink3.append($0)
+                .sink(receiveValue: { result in
+                    switch result {
+                    case .data(let data):
+                        sink3.append(data)
+                    default:
+                        XCTFail("Must be success")
+                    }
                     expectation.fulfill()
                 })
                 .store(in: &self.cancellables)
@@ -259,15 +343,25 @@ extension DataPublisherTests {
         
         // When
         fakeRequest(publisher, delay: 1, possibleValue: 0)
-            .sink(receiveValue: {
-                sink1.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink1.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
         
         fakeRequest(publisher, delay: 1, possibleValue: 1)
-            .sink(receiveValue: {
-                sink2.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink2.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
@@ -290,16 +384,26 @@ extension DataPublisherTests {
         
         // When
         fakeRequest(publisher, delay: 1, possibleValue: 0)
-            .sink(receiveValue: {
-                sink1.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink1.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
         
         DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
             self.fakeRequest(publisher, delay: 1, possibleValue: 1)
-                .sink(receiveValue: {
-                    sink2.append($0)
+                .sink(receiveValue: { result in
+                    switch result {
+                    case .data(let data):
+                        sink2.append(data)
+                    default:
+                        XCTFail("Must be success")
+                    }
                     expectation.fulfill()
                 })
                 .store(in: &self.cancellables)
@@ -323,16 +427,26 @@ extension DataPublisherTests {
         
         // When
         fakeRequest(publisher, delay: 1, possibleValue: 0)
-            .sink(receiveValue: {
-                sink1.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink1.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
         
         DispatchQueue.global().asyncAfter(deadline: .now() + 4) {
             self.fakeRequest(publisher, delay: 1, possibleValue: 1)
-                .sink(receiveValue: {
-                    sink2.append($0)
+                .sink(receiveValue: { result in
+                    switch result {
+                    case .data(let data):
+                        sink2.append(data)
+                    default:
+                        XCTFail("Must be success")
+                    }
                     expectation.fulfill()
                 })
                 .store(in: &self.cancellables)
@@ -357,23 +471,38 @@ extension DataPublisherTests {
         
         // When
         fakeRequest(publisher, delay: 1, possibleValue: 0)
-            .sink(receiveValue: {
-                sink1.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink1.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
         
         fakeRequest(publisher, delay: 1, possibleValue: 1)
-            .sink(receiveValue: {
-                sink2.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink2.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
         
         DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
             self.fakeRequest(publisher, delay: 1, possibleValue: 2)
-                .sink(receiveValue: {
-                    sink3.append($0)
+                .sink(receiveValue: { result in
+                    switch result {
+                    case .data(let data):
+                        sink3.append(data)
+                    default:
+                        XCTFail("Must be success")
+                    }
                     expectation.fulfill()
                 })
                 .store(in: &self.cancellables)
@@ -399,23 +528,38 @@ extension DataPublisherTests {
         
         // When
         fakeRequest(publisher, delay: 1, possibleValue: 0)
-            .sink(receiveValue: {
-                sink1.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink1.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
         
         fakeRequest(publisher, delay: 1, possibleValue: 1)
-            .sink(receiveValue: {
-                sink2.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink2.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
         
         DispatchQueue.global().asyncAfter(deadline: .now() + 4) {
             self.fakeRequest(publisher, delay: 1, possibleValue: 2)
-                .sink(receiveValue: {
-                    sink3.append($0)
+                .sink(receiveValue: { result in
+                    switch result {
+                    case .data(let data):
+                        sink3.append(data)
+                    default:
+                        XCTFail("Must be success")
+                    }
                     expectation.fulfill()
                 })
                 .store(in: &self.cancellables)
@@ -443,15 +587,25 @@ extension DataPublisherTests {
         
         // When
         fakeRequest(publisher, delay: 1, possibleValue: 0)
-            .sink(receiveValue: {
-                sink1.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink1.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
         
         fakeRequest(publisher, delay: 1, possibleValue: 1)
-            .sink(receiveValue: {
-                sink2.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink2.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
@@ -474,16 +628,26 @@ extension DataPublisherTests {
         
         // When
         fakeRequest(publisher, delay: 1, possibleValue: 0)
-            .sink(receiveValue: {
-                sink1.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink1.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
         
         DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
             self.fakeRequest(publisher, delay: 1, possibleValue: 1)
-                .sink(receiveValue: {
-                    sink2.append($0)
+                .sink(receiveValue: { result in
+                    switch result {
+                    case .data(let data):
+                        sink2.append(data)
+                    default:
+                        XCTFail("Must be success")
+                    }
                     expectation.fulfill()
                 })
                 .store(in: &self.cancellables)
@@ -507,16 +671,26 @@ extension DataPublisherTests {
         
         // When
         fakeRequest(publisher, delay: 1, possibleValue: 0)
-            .sink(receiveValue: {
-                sink1.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink1.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
         
         DispatchQueue.global().asyncAfter(deadline: .now() + 4) {
             self.fakeRequest(publisher, delay: 1, possibleValue: 1)
-                .sink(receiveValue: {
-                    sink2.append($0)
+                .sink(receiveValue: { result in
+                    switch result {
+                    case .data(let data):
+                        sink2.append(data)
+                    default:
+                        XCTFail("Must be success")
+                    }
                     expectation.fulfill()
                 })
                 .store(in: &self.cancellables)
@@ -541,23 +715,38 @@ extension DataPublisherTests {
         
         // When
         fakeRequest(publisher, delay: 1, possibleValue: 0)
-            .sink(receiveValue: {
-                sink1.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink1.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
         
         fakeRequest(publisher, delay: 1, possibleValue: 1)
-            .sink(receiveValue: {
-                sink2.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink2.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
         
         DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
             self.fakeRequest(publisher, delay: 1, possibleValue: 2)
-                .sink(receiveValue: {
-                    sink3.append($0)
+                .sink(receiveValue: { result in
+                    switch result {
+                    case .data(let data):
+                        sink3.append(data)
+                    default:
+                        XCTFail("Must be success")
+                    }
                     expectation.fulfill()
                 })
                 .store(in: &self.cancellables)
@@ -583,23 +772,38 @@ extension DataPublisherTests {
         
         // When
         fakeRequest(publisher, delay: 1, possibleValue: 0)
-            .sink(receiveValue: {
-                sink1.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink1.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
         
         fakeRequest(publisher, delay: 1, possibleValue: 1)
-            .sink(receiveValue: {
-                sink2.append($0)
+            .sink(receiveValue: { result in
+                switch result {
+                case .data(let data):
+                    sink2.append(data)
+                default:
+                    XCTFail("Must be success")
+                }
                 expectation.fulfill()
             })
             .store(in: &cancellables)
         
         DispatchQueue.global().asyncAfter(deadline: .now() + 4) {
             self.fakeRequest(publisher, delay: 1, possibleValue: 2)
-                .sink(receiveValue: {
-                    sink3.append($0)
+                .sink(receiveValue: { result in
+                    switch result {
+                    case .data(let data):
+                        sink3.append(data)
+                    default:
+                        XCTFail("Must be success")
+                    }
                     expectation.fulfill()
                 })
                 .store(in: &self.cancellables)
@@ -613,4 +817,13 @@ extension DataPublisherTests {
         XCTAssert(sink2 == [0, 2])
         XCTAssert(sink3 == [2])
     }
+}
+
+// MARK: - Error behavior
+extension DataPublisherTests {
+    func testReceiveError() {}
+    
+    func testReceiveErrorAndTryAnotherRequest() {}
+    
+    func testReceiveErrorAndReceiveSuccess() {}
 }

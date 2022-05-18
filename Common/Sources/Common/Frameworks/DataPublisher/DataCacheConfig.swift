@@ -11,6 +11,7 @@ public struct DataCacheConfig {
     public enum RetrieveRule {
         case firstDataAfterReloadIfNeeded
         case firstReloadIfNeeded
+        case reloadIfLocalIsEmpty
     }
     
     public let retrieveRule: RetrieveRule

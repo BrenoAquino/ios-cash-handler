@@ -86,11 +86,10 @@ extension OverviewView.ViewModel {
 // MARK: - Flow
 extension OverviewView.ViewModel {
     func fetchStats() {
-        let stats = self.statsUseCase.stats()
-        let historic = self.statsUseCase.historic(numberOfMonths: Self.numberOfMonths)
+        print("fetchStats")
+        let stats = statsUseCase.stats()
         
         stats
-            .zip(historic)
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
@@ -102,9 +101,8 @@ extension OverviewView.ViewModel {
                 }
             }, receiveValue: { [weak self] stats in
                 guard let self = self else { return }
-                self.overviewMonth = .init(stats: stats.0)
-                self.categoriesOverview = stats.0.categories.map { .init(categoryStats: $0) }
-                self.historicConfig = self.generateColumnsConfig(months: stats.1)
+                self.overviewMonth = .init(stats: stats)
+                self.categoriesOverview = stats.categories.map { .init(categoryStats: $0) }
             })
             .store(in: &cancellables)
     }

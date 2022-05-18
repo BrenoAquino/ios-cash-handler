@@ -7,9 +7,20 @@
 
 import Foundation
 import Combine
+import Common
 
 public protocol OperationsRepository {
-    func operations(month: Int?, year: Int?) -> AnyPublisher<[Operation], CharlesError>
-    func operations(startMonth: Int, startYear: Int, endMonth: Int, endYear: Int) -> AnyPublisher<[Domain.Operation], CharlesError>
-    func addOperation(createOperation: CreateOperation) -> AnyPublisher<[Operation], CharlesError>
-}
+    func operations(month: Int?,
+                    year: Int?,
+                    categories: [Domain.Category],
+                    paymentMethods: [Domain.PaymentMethod]) -> AnyDataPubliher<[Domain.Operation], CharlesError>
+    func operations(startMonth: Int,
+                    startYear: Int,
+                    endMonth: Int,
+                    endYear: Int,
+                    categories: [Domain.Category],
+                    paymentMethods: [Domain.PaymentMethod]) -> AnyDataPubliher<[Domain.Operation], CharlesError>
+    func addOperation(createOperation: Domain.CreateOperation,
+                      categories: [Domain.Category],
+                      paymentMethods: [Domain.PaymentMethod]) -> AnyDataPubliher<[Domain.Operation], CharlesError>
+    }

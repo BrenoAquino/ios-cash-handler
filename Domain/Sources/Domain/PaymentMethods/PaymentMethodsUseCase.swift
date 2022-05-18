@@ -7,10 +7,10 @@
 
 import Foundation
 import Combine
+import Common
 
 public protocol PaymentMethodsUseCase {
     func paymentMethods() -> AnyPublisher<[PaymentMethod], CharlesError>
-    func cachedPaymentMethods() -> [PaymentMethod]
 }
 
 // MARK: Implementation
@@ -25,14 +25,9 @@ public final class PaymentMethodsUseCaseImpl {
 
 // MARK: Interfaces
 extension PaymentMethodsUseCaseImpl: PaymentMethodsUseCase {
-    public func cachedPaymentMethods() -> [PaymentMethod] {
+    public func paymentMethods() -> AnyDataPubliher<[PaymentMethod], CharlesError> {
         return paymentMethodsRepository
-            .cachedPaymentMethods()
-    }
-    
-    public func paymentMethods() -> AnyPublisher<[PaymentMethod], CharlesError> {
-        return paymentMethodsRepository
-            .fetchPaymentMethods()
+            .paymentMethods()
             .map { $0.sorted(by: { $0.name < $1.name }) }
             .eraseToAnyPublisher()
     }

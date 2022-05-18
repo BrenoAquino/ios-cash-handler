@@ -7,8 +7,9 @@
 
 import Foundation
 import Combine
+import Common
 
 public protocol StatsRepository {
-    func historic(numberOfMonths: Int) -> AnyPublisher<[MonthStats], CharlesError>
-    func stats(month: Int, year: Int, categories: [Category]) -> AnyPublisher<Stats, CharlesError>
+    func historic(numberOfMonths: Int) -> AnyDataPubliher<[MonthStats], CharlesError>
+    func stats(month: Int, year: Int, categories: [Category]) -> AnyDataPubliher<Stats, CharlesError>
 }

@@ -7,10 +7,10 @@
 
 import Foundation
 import Combine
+import Common
 
 public protocol CategoriesUseCase {
-    func categories() -> AnyPublisher<[Category], CharlesError>
-    func cachedCategories() -> [Category]
+    func categories() -> AnyDataPubliher<[Category], CharlesError>
 }
 
 // MARK: Implementation
@@ -25,15 +25,12 @@ public final class CategoriesUseCaseImpl {
 
 // MARK: Interfaces
 extension CategoriesUseCaseImpl: CategoriesUseCase {
-    public func cachedCategories() -> [Category] {
+    public func categories() -> AnyDataPubliher<[Category], CharlesError> {
         return categoriesRepository
-            .cachedCategories()
-    }
-    
-    public func categories() -> AnyPublisher<[Category], CharlesError> {
-        return categoriesRepository
-            .fetchCategories()
-            .map { $0.sorted(by: { $0.name < $1.name }) }
+            .categories()
+            .mapDataResult { model in
+                model.sorted(by: { $0.name < $1.name })
+            }
             .eraseToAnyPublisher()
     }
 }

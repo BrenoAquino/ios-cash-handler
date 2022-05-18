@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum DataState<Output> {
-    case empty
-    case loaded(data: Output, update: Date)
+public enum DataResult<Output, Failure> where Failure: Error {
+    case data(data: Output)
+    case error(error: Failure)
 }

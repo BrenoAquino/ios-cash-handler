@@ -7,12 +7,8 @@
 
 import Foundation
 import Combine
+import Common
 
 public protocol CategoriesRepository {
-    func cachedCategories() -> [Category]
-    func fetchCategories() -> AnyPublisher<[Category], CharlesError>
-}
-
-public protocol _CategoriesRepository {
-    func categories() -> AnyPublisher<[Category], CharlesError>
+    func categories() -> AnyDataPubliher<[Category], CharlesError>
 }
