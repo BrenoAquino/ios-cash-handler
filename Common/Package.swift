@@ -16,7 +16,7 @@ let package = Package(
             name: "Common",
             dependencies: []),
         .testTarget(
-            name: "FrameworksTests",
+            name: "CommonTests",
             dependencies: ["Common"]),
     ]
 )

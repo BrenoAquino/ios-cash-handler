@@ -10,7 +10,7 @@ import Combine
 import Common
 
 public protocol PaymentMethodsUseCase {
-    func paymentMethods() -> AnyPublisher<[PaymentMethod], CharlesError>
+    func paymentMethods() -> AnyDataPubliher<[PaymentMethod], CharlesError>
 }
 
 // MARK: Implementation
@@ -28,7 +28,7 @@ extension PaymentMethodsUseCaseImpl: PaymentMethodsUseCase {
     public func paymentMethods() -> AnyDataPubliher<[PaymentMethod], CharlesError> {
         return paymentMethodsRepository
             .paymentMethods()
-            .map { $0.sorted(by: { $0.name < $1.name }) }
+            .mapDataResult { $0.sorted(by: { $0.name < $1.name }) }
             .eraseToAnyPublisher()
     }
 }

@@ -28,9 +28,7 @@ extension CategoriesUseCaseImpl: CategoriesUseCase {
     public func categories() -> AnyDataPubliher<[Category], CharlesError> {
         return categoriesRepository
             .categories()
-            .mapDataResult { model in
-                model.sorted(by: { $0.name < $1.name })
-            }
+            .mapDataResult { $0.sorted(by: { $0.name < $1.name }) }
             .eraseToAnyPublisher()
     }
 }

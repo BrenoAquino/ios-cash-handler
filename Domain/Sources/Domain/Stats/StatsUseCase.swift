@@ -10,8 +10,8 @@ import Combine
 import Common
 
 public protocol StatsUseCase {
-    func stats() -> AnyPublisher<Stats, CharlesError>
-    func historic(numberOfMonths: Int) -> AnyPublisher<[MonthStats], CharlesError>
+    func stats() -> AnyDataPubliher<Stats, CharlesError>
+    func historic(numberOfMonths: Int) -> AnyDataPubliher<[MonthStats], CharlesError>
 }
 
 // MARK: Implementation
@@ -31,26 +31,28 @@ public final class StatsUseCaseImpl {
 extension StatsUseCaseImpl: StatsUseCase {
     
     // MARK: Stats
-    public func stats() -> AnyPublisher<Stats, CharlesError> {
+    public func stats() -> AnyDataPubliher<Stats, CharlesError> {
         let currentMonth = Date().componentes([.month, .year])
         return categoriesRepository
             .categories()
-            .map { categories -> AnyPublisher<Stats, CharlesError> in
+            .tryMapData { categories -> AnyDataPubliher<Stats, CharlesError> in
                 let month = currentMonth.month ?? .zero
                 let year = currentMonth.year ?? .zero
                 return self.statsRepository
                     .stats(month: month, year: year, categories: categories)
                     .eraseToAnyPublisher()
             }
-            .switchToLatest()
+            .mapError { <#Publishers.TryMap<AnyDataPubliher<[Category], CharlesError>, AnyDataPubliher<Stats, CharlesError>>.Failure#> in
+                <#code#>
+            }
             .eraseToAnyPublisher()
     }
     
     // MARK: Historic
-    public func historic(numberOfMonths: Int) -> AnyPublisher<[MonthStats], CharlesError> {
+    public func historic(numberOfMonths: Int) -> AnyDataPubliher<[MonthStats], CharlesError> {
         return statsRepository
             .historic(numberOfMonths: numberOfMonths)
-            .map { historic in
+            .mapDataResult { historic in
                 return historic.sorted { lhs, rhs in
                     let lhsDate = Date.components(day: .one, month: lhs.month, year: lhs.year) ?? .distantPast
                     let rhsDate = Date.components(day: .one, month: rhs.month, year: rhs.year) ?? .distantPast

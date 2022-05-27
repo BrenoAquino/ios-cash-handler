@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-public typealias AnyDataPubliher<Output, Failure: Error> = AnyPublisher<DataResult<Output, Failure>?, Never>
+public typealias AnyDataPubliher<Output, Failure: Error> = AnyPublisher<DataResult<Output, Failure>, Never>
 
 public class DataPublisher<SuccessModel, FailureModel> where FailureModel: Error {
     
