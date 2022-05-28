@@ -8,7 +8,6 @@
 import Foundation
 
 public struct OperationsFilterParams {
-    
     let month: Int?
     let year: Int?
     

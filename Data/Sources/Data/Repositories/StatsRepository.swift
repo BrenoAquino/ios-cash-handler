@@ -32,8 +32,15 @@ extension StatsRepositoryImpl: Domain.StatsRepository {
     public func historic(numberOfMonths: Int) -> AnyPublisher<[MonthStats], CharlesError> {
         return statsRemoteDataSource
             .historic(numberOfMonths: numberOfMonths)
-            .map { $0.map { $0.toDomain() } }
-            .mapError { $0.toDomain() }
+            .tryMap { try $0.map { try $0.toDomain() } }
+            .mapError { error in
+                switch error {
+                case let error as CharlesDataError:
+                    return error.toDomain()
+                default:
+                    return CharlesError(type: .unkown)
+                }
+            }
             .eraseToAnyPublisher()
     }
     

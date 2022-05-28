@@ -27,8 +27,9 @@ public final class CategoriesRepositoryImpl {
 
 // MARK: Interface
 extension CategoriesRepositoryImpl: Domain.CategoriesRepository {
-    func categories() -> AnyPublisher<[Category], CharlesError> {
-        if let categories = localDataSource.categories(), !categories.isEmpty {
+    public func categories() -> AnyPublisher<[Domain.Category], CharlesError> {
+        let categories = localDataSource.categories()
+        if !categories.isEmpty {
             let domain = categories.map { $0.toDomain() }
             return Just(domain)
                 .setFailureType(to: CharlesError.self)
@@ -39,7 +40,7 @@ extension CategoriesRepositoryImpl: Domain.CategoriesRepository {
             .categories()
             .handleEvents(receiveOutput: { [weak self] value in
                 let entities = value.map { $0.toEntity() }
-                self?.localDataSource.updatePaumentMethods(entities)
+                self?.localDataSource.updateCategories(entities)
             })
             .map { $0.map { $0.toDomain() } }
             .mapError { $0.toDomain() }

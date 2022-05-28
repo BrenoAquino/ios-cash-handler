@@ -79,7 +79,7 @@ extension OperationsRepositoryImpl: Domain.OperationsRepository {
     }
     
     public func addOperation(createOperation: CreateOperation) -> AnyPublisher<[Domain.Operation], CharlesError> {
-        let params = CreateOperationParams(title: createOperation.title,
+        let params = CreateOperationParams(name: createOperation.name,
                                            date: createOperation.date,
                                            value: createOperation.value,
                                            categoryId: createOperation.categoryId,

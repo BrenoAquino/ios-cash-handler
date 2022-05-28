@@ -9,13 +9,16 @@ import Foundation
 import Domain
 
 public struct MonthStatsDTO: Decodable {
-    public let month: Int
-    public let year: Int
+    public let month: String
     public let expense: Double
 }
 
 extension MonthStatsDTO {
-    func toDomain() -> Domain.MonthStats {
-        return Domain.MonthStats(month: month, year: year, expense: expense)
+    func toDomain() throws -> Domain.MonthStats {
+        guard let month = DateFormatter(pattern: "yyyy-MM").date(from: month) else {
+            throw CharlesDataError(type: .invalidDomainConverter)
+        }
+        
+        return Domain.MonthStats(month: month, expense: expense)
     }
 }

@@ -26,8 +26,9 @@ public final class PaymentMethodsRepositoryImpl {
 }
 
 extension PaymentMethodsRepositoryImpl: Domain.PaymentMethodsRepository {
-    func paymentMethods() -> AnyPublisher<[PaymentMethod], CharlesError> {
-        if let paymentMethods = localDataSource.paymentMethods(), !paymentMethods.isEmpty {
+    public func paymentMethods() -> AnyPublisher<[PaymentMethod], CharlesError> {
+        let paymentMethods = localDataSource.paymentMethods()
+        if !paymentMethods.isEmpty {
             let domain = paymentMethods.map { $0.toDomain() }
             return Just(domain)
                 .setFailureType(to: CharlesError.self)
@@ -38,7 +39,7 @@ extension PaymentMethodsRepositoryImpl: Domain.PaymentMethodsRepository {
             .paymentMethods()
             .handleEvents(receiveOutput: { [weak self] value in
                 let entities = value.map { $0.toEntity() }
-                self?.localDataSource.updatePaumentMethods(entities)
+                self?.localDataSource.updatePaymentMethods(entities)
             })
             .map { $0.map { $0.toDomain() } }
             .mapError { $0.toDomain() }

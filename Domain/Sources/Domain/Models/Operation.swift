@@ -9,7 +9,7 @@ import Foundation
 
 public struct Operation {
     public let id: String
-    public let title: String
+    public let name: String
     public let value: Double
     public let date: Date
     public let paymentMethod: PaymentMethod
@@ -19,7 +19,7 @@ public struct Operation {
     public let operationAggregatorId: String?
     
     public init(id: String,
-                title: String,
+                name: String,
                 value: Double,
                 date: Date,
                 paymentMethod: PaymentMethod,
@@ -28,7 +28,7 @@ public struct Operation {
                 totalInstallments: Int? = nil,
                 operationAggregatorId: String? = nil) {
         self.id = id
-        self.title = title
+        self.name = name
         self.value = value
         self.date = date
         self.paymentMethod = paymentMethod

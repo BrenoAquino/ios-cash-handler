@@ -11,7 +11,7 @@ import Common
 
 public protocol OperationsUseCase {
     func aggregateOperations() -> AnyPublisher<[OperationsAggregator], CharlesError>
-    func addOperation(title: String,
+    func addOperation(name: String,
                       date: Date,
                       value: Double,
                       categoryId: String,
@@ -40,7 +40,7 @@ extension OperationsUseCaseImpl {
     private func operations(month: Int?, year: Int?) -> AnyPublisher<[Operation], CharlesError> {
         return operationsRepository
             .operations(month: month, year: year)
-            .map { $0.sorted(by: { $0.title < $1.title }) }
+            .map { $0.sorted(by: { $0.name < $1.name }) }
             .map { $0.sorted(by: { $0.date > $1.date }) }
             .eraseToAnyPublisher()
     }
@@ -73,21 +73,19 @@ extension OperationsUseCaseImpl: OperationsUseCase {
     }
     
     // MARK: Add
-    public func addOperation(title: String,
+    public func addOperation(name: String,
                              date: Date,
                              value: Double,
                              categoryId: String,
                              paymentMethodId: String,
                              installments: String) -> AnyPublisher<[Operation], CharlesError> {
         let installments = installments.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
-        let createOperation = CreateOperation(
-            title: title,
-            date: DateFormatter(pattern: "dd-MM-yyyy").string(from: date),
-            value: value,
-            categoryId: categoryId,
-            paymentMethodId: paymentMethodId,
-            installments: Int(installments)
-        )
+        let createOperation = CreateOperation(name: name,
+                                              date: DateFormatter(pattern: "dd-MM-yyyy").string(from: date),
+                                              value: value,
+                                              categoryId: categoryId,
+                                              paymentMethodId: paymentMethodId,
+                                              installments: Int(installments))
         return operationsRepository
             .addOperation(createOperation: createOperation)
     }
