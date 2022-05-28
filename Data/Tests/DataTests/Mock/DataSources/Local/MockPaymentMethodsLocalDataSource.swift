@@ -25,7 +25,7 @@ class MockPaymentMethodsLocalDataSource: PaymentMethodsLocalDataSource {
         return paymentMethodsEntity
     }
     
-    func updatePaumentMethods(_ paymentMethods: [PaymentMethodEntity]) {
+    func updatePaymentMethods(_ paymentMethods: [PaymentMethodEntity]) {
         updatedPaymentMethods = paymentMethods
     }
 }

@@ -30,15 +30,10 @@ public final class MainTabViewModel: ObservableObject {
 extension MainTabViewModel {
     func fetchData() {
         state = .loading
-        fetchCategoriesPaymentMethods()
-    }
-    
-    private func fetchCategoriesPaymentMethods() {
         let categoriesPublisher = categoriesUseCase.categories()
         let paymentMethodsPublisher = paymentMethodsUseCase.paymentMethods()
         
-        categoriesPublisher
-            .zip(paymentMethodsPublisher)
+        Publishers.Zip(categoriesPublisher, paymentMethodsPublisher)
             .receive(on: RunLoop.main)
             .sinkCompletion { [weak self] completion in
                 switch completion {

@@ -10,7 +10,7 @@ import Combine
 
 public protocol PaymentMethodsLocalDataSource {
     func paymentMethods() -> [PaymentMethodEntity]
-    func updatePaumentMethods(_ paymentMethods: [PaymentMethodEntity])
+    func updatePaymentMethods(_ paymentMethods: [PaymentMethodEntity])
 }
 
 public final class PaymentMethodsLocalDataSourceImpl {
@@ -27,7 +27,7 @@ extension PaymentMethodsLocalDataSourceImpl: PaymentMethodsLocalDataSource {
         return database.all()
     }
     
-    public func updatePaumentMethods(_ paymentMethods: [PaymentMethodEntity]) {
+    public func updatePaymentMethods(_ paymentMethods: [PaymentMethodEntity]) {
         let _: [PaymentMethodEntity] = database.dropAll()
         database.addArray(objects: paymentMethods)
     }

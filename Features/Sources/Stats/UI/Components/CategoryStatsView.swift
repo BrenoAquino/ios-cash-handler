@@ -1,5 +1,5 @@
 //
-//  CategoryOverviewView.swift
+//  CategoryStatsView.swift
 //  
 //
 //  Created by Breno Aquino on 07/03/22.
@@ -8,21 +8,22 @@
 import SwiftUI
 import DesignSystem
 
-struct CategoryOverviewView: View {
+struct CategoryStatsView: View {
     
-    let categoryOverview: CategoryOverviewUI
+    let categoryOverview: CategoryStatsUI
     
+    // MARK: View
     var body: some View {
         VStack(spacing: DSSpace.smallL.rawValue) {
             title
-            lineStats(title: OverviewLocalizable.expenseTitle,
+            lineStats(title: StatsLocalizable.expenseTitle,
                       value: categoryOverview.expense,
                       average: categoryOverview.averageExpense)
-            lineStats(title: OverviewLocalizable.countTitle,
+            lineStats(title: StatsLocalizable.countTitle,
                       value: categoryOverview.count,
                       average: categoryOverview.averageCount)
         }
-        .frame(width: DSOverview.categoryOverviewWidth)
+        .frame(width: DSStats.categoryStatsWidth)
         .padding(DSSpace.smallL.rawValue)
         .background(DSColor.secondBackground.rawValue)
         .cornerRadius(DSCornerRadius.normal.rawValue)
@@ -31,20 +32,20 @@ struct CategoryOverviewView: View {
     // MARK: Title Header
     private var title: some View {
         HStack {
-            Text(categoryOverview.title)
+            Text(categoryOverview.name)
             
             Spacer()
             
             VStack(spacing: .zero) {
                 CircleChart(config: .init(hasSubtitle: false,
-                                          strokeMin: DSOverview.percentageExapenseStrokeMin,
-                                          strokeDiff: DSOverview.percentageExapenseStrokeDiff,
+                                          strokeMin: DSStats.percentageExapenseStrokeMin,
+                                          strokeDiff: DSStats.percentageExapenseStrokeDiff,
                                           data: [
                     .init(title: .empty, value: categoryOverview.percentageExpense, color: DSColor.main.rawValue),
                     .init(title: .empty, value: categoryOverview.othersPercentage, color: DSColor.contrast.rawValue)
                 ]))
-                .frame(width: DSOverview.percentageExapenseSize.width,
-                       height: DSOverview.percentageExapenseSize.height)
+                .frame(width: DSStats.percentageExapenseSize.width,
+                       height: DSStats.percentageExapenseSize.height)
                 
                 Text(categoryOverview.percentageExpenseDescription)
                     .font(DSFont.footnote.rawValue)
@@ -59,9 +60,9 @@ struct CategoryOverviewView: View {
                 .font(DSFont.headline3.rawValue)
             
             HStack(spacing: DSSpace.smallL.rawValue) {
-                stats(value: value, subtitle: OverviewLocalizable.totalSubtitle)
+                stats(value: value, subtitle: StatsLocalizable.totalSubtitle)
                     .frame(maxWidth: .infinity)
-                stats(value: average, subtitle: OverviewLocalizable.averageSubtitle)
+                stats(value: average, subtitle: StatsLocalizable.averageSubtitle)
                     .frame(maxWidth: .infinity)
             }
         }
@@ -84,8 +85,8 @@ struct CategoryOverviewView: View {
 // MARK: - Preview
 struct CategoryOverviewView_Previews: PreviewProvider {
     static var previews: some View {
-        return CategoryOverviewView(categoryOverview: .init(
-            title: "Tecnologia",
+        return CategoryStatsView(categoryOverview: .init(
+            name: "Tecnologia",
             expense: "R$ 2800",
             averageExpense: "R$ 2300 / mês",
             percentageExpenseDescription: "55%",

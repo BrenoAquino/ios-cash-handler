@@ -10,7 +10,7 @@ import Combine
 
 public protocol StatsRemoteDataSource {
     func stats(params: StatsParams) -> AnyPublisher<StatsDTO, CharlesDataError>
-    func historic(numberOfMonths: Int) -> AnyPublisher<[MonthStatsDTO], CharlesDataError>
+    func historic(params: HistoricParams) -> AnyPublisher<[MonthStatsDTO], CharlesDataError>
 }
 
 // MARK: Implementation
@@ -30,7 +30,7 @@ extension StatsRemoteDataSourceImpl: StatsRemoteDataSource {
         return networkProvider.execute(endpoint: Endpoints.stats(params: params), keyPath: "data")
     }
     
-    public func historic(numberOfMonths: Int) -> AnyPublisher<[MonthStatsDTO], CharlesDataError> {
-        return networkProvider.execute(endpoint: Endpoints.historic(numberOfMonths: numberOfMonths), keyPath: "data")
+    public func historic(params: HistoricParams) -> AnyPublisher<[MonthStatsDTO], CharlesDataError> {
+        return networkProvider.execute(endpoint: Endpoints.historic(params: params), keyPath: "data")
     }
 }

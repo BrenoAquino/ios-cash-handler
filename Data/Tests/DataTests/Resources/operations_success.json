@@ -2,8 +2,8 @@
     "data": [
         {
             "id": "d225928d-6701-4870-acb6-80313818c41b",
-            "title": "Roupas",
-            "date": "03-04-2022",
+            "name": "Roupas",
+            "date": "2022-04-03",
             "category_id": "d738b05e792cf0108226b0f8a128e0a9203b859ab55c66fce4a4f480463ea328",
             "payment_method_id": "60d5dbad6a8db5f7f37eba1733a3e654e71350d36c7321c73c5d8d6a37b71d22",
             "value": 192.14,
@@ -13,24 +13,24 @@
         },
         {
             "id": "fdcf64f4-ba11-41f9-b99e-ef44d539877b",
-            "title": "SanDisk MicroSD 128GB",
-            "date": "03-03-2022",
+            "name": "SanDisk MicroSD 128GB",
+            "date": "2022-03-03",
             "category_id": "bb07a9991d00b9b2f6d26026d293abeafb8319ce02423fbc2f5889cf0d88ccfd",
             "payment_method_id": "60d5dbad6a8db5f7f37eba1733a3e654e71350d36c7321c73c5d8d6a37b71d22",
             "value": 110.96
         },
         {
             "id": "edfe2ee5-c30f-4100-82aa-b2a1014f5b25",
-            "title": "Hollow Knight",
-            "date": "01-03-2022",
+            "name": "Hollow Knight",
+            "date": "2022-03-01",
             "category_id": "bb07a9991d00b9b2f6d26026d293abeafb8319ce02423fbc2f5889cf0d88ccfd",
             "payment_method_id": "60d5dbad6a8db5f7f37eba1733a3e654e71350d36c7321c73c5d8d6a37b71d22",
             "value": 13.99
         },
         {
             "id": "ee4fd19f-979a-4d11-93db-83d28850c347",
-            "title": "Roupas",
-            "date": "03-03-2022",
+            "name": "Roupas",
+            "date": "2022-03-03",
             "category_id": "d738b05e792cf0108226b0f8a128e0a9203b859ab55c66fce4a4f480463ea328",
             "payment_method_id": "60d5dbad6a8db5f7f37eba1733a3e654e71350d36c7321c73c5d8d6a37b71d22",
             "value": 192.14,

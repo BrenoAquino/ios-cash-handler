@@ -1,10 +1,9 @@
 {
     "data": [
         {
-            "month": "4",
-            "year": 2022,
-            "expenses": 732.14
+            "month": "2022-01",
+            "expense": "130.79"
         }
     ],
-    "requestId": "de8a68fd-50c3-4319-b737-121c3d853ffd"
+    "requestId": "f2ad500a-b00d-4f97-b797-398cf5789c35"
 }

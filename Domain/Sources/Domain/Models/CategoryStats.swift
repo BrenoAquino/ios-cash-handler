@@ -14,9 +14,17 @@ public struct CategoryStats {
     public let averageExpense: Double
     public let percentageExpense: Double
     public let count: Int
-    public let averageCount: Int
+    public let averageCount: Double
+    public let percentageCount: Double
     
-    public init(categoryId: String, categoryName: String, expense: Double, averageExpense: Double, percentageExpense: Double, count: Int, averageCount: Int) {
+    public init(categoryId: String,
+                categoryName: String,
+                expense: Double,
+                averageExpense: Double,
+                percentageExpense: Double,
+                count: Int,
+                averageCount: Double,
+                percentageCount: Double) {
         self.categoryId = categoryId
         self.categoryName = categoryName
         self.expense = expense
@@ -24,5 +32,6 @@ public struct CategoryStats {
         self.percentageExpense = percentageExpense
         self.count = count
         self.averageCount = averageCount
+        self.percentageCount = percentageCount
     }
 }

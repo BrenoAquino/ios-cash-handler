@@ -14,13 +14,13 @@ import Domain
 public class OperationsUseCasePreview: OperationsUseCase {
     private let operations: [Domain.Operation] = [
         Domain.Operation(id: "0",
-                         title: "Hollow Knight",
+                         name: "Hollow Knight",
                          value: 13.99,
                          date: Date.components(day: 1, month: 3, year: 2022)!,
                          paymentMethod: .init(id: "0", name: "Cartão de Crédito", hasInstallments: true),
                          category: .init(id: "0", name: "Lazer")),
         Domain.Operation(id: "1",
-                         title: "Monitor",
+                         name: "Monitor",
                          value: 1213.89,
                          date: Date.components(day: 20, month: 2, year: 2022)!,
                          paymentMethod: .init(id: "0", name: "Transferência Bancária", hasInstallments: false),
@@ -30,7 +30,8 @@ public class OperationsUseCasePreview: OperationsUseCase {
     public init() {}
     
     public func monthOverview(month: Int, year: Int) -> AnyPublisher<MonthStats, CharlesError> {
-        return Just(Domain.MonthStats(month: month, year: year, expense: 1234.7))
+        return Just(Domain.MonthStats(month: Date.components(day: 1, month: month, year: year)!,
+                                      expense: 1234.7))
             .setFailureType(to: CharlesError.self)
             .eraseToAnyPublisher()
     }
@@ -42,12 +43,12 @@ public class OperationsUseCasePreview: OperationsUseCase {
             .eraseToAnyPublisher()
     }
     
-    public func addOperation(title: String,
-                      date: Date,
-                      value: Double,
-                      categoryId: String,
-                      paymentMethodId: String,
-                      installments: String) -> AnyPublisher<[Domain.Operation], CharlesError> {
+    public func addOperation(name: String,
+                             date: Date,
+                             value: Double,
+                             categoryId: String,
+                             paymentMethodId: String,
+                             installments: String) -> AnyPublisher<[Domain.Operation], CharlesError> {
         Empty().eraseToAnyPublisher()
     }
 }

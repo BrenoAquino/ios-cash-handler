@@ -25,9 +25,9 @@ class CategoriesLocalDataSourceTests: XCTestCase {
         let categories = localDataSource.categories()
         
         // Then
-        XCTAssert(categories.count == 2)
-        XCTAssert(categories[0].primaryKey == "0")
-        XCTAssert(categories[1].name == "Category1")
+        XCTAssertEqual(categories.count, 2)
+        XCTAssertEqual(categories[0].primaryKey, "0")
+        XCTAssertEqual(categories[1].name, "Category1")
     }
     
     // MARK: Update Categories
@@ -49,8 +49,8 @@ class CategoriesLocalDataSourceTests: XCTestCase {
         // Then
         let categories = database.tables[tableKey] as? [CategoryEntity]
         XCTAssertNotNil(categories)
-        XCTAssert(categories?.count == 2)
-        XCTAssert(categories?[0].primaryKey == "2")
-        XCTAssert(categories?[1].name == "Category3")
+        XCTAssertEqual(categories?.count, 2)
+        XCTAssertEqual(categories?[0].primaryKey, "2")
+        XCTAssertEqual(categories?[1].name, "Category3")
     }
 }

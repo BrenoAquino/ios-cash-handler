@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  StatsViewModel.swift
 //  
 //
 //  Created by Breno Aquino on 07/03/22.
@@ -10,7 +10,7 @@ import Combine
 import DesignSystem
 import Domain
 
-public extension OverviewView {
+public extension StatsView {
     
     final class ViewModel: ObservableObject {
         
@@ -28,8 +28,8 @@ public extension OverviewView {
         // MARK: Publisher
         @Published var banner: BannerControl = .init(show: false, data: .empty)
         @Published private(set) var state: ViewState = .loading
-        @Published private(set) var overviewMonth: OverviewMonthUI = .placeholder
-        @Published private(set) var categoriesOverview: [CategoryOverviewUI] = []
+        @Published private(set) var overviewMonth: MonthStatsUI = .placeholder
+        @Published private(set) var categoriesOverview: [CategoryStatsUI] = []
         @Published private(set) var historicConfig: ColumnsChartConfig = .init(max: .zero, min: .zero, verticalTitles: [])
         
         // MARK: - Inits
@@ -46,7 +46,7 @@ public extension OverviewView {
 }
 
 // MARK: - Setups
-extension OverviewView.ViewModel {
+extension StatsView.ViewModel {
     private func setupErrorBanner(error: CharlesError) {
         banner.data = .init(title: Localizable.Common.failureTitleBanner,
                             subtitle: error.localizedDescription,
@@ -56,25 +56,24 @@ extension OverviewView.ViewModel {
     
     private func generateColumnsConfig(months: [Domain.MonthStats]) -> ColumnsChartConfig {
         let max: Double = months.max(by: { $0.expense < $1.expense })?.expense ?? .zero
-        let interval: Int = (max / Double(DSOverview.numberOfVerticalTitles - .one)).ceilMaxDecimal
+        let interval: Int = (max / Double(DSStats.numberOfVerticalTitles - .one)).ceilMaxDecimal
         
-        let numberOfTitles: [Int] = Array(.zero ... DSOverview.numberOfVerticalTitles)
+        let numberOfTitles: [Int] = Array(.zero ... DSStats.numberOfVerticalTitles)
         let verticalTitles: [String] = numberOfTitles.map { NumberFormatter.inThousands(number: $0 * interval) }.reversed()
         
-        let values: [ColumnsValue] = months.map { monthOverview in
-            let date = Date.components(day: .one, month: monthOverview.month, year: monthOverview.year) ?? .distantPast
-            let valueFormatted = NumberFormatter.inThousands(number: monthOverview.expense)
+        let values: [ColumnsValue] = months.map { monthStats in
+            let valueFormatted = NumberFormatter.inThousands(number: monthStats.expense)
             let value = Localizable.Common.currency(valueFormatted)
             return ColumnsValue(
-                value: monthOverview.expense,
+                value: monthStats.expense,
                 valueFormatted: value,
-                abbreviation: date.monthAbbreviation,
-                fullSubtitle: date.monthWithYear.capitalized
+                abbreviation: monthStats.month.monthAbbreviation,
+                fullSubtitle: monthStats.month.monthWithYear.capitalized
             )
         }
         
         return ColumnsChartConfig(
-            max: Double(DSOverview.numberOfVerticalTitles * interval),
+            max: Double(DSStats.numberOfVerticalTitles * interval),
             min: .zero,
             verticalTitles: verticalTitles,
             values: values
@@ -83,13 +82,12 @@ extension OverviewView.ViewModel {
 }
 
 // MARK: - Flow
-extension OverviewView.ViewModel {
+extension StatsView.ViewModel {
     func fetchStats() {
         let stats = statsUseCase.stats()
         let historic = statsUseCase.historic(numberOfMonths: Self.numberOfMonths)
         
-        stats
-            .zip(historic)
+        Publishers.Zip(stats, historic)
             .receive(on: RunLoop.main)
             .sink { [weak self] completion in
                 switch completion {

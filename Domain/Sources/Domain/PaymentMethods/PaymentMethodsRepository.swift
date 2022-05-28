@@ -9,6 +9,5 @@ import Foundation
 import Combine
 
 public protocol PaymentMethodsRepository {
-    func cachedPaymentMethods() -> [PaymentMethod]
-    func fetchPaymentMethods() -> AnyPublisher<[PaymentMethod], CharlesError>
+    func paymentMethods() -> AnyPublisher<[PaymentMethod], CharlesError>
 }

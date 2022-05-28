@@ -1,34 +1,19 @@
 {
     "data": {
-        "month": 4,
-        "year": 2022,
-        "expense": 732.14,
+        "month": "2022-04",
+        "expense": 4687.28,
+        "count": 2,
         "categories": [
             {
-                "category_id": "61e5fd461fa16bf63f4493ae6417f52640e0c15998be8a17c963b2483a66e677",
-                "expense": 330,
-                "average_expense": 6417,
-                "percentage_expense": 0.45,
-                "count": 1,
-                "average_count": 5
-            },
-            {
                 "category_id": "521bac2c00686155bc874aac9c83650c2201140d13c14db953251b635bcc25cb",
-                "expense": 210,
-                "average_expense": 5358,
-                "percentage_expense": 0.29,
-                "count": 1,
-                "average_count": 7
-            },
-            {
-                "category_id": "d738b05e792cf0108226b0f8a128e0a9203b859ab55c66fce4a4f480463ea328",
-                "expense": 192.14,
-                "average_expense": 4725,
-                "percentage_expense": 0.26,
-                "count": 1,
-                "average_count": 8
+                "expense": 4687.28,
+                "expense_average": 1690.56,
+                "expense_percentage": 1.0,
+                "count": 2,
+                "count_average": 1.67,
+                "count_percentage": 1.0
             }
         ]
     },
-    "requestId": "1234567890"
+    "requestId": "647c0128-2d90-4c44-a380-5e21fb79da5d"
 }

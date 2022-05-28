@@ -9,6 +9,5 @@ import Foundation
 import Combine
 
 public protocol CategoriesRepository {
-    func cachedCategories() -> [Category]
-    func fetchCategories() -> AnyPublisher<[Category], CharlesError>
+    func categories() -> AnyPublisher<[Category], CharlesError>
 }

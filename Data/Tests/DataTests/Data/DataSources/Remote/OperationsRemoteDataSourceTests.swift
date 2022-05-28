@@ -15,7 +15,7 @@ class OperationsRemoteDataSourceTests: XCTestCase {
     
     var cancellables: Set<AnyCancellable> = .init()
     var params: CreateOperationParams {
-        .init(title: .empty, date: .empty, value: .zero, categoryId: .empty, paymentMethodId: .empty, installments: .one)
+        .init(name: .empty, date: .empty, value: .zero, categoryId: .empty, paymentMethodId: .empty, installments: .one)
     }
     
     // MARK: Add Operation
@@ -35,7 +35,7 @@ class OperationsRemoteDataSourceTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssert(networkProvider.decodableType == [OperationDTO].self)
-        XCTAssert(networkProvider.api?.hashValue() == OperationsAPIs.addOperation(params: params).hashValue())
+        XCTAssertEqual(networkProvider.api?.hashValue(), OperationsAPIs.addOperation(params: params).hashValue())
     }
     
     func testAddOperationDecoding() {
@@ -63,12 +63,12 @@ class OperationsRemoteDataSourceTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(operations)
-        XCTAssert(operations?.count == 1)
-        XCTAssert(operations?[0].title == "Madero")
-        XCTAssert(operations?[0].date == "20-12-2022")
-        XCTAssert(operations?[0].categoryId == "1")
-        XCTAssert(operations?[0].paymentMethodId == "1")
-        XCTAssert(operations?[0].value == 123.123)
+        XCTAssertEqual(operations?.count, 1)
+        XCTAssertEqual(operations?[0].name, "Madero")
+        XCTAssertEqual(operations?[0].date, "20-12-2022")
+        XCTAssertEqual(operations?[0].categoryId, "1")
+        XCTAssertEqual(operations?[0].paymentMethodId, "1")
+        XCTAssertEqual(operations?[0].value, 123.123)
         XCTAssertNil(operations?[0].currentInstallments)
         XCTAssertNil(operations?[0].totalInstallments)
         XCTAssertNil(operations?[0].operationAggregatorId)
@@ -98,7 +98,7 @@ class OperationsRemoteDataSourceTests: XCTestCase {
         // Then
         waitForExpectations(timeout: .infinity, handler: nil)
         XCTAssertNotNil(error)
-        XCTAssert(error?.type == .invalidDecoding)
+        XCTAssertEqual(error?.type, .invalidDecoding)
     }
     
     // MARK: Operations
@@ -110,7 +110,7 @@ class OperationsRemoteDataSourceTests: XCTestCase {
         
         // When
         _ = remoteDataSource
-            .operations(params: .init(month: 10, year: 2022))
+            .operations()
             .sinkCompletion { _ in
                 expectation.fulfill()
             }
@@ -118,7 +118,7 @@ class OperationsRemoteDataSourceTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssert(networkProvider.decodableType == [OperationDTO].self)
-        XCTAssert(networkProvider.api?.hashValue() == OperationsAPIs.operations(params: .init(month: 10, year: 2022)).hashValue())
+        XCTAssertEqual(networkProvider.api?.hashValue(), OperationsAPIs.operations.hashValue())
     }
     
     func testOperationsDecoding() {
@@ -130,7 +130,7 @@ class OperationsRemoteDataSourceTests: XCTestCase {
         
         // When
         remoteDataSource
-            .operations(params: nil)
+            .operations()
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:
@@ -146,16 +146,16 @@ class OperationsRemoteDataSourceTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(operations)
-        XCTAssert(operations?.count == 4)
-        XCTAssert(operations?[0].id == "d225928d-6701-4870-acb6-80313818c41b")
-        XCTAssert(operations?[0].title == "Roupas")
-        XCTAssert(operations?[0].date == "03-04-2022")
-        XCTAssert(operations?[0].categoryId == "d738b05e792cf0108226b0f8a128e0a9203b859ab55c66fce4a4f480463ea328")
-        XCTAssert(operations?[0].paymentMethodId == "60d5dbad6a8db5f7f37eba1733a3e654e71350d36c7321c73c5d8d6a37b71d22")
-        XCTAssert(operations?[0].value == 192.14)
-        XCTAssert(operations?[0].currentInstallments == 2)
-        XCTAssert(operations?[0].totalInstallments == 2)
-        XCTAssert(operations?[0].operationAggregatorId == "f1aa8034-a788-48f7-9f70-c086e962a8db")
+        XCTAssertEqual(operations?.count, 4)
+        XCTAssertEqual(operations?[0].id, "d225928d-6701-4870-acb6-80313818c41b")
+        XCTAssertEqual(operations?[0].name, "Roupas")
+        XCTAssertEqual(operations?[0].date, "2022-04-03")
+        XCTAssertEqual(operations?[0].categoryId, "d738b05e792cf0108226b0f8a128e0a9203b859ab55c66fce4a4f480463ea328")
+        XCTAssertEqual(operations?[0].paymentMethodId, "60d5dbad6a8db5f7f37eba1733a3e654e71350d36c7321c73c5d8d6a37b71d22")
+        XCTAssertEqual(operations?[0].value, 192.14)
+        XCTAssertEqual(operations?[0].currentInstallments, 2)
+        XCTAssertEqual(operations?[0].totalInstallments, 2)
+        XCTAssertEqual(operations?[0].operationAggregatorId, "f1aa8034-a788-48f7-9f70-c086e962a8db")
     }
     
     func testOperationsDecodingError() {
@@ -167,7 +167,7 @@ class OperationsRemoteDataSourceTests: XCTestCase {
 
         // When
         remoteDataSource
-            .operations(params: nil)
+            .operations()
             .sinkCompletion { completion in
                 switch completion {
                 case .finished:
@@ -182,6 +182,6 @@ class OperationsRemoteDataSourceTests: XCTestCase {
         // Then
         waitForExpectations(timeout: .infinity, handler: nil)
         XCTAssertNotNil(error)
-        XCTAssert(error?.type == .invalidDecoding)
+        XCTAssertEqual(error?.type, .invalidDecoding)
     }
 }

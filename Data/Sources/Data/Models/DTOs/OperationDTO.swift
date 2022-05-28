@@ -10,7 +10,7 @@ import Domain
 
 public struct OperationDTO: Decodable {
     public let id: String
-    public let title: String
+    public let name: String
     public let date: String
     public let categoryId: String
     public let paymentMethodId: String
@@ -20,7 +20,7 @@ public struct OperationDTO: Decodable {
     public let operationAggregatorId: String?
     
     private enum CodingKeys : String, CodingKey {
-        case id, title, date, value
+        case id, name, date, value
         case categoryId = "category_id"
         case paymentMethodId = "payment_method_id"
         case currentInstallments = "current_installments"
@@ -31,14 +31,14 @@ public struct OperationDTO: Decodable {
 
 extension OperationDTO {
     func toDomain(paymentMethods: [Domain.PaymentMethod], categories: [Domain.Category]) throws -> Domain.Operation {
-        guard let date = DateFormatter(pattern: "dd-MM-yyyy").date(from: date),
+        guard let date = DateFormatter(pattern: "yyyy-MM-dd").date(from: date),
               let paymentMethod = paymentMethods.first(where: { $0.id == paymentMethodId }),
               let category = categories.first(where: { $0.id == categoryId }) else {
                   throw CharlesDataError(type: .invalidDomainConverter)
               }
         
         return Domain.Operation(id: id,
-                                title: title,
+                                name: name,
                                 value: value,
                                 date: date,
                                 paymentMethod: paymentMethod,

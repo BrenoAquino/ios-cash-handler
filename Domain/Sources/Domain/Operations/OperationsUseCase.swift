@@ -11,7 +11,7 @@ import Common
 
 public protocol OperationsUseCase {
     func aggregateOperations() -> AnyPublisher<[OperationsAggregator], CharlesError>
-    func addOperation(title: String,
+    func addOperation(name: String,
                       date: Date,
                       value: Double,
                       categoryId: String,
@@ -35,23 +35,29 @@ public final class OperationsUseCaseImpl {
     }
 }
 
-// MARK: Utils
-extension OperationsUseCaseImpl {
-    private func operations(month: Int?, year: Int?) -> AnyPublisher<[Operation], CharlesError> {
-        return operationsRepository
-            .operations(month: month, year: year)
-            .map { $0.sorted(by: { $0.title < $1.title }) }
-            .map { $0.sorted(by: { $0.date > $1.date }) }
-            .eraseToAnyPublisher()
-    }
-}
-
 // MARK: Interfaces
 extension OperationsUseCaseImpl: OperationsUseCase {
     
     // MARK: Operations Aggregated
     public func aggregateOperations() -> AnyPublisher<[OperationsAggregator], CharlesError> {
-        return operations(month: nil, year: nil)
+        typealias OperationsMap = ([Category], [PaymentMethod]) -> AnyPublisher<[Operation], CharlesError>
+        let handleOperations: OperationsMap = { [weak self] (categories, paymentMethods) in
+            guard let self = self else {
+                return Fail(error: CharlesError(type: .unkown)).eraseToAnyPublisher()
+            }
+            
+            return self.operationsRepository
+                .operations(categories: categories, paymentMethods: paymentMethods)
+                .eraseToAnyPublisher()
+        }
+        
+        let categoriesPublisher = categoriesRepository.categories()
+        let paymentMethodsPublisher = paymentMethodsRepository.paymentMethods()
+        return Publishers.Zip(categoriesPublisher, paymentMethodsPublisher)
+            .map(handleOperations)
+            .switchToLatest()
+            .map { $0.sorted(by: { $0.name < $1.name }) }
+            .map { $0.sorted(by: { $0.date > $1.date }) }
             .map { operations in
                 var aggregators: [OperationsAggregator] = []
                 
@@ -73,22 +79,36 @@ extension OperationsUseCaseImpl: OperationsUseCase {
     }
     
     // MARK: Add
-    public func addOperation(title: String,
+    public func addOperation(name: String,
                              date: Date,
                              value: Double,
                              categoryId: String,
                              paymentMethodId: String,
                              installments: String) -> AnyPublisher<[Operation], CharlesError> {
         let installments = installments.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
-        let createOperation = CreateOperation(
-            title: title,
-            date: DateFormatter(pattern: "dd-MM-yyyy").string(from: date),
-            value: value,
-            categoryId: categoryId,
-            paymentMethodId: paymentMethodId,
-            installments: Int(installments)
-        )
-        return operationsRepository
-            .addOperation(createOperation: createOperation)
+        let createOperation = CreateOperation(name: name,
+                                              date: DateFormatter(pattern: "dd-MM-yyyy").string(from: date),
+                                              value: value,
+                                              categoryId: categoryId,
+                                              paymentMethodId: paymentMethodId,
+                                              installments: Int(installments))
+        
+        typealias AddOperationMap = ([Category], [PaymentMethod]) -> AnyPublisher<[Operation], CharlesError>
+        let handleAddOperation: AddOperationMap = { [weak self] (categories, paymentMethods) in
+            guard let self = self else {
+                return Fail(error: CharlesError(type: .unkown)).eraseToAnyPublisher()
+            }
+            
+            return self.operationsRepository
+                .addOperation(createOperation: createOperation, categories: categories, paymentMethods: paymentMethods)
+                .eraseToAnyPublisher()
+        }
+        
+        let categoriesPublisher = categoriesRepository.categories()
+        let paymentMethodsPublisher = paymentMethodsRepository.paymentMethods()
+        return Publishers.Zip(categoriesPublisher, paymentMethodsPublisher)
+            .map(handleAddOperation)
+            .switchToLatest()
+            .eraseToAnyPublisher()
     }
 }

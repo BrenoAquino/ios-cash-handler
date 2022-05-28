@@ -16,7 +16,7 @@ class HostConfig {
         var baseURL: String {
             switch self {
             case .dev:
-                return "https://tqcbp1qk03.execute-api.us-east-1.amazonaws.com/dev/cash-management"
+                return "https://8y6ti2kfvl.execute-api.us-east-1.amazonaws.com/dev/cash-management"
             case .prd:
                 return "https://uyj0eypesi.execute-api.us-east-1.amazonaws.com/prd/cash-management"
             }
@@ -24,7 +24,7 @@ class HostConfig {
     }
     
     static let shared: HostConfig = .init()
-    let environment: Environment = .prd
+    let environment: Environment = .dev
     
     private init() {}
 }

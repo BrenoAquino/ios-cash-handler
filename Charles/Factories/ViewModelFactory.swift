@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Overview
+import Stats
 import Statement
 import OperationForm
 import MainTab
@@ -24,12 +24,12 @@ enum ViewModelFactory {
     }
     
     // MARK: Overview
-    static func overview() -> OverviewView.ViewModel {
-        return OverviewView.ViewModel(statsUseCase: UseCaseFactory.stats())
+    static func stats() -> StatsView.ViewModel {
+        return StatsView.ViewModel(statsUseCase: UseCaseFactory.stats())
     }
     
-    static func coordinatorOverview() -> OverviewCoordinator.ViewModel {
-        return OverviewCoordinator.ViewModel(overviewViewModel: Self.overview())
+    static func coordinatorStats() -> StatsCoordinator.ViewModel {
+        return StatsCoordinator.ViewModel(statsViewModel: Self.stats())
     }
     
     // MARK: Statement

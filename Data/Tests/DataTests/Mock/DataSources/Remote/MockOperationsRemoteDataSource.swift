@@ -11,11 +11,11 @@ import Combine
 @testable import Data
 
 class MockSuccessOperationsRemoteDataSource: OperationsRemoteDataSource {
-    func operations(params: OperationsFilterParams?) -> AnyPublisher<[OperationDTO], CharlesDataError> {
+    func operations() -> AnyPublisher<[OperationDTO], CharlesDataError> {
         let operation: OperationDTO = .init(
             id: "123",
-            title: "title",
-            date: "01-01-2000",
+            name: "title",
+            date: "2022-01-01",
             categoryId: "0",
             paymentMethodId: "0",
             value: 123,
@@ -33,7 +33,7 @@ class MockSuccessOperationsRemoteDataSource: OperationsRemoteDataSource {
         let operation: [OperationDTO] = [
             .init(
                 id: "123",
-                title: params.title,
+                name: params.name,
                 date: params.date,
                 categoryId: params.categoryId,
                 paymentMethodId: params.paymentMethodId,
@@ -50,7 +50,7 @@ class MockSuccessOperationsRemoteDataSource: OperationsRemoteDataSource {
 }
 
 class MockErrorOperationsRemoteDataSource: OperationsRemoteDataSource {
-    func operations(params: OperationsFilterParams?) -> AnyPublisher<[OperationDTO], CharlesDataError> {
+    func operations() -> AnyPublisher<[OperationDTO], CharlesDataError> {
         let error = CharlesDataError(type: .badRequest)
         return Fail(error: error)
             .eraseToAnyPublisher()

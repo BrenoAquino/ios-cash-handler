@@ -11,23 +11,21 @@ import Combine
 @testable import Data
 
 class MockSuccessStatsRemoteDataSource: StatsRemoteDataSource {
-    
     func stats(params: StatsParams) -> AnyPublisher<StatsDTO, CharlesDataError> {
-        let categoriesStats: [CategoryStatsDTO] = [
-            .init(categoryId: "0", expense: 123, averageExpense: 152.3, percentageExpense: 0.25, count: 3, averageCount: 5),
-            .init(categoryId: "1", expense: 8795.12, averageExpense: 1234, percentageExpense: 0.9, count: 2, averageCount: 1)
-        ]
-        let stats = StatsDTO(month: 4, year: 2022, expense: 234.23, categories: categoriesStats)
+        let stats = StatsDTO(month: "2022-4", expense: 234.23, count: 5, categories: [
+            .init(categoryId: "0", expense: 123, averageExpense: 152.3, percentageExpense: 0.25, count: 3, averageCount: 5, percentageCount: 0.6),
+            .init(categoryId: "1", expense: 8795.12, averageExpense: 1234, percentageExpense: 0.9, count: 2, averageCount: 1, percentageCount: 0.4)
+        ])
         return Just(stats)
             .setFailureType(to: CharlesDataError.self)
             .eraseToAnyPublisher()
     }
     
-    func historic(numberOfMonths: Int) -> AnyPublisher<[MonthStatsDTO], CharlesDataError> {
+    func historic(params: HistoricParams) -> AnyPublisher<[MonthStatsDTO], CharlesDataError> {
         let stats: [MonthStatsDTO] = [
-            .init(month: 1, year: 2022, expense: 123.23),
-            .init(month: 2, year: 2022, expense: 654),
-            .init(month: 3, year: 2022, expense: 2.65)
+            .init(month: "2022-01", expense: 123.23),
+            .init(month: "2022-02", expense: 654),
+            .init(month: "2022-03", expense: 2.65)
         ]
         return Just(stats)
             .setFailureType(to: CharlesDataError.self)
@@ -43,7 +41,7 @@ class MockErrorStatsRemoteDataSource: StatsRemoteDataSource {
             .eraseToAnyPublisher()
     }
     
-    func historic(numberOfMonths: Int) -> AnyPublisher<[MonthStatsDTO], CharlesDataError> {
+    func historic(params: HistoricParams) -> AnyPublisher<[MonthStatsDTO], CharlesDataError> {
         let error = CharlesDataError(type: .badRequest)
         return Fail(error: error)
             .eraseToAnyPublisher()

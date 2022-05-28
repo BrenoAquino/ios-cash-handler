@@ -33,7 +33,7 @@ class PaymentMethodsRemoteDataSourceTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssert(networkProvider.decodableType == [PaymentMethodDTO].self)
-        XCTAssert(networkProvider.api?.hashValue() == PaymentMethodsAPIs.paymentMethod.hashValue())
+        XCTAssertEqual(networkProvider.api?.hashValue(), PaymentMethodsAPIs.paymentMethod.hashValue())
     }
     
     func testPaymentMethodsDecoding() {
@@ -56,10 +56,10 @@ class PaymentMethodsRemoteDataSourceTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(paymentMethods)
-        XCTAssert(paymentMethods?.count == 5)
-        XCTAssert(paymentMethods?[0].id == "0c1e0dc50d01c9111c308a1bade570345e232abc86d586fbecfb24262b568c50")
-        XCTAssert(paymentMethods?[0].name == "Vale Refeição")
-        XCTAssert(paymentMethods?[0].hasInstallments == false)
+        XCTAssertEqual(paymentMethods?.count, 5)
+        XCTAssertEqual(paymentMethods?[0].id, "0c1e0dc50d01c9111c308a1bade570345e232abc86d586fbecfb24262b568c50")
+        XCTAssertEqual(paymentMethods?[0].name, "Vale Refeição")
+        XCTAssertEqual(paymentMethods?[0].hasInstallments, false)
     }
 
     func testPaymentMethodsDecodingError() {
@@ -86,6 +86,6 @@ class PaymentMethodsRemoteDataSourceTests: XCTestCase {
         // Then
         waitForExpectations(timeout: .infinity, handler: nil)
         XCTAssertNotNil(error)
-        XCTAssert(error?.type == .invalidDecoding)
+        XCTAssertEqual(error?.type, .invalidDecoding)
     }
 }

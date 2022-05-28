@@ -13,37 +13,34 @@ public final class StatsRepositoryImpl {
     
     // MARK: DataSources
     private let statsRemoteDataSource: StatsRemoteDataSource
-    private let categoriesLocalDataSource: CategoriesLocalDataSource
-    
-    // MARK: Gets
-    private var categories: [Domain.Category] {
-        categoriesLocalDataSource.categories().map { $0.toDomain() }
-    }
     
     // MARK: Init
-    public init(statsRemoteDataSource: StatsRemoteDataSource,
-                categoriesLocalDataSource: CategoriesLocalDataSource) {
+    public init(statsRemoteDataSource: StatsRemoteDataSource) {
         self.statsRemoteDataSource = statsRemoteDataSource
-        self.categoriesLocalDataSource = categoriesLocalDataSource
     }
 }
 
 extension StatsRepositoryImpl: Domain.StatsRepository {
-    public func historic(numberOfMonths: Int) -> AnyPublisher<[MonthStats], CharlesError> {
+    public func historic(startDate: String, endDate: String) -> AnyPublisher<[MonthStats], CharlesError> {
+        let params = HistoricParams(startDate: startDate, endDate: endDate)
         return statsRemoteDataSource
-            .historic(numberOfMonths: numberOfMonths)
-            .map { $0.map { $0.toDomain() } }
-            .mapError { $0.toDomain() }
+            .historic(params: params)
+            .tryMap { try $0.map { try $0.toDomain() } }
+            .mapError { error in
+                switch error {
+                case let error as CharlesDataError:
+                    return error.toDomain()
+                default:
+                    return CharlesError(type: .unkown)
+                }
+            }
             .eraseToAnyPublisher()
     }
     
-    public func stats(month: Int, year: Int) -> AnyPublisher<Stats, CharlesError> {
+    public func stats(month: Int, year: Int, categories: [Domain.Category]) -> AnyPublisher<Stats, CharlesError> {
         return statsRemoteDataSource
             .stats(params: .init(month: month, year: year))
-            .tryMap { [weak self] stats in
-                guard let categories = self?.categories else { throw CharlesDataError(type: .invalidDomainConverter) }
-                return try stats.toDomain(categories: categories)
-            }
+            .tryMap { try $0.toDomain(categories: categories) }
             .mapError { error in
                 switch error {
                 case let error as CharlesDataError:

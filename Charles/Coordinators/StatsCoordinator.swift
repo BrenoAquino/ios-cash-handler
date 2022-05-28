@@ -1,20 +1,20 @@
 //
-//  OverviewCoordinator.swift
+//  StatsCoordinator.swift
 //  Charles
 //
 //  Created by Breno Aquino on 10/03/22.
 //
 
 import SwiftUI
-import Overview
+import Stats
 
-struct OverviewCoordinator: View {
+struct StatsCoordinator: View {
     
     class ViewModel: ObservableObject {
-        let overviewViewModel: OverviewView.ViewModel
+        let statsViewModel: StatsView.ViewModel
         
-        init(overviewViewModel: OverviewView.ViewModel) {
-            self.overviewViewModel = overviewViewModel
+        init(statsViewModel: StatsView.ViewModel) {
+            self.statsViewModel = statsViewModel
         }
     }
     
@@ -27,6 +27,6 @@ struct OverviewCoordinator: View {
     
     // MARK: Self View
     var body: some View {
-        OverviewView(viewModel: viewModel.overviewViewModel)
+        StatsView(viewModel: viewModel.statsViewModel)
     }
 }

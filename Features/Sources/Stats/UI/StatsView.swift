@@ -1,5 +1,5 @@
 //
-//  OverviewView.swift
+//  StatsView.swift
 //  
 //
 //  Created by Breno Aquino on 07/03/22.
@@ -8,7 +8,7 @@
 import SwiftUI
 import DesignSystem
 
-public struct OverviewView: View {
+public struct StatsView: View {
     
     @ObservedObject private(set) var viewModel: ViewModel
     
@@ -18,7 +18,7 @@ public struct OverviewView: View {
     
     public var body: some View {
         state
-            .navigationTitle(OverviewLocalizable.title)
+            .navigationTitle(StatsLocalizable.title)
             .background(DSColor.background.rawValue.ignoresSafeArea())
             .onAppear(perform: viewModel.fetchStats)
     }
@@ -28,11 +28,13 @@ public struct OverviewView: View {
          ZStack {
              switch viewModel.state {
              case .loading:
-                 ViewState.loadingView(background: .opaque)
-                     .defaultTransition()
+                 ViewState.loadingView(background: .opaque).defaultTransition()
+             case .failure:
+                 ErrorView().defaultTransition()
+             case .content:
+                 content.defaultTransition()
              default:
-                 content
-                     .defaultTransition()
+                 EmptyView().defaultTransition()
              }
          }
      }
@@ -69,7 +71,7 @@ public struct OverviewView: View {
     
     // MARK: OverviewMonth
     private var overviewMonth: some View {
-        OverviewMonthView(overviewMont: viewModel.overviewMonth)
+        MonthStatsView(monthStats: viewModel.overviewMonth)
             .padding()
             .shadow(style: .medium)
     }
@@ -80,7 +82,7 @@ public struct OverviewView: View {
             .padding(.leading, DSSpace.smallM.rawValue)
             .padding(.trailing, DSSpace.normal.rawValue)
             .padding(.vertical, DSSpace.smallS.rawValue)
-            .frame(height: DSOverview.heightColumns)
+            .frame(height: DSStats.heightColumns)
             .background(DSColor.secondBackground.rawValue)
             .cornerRadius(DSCornerRadius.normal.rawValue)
             .shadow(style: .medium)
@@ -90,7 +92,7 @@ public struct OverviewView: View {
     // MARK: Categories
     private var categories: some View {
         VStack(alignment: .leading) {
-            Text(OverviewLocalizable.categoryTitleSection)
+            Text(StatsLocalizable.categoryTitleSection)
                 .foregroundColor(DSColor.primaryText.rawValue)
                 .font(DSFont.title.rawValue)
                 .padding(.horizontal, DSSpace.normal.rawValue)
@@ -98,7 +100,7 @@ public struct OverviewView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: .zero) {
                     ForEach(viewModel.categoriesOverview) { element in
-                        CategoryOverviewView(categoryOverview: element)
+                        CategoryStatsView(categoryOverview: element)
                             .padding(.bottom, DSSpace.smallL.rawValue)
                     }
                     .padding(.horizontal, DSSpace.smallL.rawValue)
@@ -116,7 +118,7 @@ import Previews
 struct OverviewView_Previews: PreviewProvider {
     static var previews: some View {
         return NavigationView {
-            OverviewView(viewModel: .init(statsUseCase: StatsUseCasePreview()))
+            StatsView(viewModel: .init(statsUseCase: StatsUseCasePreview()))
         }
         .preferredColorScheme(.dark)
     }

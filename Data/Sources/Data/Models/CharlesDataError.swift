@@ -45,6 +45,8 @@ public extension CharlesDataError {
         switch type {
         case .unkown:
             return CharlesError(type: .unkown)
+        case .invalidDomainConverter:
+            return CharlesError(type: .invalidConvertion)
         default:
             return CharlesError(type: .networkError)
         }

@@ -25,9 +25,9 @@ class PaymentMethodsLocalDataSourceTests: XCTestCase {
         let paymentMethods = localDataSource.paymentMethods()
         
         // Then
-        XCTAssert(paymentMethods.count == 2)
-        XCTAssert(paymentMethods[0].primaryKey == "0")
-        XCTAssert(paymentMethods[1].name == "PaymentMethod1")
+        XCTAssertEqual(paymentMethods.count, 2)
+        XCTAssertEqual(paymentMethods[0].primaryKey, "0")
+        XCTAssertEqual(paymentMethods[1].name, "PaymentMethod1")
     }
     
     // MARK: Update Payment Methods
@@ -41,7 +41,7 @@ class PaymentMethodsLocalDataSourceTests: XCTestCase {
         let localDataSource = PaymentMethodsLocalDataSourceImpl(database: database)
         
         // When
-        localDataSource.updatePaumentMethods([
+        localDataSource.updatePaymentMethods([
             .init(primaryKey: "2", name: "PaymentMethod2", hasInstallments: false),
             .init(primaryKey: "3", name: "PaymentMethod3", hasInstallments: true)
         ])
@@ -49,8 +49,8 @@ class PaymentMethodsLocalDataSourceTests: XCTestCase {
         // Then
         let paymentMethods = database.tables[tableKey] as? [PaymentMethodEntity]
         XCTAssertNotNil(paymentMethods)
-        XCTAssert(paymentMethods?.count == 2)
-        XCTAssert(paymentMethods?[0].primaryKey == "2")
-        XCTAssert(paymentMethods?[1].name == "PaymentMethod3")
+        XCTAssertEqual(paymentMethods?.count, 2)
+        XCTAssertEqual(paymentMethods?[0].primaryKey, "2")
+        XCTAssertEqual(paymentMethods?[1].name, "PaymentMethod3")
     }
 }

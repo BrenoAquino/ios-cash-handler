@@ -27,16 +27,20 @@ public final class CategoriesRepositoryImpl {
 
 // MARK: Interface
 extension CategoriesRepositoryImpl: Domain.CategoriesRepository {
-    public func cachedCategories() -> [Domain.Category] {
-        localDataSource.categories().map { $0.toDomain() }
-    }
-    
-    public func fetchCategories() -> AnyPublisher<[Domain.Category], CharlesError> {
+    public func categories() -> AnyPublisher<[Domain.Category], CharlesError> {
+        let categories = localDataSource.categories()
+        if !categories.isEmpty {
+            let domain = categories.map { $0.toDomain() }
+            return Just(domain)
+                .setFailureType(to: CharlesError.self)
+                .eraseToAnyPublisher()
+        }
+        
         return remoteDataSource
             .categories()
             .handleEvents(receiveOutput: { [weak self] value in
-                let categoriesEntity = value.map { $0.toEntity() }
-                self?.localDataSource.updateCategories(categoriesEntity)
+                let entities = value.map { $0.toEntity() }
+                self?.localDataSource.updateCategories(entities)
             })
             .map { $0.map { $0.toDomain() } }
             .mapError { $0.toDomain() }

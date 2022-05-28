@@ -8,7 +8,7 @@
 import Foundation
 
 public struct CreateOperationParams: Encodable {
-    let title: String
+    let name: String
     let date: String
     let value: Double
     let categoryId: String
@@ -16,7 +16,7 @@ public struct CreateOperationParams: Encodable {
     let installments: Int?
     
     private enum CodingKeys : String, CodingKey {
-        case title, date, value, installments
+        case name, date, value, installments
         case categoryId = "category_id"
         case paymentMethodId = "payment_method_id"
     }
