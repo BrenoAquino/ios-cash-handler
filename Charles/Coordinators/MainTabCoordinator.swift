@@ -29,7 +29,7 @@ struct MainTabCoordinator: View {
     var body: some View {
         MainTabView(viewModel: viewModel.mainTabViewModel) {
             NavigationView {
-                OverviewCoordinator(viewModel: ViewModelFactory.coordinatorOverview())
+                StatsCoordinator(viewModel: ViewModelFactory.coordinatorStats())
             }
             .tabItem {
                 Label("Overview", systemImage: "chart.bar.fill")

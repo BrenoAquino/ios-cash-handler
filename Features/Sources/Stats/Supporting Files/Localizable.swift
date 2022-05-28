@@ -8,23 +8,23 @@
 import Foundation
 import DesignSystem
 
-typealias OverviewLocalizable = Localizable.Overview
+typealias StatsLocalizable = Localizable.Stats
 
 extension Localizable {
     
-    enum Overview {
+    enum Stats {
         static let title: String = "Overview"
         static func percentageDescription(_ value: String) -> String { "\(value)%"}
         static func average(_ value: String) -> String { "\(value) / mês" }
         static let categoryTitleSection: String = "Categorias"
         
-        // MARK: CategoryOverviewView
+        // MARK: CategoryStatsView
         static let expenseTitle: String = "Gasto"
         static let countTitle: String = "Quantidade"
         static let totalSubtitle: String = "Total"
         static let averageSubtitle: String = "Média (M-1)"
         
-        // MARK: OverviewMonthView
+        // MARK: MonthStatsView
         static let totalIncome: String = "Total Entrada"
         static let totalExpense: String = "Total Saída"
         static let percentageLastMonth: String = "Acréscimo"

@@ -1,5 +1,5 @@
 //
-//  OverviewMonthUI.swift
+//  MonthStatsUI.swift
 //  
 //
 //  Created by Breno Aquino on 07/03/22.
@@ -8,7 +8,7 @@
 import Foundation
 import Domain
 
-struct OverviewMonthUI {
+struct MonthStatsUI {
     let income: String
     let expense: String
     let refer: String
@@ -28,6 +28,6 @@ struct OverviewMonthUI {
     }
 }
 
-extension OverviewMonthUI {
-    static let placeholder = OverviewMonthUI(income: .empty, expense: .empty, refer: .empty)
+extension MonthStatsUI {
+    static let placeholder = MonthStatsUI(income: .empty, expense: .empty, refer: .empty)
 }

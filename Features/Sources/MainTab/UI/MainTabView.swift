@@ -28,22 +28,23 @@ public struct MainTabView<Content>: View where Content : View {
          ZStack {
              switch viewModel.state {
              case .loading:
-                 ViewState.loadingView(background: .opaque)
-                     .defaultTransition()
-                 
+                 ViewState.loadingView(background: .opaque).defaultTransition()
              case .failure:
-                 ErrorView()
-                     .defaultTransition()
-                 
+                 ErrorView().defaultTransition()
+             case .content:
+                 tabView.defaultTransition()
              default:
-                 TabView {
-                     content()
-                 }
-                 .accentColor(DSColor.main.rawValue)
-                 .defaultTransition()
+                 EmptyView().defaultTransition()
              }
          }
      }
+    
+    private var tabView: some View {
+        TabView {
+            content()
+        }
+        .accentColor(DSColor.main.rawValue)
+    }
 }
 
 #if DEBUG

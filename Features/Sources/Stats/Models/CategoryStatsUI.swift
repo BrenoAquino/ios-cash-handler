@@ -1,5 +1,5 @@
 //
-//  CategoryOverviewUI.swift
+//  CategoryStatsUI.swift
 //  
 //
 //  Created by Breno Aquino on 07/03/22.
@@ -8,7 +8,7 @@
 import Foundation
 import Domain
 
-struct CategoryOverviewUI: Hashable, Identifiable {
+struct CategoryStatsUI: Hashable, Identifiable {
     var id: String { name }
     
     let name: String
@@ -23,12 +23,12 @@ struct CategoryOverviewUI: Hashable, Identifiable {
     init(categoryStats: Domain.CategoryStats) {
         self.name = categoryStats.categoryName.capitalized
         self.expense = NumberFormatter.currency.string(for: categoryStats.expense) ?? .empty
-        self.averageExpense = OverviewLocalizable.average(NumberFormatter.currency.string(for: categoryStats.averageExpense) ?? .empty)
-        self.percentageExpenseDescription = OverviewLocalizable.percentageDescription(String(Int(categoryStats.percentageExpense * 100)))
+        self.averageExpense = StatsLocalizable.average(NumberFormatter.currency.string(for: categoryStats.averageExpense) ?? .empty)
+        self.percentageExpenseDescription = StatsLocalizable.percentageDescription(String(Int(categoryStats.percentageExpense * 100)))
         self.percentageExpense = categoryStats.percentageExpense
         self.othersPercentage = .one - categoryStats.percentageExpense
         self.count = String(categoryStats.count)
-        self.averageCount = OverviewLocalizable.average(String(categoryStats.averageCount))
+        self.averageCount = StatsLocalizable.average(String(categoryStats.averageCount))
     }
     
     init(name: String,
