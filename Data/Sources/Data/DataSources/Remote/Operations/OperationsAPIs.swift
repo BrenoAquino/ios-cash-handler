@@ -9,7 +9,7 @@ import Foundation
 import Common
 
 enum OperationsAPIs {
-    case operations(params: OperationsFilterParams?)
+    case operations
     case addOperation(params: CreateOperationParams)
 }
 
@@ -35,12 +35,7 @@ extension OperationsAPIs: APIs {
     }
     
     var queryParams: [String : Any]? {
-        switch self {
-        case .operations(let params):
-            return try? params?.param?.asDictionary()
-        default:
-            return nil
-        }
+        return nil
     }
     
     var body: Data? {

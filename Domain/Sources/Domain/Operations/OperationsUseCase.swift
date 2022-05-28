@@ -35,23 +35,15 @@ public final class OperationsUseCaseImpl {
     }
 }
 
-// MARK: Utils
-extension OperationsUseCaseImpl {
-    private func operations(month: Int?, year: Int?) -> AnyPublisher<[Operation], CharlesError> {
-        return operationsRepository
-            .operations(month: month, year: year)
-            .map { $0.sorted(by: { $0.name < $1.name }) }
-            .map { $0.sorted(by: { $0.date > $1.date }) }
-            .eraseToAnyPublisher()
-    }
-}
-
 // MARK: Interfaces
 extension OperationsUseCaseImpl: OperationsUseCase {
     
     // MARK: Operations Aggregated
     public func aggregateOperations() -> AnyPublisher<[OperationsAggregator], CharlesError> {
-        return operations(month: nil, year: nil)
+        return operationsRepository
+            .operations()
+            .map { $0.sorted(by: { $0.name < $1.name }) }
+            .map { $0.sorted(by: { $0.date > $1.date }) }
             .map { operations in
                 var aggregators: [OperationsAggregator] = []
                 
