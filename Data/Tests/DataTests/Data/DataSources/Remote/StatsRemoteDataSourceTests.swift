@@ -47,6 +47,7 @@ class StatsRemoteDataSourceTests: XCTestCase {
         remoteDataSource
             .stats(params: .init(month: 4, year: 2022))
             .sink { completion in
+                print(completion)
                 expectation.fulfill()
             } receiveValue: { value in
                 stats = value
@@ -57,15 +58,16 @@ class StatsRemoteDataSourceTests: XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(stats)
         XCTAssertEqual(stats?.month, "2022-04")
-        XCTAssertEqual(stats?.expense, 732.14)
+        XCTAssertEqual(stats?.expense, 4687.28)
         XCTAssertEqual(stats?.count, 2)
-        XCTAssertEqual(stats?.categories.count, 3)
-        XCTAssertEqual(stats?.categories[0].categoryId, "61e5fd461fa16bf63f4493ae6417f52640e0c15998be8a17c963b2483a66e677")
-        XCTAssertEqual(stats?.categories[0].expense, 330)
-        XCTAssertEqual(stats?.categories[0].averageExpense, 6417)
-        XCTAssertEqual(stats?.categories[0].percentageExpense, 0.45)
-        XCTAssertEqual(stats?.categories[0].count, 1)
-        XCTAssertEqual(stats?.categories[0].averageCount, 5)
+        XCTAssertEqual(stats?.categories.count, 1)
+        XCTAssertEqual(stats?.categories[0].categoryId, "521bac2c00686155bc874aac9c83650c2201140d13c14db953251b635bcc25cb")
+        XCTAssertEqual(stats?.categories[0].expense, 4687.28)
+        XCTAssertEqual(stats?.categories[0].averageExpense, 1690.56)
+        XCTAssertEqual(stats?.categories[0].percentageExpense, 1.0)
+        XCTAssertEqual(stats?.categories[0].count, 2)
+        XCTAssertEqual(stats?.categories[0].averageCount, 1.67)
+        XCTAssertEqual(stats?.categories[0].percentageCount, 1.0)
     }
 
     func testStatsDecodingError() {
@@ -137,9 +139,9 @@ class StatsRemoteDataSourceTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(monthsStats)
-        XCTAssertEqual(monthsStats?.count, 2)
+        XCTAssertEqual(monthsStats?.count, 5)
         XCTAssertEqual(monthsStats?[0].month, "2022-01")
-        XCTAssertEqual(monthsStats?[0].expense, 732.14)
+        XCTAssertEqual(monthsStats?[0].expense, 130.79)
     }
 
     func testHistoricDecodingError() {

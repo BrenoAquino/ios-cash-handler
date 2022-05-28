@@ -16,7 +16,9 @@ class StatsRepositoryTests: XCTestCase {
     var cancellables: Set<AnyCancellable> = .init()
     var categories: [Domain.Category] {
         return [
-            .init(id: "521bac2c00686155bc874aac9c83650c2201140d13c14db953251b635bcc25cb", name: "Tech")
+            .init(id: "521bac2c00686155bc874aac9c83650c2201140d13c14db953251b635bcc25cb", name: "Tech"),
+            .init(id: "0", name: "Category0"),
+            .init(id: "1", name: "Category1")
         ]
     }
     
@@ -41,9 +43,9 @@ class StatsRepositoryTests: XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
         let formatter = DateFormatter(pattern: "yyyy-MM")
         XCTAssertNotNil(stats)
-        XCTAssertEqual(formatter.string(from: stats!.month), "2022-04")
         XCTAssertEqual(stats?.expense, 234.23)
         XCTAssertEqual(stats?.categories.count, 2)
+        XCTAssertEqual(formatter.string(from: stats!.month), "2022-04")
         XCTAssertEqual(stats?.categories[0].categoryId, "0")
         XCTAssertEqual(stats?.categories[0].categoryName, "Category0")
         XCTAssertEqual(stats?.categories[0].expense, 123)
@@ -51,7 +53,7 @@ class StatsRepositoryTests: XCTestCase {
         XCTAssertEqual(stats?.categories[0].percentageExpense, 0.25)
         XCTAssertEqual(stats?.categories[0].count, 3)
         XCTAssertEqual(stats?.categories[0].averageCount, 5)
-        XCTAssertEqual(stats?.categories[0].percentageCount, 5)
+        XCTAssertEqual(stats?.categories[0].percentageCount, 0.6)
     }
     
     func testStatsErrorToDomainType() {

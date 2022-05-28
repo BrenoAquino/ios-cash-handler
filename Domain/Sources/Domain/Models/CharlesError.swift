@@ -12,6 +12,7 @@ public struct CharlesError: Error {
     // MARK: Types
     public enum ErrorType {
         case networkError
+        case invalidConvertion
         case unkown
         
         // MARK: Create Operation

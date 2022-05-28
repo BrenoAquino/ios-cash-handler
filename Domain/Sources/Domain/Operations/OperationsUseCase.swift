@@ -40,8 +40,22 @@ extension OperationsUseCaseImpl: OperationsUseCase {
     
     // MARK: Operations Aggregated
     public func aggregateOperations() -> AnyPublisher<[OperationsAggregator], CharlesError> {
-        return operationsRepository
-            .operations()
+        typealias OperationsMap = ([Category], [PaymentMethod]) -> AnyPublisher<[Operation], CharlesError>
+        let handleOperations: OperationsMap = { [weak self] (categories, paymentMethods) in
+            guard let self = self else {
+                return Fail(error: CharlesError(type: .unkown)).eraseToAnyPublisher()
+            }
+            
+            return self.operationsRepository
+                .operations(categories: categories, paymentMethods: paymentMethods)
+                .eraseToAnyPublisher()
+        }
+        
+        let categoriesPublisher = categoriesRepository.categories()
+        let paymentMethodsPublisher = paymentMethodsRepository.paymentMethods()
+        return Publishers.Zip(categoriesPublisher, paymentMethodsPublisher)
+            .map(handleOperations)
+            .switchToLatest()
             .map { $0.sorted(by: { $0.name < $1.name }) }
             .map { $0.sorted(by: { $0.date > $1.date }) }
             .map { operations in
@@ -78,7 +92,23 @@ extension OperationsUseCaseImpl: OperationsUseCase {
                                               categoryId: categoryId,
                                               paymentMethodId: paymentMethodId,
                                               installments: Int(installments))
-        return operationsRepository
-            .addOperation(createOperation: createOperation)
+        
+        typealias AddOperationMap = ([Category], [PaymentMethod]) -> AnyPublisher<[Operation], CharlesError>
+        let handleAddOperation: AddOperationMap = { [weak self] (categories, paymentMethods) in
+            guard let self = self else {
+                return Fail(error: CharlesError(type: .unkown)).eraseToAnyPublisher()
+            }
+            
+            return self.operationsRepository
+                .addOperation(createOperation: createOperation, categories: categories, paymentMethods: paymentMethods)
+                .eraseToAnyPublisher()
+        }
+        
+        let categoriesPublisher = categoriesRepository.categories()
+        let paymentMethodsPublisher = paymentMethodsRepository.paymentMethods()
+        return Publishers.Zip(categoriesPublisher, paymentMethodsPublisher)
+            .map(handleAddOperation)
+            .switchToLatest()
+            .eraseToAnyPublisher()
     }
 }

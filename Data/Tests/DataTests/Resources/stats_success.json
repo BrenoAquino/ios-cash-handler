@@ -1,12 +1,12 @@
 {
     "data": {
         "month": "2022-04",
-        "expense": 4687.281666666667,
+        "expense": 4687.28,
         "count": 2,
         "categories": [
             {
                 "category_id": "521bac2c00686155bc874aac9c83650c2201140d13c14db953251b635bcc25cb",
-                "expense": 4687.281666666667,
+                "expense": 4687.28,
                 "expense_average": 1690.56,
                 "expense_percentage": 1.0,
                 "count": 2,

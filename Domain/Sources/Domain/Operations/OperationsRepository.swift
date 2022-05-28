@@ -9,6 +9,8 @@ import Foundation
 import Combine
 
 public protocol OperationsRepository {
-    func operations() -> AnyPublisher<[Operation], CharlesError>
-    func addOperation(createOperation: CreateOperation) -> AnyPublisher<[Operation], CharlesError>
+    func operations(categories: [Domain.Category], paymentMethods: [Domain.PaymentMethod]) -> AnyPublisher<[Domain.Operation], CharlesError>
+    func addOperation(createOperation: CreateOperation,
+                      categories: [Domain.Category],
+                      paymentMethods: [Domain.PaymentMethod]) -> AnyPublisher<[Domain.Operation], CharlesError>
 }

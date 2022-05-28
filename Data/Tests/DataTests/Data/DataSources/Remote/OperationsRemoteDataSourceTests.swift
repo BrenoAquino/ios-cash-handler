@@ -149,7 +149,7 @@ class OperationsRemoteDataSourceTests: XCTestCase {
         XCTAssertEqual(operations?.count, 4)
         XCTAssertEqual(operations?[0].id, "d225928d-6701-4870-acb6-80313818c41b")
         XCTAssertEqual(operations?[0].name, "Roupas")
-        XCTAssertEqual(operations?[0].date, "03-04-2022")
+        XCTAssertEqual(operations?[0].date, "2022-04-03")
         XCTAssertEqual(operations?[0].categoryId, "d738b05e792cf0108226b0f8a128e0a9203b859ab55c66fce4a4f480463ea328")
         XCTAssertEqual(operations?[0].paymentMethodId, "60d5dbad6a8db5f7f37eba1733a3e654e71350d36c7321c73c5d8d6a37b71d22")
         XCTAssertEqual(operations?[0].value, 192.14)

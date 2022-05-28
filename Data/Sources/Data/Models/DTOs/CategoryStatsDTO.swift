@@ -20,10 +20,10 @@ public struct CategoryStatsDTO: Decodable {
     private enum CodingKeys : String, CodingKey {
         case expense, count
         case categoryId = "category_id"
-        case averageExpense = "average_expense"
-        case percentageExpense = "percentage_expense"
-        case averageCount = "average_count"
-        case percentageCount = "percentage_count"
+        case averageExpense = "expense_average"
+        case percentageExpense = "expense_percentage"
+        case averageCount = "count_average"
+        case percentageCount = "count_percentage"
     }
 }
 

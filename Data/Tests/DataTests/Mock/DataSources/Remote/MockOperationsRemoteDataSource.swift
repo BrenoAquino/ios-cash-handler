@@ -15,7 +15,7 @@ class MockSuccessOperationsRemoteDataSource: OperationsRemoteDataSource {
         let operation: OperationDTO = .init(
             id: "123",
             name: "title",
-            date: "01-01-2000",
+            date: "2022-01-01",
             categoryId: "0",
             paymentMethodId: "0",
             value: 123,
