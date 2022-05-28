@@ -17,7 +17,7 @@ public extension Double {
             rest = Int(self) / currentDecimal
         }
         
-        currentDecimal /= 10
+        currentDecimal = max(currentDecimal / 10, 1)
         let value = Int(self) / currentDecimal
         return value * currentDecimal
     }

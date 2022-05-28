@@ -24,7 +24,7 @@ class HostConfig {
     }
     
     static let shared: HostConfig = .init()
-    let environment: Environment = .dev
+    let environment: Environment = .prd
     
     private init() {}
 }

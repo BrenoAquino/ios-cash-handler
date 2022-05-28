@@ -29,13 +29,14 @@ public struct CharlesDataError: Error {
     
     // MARK: Variables
     public private(set) var type: ErrorType
+    public private(set) var message: String?
     
     // MARK: Inits
-    public init(type: ErrorType) {
+    public init(type: ErrorType, message: String? = nil) {
         self.type = type
     }
     
-    public init(code: Int) {
+    public init(code: Int, message: String? = nil) {
         self.type = ErrorType(rawValue: code) ?? .unkown
     }
 }

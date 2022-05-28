@@ -20,7 +20,19 @@ public struct StatsView: View {
         state
             .navigationTitle(StatsLocalizable.title)
             .background(DSColor.background.rawValue.ignoresSafeArea())
+            .toolbar {
+                addBar
+            }
             .onAppear(perform: viewModel.fetchStats)
+    }
+    
+    // MARK: Navigation Bar
+    private var addBar: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button(action: viewModel.selectAdd) {
+                ImageAsset.add.tint(Color.white)
+            }
+        }
     }
     
     // MARK: View State

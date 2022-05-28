@@ -25,6 +25,9 @@ public extension StatsView {
         let month: String
         let year: String
         
+        // MARK: Redirects
+        public var selectAddOperation: (() -> Void)?
+        
         // MARK: Publisher
         @Published var banner: BannerControl = .init(show: false, data: .empty)
         @Published private(set) var state: ViewState = .loading
@@ -104,5 +107,12 @@ extension StatsView.ViewModel {
                 self.historicConfig = self.generateColumnsConfig(months: stats.1)
             }
             .store(in: &cancellables)
+    }
+}
+
+// MARK: - Actions
+extension StatsView.ViewModel {
+    func selectAdd() {
+        selectAddOperation?()
     }
 }

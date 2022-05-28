@@ -87,7 +87,7 @@ extension OperationsUseCaseImpl: OperationsUseCase {
                              installments: String) -> AnyPublisher<[Operation], CharlesError> {
         let installments = installments.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
         let createOperation = CreateOperation(name: name,
-                                              date: DateFormatter(pattern: "dd-MM-yyyy").string(from: date),
+                                              date: DateFormatter(pattern: "yyyy-MM-dd").string(from: date),
                                               value: value,
                                               categoryId: categoryId,
                                               paymentMethodId: paymentMethodId,
