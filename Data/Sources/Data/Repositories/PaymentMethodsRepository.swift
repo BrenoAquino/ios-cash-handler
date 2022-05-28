@@ -26,16 +26,19 @@ public final class PaymentMethodsRepositoryImpl {
 }
 
 extension PaymentMethodsRepositoryImpl: Domain.PaymentMethodsRepository {
-    public func cachedPaymentMethods() -> [Domain.PaymentMethod] {
-        localDataSource.paymentMethods().map { $0.toDomain() }
-    }
-    
-    public func fetchPaymentMethods() -> AnyPublisher<[Domain.PaymentMethod], CharlesError> {
+    func paymentMethods() -> AnyPublisher<[PaymentMethod], CharlesError> {
+        if let paymentMethods = localDataSource.paymentMethods(), !paymentMethods.isEmpty {
+            let domain = paymentMethods.map { $0.toDomain() }
+            return Just(domain)
+                .setFailureType(to: CharlesError.self)
+                .eraseToAnyPublisher()
+        }
+        
         return remoteDataSource
             .paymentMethods()
             .handleEvents(receiveOutput: { [weak self] value in
-                let paymentMethodsEntity = value.map { $0.toEntity() }
-                self?.localDataSource.updatePaumentMethods(paymentMethodsEntity)
+                let entities = value.map { $0.toEntity() }
+                self?.localDataSource.updatePaumentMethods(entities)
             })
             .map { $0.map { $0.toDomain() } }
             .mapError { $0.toDomain() }
