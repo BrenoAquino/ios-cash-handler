@@ -61,15 +61,14 @@ extension OverviewView.ViewModel {
         let numberOfTitles: [Int] = Array(.zero ... DSOverview.numberOfVerticalTitles)
         let verticalTitles: [String] = numberOfTitles.map { NumberFormatter.inThousands(number: $0 * interval) }.reversed()
         
-        let values: [ColumnsValue] = months.map { monthOverview in
-            let date = Date.components(day: .one, month: monthOverview.month, year: monthOverview.year) ?? .distantPast
-            let valueFormatted = NumberFormatter.inThousands(number: monthOverview.expense)
+        let values: [ColumnsValue] = months.map { monthStats in
+            let valueFormatted = NumberFormatter.inThousands(number: monthStats.expense)
             let value = Localizable.Common.currency(valueFormatted)
             return ColumnsValue(
-                value: monthOverview.expense,
+                value: monthStats.expense,
                 valueFormatted: value,
-                abbreviation: date.monthAbbreviation,
-                fullSubtitle: date.monthWithYear.capitalized
+                abbreviation: monthStats.month.monthAbbreviation,
+                fullSubtitle: monthStats.month.monthWithYear.capitalized
             )
         }
         

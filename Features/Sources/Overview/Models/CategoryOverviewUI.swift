@@ -9,9 +9,9 @@ import Foundation
 import Domain
 
 struct CategoryOverviewUI: Hashable, Identifiable {
-    var id: String { title }
+    var id: String { name }
     
-    let title: String
+    let name: String
     let expense: String
     let averageExpense: String
     let percentageExpenseDescription: String
@@ -21,8 +21,7 @@ struct CategoryOverviewUI: Hashable, Identifiable {
     let averageCount: String
     
     init(categoryStats: Domain.CategoryStats) {
-        self.title = categoryStats.categoryName.capitalized
-        
+        self.name = categoryStats.categoryName.capitalized
         self.expense = NumberFormatter.currency.string(for: categoryStats.expense) ?? .empty
         self.averageExpense = OverviewLocalizable.average(NumberFormatter.currency.string(for: categoryStats.averageExpense) ?? .empty)
         self.percentageExpenseDescription = OverviewLocalizable.percentageDescription(String(Int(categoryStats.percentageExpense * 100)))
@@ -32,7 +31,7 @@ struct CategoryOverviewUI: Hashable, Identifiable {
         self.averageCount = OverviewLocalizable.average(String(categoryStats.averageCount))
     }
     
-    init(title: String,
+    init(name: String,
          expense: String,
          averageExpense: String,
          percentageExpenseDescription: String,
@@ -40,7 +39,7 @@ struct CategoryOverviewUI: Hashable, Identifiable {
          othersPercentage: Double,
          count: String,
          averageCount: String) {
-        self.title = title
+        self.name = name
         self.expense = expense
         self.averageExpense = averageExpense
         self.percentageExpenseDescription = percentageExpenseDescription

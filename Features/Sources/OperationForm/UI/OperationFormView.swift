@@ -29,6 +29,7 @@ public struct OperationFormView: View {
                 hideKeyboardBar
                 doneBar
             }
+            .onAppear(perform: viewModel.initialData)
             .onReceive(viewModel.$state) { state in
                 if state == .finished {
                     self.presentationMode.wrappedValue.dismiss()

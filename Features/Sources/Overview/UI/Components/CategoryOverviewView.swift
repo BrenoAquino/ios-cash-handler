@@ -31,7 +31,7 @@ struct CategoryOverviewView: View {
     // MARK: Title Header
     private var title: some View {
         HStack {
-            Text(categoryOverview.title)
+            Text(categoryOverview.name)
             
             Spacer()
             
@@ -85,7 +85,7 @@ struct CategoryOverviewView: View {
 struct CategoryOverviewView_Previews: PreviewProvider {
     static var previews: some View {
         return CategoryOverviewView(categoryOverview: .init(
-            title: "Tecnologia",
+            name: "Tecnologia",
             expense: "R$ 2800",
             averageExpense: "R$ 2300 / mês",
             percentageExpenseDescription: "55%",

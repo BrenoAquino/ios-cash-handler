@@ -21,7 +21,7 @@ struct OperationCell: View {
                 
                 VStack(alignment: .leading, spacing: DSSpace.smallS.rawValue) {
                     HStack {
-                        Text(operation.title)
+                        Text(operation.name)
                             .font(DSFont.headline2.rawValue)
                             .foregroundColor(DSColor.primaryText.rawValue)
                         
@@ -58,7 +58,7 @@ struct OperationCell: View {
 struct OperationCell_Previews: PreviewProvider {
     static var previews: some View {
         OperationCell(operation: .init(id: .empty,
-                                       title: "The Legend of Zelda",
+                                       name: "The Legend of Zelda",
                                        subtitle: "Refeição  •  20 / 12 / 2021",
                                        value: "R$ 112,54",
                                        paymentMethodId: "",
@@ -68,7 +68,7 @@ struct OperationCell_Previews: PreviewProvider {
             .previewLayout(.sizeThatFits)
         
         OperationCell(operation: .init(id: .empty,
-                                       title: "The Legend of Zelda",
+                                       name: "The Legend of Zelda",
                                        subtitle: "Refeição  •  20 / 12 / 2021",
                                        value: "R$ 112,54",
                                        paymentMethodId: "",

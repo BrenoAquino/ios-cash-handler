@@ -39,7 +39,7 @@ public extension OperationFormView {
         @Published private(set) var isValidCategory: Bool = false
         @Published private(set) var isValidPaymentMethod: Bool = false
         @Published private(set) var validInputs: Bool = false
-        @Published private(set) var state: ViewState = .content
+        @Published private(set) var state: ViewState = .loading
         
         // MARK: Inits
         public init(operationsUseCase: Domain.OperationsUseCase,
@@ -48,9 +48,6 @@ public extension OperationFormView {
             self.operationsUseCase = operationsUseCase
             self.categoriesUseCase = categoriesUseCase
             self.paymentMethodsUseCase = paymentMethodsUseCase
-            
-            setupCategories()
-            setupPaymentMethods()
             checkInputsSubscribers()
         }
     }
@@ -58,16 +55,16 @@ public extension OperationFormView {
 
 // MARK: - Setups
 extension OperationFormView.ViewModel {
-    private func setupCategories() {
+    private func setupCategories(_ domainCategories: [Domain.Category]) {
         categories = [.placeholder]
-        categories.append(contentsOf: categoriesUseCase.cachedCategories().map {
+        categories.append(contentsOf: domainCategories.map {
             CategoryPickerUI(id: $0.id, name: $0.name)
         })
     }
     
-    private func setupPaymentMethods() {
+    private func setupPaymentMethods(_ domainPaymentMethods: [Domain.PaymentMethod]) {
         paymentMethods = [.placeholder]
-        paymentMethods.append(contentsOf: paymentMethodsUseCase.cachedPaymentMethods().map {
+        paymentMethods.append(contentsOf: domainPaymentMethods.map {
             PaymentMethodPickerUI(id: $0.id, name: $0.name, hasInstallments: $0.hasInstallments)
         })
     }
@@ -120,12 +117,31 @@ extension OperationFormView.ViewModel {
             .store(in: &cancellables)
     }
     
+    func initialData() {
+        let categoriesPublishers = categoriesUseCase.categories()
+        let paymentMethodsPublishers = paymentMethodsUseCase.paymentMethods()
+        
+        Publishers.Zip(categoriesPublishers, paymentMethodsPublishers)
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished:
+                    self?.state = .content
+                case .failure:
+                    self?.state = .failure
+                }
+            } receiveValue: { [weak self] (categories, paymentMethods) in
+                self?.setupCategories(categories)
+                self?.setupPaymentMethods(paymentMethods)
+            }
+            .store(in: &cancellables)
+    }
+    
     func addOperation() {
         state = .loading
         validInputs = false
         
         operationsUseCase
-            .addOperation(title: name,
+            .addOperation(name: name,
                           date: date,
                           value: value,
                           categoryId: category,

@@ -12,9 +12,7 @@ import Data
 enum RepositoryFactory {
     
     static func operations() -> OperationsRepository {
-        return OperationsRepositoryImpl(remoteDataSource: RemoteDataSourceFactory.operations(),
-                                        paymentMethodsLocalDataSource: LocalDataSourceFactory.paymentMethods(),
-                                        categoriesLocalDataSource: LocalDataSourceFactory.categories())
+        return OperationsRepositoryImpl(remoteDataSource: RemoteDataSourceFactory.operations())
     }
     
     static func categories() -> CategoriesRepository {
@@ -28,7 +26,6 @@ enum RepositoryFactory {
     }
     
     static func stats() -> StatsRepository {
-        return StatsRepositoryImpl(statsRemoteDataSource: RemoteDataSourceFactory.stats(),
-                                   categoriesLocalDataSource: LocalDataSourceFactory.categories())
+        return StatsRepositoryImpl(statsRemoteDataSource: RemoteDataSourceFactory.stats())
     }
 }

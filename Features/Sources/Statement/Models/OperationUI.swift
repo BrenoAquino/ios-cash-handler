@@ -11,15 +11,15 @@ import DesignSystem
 
 struct OperationUI: Identifiable {
     let id: String
-    let title: String
+    let name: String
     let subtitle: String
     let value: String
     let paymentMethodId: String
     let valueDescription: String?
     
-    init(id: String, title: String, subtitle: String, value: String, paymentMethodId: String, valueDescription: String?) {
+    init(id: String, name: String, subtitle: String, value: String, paymentMethodId: String, valueDescription: String?) {
         self.id = id
-        self.title = title
+        self.name = name
         self.subtitle = subtitle
         self.value = value
         self.paymentMethodId = paymentMethodId
@@ -28,7 +28,7 @@ struct OperationUI: Identifiable {
     
     init(operation: Domain.Operation) {
         self.id = operation.id
-        self.title = operation.title
+        self.name = operation.name
         self.paymentMethodId = operation.paymentMethod.id
         
         let date = DateFormatter(pattern: "dd / MM / yyyy").string(from: operation.date)
