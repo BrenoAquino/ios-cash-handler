@@ -30,14 +30,16 @@ public struct MainTabView<Content>: View where Content : View {
              case .loading:
                  ViewState.loadingView(background: .opaque)
                      .defaultTransition()
+                 
              case .failure:
-                 EmptyView()
+                 ErrorView()
                      .defaultTransition()
+                 
              default:
                  TabView {
                      content()
                  }
-                 .accentColor(Color(rgba: 0xD86239FF))
+                 .accentColor(DSColor.main.rawValue)
                  .defaultTransition()
              }
          }
