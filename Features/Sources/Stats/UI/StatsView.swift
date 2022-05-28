@@ -90,15 +90,26 @@ public struct StatsView: View {
     
     // MARK: Historic
     private var historic: some View {
-        ColumnsChart(config: viewModel.historicConfig)
-            .padding(.leading, DSSpace.smallM.rawValue)
-            .padding(.trailing, DSSpace.normal.rawValue)
-            .padding(.vertical, DSSpace.smallS.rawValue)
-            .frame(height: DSStats.heightColumns)
-            .background(DSColor.secondBackground.rawValue)
-            .cornerRadius(DSCornerRadius.normal.rawValue)
-            .shadow(style: .medium)
-            .padding(.horizontal, DSSpace.smallL.rawValue)
+        ZStack {
+            ColumnsChart(config: viewModel.historicConfig)
+                .padding(.leading, DSSpace.smallM.rawValue)
+                .padding(.trailing, DSSpace.normal.rawValue)
+                .padding(.vertical, DSSpace.smallS.rawValue)
+                .frame(height: DSStats.heightColumns)
+                .background(DSColor.secondBackground.rawValue)
+                .cornerRadius(DSCornerRadius.normal.rawValue)
+                .blur(radius: !viewModel.hasDataForColumn ? DSBlurRadius.normal.rawValue : .zero)
+                .shadow(style: .medium)
+                .padding(.horizontal, DSSpace.smallL.rawValue)
+            
+            if !viewModel.hasDataForColumn {
+                Text(StatsLocalizable.emptyDataColumn)
+                    .multilineTextAlignment(.center)
+                    .font(DSFont.subheadlineLarge.rawValue)
+                    .padding(DSSpace.normal.rawValue)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+        }
     }
     
     // MARK: Categories

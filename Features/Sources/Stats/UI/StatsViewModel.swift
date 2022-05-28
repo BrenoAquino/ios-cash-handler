@@ -35,6 +35,11 @@ public extension StatsView {
         @Published private(set) var categoriesOverview: [CategoryStatsUI] = []
         @Published private(set) var historicConfig: ColumnsChartConfig = .init(max: .zero, min: .zero, verticalTitles: [])
         
+        // MARK: Gets
+        var hasDataForColumn: Bool {
+            return !historicConfig.values.isEmpty
+        }
+        
         // MARK: - Inits
         public init(statsUseCase: Domain.StatsUseCase) {
             self.statsUseCase = statsUseCase
