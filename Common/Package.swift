@@ -14,9 +14,6 @@ let package = Package(
     targets: [
         .target(
             name: "Common",
-            dependencies: []),
-        .testTarget(
-            name: "FrameworksTests",
-            dependencies: ["Common"]),
+            dependencies: [])
     ]
 )
