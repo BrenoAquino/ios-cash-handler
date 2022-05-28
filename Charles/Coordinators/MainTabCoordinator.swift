@@ -32,7 +32,7 @@ struct MainTabCoordinator: View {
                 StatsCoordinator(viewModel: ViewModelFactory.coordinatorStats())
             }
             .tabItem {
-                Label("Overview", systemImage: "chart.bar.fill")
+                Label("Estatísticas", systemImage: "chart.bar.fill")
             }
             
             NavigationView {

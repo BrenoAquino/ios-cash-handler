@@ -13,7 +13,7 @@ typealias StatsLocalizable = Localizable.Stats
 extension Localizable {
     
     enum Stats {
-        static let title: String = "Overview"
+        static let title: String = "Estatísticas"
         static func percentageDescription(_ value: String) -> String { "\(value)%"}
         static func average(_ value: String) -> String { "\(value) / mês" }
         static let categoryTitleSection: String = "Categorias"
