@@ -19,14 +19,14 @@ class CategoriesRepositoryTests: XCTestCase {
     func testFetchCategoriesSuccessToDomainType() {
         // Given
         let expectation = expectation(description: "success fetch categories")
-        let localDataSource = MockCategoriesLocalDataSource()
-        let repository = CategoriesRepositoryImpl(remoteDataSource: MockSuccessCategoriesRemoteDataSource(),
-                                                  localDataSource: localDataSource)
+        let remoteDataSource = MockSuccessCategoriesRemoteDataSource()
+        let localDataSource = MockCategoriesLocalDataSource(categories: [])
+        let repository = CategoriesRepositoryImpl(remoteDataSource: remoteDataSource, localDataSource: localDataSource)
         var categories: [Domain.Category]?
         
         // When
         repository
-            .fetchCategories()
+            .categories()
             .sink { completion in
                 expectation.fulfill()
             } receiveValue: { value in
@@ -37,25 +37,48 @@ class CategoriesRepositoryTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(categories)
-        XCTAssert(categories?.count == 3)
-        XCTAssert(categories?[0].id == "0")
-        XCTAssert(categories?[1].name == "Category1")
+        XCTAssertEqual(categories?.count, 3)
+        XCTAssertEqual(categories?[0].id, "0")
+        XCTAssertEqual(categories?[1].name, "Category1")
         XCTAssertNotNil(localDataSource.updatedCategories)
-        XCTAssert(localDataSource.updatedCategories?.count == 3)
-        XCTAssert(localDataSource.updatedCategories?[0].primaryKey == "0")
-        XCTAssert(localDataSource.updatedCategories?[1].name == "Category1")
+        XCTAssertEqual(localDataSource.updatedCategories?.count, 3)
+        XCTAssertEqual(localDataSource.updatedCategories?[0].primaryKey, "0")
+        XCTAssertEqual(localDataSource.updatedCategories?[1].name, "Category1")
+    }
+    
+    func testCategoriesWithLocalContent() {
+        // Given
+        let expectation = expectation(description: "success fetch from cache")
+        let remoteDataSource = MockErrorCategoriesRemoteDataSource()
+        let localDataSource = MockCategoriesLocalDataSource()
+        let repository = CategoriesRepositoryImpl(remoteDataSource: remoteDataSource, localDataSource: localDataSource)
+        var categories: [Domain.Category]?
+        
+        // When
+        repository
+            .categories()
+            .sink { completion in
+                expectation.fulfill()
+            } receiveValue: { value in
+                categories = value
+            }
+            .store(in: &cancellables)
+        
+        // Then
+        waitForExpectations(timeout: 5, handler: nil)
+        XCTAssertEqual(categories?.count, 2)
     }
     
     func testFetchCategoriesErrorToDomainType() {
         // Given
         let expectation = expectation(description: "error fetch categories")
         let repository = CategoriesRepositoryImpl(remoteDataSource: MockErrorCategoriesRemoteDataSource(),
-                                                  localDataSource: MockCategoriesLocalDataSource())
+                                                  localDataSource: MockCategoriesLocalDataSource(categories: []))
         var error: Domain.CharlesError?
         
         // When
         repository
-            .fetchCategories()
+            .categories()
             .sinkCompletion { completion in
                 switch completion {
                 case .finished:
@@ -70,33 +93,6 @@ class CategoriesRepositoryTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(error)
-        XCTAssert(error?.type == .networkError)
-    }
-    
-    // MARK: Cached Categories
-    func testCachedCategoroes() {
-        // Given
-        let repository = CategoriesRepositoryImpl(remoteDataSource: MockSuccessCategoriesRemoteDataSource(),
-                                                  localDataSource: MockCategoriesLocalDataSource())
-        
-        // When
-        let categories = repository.cachedCategories()
-        
-        // Then
-        XCTAssert(categories.count == 2)
-        XCTAssert(categories[0].id == "0")
-        XCTAssert(categories[1].name == "Category1")
-    }
-}
-
-// MARK: Async
-extension CategoriesRepositoryTests {
-    func testAsyncWithSingleton() {
-        // Given
-        let remoteDataSource = MockCounterCategoriesRemoteDataSource(responseDelay: 1)
-        let localDataSource = MockCategoriesLocalDataSource()
-        let repository = CategoriesRepositoryImpl(remoteDataSource: remoteDataSource, localDataSource: localDataSource)
-        
-        // When
+        XCTAssertEqual(error?.type, .networkError)
     }
 }

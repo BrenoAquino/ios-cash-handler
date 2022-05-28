@@ -19,14 +19,14 @@ class PaymentMethodsRepositoryTests: XCTestCase {
     func testPaymentMethodsSuccessToDomainType() {
         // Given
         let expectation = expectation(description: "success fetch payment methods")
-        let localDataSource = MockPaymentMethodsLocalDataSource()
-        let repository = PaymentMethodsRepositoryImpl(remoteDataSource: MockSuccessPaymentMethodsRemoteDataSource(),
-                                                      localDataSource: localDataSource)
+        let localDataSource = MockPaymentMethodsLocalDataSource(paymentMethods: [])
+        let remoteDataSource = MockSuccessPaymentMethodsRemoteDataSource()
+        let repository = PaymentMethodsRepositoryImpl(remoteDataSource: remoteDataSource, localDataSource: localDataSource)
         var paymentMethods: [Domain.PaymentMethod]?
         
         // When
         repository
-            .fetchPaymentMethods()
+            .paymentMethods()
             .sink { completion in
                 expectation.fulfill()
             } receiveValue: { value in
@@ -37,25 +37,48 @@ class PaymentMethodsRepositoryTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(paymentMethods)
-        XCTAssert(paymentMethods?.count == 3)
-        XCTAssert(paymentMethods?[0].id == "0")
-        XCTAssert(paymentMethods?[1].name == "PaymentMethod1")
+        XCTAssertEqual(paymentMethods?.count, 3)
+        XCTAssertEqual(paymentMethods?[0].id, "0")
+        XCTAssertEqual(paymentMethods?[1].name, "PaymentMethod1")
         XCTAssertNotNil(localDataSource.updatedPaymentMethods)
-        XCTAssert(localDataSource.updatedPaymentMethods?.count == 3)
-        XCTAssert(localDataSource.updatedPaymentMethods?[0].primaryKey == "0")
-        XCTAssert(localDataSource.updatedPaymentMethods?[1].name == "PaymentMethod1")
+        XCTAssertEqual(localDataSource.updatedPaymentMethods?.count, 3)
+        XCTAssertEqual(localDataSource.updatedPaymentMethods?[0].primaryKey, "0")
+        XCTAssertEqual(localDataSource.updatedPaymentMethods?[1].name, "PaymentMethod1")
+    }
+    
+    func testPaymentMethodsWithLocalContent() {
+        // Given
+        let expectation = expectation(description: "success fetch from cache")
+        let remoteDataSource = MockErrorPaymentMethodsRemoteDataSource()
+        let localDataSource = MockPaymentMethodsLocalDataSource()
+        let repository = PaymentMethodsRepositoryImpl(remoteDataSource: remoteDataSource, localDataSource: localDataSource)
+        var paymentMethods: [Domain.PaymentMethod]?
+        
+        // When
+        repository
+            .paymentMethods()
+            .sink { completion in
+                expectation.fulfill()
+            } receiveValue: { value in
+                paymentMethods = value
+            }
+            .store(in: &cancellables)
+        
+        // Then
+        waitForExpectations(timeout: 5, handler: nil)
+        XCTAssertEqual(paymentMethods?.count, 2)
     }
     
     func testPaymentMethodsErrorToDomainType() {
         // Given
         let expectation = expectation(description: "error fetch payment methods")
         let repository = PaymentMethodsRepositoryImpl(remoteDataSource: MockErrorPaymentMethodsRemoteDataSource(),
-                                                      localDataSource: MockPaymentMethodsLocalDataSource())
+                                                      localDataSource: MockPaymentMethodsLocalDataSource(paymentMethods: []))
         var error: Domain.CharlesError?
         
         // When
         repository
-            .fetchPaymentMethods()
+            .paymentMethods()
             .sinkCompletion { completion in
                 switch completion {
                 case .finished:
@@ -70,21 +93,6 @@ class PaymentMethodsRepositoryTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(error)
-        XCTAssert(error?.type == .networkError)
-    }
-    
-    // MARK: Cached Payment Methods
-    func testCachedPaymentMethods() {
-        // Given
-        let repository = PaymentMethodsRepositoryImpl(remoteDataSource: MockSuccessPaymentMethodsRemoteDataSource(),
-                                                      localDataSource: MockPaymentMethodsLocalDataSource())
-        
-        // When
-        let paymentMethods = repository.cachedPaymentMethods()
-        
-        // Then
-        XCTAssert(paymentMethods.count == 2)
-        XCTAssert(paymentMethods[0].id == "0")
-        XCTAssert(paymentMethods[1].name == "PaymentMethod1")
+        XCTAssertEqual(error?.type, .networkError)
     }
 }

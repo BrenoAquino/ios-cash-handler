@@ -15,7 +15,7 @@ class OperationsRepositoryTests: XCTestCase {
     
     var cancellables: Set<AnyCancellable> = .init()
     let params: CreateOperation = .init(
-        title: "Title",
+        name: "Title",
         date: "03/04/1997",
         value: 132,
         categoryId: "0",
@@ -45,15 +45,15 @@ class OperationsRepositoryTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(operations)
-        XCTAssert(operations?.count == 1)
-        XCTAssert(operations?[0].id == "123")
-        XCTAssert(operations?[0].title == "Title")
-        XCTAssert(operations?[0].value == 132)
-        XCTAssert(operations?[0].date == Date.components(day: 3, month: 4, year: 1997))
-        XCTAssert(operations?[0].category.id == "0")
-        XCTAssert(operations?[0].category.name == "Category0")
-        XCTAssert(operations?[0].paymentMethod.id == "1")
-        XCTAssert(operations?[0].paymentMethod.name == "PaymentMethod1")
+        XCTAssertEqual(operations?.count, 1)
+        XCTAssertEqual(operations?[0].id, "123")
+        XCTAssertEqual(operations?[0].name, "Title")
+        XCTAssertEqual(operations?[0].value, 132)
+        XCTAssertEqual(operations?[0].date, Date.components(day: 3, month: 4, year: 1997))
+        XCTAssertEqual(operations?[0].category.id, "0")
+        XCTAssertEqual(operations?[0].category.name, "Category0")
+        XCTAssertEqual(operations?[0].paymentMethod.id, "1")
+        XCTAssertEqual(operations?[0].paymentMethod.name, "PaymentMethod1")
     }
     
     func testAddOperationSuccessToDomainWithConverterError() {
@@ -81,7 +81,7 @@ class OperationsRepositoryTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(error)
-        XCTAssert(error?.type == .networkError)
+        XCTAssertEqual(error?.type, .networkError)
     }
 
     func testAddOperationErrorToDomainType() {
@@ -109,7 +109,7 @@ class OperationsRepositoryTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(error)
-        XCTAssert(error?.type == .networkError)
+        XCTAssertEqual(error?.type, .networkError)
     }
     
     // MARK: Operations
@@ -123,7 +123,7 @@ class OperationsRepositoryTests: XCTestCase {
         
         // When
         repository
-            .operations(month: nil, year: nil)
+            .operations()
             .sink { completion in
                 expectation.fulfill()
             } receiveValue: { value in
@@ -134,15 +134,15 @@ class OperationsRepositoryTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(operations)
-        XCTAssert(operations?.count == 1)
-        XCTAssert(operations?[0].id == "123")
-        XCTAssert(operations?[0].title == "title")
-        XCTAssert(operations?[0].value == 123)
-        XCTAssert(operations?[0].date == Date.components(day: 1, month: 1, year: 2000))
-        XCTAssert(operations?[0].category.id == "0")
-        XCTAssert(operations?[0].category.name == "Category0")
-        XCTAssert(operations?[0].paymentMethod.id == "0")
-        XCTAssert(operations?[0].paymentMethod.name == "PaymentMethod0")
+        XCTAssertEqual(operations?.count, 1)
+        XCTAssertEqual(operations?[0].id, "123")
+        XCTAssertEqual(operations?[0].name, "title")
+        XCTAssertEqual(operations?[0].value, 123)
+        XCTAssertEqual(operations?[0].date, Date.components(day: 1, month: 1, year: 2000))
+        XCTAssertEqual(operations?[0].category.id, "0")
+        XCTAssertEqual(operations?[0].category.name, "Category0")
+        XCTAssertEqual(operations?[0].paymentMethod.id, "0")
+        XCTAssertEqual(operations?[0].paymentMethod.name, "PaymentMethod0")
     }
     
     func testOperationsSuccessToDomainWithConverterError() {
@@ -155,7 +155,7 @@ class OperationsRepositoryTests: XCTestCase {
         
         // When
         repository
-            .operations(month: 3, year: nil)
+            .operations()
             .sinkCompletion { completion in
                 switch completion {
                 case .finished:
@@ -170,7 +170,7 @@ class OperationsRepositoryTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(error)
-        XCTAssert(error?.type == .networkError)
+        XCTAssertEqual(error?.type, .networkError)
     }
 
     func testOperationsErrorToDomainType() {
@@ -183,7 +183,7 @@ class OperationsRepositoryTests: XCTestCase {
 
         // When
         repository
-            .operations(month: 2, year: 2022)
+            .operations()
             .sinkCompletion { completion in
                 switch completion {
                 case .finished:
@@ -198,6 +198,6 @@ class OperationsRepositoryTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(error)
-        XCTAssert(error?.type == .networkError)
+        XCTAssertEqual(error?.type, .networkError)
     }
 }
