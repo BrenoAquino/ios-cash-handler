@@ -17,7 +17,8 @@ extension Localizable {
         static func percentageDescription(_ value: String) -> String { "\(value)%"}
         static func average(_ value: String) -> String { "\(value) / mês" }
         static let categoryTitleSection: String = "Categorias"
-        static let emptyDataColumn: String = "Dados insuficientes para compor a exibição de gráfico"
+        static let emptyDataColumn: String = "Dados insuficientes para compor a exibição gráfica"
+        static let emptyCategoryStats: String = "Dados insuficientes para categorizar dados"
         
         // MARK: CategoryStatsView
         static let expenseTitle: String = "Gasto"

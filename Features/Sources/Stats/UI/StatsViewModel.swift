@@ -35,10 +35,8 @@ public extension StatsView {
         @Published private(set) var categoriesOverview: [CategoryStatsUI] = []
         @Published private(set) var historicConfig: ColumnsChartConfig = .init(max: .zero, min: .zero, verticalTitles: [])
         
-        // MARK: Gets
-        var hasDataForColumn: Bool {
-            return !historicConfig.values.isEmpty
-        }
+        private(set) var hasDataForColumn: Bool = false
+        private(set) var hasCategoriesStats: Bool = false
         
         // MARK: - Inits
         public init(statsUseCase: Domain.StatsUseCase) {
@@ -87,6 +85,18 @@ extension StatsView.ViewModel {
             values: values
         )
     }
+    
+    private func createCategoriesUI(_ categories: [Domain.CategoryStats]) -> [CategoryStatsUI] {
+        let stats: [CategoryStatsUI] = categories.map { .init(categoryStats: $0) }
+        hasCategoriesStats = !stats.isEmpty
+        return !stats.isEmpty ? stats : [.placeholder, .placeholder]
+    }
+    
+    private func createHistoricConfig(_ monthsStats: [Domain.MonthStats]) -> ColumnsChartConfig {
+        let config = self.generateColumnsConfig(months: monthsStats)
+        hasDataForColumn = !config.values.isEmpty
+        return !config.values.isEmpty ? config : .placeholder
+    }
 }
 
 // MARK: - Flow
@@ -108,8 +118,8 @@ extension StatsView.ViewModel {
             } receiveValue: { [weak self] stats in
                 guard let self = self else { return }
                 self.overviewMonth = .init(stats: stats.0)
-                self.categoriesOverview = stats.0.categories.map { .init(categoryStats: $0) }
-                self.historicConfig = self.generateColumnsConfig(months: stats.1)
+                self.categoriesOverview = self.createCategoriesUI(stats.0.categories)
+                self.historicConfig = self.createHistoricConfig(stats.1)
             }
             .store(in: &cancellables)
     }

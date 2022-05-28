@@ -98,9 +98,9 @@ public struct StatsView: View {
                 .frame(height: DSStats.heightColumns)
                 .background(DSColor.secondBackground.rawValue)
                 .cornerRadius(DSCornerRadius.normal.rawValue)
-                .blur(radius: !viewModel.hasDataForColumn ? DSBlurRadius.normal.rawValue : .zero)
                 .shadow(style: .medium)
                 .padding(.horizontal, DSSpace.smallL.rawValue)
+                .blur(radius: viewModel.hasDataForColumn ? .zero : DSBlurRadius.normal.rawValue)
             
             if !viewModel.hasDataForColumn {
                 Text(StatsLocalizable.emptyDataColumn)
@@ -120,16 +120,27 @@ public struct StatsView: View {
                 .font(DSFont.title.rawValue)
                 .padding(.horizontal, DSSpace.normal.rawValue)
             
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: .zero) {
-                    ForEach(viewModel.categoriesOverview) { element in
-                        CategoryStatsView(categoryOverview: element)
-                            .padding(.bottom, DSSpace.smallL.rawValue)
+            ZStack {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: .zero) {
+                        ForEach(viewModel.categoriesOverview) { element in
+                            CategoryStatsView(categoryOverview: element)
+                                .padding(.bottom, DSSpace.smallL.rawValue)
+                        }
+                        .padding(.horizontal, DSSpace.smallL.rawValue)
                     }
-                    .padding(.horizontal, DSSpace.smallL.rawValue)
+                }
+                .shadow(style: .medium)
+                .blur(radius: viewModel.hasCategoriesStats ? .zero : DSBlurRadius.normal.rawValue)
+                
+                if !viewModel.hasCategoriesStats {
+                    Text(StatsLocalizable.emptyCategoryStats)
+                        .multilineTextAlignment(.center)
+                        .font(DSFont.subheadlineLarge.rawValue)
+                        .padding(DSSpace.normal.rawValue)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
-            .shadow(style: .medium)
         }
     }
 }

@@ -50,3 +50,13 @@ struct CategoryStatsUI: Hashable, Identifiable {
     }
 }
 
+extension CategoryStatsUI {
+    static let placeholder: CategoryStatsUI = .init(name: "Tecnologia",
+                                                    expense: "R$ 2800",
+                                                    averageExpense: "R$ 2300 / mês",
+                                                    percentageExpenseDescription: "55%",
+                                                    percentageExpense: 0.75,
+                                                    othersPercentage: 0.25,
+                                                    count: "12",
+                                                    averageCount: "6")
+}
