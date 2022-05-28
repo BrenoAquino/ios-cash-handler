@@ -14,8 +14,8 @@ public struct CategoryStatsDTO: Decodable {
     public let averageExpense: Double
     public let percentageExpense: Double
     public let count: Int
-    public let averageCount: Int
-    public let percentageCount: Int
+    public let averageCount: Double
+    public let percentageCount: Double
     
     private enum CodingKeys : String, CodingKey {
         case expense, count
@@ -38,6 +38,7 @@ extension CategoryStatsDTO {
                                     averageExpense: averageExpense,
                                     percentageExpense: percentageExpense,
                                     count: count,
-                                    averageCount: averageCount)
+                                    averageCount: averageCount,
+                                    percentageCount: percentageCount)
     }
 }

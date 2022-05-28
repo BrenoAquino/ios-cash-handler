@@ -1,7 +1,7 @@
 {
     "data": [{
         "id": "64b26263-89e5-43cc-a33f-608f0cd4e725",
-        "title": "Madero",
+        "name": "Madero",
         "date": "20-12-2022",
         "category_id": "1",
         "payment_method_id": "1",

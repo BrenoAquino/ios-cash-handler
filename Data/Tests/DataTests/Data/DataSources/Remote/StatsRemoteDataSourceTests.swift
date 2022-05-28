@@ -33,7 +33,7 @@ class StatsRemoteDataSourceTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssert(networkProvider.decodableType == StatsDTO.self)
-        XCTAssert(networkProvider.api?.hashValue() == StatsAPIs.stats(params: .init(month: 4, year: 2022)).hashValue())
+        XCTAssertEqual(networkProvider.api?.hashValue(), StatsAPIs.stats(params: .init(month: 4, year: 2022)).hashValue())
     }
     
     func testStatsDecoding() {
@@ -56,16 +56,16 @@ class StatsRemoteDataSourceTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(stats)
-        XCTAssert(stats?.month == 4)
-        XCTAssert(stats?.year == 2022)
-        XCTAssert(stats?.expense == 732.14)
-        XCTAssert(stats?.categories.count == 3)
-        XCTAssert(stats?.categories[0].categoryId == "61e5fd461fa16bf63f4493ae6417f52640e0c15998be8a17c963b2483a66e677")
-        XCTAssert(stats?.categories[0].expense == 330)
-        XCTAssert(stats?.categories[0].averageExpense == 6417)
-        XCTAssert(stats?.categories[0].percentageExpense == 0.45)
-        XCTAssert(stats?.categories[0].count == 1)
-        XCTAssert(stats?.categories[0].averageCount == 5)
+        XCTAssertEqual(stats?.month, "2022-04")
+        XCTAssertEqual(stats?.expense, 732.14)
+        XCTAssertEqual(stats?.count, 2)
+        XCTAssertEqual(stats?.categories.count, 3)
+        XCTAssertEqual(stats?.categories[0].categoryId, "61e5fd461fa16bf63f4493ae6417f52640e0c15998be8a17c963b2483a66e677")
+        XCTAssertEqual(stats?.categories[0].expense, 330)
+        XCTAssertEqual(stats?.categories[0].averageExpense, 6417)
+        XCTAssertEqual(stats?.categories[0].percentageExpense, 0.45)
+        XCTAssertEqual(stats?.categories[0].count, 1)
+        XCTAssertEqual(stats?.categories[0].averageCount, 5)
     }
 
     func testStatsDecodingError() {
@@ -98,13 +98,14 @@ class StatsRemoteDataSourceTests: XCTestCase {
     // MARK: Historic
     func testHistoric() {
         // Given
+        let params: HistoricParams = .init(startDate: "2022-01-01", endDate: "2022-05-01")
         let expectation = expectation(description: "historic")
         let networkProvider = TypeMockNetworkProvider()
         let remoteDataSource = StatsRemoteDataSourceImpl(networkProvider: networkProvider)
         
         // When
         remoteDataSource
-            .historic(numberOfMonths: 4)
+            .historic(params: params)
             .sinkCompletion { _ in
                 expectation.fulfill()
             }
@@ -113,7 +114,7 @@ class StatsRemoteDataSourceTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssert(networkProvider.decodableType == [MonthStatsDTO].self)
-        XCTAssert(networkProvider.api?.hashValue() == StatsAPIs.historic(numberOfMonths: 4).hashValue())
+        XCTAssertEqual(networkProvider.api?.hashValue(), StatsAPIs.historic(params: params).hashValue())
     }
     
     func testHistoricDecoding() {
@@ -125,7 +126,7 @@ class StatsRemoteDataSourceTests: XCTestCase {
 
         // When
         remoteDataSource
-            .historic(numberOfMonths: 4)
+            .historic(params: .init(startDate: "2022-01-01", endDate: "2022-05-01"))
             .sink { completion in
                 expectation.fulfill()
             } receiveValue: { value in
@@ -136,10 +137,9 @@ class StatsRemoteDataSourceTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(monthsStats)
-        XCTAssert(monthsStats?.count == 2)
-        XCTAssert(monthsStats?[0].month == 4)
-        XCTAssert(monthsStats?[0].year == 2022)
-        XCTAssert(monthsStats?[0].expense == 732.14)
+        XCTAssertEqual(monthsStats?.count, 2)
+        XCTAssertEqual(monthsStats?[0].month, "2022-01")
+        XCTAssertEqual(monthsStats?[0].expense, 732.14)
     }
 
     func testHistoricDecodingError() {
@@ -151,7 +151,7 @@ class StatsRemoteDataSourceTests: XCTestCase {
 
         // When
         remoteDataSource
-            .historic(numberOfMonths: 4)
+            .historic(params: .init(startDate: "2022-01-01", endDate: "2022-05-01"))
             .sinkCompletion { completion in
                 switch completion {
                 case .finished:
@@ -166,6 +166,6 @@ class StatsRemoteDataSourceTests: XCTestCase {
         // Then
         waitForExpectations(timeout: .infinity, handler: nil)
         XCTAssertNotNil(error)
-        XCTAssert(error?.type == .invalidDecoding)
+        XCTAssertEqual(error?.type, .invalidDecoding)
     }
 }

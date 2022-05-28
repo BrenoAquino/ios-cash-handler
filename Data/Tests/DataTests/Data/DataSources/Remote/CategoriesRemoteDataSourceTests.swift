@@ -32,7 +32,7 @@ class CategoriesRemoteDataSourceTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssert(networkProvider.decodableType == [CategoryDTO].self)
-        XCTAssert(networkProvider.api?.hashValue() == CategoriesAPIs.categories.hashValue())
+        XCTAssertEqual(networkProvider.api?.hashValue(), CategoriesAPIs.categories.hashValue())
     }
     
     func testCategoriesDecoding() {
@@ -55,9 +55,9 @@ class CategoriesRemoteDataSourceTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNotNil(categories)
-        XCTAssert(categories?.count == 9)
-        XCTAssert(categories?[0].id == "521bac2c00686155bc874aac9c83650c2201140d13c14db953251b635bcc25cb")
-        XCTAssert(categories?[0].name == "Saúde")
+        XCTAssertEqual(categories?.count, 9)
+        XCTAssertEqual(categories?[0].id, "521bac2c00686155bc874aac9c83650c2201140d13c14db953251b635bcc25cb")
+        XCTAssertEqual(categories?[0].name, "Saúde")
     }
 
     func testCategoriesDecodingError() {
@@ -84,6 +84,6 @@ class CategoriesRemoteDataSourceTests: XCTestCase {
         // Then
         waitForExpectations(timeout: .infinity, handler: nil)
         XCTAssertNotNil(error)
-        XCTAssert(error?.type == .invalidDecoding)
+        XCTAssertEqual(error?.type, .invalidDecoding)
     }
 }

@@ -2,7 +2,7 @@
     "data": [
         {
             "id": "980c5695-5411-4de0-8fa6-a80b8b3a8e33",
-            "title": "Madero",
+            "name": "Madero",
             "date": "20-12-2022",
             "category_id": "521bac2c00686155bc874aac9c83650c2201140d13c14db953251b635bcc25cb",
             "payment_method_id": "0c1e0dc50d01c9111c308a1bade570345e232abc86d586fbecfb24262b568c50",
