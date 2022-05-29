@@ -44,10 +44,7 @@ struct OperationCell: View {
                     .foregroundColor(DSColor.discountValue.rawValue)
                 
             }
-            .padding(EdgeInsets(top: DSSpace.smallM.rawValue,
-                                leading: DSSpace.smallM.rawValue,
-                                bottom: DSSpace.smallM.rawValue,
-                                trailing: DSSpace.smallM.rawValue))
+            .padding(DSSpace.smallM.rawValue)
         }
         .background(DSColor.secondBackground.rawValue)
         .cornerRadius(DSCornerRadius.normal.rawValue)
@@ -74,7 +71,8 @@ struct OperationCell_Previews: PreviewProvider {
                                        paymentMethodId: "",
                                        valueDescription: nil))
             .frame(height: 50)
-            .preferredColorScheme(.dark)
-            .previewLayout(.sizeThatFits)
+            .padding()
+//            .preferredColorScheme(.dark)
+//            .previewLayout(.sizeThatFits)
     }
 }

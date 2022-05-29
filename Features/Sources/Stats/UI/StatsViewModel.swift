@@ -61,8 +61,9 @@ extension StatsView.ViewModel {
     }
     
     private func generateColumnsConfig(months: [Domain.MonthStats]) -> ColumnsChartConfig {
-        let max: Double = months.max(by: { $0.expense < $1.expense })?.expense ?? .zero
-        let interval: Int = (max / Double(DSStats.numberOfVerticalTitles - .one)).ceilMaxDecimal
+        let maxValue: Double = months.max(by: { $0.expense < $1.expense })?.expense ?? .zero
+        var interval: Int = (maxValue / Double(DSStats.numberOfVerticalTitles - .one)).ceilMaxDecimal
+        interval = max(interval, 100)
         
         let numberOfTitles: [Int] = Array(.zero ... DSStats.numberOfVerticalTitles)
         let verticalTitles: [String] = numberOfTitles.map { NumberFormatter.inThousands(number: $0 * interval) }.reversed()
@@ -89,13 +90,13 @@ extension StatsView.ViewModel {
     private func createCategoriesUI(_ categories: [Domain.CategoryStats]) -> [CategoryStatsUI] {
         let stats: [CategoryStatsUI] = categories.map { .init(categoryStats: $0) }
         hasCategoriesStats = !stats.isEmpty
-        return !stats.isEmpty ? stats : [.placeholder, .placeholder]
+        return hasCategoriesStats ? stats : [.placeholder, .placeholder]
     }
     
     private func createHistoricConfig(_ monthsStats: [Domain.MonthStats]) -> ColumnsChartConfig {
         let config = self.generateColumnsConfig(months: monthsStats)
-        hasDataForColumn = !config.values.isEmpty
-        return !config.values.isEmpty ? config : .placeholder
+        hasDataForColumn = config.values.count > 1
+        return hasDataForColumn ? config : .placeholder
     }
 }
 

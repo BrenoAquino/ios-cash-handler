@@ -54,32 +54,32 @@ public struct StatementView: View {
     
     // MARK: Content List
     private var operationsList: some View {
-        List {
-            ForEach(Array(viewModel.operations)) { aggregator in
-                Section {
-                    ForEach(aggregator.operations) { operation in
-                        OperationCell(operation: operation)
-                            .listRowSeparator(.hidden)
-                            .listRowBackground(DSColor.clear.rawValue)
-                            .listRowInsets(.init(top: DSSpace.smallM.rawValue,
-                                                 leading: .zero,
-                                                 bottom: DSSpace.smallM.rawValue,
-                                                 trailing: .zero))
-                    }
-                    
-                } header: {
-                    HStack {
-                        Text(aggregator.month)
-                            .foregroundColor(DSColor.primaryText.rawValue)
-                            .font(DSFont.headline2.rawValue)
-                        
-                        Text(aggregator.year)
-                            .foregroundColor(DSColor.primaryText.rawValue)
-                            .font(DSFont.footnote.rawValue)
-                    }
+        List(viewModel.operations) { aggregator in
+            Section {
+                ForEach(aggregator.operations) { operation in
+                    OperationCell(operation: operation)
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(DSColor.clear.rawValue)
+                        .listRowInsets(.init(top: DSSpace.smallM.rawValue,
+                                             leading: DSSpace.smallL.rawValue,
+                                             bottom: DSSpace.smallM.rawValue,
+                                             trailing: DSSpace.smallL.rawValue))
                 }
+                .padding(.vertical, DSSpace.smallS.rawValue)
+            } header: {
+                HStack {
+                    Text(aggregator.month)
+                        .foregroundColor(DSColor.primaryText.rawValue)
+                        .font(DSFont.headline2.rawValue)
+                    
+                    Text(aggregator.year)
+                        .foregroundColor(DSColor.primaryText.rawValue)
+                        .font(DSFont.footnote.rawValue)
+                }
+                .padding(.horizontal, DSSpace.smallL.rawValue)
             }
         }
+        .padding(-20)
     }
 }
 
@@ -91,7 +91,6 @@ struct StatementView_Previews: PreviewProvider {
     static var previews: some View {
         UITableView.appearance().backgroundColor = .clear
         UITableViewCell.appearance().backgroundColor = .clear
-        
         return NavigationView {
             StatementView(viewModel: .init(operationsUseCase: OperationsUseCasePreview()))
         }

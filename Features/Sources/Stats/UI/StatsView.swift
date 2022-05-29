@@ -84,7 +84,8 @@ public struct StatsView: View {
     // MARK: OverviewMonth
     private var overviewMonth: some View {
         MonthStatsView(monthStats: viewModel.overviewMonth)
-            .padding()
+            .padding(.horizontal, DSSpace.smallL.rawValue)
+            .padding(.vertical, DSSpace.smallM.rawValue)
             .shadow(style: .medium)
     }
     
